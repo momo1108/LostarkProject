@@ -15,7 +15,7 @@
 
 ## 개발 단계
 ### 프로젝트 초기 설정
-> https://us-east-1.console.aws.amazon.com/ec2/home
+> https://us-east-1.console.aws.amazon.com/ec2/home<br>
 EC2의 무료 인스턴스를 만들어놓은게 있었다.
 
 근데 보안 키 페어를 잃어버림 ㅠ....
@@ -68,11 +68,13 @@ nvm install v18.15.0
 git clone https://github.com/momo1108/LostarkProject.git
 npm ci
 npm run build
-sudo systemctl disable nginx # nginx auto start 비활성화
+sudo update-rc.d -f nginx disable # nginx auto start 비활성화
 sudo service nginx stop # nginx 먼저 중지
-sudo npm start # 80번 권한이 없어서 root권한으로 해야할듯?
+npm start # 3000번 포트
 ```
 
 > VS Code의 terminal에서 원격 접속 후 npm start 한 상태로 터미널을 꺼버리면 next 서버가 그대로 background화된다.<br>
 > 종료하려면 `ps aux | grep node` 로 프로세스 ID 찾아내고(왼쪽에서 2번째),<br>
 > `kill -9 프로세스ID` 하면 된다.
+
+- 3000번 포트로 서버 띄우고 nginx 사용해서 80번 요청 redirect 해주자.
