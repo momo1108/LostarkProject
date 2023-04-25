@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name   : "LoastarkApp",
+    name   : "LostarkApp",
     script : "npm start"
   }]
 }
