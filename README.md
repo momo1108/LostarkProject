@@ -34,7 +34,7 @@ EC2의 무료 인스턴스를 만들어놓은게 있었다.
   - 볼륨 메뉴에서 해야됨 - `볼륨 분리`
   - `볼륨 연결` : 인스턴스는 새거 선택. 디바이스 이름은 대충 `/dev/xvdf` 로 설정함
 5. 볼륨 내부의 public key 파일 내용을 새로 만든 키 내용으로 수정
-  - 먼저 새 인스턴스 ssh 접속 : `ssh ubuntu@ip주소 -i key경로`
+  - 먼저 새 인스턴스 ssh 접속 : `ssh ubuntu@ip주소 -i key경로` (gitbash alias로 등록하자. `alias lostark="ssh ubuntu@ip주소 -i key경로"` - ~/.bash_profile에 저장함.)
   - root 계정으로 진행하자. 원본 Root 볼륨을 마운트해야한다.
   - `fdisk -l` : 볼륨 확인(xvda-새로만든거, xvdf-원본 두개가 확인됨)
   - ~~`mount -o nouuid /dev/xvdf1 /mnt` : 임시로 파일시스템에 우선 마운트할 때는 nouuid 옵션 사용하면 된다는듯~~
@@ -68,13 +68,51 @@ nvm install v18.15.0
 git clone https://github.com/momo1108/LostarkProject.git
 npm ci
 npm run build
+npm start # 3000번 포트
+```
+> 실수로 nginx를 끄고 next서버를 80으로 옮겨버림.<br>
+```bash
 sudo update-rc.d -f nginx disable # nginx auto start 비활성화
 sudo service nginx stop # nginx 먼저 중지
-npm start # 3000번 포트
 ```
 
 > VS Code의 terminal에서 원격 접속 후 npm start 한 상태로 터미널을 꺼버리면 next 서버가 그대로 background화된다.<br>
 > 종료하려면 `ps aux | grep node` 로 프로세스 ID 찾아내고(왼쪽에서 2번째),<br>
 > `kill -9 프로세스ID` 하면 된다.
 
-- 3000번 포트로 서버 띄우고 nginx 사용해서 80번 요청 redirect 해주자.
+- 3000번 포트에 Next.js 서버가 올라간다. nginx 사용해서 80번 요청 redirect 해주자.
+- /etc/nginx/sites-enable/default
+```nginx
+server {
+  listen  80;
+  server_name localhost;
+
+  location / {
+    proxy_pass http://localhost:3000;
+  }
+}
+```
+
+### pm2를 이용해 서버 구동과 모니터링을 해결하자.
+```bash
+npm i -d pm2
+pm2 init simple
+cd LostarkProject
+pm2 init simple
+nano ecosystem.config.js
+```
+- ecosystem.config.js
+```js
+module.exports = {
+  apps : [{
+    name   : "LoastarkApp",
+    script : "npm start"
+  }]
+}
+```
+- 테스트해보기
+```bash
+pm2 start ecosystem.config.js # 서버 구동
+pm2 list # 서버들의 간단한 상태 확인
+pm2 monit # in-terminal 모니터링 대쉬보드 확인
+```
