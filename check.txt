@@ -1,0 +1,79 @@
+Browsers:
+  Chrome for Android: 112
+  UC for Android: 13.4
+  Chrome: 111, 110, 109, 108, 103
+  Edge: 111, 110
+  Firefox: 111, 110
+  iOS Safari: 16.3, 16.2, 16.1, 16.0, 15.6, 15.5, 14.5-14.8, 12.2-12.5
+  Opera: 95
+  Safari: 16.3, 16.2, 15.6
+  Samsung Internet: 20
+
+These browsers account for 88.7% of all users globally
+
+At-Rules:
+  @resolution: webkit
+
+Selectors:
+  ::file-selector-button: webkit
+  :autofill: webkit
+  :fullscreen: webkit
+
+Properties:
+  appearance: webkit
+  backdrop-filter: webkit
+  backface-visibility: webkit
+  background-clip: webkit
+  border-block-end: webkit
+  border-block-start: webkit
+  border-inline-end: webkit
+  border-inline-start: webkit
+  box-decoration-break: webkit
+  clip-path: webkit
+  color-adjust: webkit
+  hyphens: webkit
+  margin-block-end: webkit
+  margin-block-start: webkit
+  margin-inline-end: webkit
+  margin-inline-start: webkit
+  mask-border-outset: webkit
+  mask-border-repeat: webkit
+  mask-border-slice: webkit
+  mask-border-source: webkit
+  mask-border-width: webkit
+  mask-border: webkit
+  mask-clip: webkit
+  mask-composite: webkit
+  mask-image: webkit
+  mask-origin: webkit
+  mask-position: webkit
+  mask-repeat: webkit
+  mask-size: webkit
+  mask: webkit
+  padding-block-end: webkit
+  padding-block-start: webkit
+  padding-inline-end: webkit
+  padding-inline-start: webkit
+  print-color-adjust: webkit
+  text-decoration-skip-ink: webkit
+  text-decoration-skip: webkit
+  text-decoration: webkit
+  text-emphasis-color: webkit
+  text-emphasis-position: webkit
+  text-emphasis-style: webkit
+  text-emphasis: webkit
+  text-size-adjust: webkit
+  user-select: webkit
+
+Values:
+  cross-fade: webkit
+  element: moz
+  fill-available: webkit
+  fill: webkit
+  fit-content: webkit, moz
+  image-set: webkit
+  max-content: webkit
+  min-content: webkit
+  sticky: webkit
+  stretch: webkit, moz
+

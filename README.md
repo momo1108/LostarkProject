@@ -14,7 +14,7 @@
 - Amazon Web Service EC2
 
 ## 개발 단계
-### 프로젝트 초기 설정
+### 1. 프로젝트 초기 설정
 > https://us-east-1.console.aws.amazon.com/ec2/home<br>
 EC2의 무료 인스턴스를 만들어놓은게 있었다.
 
@@ -23,6 +23,8 @@ EC2의 무료 인스턴스를 만들어놓은게 있었다.
 어쩔수 없으니 복구해보자.
 
 블로그 여기저기를 참조해서 방법을 알아보니 대개 아래의 과정으로 하더라.
+
+---
 
 1. 새로운 키 페어를 생성해야한다.
   - 이건 그냥 키 페어 메뉴에서 뚝딱.(replace-momo1108.pem)
@@ -52,6 +54,8 @@ EC2의 무료 인스턴스를 만들어놓은게 있었다.
   - ⚠️ 연결되는데 시간이 걸린다. 새로고침으로 확인 후 진행하자.
 7. 원본 인스턴스에 Root 볼륨 연결 후 시작. 이제 연결이 된다.(된다!!!!!!!!!!!)
 
+---
+
 위 과정을 거쳐야한다... 파일 하나 읽어버린 대가치고는 좀 많이 귀찮다 ㅠ
 
 다시는 잃어버리지 않게 프로젝트에 key 전용 폴더를 만들어서 보관하자.(⚠️ .gitignore 에 추가해놓기)
@@ -71,9 +75,11 @@ npm run build
 npm start # 3000번 포트
 ```
 > 실수로 nginx를 끄고 next서버를 80으로 옮겨버림.<br>
+> 다시 nginx 켜고 next를 3000번포트(default)로
 ```bash
 sudo update-rc.d -f nginx disable # nginx auto start 비활성화
 sudo service nginx stop # nginx 먼저 중지
+sudo update-rc.d -f nginx enable
 ```
 
 > VS Code의 terminal에서 원격 접속 후 npm start 한 상태로 터미널을 꺼버리면 next 서버가 그대로 background화된다.<br>
@@ -93,7 +99,7 @@ server {
 }
 ```
 
-### pm2를 이용해 서버 구동과 모니터링을 해결하자.
+#### pm2를 이용해 서버 구동과 모니터링을 해결하자.
 ```bash
 npm i -d pm2
 pm2 init simple
@@ -101,7 +107,7 @@ cd LostarkProject
 pm2 init simple
 nano ecosystem.config.js
 ```
-- ecosystem.config.js
+- ecosystem.config.js(기본만 세팅)
 ```js
 module.exports = {
   apps : [{
@@ -116,3 +122,79 @@ pm2 start ecosystem.config.js # 서버 구동
 pm2 list # 서버들의 간단한 상태 확인
 pm2 monit # in-terminal 모니터링 대쉬보드 확인
 ```
+
+https 설정은 나중에 적용하기로 하자..
+
+#### tailwindcss
+예전에 사내 프로젝트 개발할 때 tailwind를 사용해봤는데 정말 편하고 좋았다.
+
+tailwind 와 sass 를 같이 사용하기 위해서는 PostCSS를 설치해 사용하면 된다. 
+
+tailwind도 PostCSS 플러그인이기 때문에, Sass, Less, Stylus 등의 preprocessor들도 막힘없이 사용 가능하다.(Autoprefixer 처럼.)
+```bash
+npm i -d tailwindcss postcss autoprefixer sass
+npx tailwindcss init
+```
+- tailwind with sass 주의점 : https://tailwindcss.com/docs/using-with-preprocessors#sass
+- postcss.config.js
+```js
+module.exports = {
+    plugins: {
+      tailwindcss: {}, // tailwind 적용
+      autoprefixer: {}, // autoprefixer 적용
+    }
+  }
+```
+- tailwind.config.js
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./pages/**/*.{tsx,ts}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+- 컴포넌트에서는 기본적인 사용방법을 참조하고, 재밌는것은 scss 파일에서도 tailwind 적용이 가능하다!
+```scss
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  div {
+    @apply bg-gray-400; // 너무 신기하네!!!
+    color: red;
+  }
+}
+```
+
+#### 도메인 세팅
+언제까지 IP로 접속할 순 없으니 세팅을 좀 해보자.
+
+무료 도메인 호스팅을 사용해도 되긴 하지만, 찾아보니 다양한 다운사이드가 있다.(사이트 데이터와 방문자 데이터등의 강제제공, 무통보 사이트 삭제 등. 참조영상 : https://www.youtube.com/watch?v=rrHrcRMRTtQ)
+
+웹 호스팅은 비싸서 못쓰겠지만, 최대한 싼 도메인 호스팅을 사용해보자 😂
+
+[가비아](https://www.gabia.com/)에서 .site 도메인이 2000원에 판매되고있다. 이건 못참지.
+
+loaple.site 로 사용하자.
+
+### 2. 프로젝트 설계
+프로젝트 설계단계가 제일 어려운것 같다... 여러가지 단계가 있지만 간단간단하게 해보자.
+#### 1. 요구분석
+[Lostark Open API](https://developer-lostark.game.onstove.com/)에서 api를 제공한다.(발급받은 토큰은 `.env.local` 에 은밀히 보관중)
+
+api기능을 모두 활용하기에는 너무 방대하니 일단, 가장 많이 사용되는 loawa를 참조하여 만들어보자.
+
+가장 기본적인 기능은 본인의 캐릭터 정보를 디스플레이해주는 페이지이다.
+캐릭터 이미지는 공식홈페이지에서 긁어왔다.
+
+- 메인 페이지 : 간단하게 메뉴를 출력해주는 메인 페이지이다.
+  - 기본 사용 메뉴를 설정할 수 있도록 만들고, 설정이 된 경우 메인 페이지를 skip하고 해당 메뉴로 redirect한다.
+  - 설정 정보는 간단히 localStorage에 저장하자.
+  - 메뉴는 어떻게 할까?
+    - 캐릭터 정보 메뉴
+    - 각인 세팅 메뉴
+    - 트라이포드 가격 예상(있으면 좋을것같아서)

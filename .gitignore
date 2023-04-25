@@ -35,4 +35,4 @@ yarn-error.log*
 next-env.d.ts
 
 # SSH 연결 키 페어
-/rsakey
+/key
