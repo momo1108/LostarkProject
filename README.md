@@ -118,7 +118,9 @@ module.exports = {
 ```
 - 테스트해보기
 ```bash
-pm2 start ecosystem.config.js # 서버 구동
+pm2 start ecosystem.config.js # 서버 구동(전체 앱)
+pm2 start --only buildstart # 빌드&스타트 앱
+pm2 start --only dev # 개발서버 앱
 pm2 list # 서버들의 간단한 상태 확인
 pm2 monit # in-terminal 모니터링 대쉬보드 확인
 ```
@@ -179,7 +181,7 @@ html {
 
 [가비아](https://www.gabia.com/)에서 .site 도메인이 2000원에 판매되고있다. 이건 못참지.
 
-loaple.site 로 사용하자.
+loaple.site 로 사용하자. dns record 세팅 후 48시간까지 걸릴 수 있다고한다.
 
 ### 2. 프로젝트 설계
 프로젝트 설계단계가 제일 어려운것 같다... 여러가지 단계가 있지만 간단간단하게 해보자.
