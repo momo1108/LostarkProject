@@ -200,3 +200,56 @@ api기능을 모두 활용하기에는 너무 방대하니 일단, 가장 많이
     - 캐릭터 정보 메뉴
     - 각인 세팅 메뉴
     - 트라이포드 가격 예상(있으면 좋을것같아서)
+
+#### 폰트 설정
+Roboto, NanumSquareNeo(최근에 나온 것 같다.) 두가지 폰트를 사용한다.
+
+NanumSquareNeo의 ttf 용량이 너무 커서 woff 로 변환해서 사용했다. 파일 한개당 2MB -> 600~700KB 정도로 압축이 된다.
+
+사용할 모든 font-weight에 대해 fontface 설정을 따로 해주어야 적용이 되더라..
+
+```css
+@font-face {
+  font-family: "NanumSquareNeo";
+  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-bRg.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "NanumSquareNeo";
+  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-cBd.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "NanumSquareNeo";
+  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-aLt.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto/Roboto-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto/Roboto-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto/Roboto-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+```
+
+설정한 폰트가 한꺼번에 빌드되므로 사용할것만 설정하자.
+
+메뉴 데이터 같은 변화가 적은 데이터들은, 파일로 저장한 후 Front 단에서 API 요청으로 해당 데이터를 읽어와야 한다. 
+
+API로 사용할 ts 파일을 만들어서 pages/api/에 저장하자.
+> ⚠️ api에서 fs 를 사용해 json 파일을 읽기 위해서는 절대경로로 지정해줘야하더라... 상대경로를 아무리 해보고 alias 경로를 아무리 해봐도 인식을 못해 ㅠㅠ

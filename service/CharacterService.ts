@@ -1,7 +1,7 @@
 import axios from "axios";
 import {parse} from "node-html-parser";
 
-class CharacterService {
+export default class CharacterService {
     private _url:string = "https://lostark.game.onstove.com/Profile/Character/";
 
     
