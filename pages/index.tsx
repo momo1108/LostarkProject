@@ -23,10 +23,11 @@ export default Home;
 export async function getStaticProps(){
   try{
     const res = await axios.get("http://localhost:3000/api/menu");
-    console.log(res.data);
+    // console.log("getStaticProps");
+    // console.log(res.data);
     return {
         props: {
-            menu: res.data
+            menu: res.data.menu
         }
     }
   } catch(error:any){

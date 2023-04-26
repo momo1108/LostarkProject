@@ -1,4 +1,11 @@
 .container {
-    @apply flex content-center justify-center my-4 bg-red-400 min-h-screen;
+    @apply flex flex-wrap content-center 
+    justify-center my-4 bg-red-400 min-h-screen;
 
+    .menuDiv {
+        @apply inline-flex items-center content-center 
+        justify-center p-6 w-[200] h-[200] font-bold 
+        bg-green-300;
+        transform: rotate(30deg);
+    }
 }
