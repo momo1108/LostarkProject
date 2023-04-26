@@ -253,3 +253,31 @@ NanumSquareNeo의 ttf 용량이 너무 커서 woff 로 변환해서 사용했다
 
 API로 사용할 ts 파일을 만들어서 pages/api/에 저장하자.
 > ⚠️ api에서 fs 를 사용해 json 파일을 읽기 위해서는 절대경로로 지정해줘야하더라... 상대경로를 아무리 해보고 alias 경로를 아무리 해봐도 인식을 못해 ㅠㅠ
+
+#### ubuntu 서버 배포시 문제점 발생
+nginx 관련해서 redirect 사용 시 웹소켓이 어쩌구저쩌구...
+
+설정을 추가해주자.
+```nginx
+server {
+  listen  80;
+  server_name localhost;
+
+  location / {
+    proxy_pass http://localhost:3000;
+  }
+
+  location /_next/webpack-hmr {
+    proxy_pass http://localhost:3000/_next/webpack-hmr;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;        
+    proxy_set_header Connection "upgrade";
+  }
+}
+```
+
+
+> 폰트가 로딩되기 전에 페이지가 로딩되니까 뭔가 되게 없어보인다... 이것도 해결하자.
+
+#### getStaticProps 관련
+next app을 빌드할 때, getStaticProps 에 있는 모~~든 경우에 대하여 제대로된(유효한) props 값을 설정해주어야 한다.([Prerender Error](https://nextjs.org/docs/messages/prerender-error))

@@ -30,7 +30,11 @@ export async function getStaticProps(){
         }
     }
   } catch(error:any){
-    throw new Error(error);
+    return {
+        props: {
+            menu: []
+        }
+    }
   }
 
 }
