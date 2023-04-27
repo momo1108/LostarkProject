@@ -22,9 +22,8 @@ export default Home;
 
 export async function getStaticProps(){
   try{
-    const res = await axios.get("http://localhost:3000/api/menu");
-    // console.log("getStaticProps");
-    // console.log(res.data);
+    const url:string = process.env.NODE_ENV === "production"? "http://loaple.site/api/menu" : "http://localhost:3000/api/menu"
+    const res = await axios.get(url);
     return {
         props: {
             menu: res.data.menu
