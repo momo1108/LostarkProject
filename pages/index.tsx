@@ -1,4 +1,4 @@
-import styles from '@/styles/Home.module.scss'
+import styles from '@/styles/MainPage.module.scss'
 import MainHeader from "@/components/MainHeader";
 import MainBody from "@/components/MainBody";
 import DataService from '@/service/DataService';
@@ -10,7 +10,7 @@ const Home:React.FC<MainProps> = ({menu}) => {
   // console.log(process.env.CLIENT_TOKEN);
 
   return (
-    <div>
+    <div className={styles.container}>
       <MainHeader />
       <MainBody menu={menu} />
     </div>

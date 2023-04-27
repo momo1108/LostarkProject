@@ -3,19 +3,19 @@
 
     .mainTitle {
         @apply transition duration-1000
-         my-4 text-8xl font-bold tracking-widest;
+         my-4 text-8xl text-[#eee] font-bold tracking-widest;
         opacity: 0;
         transform: translateX(10%);
     }
     .subTitle {
         @apply transition duration-1000 delay-300
-        my-4 text-5xl font-bold tracking-wider;
+        my-4 text-5xl text-[#eee] font-bold tracking-wider;
         opacity: 0;
         transform: translateX(10%);
     }
     .description {
         @apply transition duration-1000 delay-500
-        text-lg tracking-wide;
+        text-lg text-[#bbb] tracking-wide;
         opacity: 0;
         transform: translateX(10%);
     }
