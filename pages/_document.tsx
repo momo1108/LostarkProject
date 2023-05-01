@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,0" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Loaple" />
         <meta property="og:title" content="Loaple - Lostark Helper" />

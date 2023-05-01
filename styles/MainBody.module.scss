@@ -24,7 +24,7 @@
                 margin-top: -53px;
         
                 .menuContent {
-                    @apply flex items-center justify-center relative z-10 font-light transition-all duration-300;
+                    @apply flex flex-col items-center justify-center relative z-10 font-light transition-all duration-300 ease-out;
                     width: 173.20508075688772px;
                     height: 200px;
                 }
@@ -91,7 +91,7 @@
                 }
     
                 &:hover .menuContent {
-                    @apply font-bold text-lg text-[#2a82c6];
+                    @apply scale-125 text-[#2a82c6] font-bold;
                 }
             }
         }

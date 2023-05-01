@@ -38,7 +38,12 @@ const MainBody:React.FC<MainProps> = ({menu}) => {
                         </div>
                         :(<Link href={m.url} key={m.id} className={styles.menuLink}>
                             <div className={styles.menuDiv}>
-                                <p className={styles.menuContent}>{m.title}</p>
+                                <p className={styles.menuContent}>
+                                    <span className="material-symbols-outlined">
+                                    change_history
+                                    </span>
+                                    {m.title}
+                                </p>
                                 {/* 정육각형 비율 3.4641 : 4 */}
                                 <div className={styles.innerHex}>
                                     <div className={styles.innerHexChild}></div>
