@@ -1,10 +1,8 @@
 import styles from '@/styles/MainPage.module.scss'
 import MainHeader from "@/components/MainHeader";
 import MainBody from "@/components/MainBody";
+import { MainProps } from '@/types/MainPageType';
 import DataService from '@/service/DataService';
-import { MainProps, Menu } from '@/types/MainPageType';
-import { readFileSync } from 'fs';
-import axios from 'axios';
 
 const Home:React.FC<MainProps> = ({menu}) => {
   // console.log(process.env.CLIENT_TOKEN);
@@ -22,12 +20,11 @@ export default Home;
 
 export async function getStaticProps(){
   try{
-    const url:string = process.env.NODE_ENV === "production"? "http://loaple.site/api/menu" : "http://localhost:3000/api/menu"
-    const res = await axios.get(url);
+    const menu = await DataService.getMenu();
     return {
-        props: {
-            menu: res.data.menu
-        }
+      props: {
+        menu
+      }
     }
   } catch(error:any){
     return {

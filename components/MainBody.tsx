@@ -21,16 +21,12 @@ const MainBody:React.FC<MainProps> = ({menu}) => {
                 }
             }
             // 만약 마지막 line이 꽉 차지 않고 개수가 애매한 경우 빈 육각형을 하나 추가.
-            console.log(menuArr[lineIndex].length, maxMenuPerLine);
             if((menuArr[lineIndex].length % 2) !== (maxMenuPerLine % 2)){
                 menuArr[lineIndex].push({id:999, title:"dummy", desc:"dummy", url:"dummy"});
             }
             setAlignedMenu(menuArr);
         }
     }, [hexPerLines]);
-    useEffect(()=>{
-        console.log(alignedMenu);
-    }, [alignedMenu]);
 
     return <div className={styles.container}>
         {
