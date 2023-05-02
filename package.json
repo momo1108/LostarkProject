@@ -19,13 +19,14 @@
     "postcss": "^8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-horizontal-scrolling-menu": "^4.0.4",
     "sass": "^1.62.0",
     "tailwindcss": "^3.3.1",
     "typescript": "5.0.4"
   },
   "browserslist": [
-    ">0.3%", 
-    "not dead", 
+    ">0.3%",
+    "not dead",
     "not op_mini all"
   ]
 }

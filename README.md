@@ -1,22 +1,29 @@
 # 로스트아크 테스트 프로젝트
+
 > 로스트아크 공식 open API를 활용한 테스트 프로젝트입니다.
 
 ## 개발 기술 스택
+
 ### Front-end
+
 - react
 - react-router
 - redux
 
 ### Back-end
+
 - Next.js
 
 ### 배포 서버
+
 - Amazon Web Service EC2
 
 ## 개발 단계
+
 ### 1. 프로젝트 초기 설정
+
 > https://us-east-1.console.aws.amazon.com/ec2/home<br>
-EC2의 무료 인스턴스를 만들어놓은게 있었다.
+> EC2의 무료 인스턴스를 만들어놓은게 있었다.
 
 근데 보안 키 페어를 잃어버림 ㅠ....
 
@@ -27,31 +34,41 @@ EC2의 무료 인스턴스를 만들어놓은게 있었다.
 ---
 
 1. 새로운 키 페어를 생성해야한다.
-  - 이건 그냥 키 페어 메뉴에서 뚝딱.(replace-momo1108.pem)
-  - 다시는 잃어버리지 않으리....
+
+- 이건 그냥 키 페어 메뉴에서 뚝딱.(replace-momo1108.pem)
+- 다시는 잃어버리지 않으리....
+
 2. 복구에 사용할 새로운 인스턴스를 위의 키 페어로 생성한다.
-  - 요것도 기본설정만 하고 바로 뚝딱
+
+- 요것도 기본설정만 하고 바로 뚝딱
+
 3. 원본 인스턴스는 정지한다.
 4. 원본 인스턴스의 Root 볼륨을 분리해서 새로운 인스턴스에 연결 후 마운트.
-  - 볼륨 메뉴에서 해야됨 - `볼륨 분리`
-  - `볼륨 연결` : 인스턴스는 새거 선택. 디바이스 이름은 대충 `/dev/xvdf` 로 설정함
+
+- 볼륨 메뉴에서 해야됨 - `볼륨 분리`
+- `볼륨 연결` : 인스턴스는 새거 선택. 디바이스 이름은 대충 `/dev/xvdf` 로 설정함
+
 5. 볼륨 내부의 public key 파일 내용을 새로 만든 키 내용으로 수정
-  - 먼저 새 인스턴스 ssh 접속 : `ssh ubuntu@ip주소 -i key경로` (gitbash alias로 등록하자. `alias lostark="ssh ubuntu@ip주소 -i key경로"` - ~/.bash_profile에 저장함.)
-  - root 계정으로 진행하자. 원본 Root 볼륨을 마운트해야한다.
-  - `fdisk -l` : 볼륨 확인(xvda-새로만든거, xvdf-원본 두개가 확인됨)
-  - ~~`mount -o nouuid /dev/xvdf1 /mnt` : 임시로 파일시스템에 우선 마운트할 때는 nouuid 옵션 사용하면 된다는듯~~
-    - xvdf1, xvdf14, xvdf15 이렇게 있는데 뒤의 2개는 OS관련으로 사용된듯? 1이 파일시스템이다.
-  - ~~안되네?? 이러면 uuid를 바꿔야 할 것 같은데 원본 uuid를 막 바꿔도 되려나... `xfs_admin -U generate /dev/파티션`~~
-    - ~~마운트 된 파티션은 안된단다.... 어쩔수 없이 원본을 바꿔야할듯. `xfs_admin -U generate /dev/xvdf1`~~
-  - nouuid 옵션은 xfs 파일시스템만 동작한다고한다. 내껀 ext4 파일시스템이라 `-orw` 를 사용하니 됐음
-    - `mount -orw /dev/xvdf1 /mnt`
-  - 원본 키 내용에 새 서버 키 내용 덮어쓰기.
-    - `cat /home/계정/.ssh/authorized_keys > /mnt/home/계정/.ssh/authorized_keys`
-    - 아니 근데 이 작업만 하는거면 힘들게 마운트 안하고 그냥 따로 접속해서 내용 복사하고 원본에 덮어쓰기 하면 되는거 아니야?
+
+- 먼저 새 인스턴스 ssh 접속 : `ssh ubuntu@ip주소 -i key경로` (gitbash alias로 등록하자. `alias lostark="ssh ubuntu@ip주소 -i key경로"` - ~/.bash_profile에 저장함.)
+- root 계정으로 진행하자. 원본 Root 볼륨을 마운트해야한다.
+- `fdisk -l` : 볼륨 확인(xvda-새로만든거, xvdf-원본 두개가 확인됨)
+- ~~`mount -o nouuid /dev/xvdf1 /mnt` : 임시로 파일시스템에 우선 마운트할 때는 nouuid 옵션 사용하면 된다는듯~~
+  - xvdf1, xvdf14, xvdf15 이렇게 있는데 뒤의 2개는 OS관련으로 사용된듯? 1이 파일시스템이다.
+- ~~안되네?? 이러면 uuid를 바꿔야 할 것 같은데 원본 uuid를 막 바꿔도 되려나... `xfs_admin -U generate /dev/파티션`~~
+  - ~~마운트 된 파티션은 안된단다.... 어쩔수 없이 원본을 바꿔야할듯. `xfs_admin -U generate /dev/xvdf1`~~
+- nouuid 옵션은 xfs 파일시스템만 동작한다고한다. 내껀 ext4 파일시스템이라 `-orw` 를 사용하니 됐음
+  - `mount -orw /dev/xvdf1 /mnt`
+- 원본 키 내용에 새 서버 키 내용 덮어쓰기.
+  - `cat /home/계정/.ssh/authorized_keys > /mnt/home/계정/.ssh/authorized_keys`
+  - 아니 근데 이 작업만 하는거면 힘들게 마운트 안하고 그냥 따로 접속해서 내용 복사하고 원본에 덮어쓰기 하면 되는거 아니야?
+
 6. 언마운트 후 새로운 인스턴스는 정지 후 Root 볼륨 분리.
-  - `umount /mnt`
-  - 원본에 연결할 때 `/dev/sda1` 으로 연결함.(여기로 안하면 인스턴스 시작할 때 `/dev/sda1`에 연결된게 없다고 안되네)
-  - ⚠️ 연결되는데 시간이 걸린다. 새로고침으로 확인 후 진행하자.
+
+- `umount /mnt`
+- 원본에 연결할 때 `/dev/sda1` 으로 연결함.(여기로 안하면 인스턴스 시작할 때 `/dev/sda1`에 연결된게 없다고 안되네)
+- ⚠️ 연결되는데 시간이 걸린다. 새로고침으로 확인 후 진행하자.
+
 7. 원본 인스턴스에 Root 볼륨 연결 후 시작. 이제 연결이 된다.(된다!!!!!!!!!!!)
 
 ---
@@ -61,21 +78,26 @@ EC2의 무료 인스턴스를 만들어놓은게 있었다.
 다시는 잃어버리지 않게 프로젝트에 key 전용 폴더를 만들어서 보관하자.(⚠️ .gitignore 에 추가해놓기)
 
 이미 서버에 nvm을 깔아놨다. 프로젝트를 clone 하고 그대로 빌드해보자.
+
 > ⚠️ root 계정에 nvm 설치 후 18.15.0 버전 사용
+
 ```bash
-sudo su - 
+sudo su -
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 source ~/.bashrc
 nvm install v18.15.0
 ```
+
 ```bash
 git clone https://github.com/momo1108/LostarkProject.git
 npm ci
 npm run build
 npm start # 3000번 포트
 ```
+
 > 실수로 nginx를 끄고 next서버를 80으로 옮겨버림.<br>
 > 다시 nginx 켜고 next를 3000번포트(default)로
+
 ```bash
 sudo update-rc.d -f nginx disable # nginx auto start 비활성화
 sudo service nginx stop # nginx 먼저 중지
@@ -83,11 +105,11 @@ sudo update-rc.d -f nginx enable
 ```
 
 > VS Code의 terminal에서 원격 접속 후 npm start 한 상태로 터미널을 꺼버리면 next 서버가 그대로 background화된다.<br>
-> 종료하려면 `ps aux | grep node` 로 프로세스 ID 찾아내고(왼쪽에서 2번째),<br>
-> `kill -9 프로세스ID` 하면 된다.
+> 종료하려면 `ps aux | grep node` 로 프로세스 ID 찾아내고(왼쪽에서 2번째),<br> > `kill -9 프로세스ID` 하면 된다.
 
 - 3000번 포트에 Next.js 서버가 올라간다. nginx 사용해서 80번 요청 redirect 해주자.
 - /etc/nginx/sites-enable/default
+
 ```nginx
 server {
   listen  80;
@@ -100,6 +122,7 @@ server {
 ```
 
 #### pm2를 이용해 서버 구동과 모니터링을 해결하자.
+
 ```bash
 npm i -d pm2
 pm2 init simple
@@ -107,16 +130,22 @@ cd LostarkProject
 pm2 init simple
 nano ecosystem.config.js
 ```
+
 - ecosystem.config.js(기본만 세팅)
+
 ```js
 module.exports = {
-  apps : [{
-    name   : "LoastarkApp",
-    script : "npm start"
-  }]
-}
+  apps: [
+    {
+      name: "LoastarkApp",
+      script: "npm start",
+    },
+  ],
+};
 ```
+
 - 테스트해보기
+
 ```bash
 pm2 start ecosystem.config.js # 서버 구동(전체 앱)
 pm2 start --only buildstart # 빌드&스타트 앱
@@ -128,26 +157,32 @@ pm2 monit # in-terminal 모니터링 대쉬보드 확인
 https 설정은 나중에 적용하기로 하자..
 
 #### tailwindcss
+
 예전에 사내 프로젝트 개발할 때 tailwind를 사용해봤는데 정말 편하고 좋았다.
 
-tailwind 와 sass 를 같이 사용하기 위해서는 PostCSS를 설치해 사용하면 된다. 
+tailwind 와 sass 를 같이 사용하기 위해서는 PostCSS를 설치해 사용하면 된다.
 
 tailwind도 PostCSS 플러그인이기 때문에, Sass, Less, Stylus 등의 preprocessor들도 막힘없이 사용 가능하다.(Autoprefixer 처럼.)
+
 ```bash
 npm i -d tailwindcss postcss autoprefixer sass
 npx tailwindcss init
 ```
+
 - tailwind with sass 주의점 : https://tailwindcss.com/docs/using-with-preprocessors#sass
 - postcss.config.js
+
 ```js
 module.exports = {
-    plugins: {
-      tailwindcss: {}, // tailwind 적용
-      autoprefixer: {}, // autoprefixer 적용
-    }
-  }
+  plugins: {
+    tailwindcss: {}, // tailwind 적용
+    autoprefixer: {}, // autoprefixer 적용
+  },
+};
 ```
+
 - tailwind.config.js
+
 ```js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -156,9 +191,11 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};
 ```
+
 - 컴포넌트에서는 기본적인 사용방법을 참조하고, 재밌는것은 scss 파일에서도 tailwind 적용이 가능하다!
+
 ```scss
 @tailwind base;
 @tailwind components;
@@ -173,6 +210,7 @@ html {
 ```
 
 #### 도메인 세팅
+
 언제까지 IP로 접속할 순 없으니 세팅을 좀 해보자.
 
 무료 도메인 호스팅을 사용해도 되긴 하지만, 찾아보니 다양한 다운사이드가 있다.(사이트 데이터와 방문자 데이터등의 강제제공, 무통보 사이트 삭제 등. 참조영상 : https://www.youtube.com/watch?v=rrHrcRMRTtQ)
@@ -184,8 +222,11 @@ html {
 loaple.site 로 사용하자. dns record 세팅 후 48시간까지 걸릴 수 있다고한다.
 
 ### 2. 프로젝트 설계
+
 프로젝트 설계단계가 제일 어려운것 같다... 여러가지 단계가 있지만 간단간단하게 해보자.
+
 #### 1. 요구분석
+
 [Lostark Open API](https://developer-lostark.game.onstove.com/)에서 api를 제공한다.(발급받은 토큰은 `.env.local` 에 은밀히 보관중)
 
 api기능을 모두 활용하기에는 너무 방대하니 일단, 가장 많이 사용되는 loawa를 참조하여 만들어보자.
@@ -202,6 +243,7 @@ api기능을 모두 활용하기에는 너무 방대하니 일단, 가장 많이
     - 트라이포드 가격 예상(있으면 좋을것같아서)
 
 #### 폰트 설정
+
 Roboto, NanumSquareNeo(최근에 나온 것 같다.) 두가지 폰트를 사용한다.
 
 NanumSquareNeo의 ttf 용량이 너무 커서 woff 로 변환해서 사용했다. 파일 한개당 2MB -> 600~700KB 정도로 압축이 된다.
@@ -249,15 +291,18 @@ NanumSquareNeo의 ttf 용량이 너무 커서 woff 로 변환해서 사용했다
 
 설정한 폰트가 한꺼번에 빌드되므로 사용할것만 설정하자.
 
-메뉴 데이터 같은 변화가 적은 데이터들은, 파일로 저장한 후 Front 단에서 API 요청으로 해당 데이터를 읽어와야 한다. 
+메뉴 데이터 같은 변화가 적은 데이터들은, 파일로 저장한 후 Front 단에서 API 요청으로 해당 데이터를 읽어와야 한다.
 
 API로 사용할 ts 파일을 만들어서 pages/api/에 저장하자.
+
 > ⚠️ api에서 fs 를 사용해 json 파일을 읽기 위해서는 절대경로로 지정해줘야하더라... 상대경로를 아무리 해보고 alias 경로를 아무리 해봐도 인식을 못해 ㅠㅠ
 
 #### ubuntu 서버 배포시 문제점 발생
+
 nginx 관련해서 redirect 사용 시 웹소켓이 어쩌구저쩌구...
 
 설정을 추가해주자.
+
 ```nginx
 server {
   listen  80;
@@ -270,14 +315,94 @@ server {
   location /_next/webpack-hmr {
     proxy_pass http://localhost:3000/_next/webpack-hmr;
     proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;        
+    proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "upgrade";
   }
 }
 ```
 
-
 > 폰트가 로딩되기 전에 페이지가 로딩되니까 뭔가 되게 없어보인다... 이것도 해결하자.
 
 #### getStaticProps 관련
+
 next app을 빌드할 때, getStaticProps 에 있는 모~~든 경우에 대하여 제대로된(유효한) props 값을 설정해주어야 한다.([Prerender Error](https://nextjs.org/docs/messages/prerender-error))
+
+getStaticProps 를 사용할 때, Next.js의 api 기능을 활용하는것은 안된다. getStaticProps는 빌드가 진행될 때, 서버사이드에서 실행되는 내용이므로, api기능은 사용되고있지 않다. 따라서, getStaticProps에서 파일을 읽어오는 서비스를 직접적으로 사용하는 것으로 메뉴 데이터를 읽어온다.
+
+#### 메뉴 UI 개발
+
+벌집처럼 육각형 메뉴버튼을 활용한 메뉴를 만들어보자. 그냥 개인적으로 멋있어보여서 ㅎㅎ..
+
+세팅하는게 보통일이 아니다... 만들어진 컴포넌트가 있으면 좋겠지만 워낙 독특한 모양이라 직접 만들었다. 하도 복잡해서 그냥 하드코딩으로 크기를 고정해놓고 만들었다.
+
+대신 화면 너비에 맞게 데이터 구조를 재구성해서 육각형이 멀티라인으로 겹칠 수 있는 메뉴를 만들었다. 나름의 반응형 메뉴가 가능하다.
+
+#### 캐릭터 검색창
+
+##### 상단의 메뉴 만들기
+
+이후의 확장성을 생각하면, 단순히 크기를 고정해놓기보다, 스크롤이 가능한 메뉴를 만들면 좋을 것 같았다.
+
+전체적인 뼈대는 [`react-horizontal-scrolling-menu` ](https://www.npmjs.com/package/react-horizontal-scrolling-menu)라는 모듈을 사용했다.
+
+아이콘은 http://svgicons.sparkk.fr/ 을 참조.
+
+세세한 부분은 직접 css나 js를 사용해서 수정을 해줘야했다.
+
+메뉴의 스크롤 방식은 총 3가지를 동시에 사용 가능하다.
+
+- 1. 마우스 드래그를 통한 스크롤
+  - 이 경우 MouseUp Event에서 메뉴 링크가 클릭이 되버리는 경우가 발생해서, 모듈에서 제공하는 Dragging 플래그를 사용해, 링크를 잠시 비활성화했다.
+- 2. 마우스 휠을 통한 스크롤(개인적으로 강추)
+  - onWheel 이벤트에 제공해주는 데모코드를 사용했다.
+- 3. Arrow 버튼을 통한 스크롤
+  - 가장 골치아팠다. Arrow 를 보이고 숨기는 기능이 전체 너비와 현재 스크롤에 따라 인식하는 것 같은데, 메뉴가 적어 width가 충분하지 않을 때는 우측 Arrow 버튼이 자꾸 자기맘대로 출력됐다.
+  - React를 사용하고 있기 때문에, 해결하는데 애를 먹었다. 실제 DOM 요소인 메뉴 Div를 useRef로 가져와서 직접 너비를 체크해 오버플로우가 발생했는지 체크하고, 이를 플래그로 사용해서 Arrow의 출력을 조정했다.(~~이게 맞나 싶을 정도로 뭔가 더러운건 기분탓일까?~~)
+
+기능을 열심히 구현해놓긴 했는데, 아직 실제 메뉴가 3개밖에 없어서 보여줄 방법이 없다...
+
+더미 메뉴 데이터를 사용해야지 ㅋ.ㅋ
+
+##### 캐릭터 검색 & 정보 디스플레이
+
+기본적인 페이지구성은 검색바, 캐릭터 정보창이다. localStorage에 가장 최근 검색정보를 저장해놓고, 기본 출력정보로 설정을 해놓는게 좋을 것 같다.(기본 출력정보 직접 설정도 가능하게 하면 좋을듯?)
+
+일단은 간단하게 출력내용을 정하자.
+
+- 1. 캐릭터 정보
+  - 서버
+  - 길드
+  - 클래스
+  - 칭호
+  - 전투레벨
+  - 아이템레벨
+  - 원정대 레벨
+  - pvp 레벨
+  - 영지레벨, 이름
+  - 레벨 순위
+  - ...
+- 2. 장비 정보
+  - 장비
+  - 악세서리
+  - 장착 각인
+  - 장착 보석 정보
+
+##### Lostark OpenAPI
+
+위에서 정한 정보들은 작년에 LostArk 측에서 공식적으로 openAPI를 열어줬다. 야무지게 사용해보자.
+
+발급받은 토큰은 `.env.local` 에 저장해놨다.
+
+##### Dynamic Routes 이슈
+
+본래 내 목적은 /character 경로 뒤에 어떤 query가 오던(`/`, `/hello`, `/a/b` 등) `[[name]].tsxx`로 받아서 처리하려고 했다.
+
+Document를 보니 [Optional catch all routes](https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes) 라고 설명이 나와있길래 사용해봤는데 정작 개발서버나 빌드를 실행할 때 오류가 나더라...
+
+`Error: Optional route parameters are not yet supported ("[[name]]").`
+
+난 분명히 최신 버전을 사용했는데 이게 무슨일이지?....
+
+이 기능을 사용할 수 있는 해결방법을 찾아보려다가, 근본적인 해결법을 찾았다. 애초에 url의 path variable로 받을 필요가 없던 문제였다. **두둥 탁!** 😂
+
+내 목적대로라면 그냥 index 페이지에 localStorage에 default name이 없으면, 초기 검색 컴포넌트를, 있으면 정보 출력 컴포넌트를 렌더하면 되는 것이었던 것이었던 것이었다.

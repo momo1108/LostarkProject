@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+$myBlue: #4691f6;
+
 @font-face {
   font-family: "NanumSquareNeo";
   src: url("../fonts/NanumSquareNeo/NanumSquareNeo-bRg.woff") format("woff");
@@ -41,4 +43,78 @@
 
 html {
   font-family: "Roboto", "NanumSquareNeo", sans-serif;
+}
+
+.svgIcon {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.svgIcon path,
+.svgIcon polygon,
+.svgIcon rect {
+  fill: $myBlue;
+}
+
+.menuArrow path {
+  animation: blink 1.5s infinite linear;
+}
+
+.menuArrow:hover path {
+  animation: none;
+}
+
+@keyframes blink {
+  0% {
+    fill: rgba($color: $myBlue, $alpha: 0.8);
+  }
+  50% {
+    fill: transparent;
+  }
+  100% {
+    fill: rgba($color: $myBlue, $alpha: 0.8);
+  }
+}
+
+.svgIcon circle {
+  stroke: $myBlue;
+  stroke-width: 1;
+}
+
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.react-horizontal-scrolling-menu--scroll-container {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.react-horizontal-scrolling-menu--wrapper {
+  @apply px-4;
+  position: relative;
+}
+
+.react-horizontal-scrolling-menu--arrow-left,
+.react-horizontal-scrolling-menu--arrow-right {
+  align-items: center;
+  position: absolute;
+  visibility: hidden;
+  height: 70px;
+  z-index: 3;
+}
+
+.react-horizontal-scrolling-menu--wrapper:hover
+  .react-horizontal-scrolling-menu--arrow-left,
+.react-horizontal-scrolling-menu--wrapper:hover
+  .react-horizontal-scrolling-menu--arrow-right {
+  visibility: visible;
+}
+
+.react-horizontal-scrolling-menu--arrow-left {
+  left: 0;
+}
+
+.react-horizontal-scrolling-menu--arrow-right {
+  right: 0;
 }

@@ -1,0 +1,65 @@
+$activeMenuShadow: rgba(
+    $color: #aaa,
+    $alpha: 0.9,
+  )
+  0 0 8px;
+
+$myBlue: #4691f6;
+
+.headerContainer {
+  @apply text-white h-[70px] flex items-center
+    justify-between px-3;
+
+  .homeDiv {
+    @apply mx-2 flex;
+    .homeLink {
+      @apply text-2xl font-bold;
+      transition: transform ease-in-out 0.5s;
+      transform: perspective(50px) rotateX(15deg);
+    }
+    &:hover .homeLink {
+      transform: perspective(50px) rotateX(375deg);
+    }
+  }
+
+  .menuDiv {
+    @apply ml-12 mr-4 overflow-hidden h-[70px];
+
+    .menuLink {
+      @apply mx-4 my-[16px] p-1 w-[120px] block cursor-pointer
+        text-center leading-[30px] hover:font-bold;
+
+      &:hover {
+        text-shadow: $activeMenuShadow;
+      }
+    }
+
+    .leftArrowBlock,
+    .rightArrowBlock {
+      @apply w-[16px] h-[38px];
+      border-radius: 10px;
+    }
+
+    .leftArrowBlock {
+      background: linear-gradient(
+        to right,
+        rgba($color: #fff, $alpha: 0.1),
+        transparent
+      );
+    }
+
+    .rightArrowBlock {
+      background: linear-gradient(
+        to left,
+        rgba($color: #fff, $alpha: 0.1),
+        transparent
+      );
+    }
+  }
+
+  .activeMenuLink {
+    @apply font-bold;
+    color: $myBlue;
+    text-shadow: $activeMenuShadow;
+  }
+}
