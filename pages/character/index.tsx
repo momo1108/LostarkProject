@@ -1,17 +1,26 @@
-import { useRouter } from "next/router";
 import styles from "@/styles/CharPage.module.scss";
 import DataService from "@/service/DataService";
 import MenuHeader from "@/components/MenuHeader";
 import { MenuProps } from "@/types/MenuType";
+import { useEffect, useState } from "react";
+import CharSearchContainer from "@/containers/Character/CharSearchContainer";
 
 const Character: React.FC<MenuProps> = ({ menu }) => {
-  const router = useRouter();
-  const query = router.query;
-  console.log(query);
+  const [name, setName] = useState<string>("");
+  useEffect(() => {
+    const defaultName = localStorage.getItem("name");
+    setName(defaultName ? defaultName : "");
+
+    return () => {
+      localStorage.setItem("name", name);
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
       <MenuHeader menu={menu} />
+      {/* <CharBody info={info} /> */}
+      <CharSearchContainer />
     </div>
   );
 };
