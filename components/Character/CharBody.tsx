@@ -1,5 +1,5 @@
-import CharRecentContainer from "@/containers/Character/CharRecentContainer";
-import CharSearchContainer from "@/containers/Character/CharSearchContainer";
+import CharRecentContainer from "@/containers/character/CharRecentContainer";
+import CharSearchContainer from "@/containers/character/CharSearchContainer";
 import styles from "@/styles/character/Body.module.scss";
 
 export default function CharBody() {
