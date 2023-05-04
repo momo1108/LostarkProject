@@ -345,7 +345,7 @@ getStaticProps 를 사용할 때, Next.js의 api 기능을 활용하는것은 �
 
 전체적인 뼈대는 [`react-horizontal-scrolling-menu` ](https://www.npmjs.com/package/react-horizontal-scrolling-menu)라는 모듈을 사용했다.
 
-아이콘은 http://svgicons.sparkk.fr/ 을 참조.
+아이콘은 http://svgicons.sparkk.fr/ , https://iconsvg.xyz/ 을 참조.
 
 세세한 부분은 직접 css나 js를 사용해서 수정을 해줘야했다.
 
@@ -433,8 +433,40 @@ Free Tier를 사용한다 해도,사용 시작으로부터 1년동안만 무료�
 
 - 개발 서버 store 확인 관련
 
+> 자세한 구현은 예전 강의들을때 짠 코드를 참조했음.<br>
+> ⚠️ Next.js 에서 redux 사용법은 React 에서와는 조금 다르다. 참조 블로그 : https://devkkiri.com/post/59cb38dd-f939-462d-9e7f-afcc338b621f<br>
+> 해당 블로그도 예전 버전이라, 코드 수정이 몇부분있음. \_app.tsx 에서 Store 적용 방법이 조금 더 간단하진 함수를 사용<br>
+
+```tsx
+// Spread 연산자로 두번째 인자 사용
+export default function App({ Component, ...rest }: AppProps) {
+  // useWrappedStore 함수를 사용
+  const { store, props } = wrapper.useWrappedStore(rest);
+  const { pageProps } = props;
+  return (
+    <Provider store={store}>
+      <Head>
+        <title>Loaple - Lostark Helper</title>
+      </Head>
+      <Component {...pageProps} />
+    </Provider>
+  );
+}
+```
+
 ##### 컴포넌트들의 Container를 만들다가 문득 든 생각
 
 어짜피 Container의 역할이 Presentation에서 사용하는 모든 데이터와 기능들을 정의해서 전달해주는 역할인데, Next.js를 사용하는 지금의 경우에는 page 자체선에서 해결이 가능하지 않을까?
 
 ➡️ Menu 처럼 depth가 얕은 컴포넌트의 경우에는 이게 더 나을듯 한데, 메인 기능들의 페이지는 depth가 깊기 때문에, page에서 전부 전달하려면 또다시 props 지옥에 빠질 것 같다.(ex. 닉네임 검색하는 search 메서드를 페이지 -> Body 컴포넌트 -> SearchBar 컴포넌트 ... )
+
+> 검색기록을 저장하는 방법을 컨테이너에서 state로 사용할지 redux를 사용할지 고민하다가, 일단 닉네임 검색 자체가 변경빈도가 많기 때문에, state로 만들어봤다.<br>
+> 아니나 다를까, props 전달 과정에 depth가 깊어지다보니 코드가 드럽게 불어났고, 이건 아니다 싶어서 다시 되돌려서 redux로 작업을 진행했다.(지긋지긋한 삽질 🤬)
+
+##### 캐릭터 검색 기록
+
+캐릭터 정보 출력에 앞서 검색한 기록을 저장하려고 한다.
+
+Redux를 활용해서, dispatch가 되면 api 요청을 보내고, 받아온 정보로 state를 업데이트한다.
+
+기능 자체는 너무 간단한데, 위에 언급한 삽질때문에 길어졌다.

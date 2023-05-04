@@ -53,7 +53,7 @@ const MenuHeader: React.FC<MenuProps> = ({ menu }) => {
                 key={m.id}
                 onClick={dragging ? undefined : () => router.push(m.url)}
                 className={`${styles.menuLink} ${
-                  router.asPath === m.url ? styles.activeMenuLink : ""
+                  router.route === m.url ? styles.activeMenuLink : ""
                 }`}
               >
                 {m.title}

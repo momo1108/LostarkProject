@@ -1,4 +1,4 @@
-import { CharData } from "@/types/CharacterType";
+import { CharData } from "@/types/ReducerType";
 import axios from "axios";
 
 export default class CharacterService {
@@ -12,14 +12,17 @@ export default class CharacterService {
   public static getCharacterSummary = async (
     name: string
   ): Promise<CharData> => {
-    console.log(name, process.env.CLIENT_TOKEN);
     const res = await axios.get(`${this.url}armories/characters/${name}`, {
       headers: {
         Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
         Accept: "application/json",
       },
     });
-    return res.data;
+    if (res.data) return res.data;
+    else {
+      alert("존재하지 않는 닉네임 입니다!");
+      throw new Error("존재하지 않는 닉네임 입니다!");
+    }
   };
 
   static get url(): string {

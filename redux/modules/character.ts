@@ -1,11 +1,12 @@
 import { Action, createActions, handleActions } from "redux-actions";
-import { call, put, select, takeEvery } from "redux-saga/effects";
-import { CharData, CharState } from "../../types/CharacterType";
+import { call, put, takeEvery } from "redux-saga/effects";
+import { CharData, CharState } from "../../types/ReducerType";
 import CharacterService from "@/service/CharacterService";
+import { NextRouter } from "next/router";
 
 const initialState: CharState = {
-  data: {},
-  name: "",
+  data: { data: {}, name: "" },
+  names: [],
   loading: false,
   error: null,
 };
@@ -28,8 +29,10 @@ const reducer = handleActions<CharState, CharData>(
       error: null,
     }),
     SUCCESS: (state, action) => ({
-      ...state,
-      data: action.payload,
+      data: action.payload.data,
+      names: state.names.includes(action.payload.name)
+        ? state.names
+        : [...state.names, action.payload.name],
       loading: false,
       error: null,
     }),
@@ -53,13 +56,13 @@ export const { getChar } = createActions("GET_CHAR", { prefix });
 function* getCharSaga(action: Action<string>) {
   try {
     yield put(pending());
-    const data: CharData = yield call(
+    const data: Object = yield call(
       CharacterService.getCharacterSummary,
       action.payload
     );
-    yield put(success(data));
+    yield put(success({ data, name: action.payload }));
   } catch (error: any) {
-    yield put(fail(new Error(error)));
+    yield put(fail(error));
   }
 }
 

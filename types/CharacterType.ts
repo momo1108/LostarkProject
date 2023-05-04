@@ -1,8 +1,13 @@
-export type CharState = {
-  data: CharData;
-  name: string;
-  loading: boolean;
-  error: Error | null;
+export type CharRecentBlockParams = {
+  names: string[];
 };
 
-export type CharData = Object;
+export type CharSearchBarParams = {
+  search: (name: string) => void;
+  loading: boolean;
+  names: string[];
+};
+
+export type CharRecentContainerParams = {
+  names: string[];
+};

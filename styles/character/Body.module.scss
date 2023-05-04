@@ -1,0 +1,91 @@
+.container {
+  @apply flex flex-auto flex-col items-center justify-center;
+
+  .searchDiv {
+    @apply min-w-[400px] min-h-[50px] my-2 py-2
+    flex justify-center items-center;
+
+    .searchInput {
+      @apply h-8 mx-2 px-2 outline-none bg-transparent
+       text-white w-[300px];
+      border-bottom: 1px solid #8885;
+      transition: border-bottom 0.2s linear, box-shadow 0.2s linear;
+
+      &:focus {
+        border-bottom: 1px solid #888a;
+        box-shadow: 0px 6px 4px -2px #fff2;
+      }
+    }
+
+    .searchBtn {
+      @apply text-[#ddd] font-bold cursor-pointer
+      w-24 h-10 text-lg transition-all duration-300;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+
+      &:hover {
+        @apply bg-[#fff2];
+      }
+    }
+  }
+  .recentContainer {
+    @apply text-3xl min-w-[450px] min-h-[400px] font-bold 
+    flex flex-col justify-center items-center text-[#bbb]
+    py-2 my-2 bg-[#fff2];
+    border: 3px solid #888;
+    border-radius: 25px;
+
+    .iconBox {
+      @apply w-[300px] h-[300px] mb-5 relative;
+
+      .emptyIcon {
+        @apply absolute top-0 left-0;
+      }
+    }
+
+    &:hover .emptyIcon {
+      animation: jiggle 0.2s linear;
+    }
+
+    // 검색기록 있는 경우
+    .recentList {
+      @apply w-full;
+
+      .recentListItem {
+        @apply mx-2 flex text-xl items-center py-2;
+
+        .favoriteIcon {
+          @apply cursor-pointer hover:stroke-red-500
+          transition-all duration-200 mx-2;
+        }
+
+        .recentName {
+          @apply grow;
+        }
+
+        .deleteIcon {
+          @apply cursor-pointer hover:stroke-[#437dcb]
+          transition-all duration-200 mx-2;
+        }
+      }
+    }
+  }
+}
+
+@keyframes jiggle {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}

@@ -1,26 +1,14 @@
-import styles from "@/styles/CharPage.module.scss";
+import styles from "@/styles/character/Page.module.scss";
 import DataService from "@/service/DataService";
 import MenuHeader from "@/components/MenuHeader";
 import { MenuProps } from "@/types/MenuType";
-import { useEffect, useState } from "react";
-import CharSearchContainer from "@/containers/Character/CharSearchContainer";
+import CharBody from "@/components/character/CharBody";
 
 const Character: React.FC<MenuProps> = ({ menu }) => {
-  const [name, setName] = useState<string>("");
-  useEffect(() => {
-    const defaultName = localStorage.getItem("name");
-    setName(defaultName ? defaultName : "");
-
-    return () => {
-      localStorage.setItem("name", name);
-    };
-  }, []);
-
   return (
     <div className={styles.container}>
       <MenuHeader menu={menu} />
-      {/* <CharBody info={info} /> */}
-      <CharSearchContainer />
+      <CharBody />
     </div>
   );
 };
