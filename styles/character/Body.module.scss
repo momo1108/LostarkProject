@@ -2,12 +2,10 @@
   @apply flex flex-auto flex-col items-center justify-center;
 
   .searchDiv {
-    @apply min-w-[400px] min-h-[50px] my-2 py-2
-    flex justify-center items-center;
+    @apply min-w-[400px] min-h-[50px] my-2 py-2 flex justify-center items-center;
 
     .searchInput {
-      @apply h-8 mx-2 px-2 outline-none bg-transparent
-       text-white w-[300px];
+      @apply h-8 mx-2 px-2 outline-none bg-transparent text-white w-[300px];
       border-bottom: 1px solid #8885;
       transition: border-bottom 0.2s linear, box-shadow 0.2s linear;
 
@@ -18,8 +16,7 @@
     }
 
     .searchBtn {
-      @apply text-[#ddd] font-bold cursor-pointer
-      w-24 h-10 text-lg transition-all duration-300;
+      @apply text-[#ddd] font-bold cursor-pointer w-24 h-10 text-lg transition-all duration-300;
       border: 2px solid #ddd;
       border-radius: 5px;
 
@@ -28,12 +25,11 @@
       }
     }
   }
+
   .recentContainer {
-    @apply text-3xl min-w-[450px] min-h-[400px] font-bold 
-    flex flex-col justify-center items-center text-[#bbb]
-    py-2 my-2 bg-[#fff2];
+    @apply text-3xl min-w-[450px] min-h-[400px] font-bold flex flex-col justify-center items-center text-[#bbb] my-2 bg-[#fff2];
     border: 3px solid #888;
-    border-radius: 25px;
+    border-radius: 10px;
 
     .iconBox {
       @apply w-[300px] h-[300px] mb-5 relative;
@@ -49,14 +45,19 @@
 
     // 검색기록 있는 경우
     .recentList {
-      @apply w-full;
+      @apply w-full flex-auto;
 
       .recentListItem {
-        @apply mx-2 flex text-xl items-center py-2;
+        @apply flex text-xl items-center px-2 py-3 hover:bg-[#1d2026]
+        cursor-pointer transition-all duration-200 ease-in-out;
+        border-bottom: 1px solid #444;
+
+        &:first-child {
+          border-radius: 10px 10px 0 0;
+        }
 
         .favoriteIcon {
-          @apply cursor-pointer hover:stroke-red-500
-          transition-all duration-200 mx-2;
+          @apply cursor-pointer hover:stroke-red-500 transition-all duration-200 mx-2;
         }
 
         .recentName {
@@ -64,8 +65,7 @@
         }
 
         .deleteIcon {
-          @apply cursor-pointer hover:stroke-[#437dcb]
-          transition-all duration-200 mx-2;
+          @apply cursor-pointer hover:stroke-[#437dcb] transition-all duration-200 mx-2;
         }
       }
     }
@@ -76,15 +76,19 @@
   0% {
     transform: rotate(0);
   }
+
   25% {
     transform: rotate(10deg);
   }
+
   50% {
     transform: rotate(-5deg);
   }
+
   75% {
     transform: rotate(10deg);
   }
+
   100% {
     transform: rotate(0);
   }

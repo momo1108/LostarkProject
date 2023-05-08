@@ -60,10 +60,6 @@ html {
   animation: blink 1.5s infinite linear;
 }
 
-.menuArrow:hover path {
-  animation: none;
-}
-
 @keyframes blink {
   0% {
     fill: rgba($color: $myBlue, $alpha: 0.8);
@@ -99,16 +95,8 @@ html {
 .react-horizontal-scrolling-menu--arrow-right {
   align-items: center;
   position: absolute;
-  visibility: hidden;
   height: 70px;
   z-index: 3;
-}
-
-.react-horizontal-scrolling-menu--wrapper:hover
-  .react-horizontal-scrolling-menu--arrow-left,
-.react-horizontal-scrolling-menu--wrapper:hover
-  .react-horizontal-scrolling-menu--arrow-right {
-  visibility: visible;
 }
 
 .react-horizontal-scrolling-menu--arrow-left {
