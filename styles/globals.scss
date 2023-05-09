@@ -77,10 +77,14 @@ html {
   stroke-width: 1;
 }
 
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
 .react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
   display: none;
 }
 
+html,
+body,
 .react-horizontal-scrolling-menu--scroll-container {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */

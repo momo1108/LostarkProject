@@ -470,3 +470,8 @@ export default function App({ Component, ...rest }: AppProps) {
 Redux를 활용해서, dispatch가 되면 api 요청을 보내고, 받아온 정보로 state를 업데이트한다.
 
 기능 자체는 너무 간단한데, 위에 언급한 삽질때문에 길어졌다.
+
+> github을 사용할 때, 디렉터리명/파일명 대소문자 구분이 안되더라... 세팅을 따로 해줘야 하는걸까? 주의하자.
+
+cors
+prevent body scroll

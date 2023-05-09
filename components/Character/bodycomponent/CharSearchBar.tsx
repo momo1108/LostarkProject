@@ -2,10 +2,14 @@ import { useRef } from "react";
 import styles from "@/styles/character/Body.module.scss";
 import { CharSearchBarParams } from "@/types/CharacterType";
 
-const CharSearchBar: React.FC<CharSearchBarParams> = ({ search, loading }) => {
+const CharSearchBar: React.FC<CharSearchBarParams> = ({
+  search,
+  loading,
+  shrink,
+}) => {
   const nameRef = useRef<HTMLInputElement>(null);
   return (
-    <div className={styles.searchDiv}>
+    <div className={`${styles.searchDiv} ${shrink ? styles.shrinked : ""}`}>
       <input
         className={styles.searchInput}
         placeholder="검색하고 싶은 닉네임을 입력하세요"

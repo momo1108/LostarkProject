@@ -2,7 +2,6 @@ import { Action, createActions, handleActions } from "redux-actions";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { CharData, CharState } from "../../types/ReducerType";
 import CharacterService from "@/service/CharacterService";
-import { NextRouter } from "next/router";
 
 const initialState: CharState = {
   data: { data: {}, name: "" },
@@ -54,12 +53,18 @@ export default reducer;
 export const { getChar } = createActions("GET_CHAR", { prefix });
 
 function* getCharSaga(action: Action<string>) {
+  let url: string | undefined;
   try {
     yield put(pending());
-    const data: Object = yield call(
+    const data: { ArmoryProfile: any } = yield call(
       CharacterService.getCharacterSummary,
       action.payload
     );
+    if (!data.ArmoryProfile.CharacterImage) {
+      url = yield call(CharacterService.getCharacterImageUrl, action.payload);
+      data.ArmoryProfile.CharacterImage = url ? url : null;
+    }
+
     yield put(success({ data, name: action.payload }));
   } catch (error: any) {
     yield put(fail(error));

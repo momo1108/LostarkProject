@@ -1,3 +1,5 @@
+import { CharData } from "./ReducerType";
+
 export type CharRecentBlockParams = {
   names: string[];
 };
@@ -5,7 +7,12 @@ export type CharRecentBlockParams = {
 export type CharSearchBarParams = {
   search: (name: string) => void;
   loading: boolean;
-  names: string[];
+  shrink: boolean;
+};
+
+export type CharMainInfoParams = {
+  data: CharData;
+  render: boolean;
 };
 
 export type CharRecentContainerParams = {

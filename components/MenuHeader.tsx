@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useContext } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import useDrag from "@/hooks/useDrag.ts";
+import usePreventBodyScroll from "@/hooks/usePreventBodyScroll.ts";
 import "react-horizontal-scrolling-menu/dist/styles.css";
 import { useRouter } from "next/router";
 
@@ -13,6 +14,7 @@ const MenuHeader: React.FC<MenuProps> = ({ menu }) => {
   const router = useRouter();
 
   const { dragStart, dragStop, dragMove, dragging } = useDrag();
+  const { disableScroll, enableScroll } = usePreventBodyScroll();
   const handleDrag =
     ({ scrollContainer }: scrollVisibilityApiType) =>
     (ev: React.MouseEvent) =>
@@ -23,7 +25,11 @@ const MenuHeader: React.FC<MenuProps> = ({ menu }) => {
       });
 
   return (
-    <div className={styles.headerContainer}>
+    <div
+      className={styles.headerContainer}
+      onMouseEnter={disableScroll}
+      onMouseLeave={enableScroll}
+    >
       <div className={styles.homeDiv}>
         <Link href={"/"} className={styles.homeLink}>
           LOAPLE
@@ -88,6 +94,7 @@ function RightArrow() {
 
 function onWheel(apiObj: scrollVisibilityApiType, ev: React.WheelEvent): void {
   const isThouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;
+  ev.stopPropagation();
 
   if (isThouchpad) {
     ev.stopPropagation();

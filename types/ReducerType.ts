@@ -5,10 +5,7 @@ export type CharState = {
   error: Error | null;
 };
 
-export type CharData = {
-  data: any;
-  name: string;
-};
+export type CharData = any;
 
 export type RootState = {
   character: CharState;

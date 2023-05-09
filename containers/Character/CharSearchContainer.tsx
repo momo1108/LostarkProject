@@ -1,26 +1,20 @@
-import CharSearchBar from "@/components/character/body/CharSearchBar";
-import { getChar } from "@/redux/modules/character";
+import CharSearchBar from "@/components/character/bodycomponent/CharSearchBar";
 import { CharState } from "@/types/ReducerType";
 import { RootState } from "@/types/ReducerType";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 
 export default function CharSearchContainer() {
-  const dispatch = useDispatch();
   const router = useRouter();
-  const { loading, names } = useSelector<RootState, CharState>(
+  const { loading } = useSelector<RootState, CharState>(
     (state) => state.character
   );
+  const shrink = "name" in router.query;
 
-  const search = useCallback(
-    (name: string) => {
-      dispatch(getChar(name));
-      router.push("/character/" + name);
-    },
-    [dispatch]
-  );
+  const search = useCallback((name: string) => {
+    router.push("/character/" + name);
+  }, []);
 
-  return <CharSearchBar search={search} loading={loading} names={names} />;
+  return <CharSearchBar search={search} loading={loading} shrink={shrink} />;
 }

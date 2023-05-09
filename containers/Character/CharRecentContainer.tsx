@@ -1,4 +1,4 @@
-import CharRecentBlock from "@/components/character/body/CharRecentBlock";
+import CharRecentBlock from "@/components/character/bodycomponent/CharRecentBlock";
 import { RootState } from "@/types/ReducerType";
 import { useSelector } from "react-redux";
 
