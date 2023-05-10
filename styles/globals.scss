@@ -6,6 +6,12 @@ $myBlue: #4691f6;
 
 @font-face {
   font-family: "NanumSquareNeo";
+  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-aLt.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "NanumSquareNeo";
   src: url("../fonts/NanumSquareNeo/NanumSquareNeo-bRg.woff") format("woff");
   font-weight: 400;
   font-style: normal;
@@ -18,7 +24,13 @@ $myBlue: #4691f6;
 }
 @font-face {
   font-family: "NanumSquareNeo";
-  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-aLt.woff") format("woff");
+  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-dEb.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto/Roboto-Light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
 }
@@ -32,12 +44,6 @@ $myBlue: #4691f6;
   font-family: "Roboto";
   src: url("../fonts/Roboto/Roboto-Bold.woff") format("woff");
   font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Roboto";
-  src: url("../fonts/Roboto/Roboto-Light.woff") format("woff");
-  font-weight: 300;
   font-style: normal;
 }
 
@@ -109,4 +115,24 @@ body,
 
 .react-horizontal-scrolling-menu--arrow-right {
   right: 0;
+}
+
+.legendaryBackground {
+  border: 1.5px solid rgb(129, 88, 7);
+  background: linear-gradient(135deg, #362003 0%, #9e5f04 100%);
+}
+
+.relicsBackground {
+  border: 1.5px solid rgb(117, 47, 12);
+  background: linear-gradient(135deg, #341a09 0%, #a24006 100%);
+}
+
+.ancientBackground {
+  border: 1.5px solid rgb(148, 116, 29);
+  background: linear-gradient(135deg, #3d3325 0%, #dcc999 100%);
+}
+
+.estherBackground {
+  border: 1.5px solid rgb(37, 142, 174);
+  background: linear-gradient(135deg, #0c2e2c 0%, #2faba8 100%);
 }

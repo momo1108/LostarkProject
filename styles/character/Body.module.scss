@@ -87,27 +87,111 @@
     lg:grid-cols-2 2xl:grid-cols-3 gap-2;
 
     .infoContainerItemDiv {
-      @apply bg-green-300 w-full relative min-h-[600px];
+      @apply bg-[#0901] w-full relative min-h-[600px] max-w-[550px] mx-auto;
 
       &:first-child {
-        @apply flex justify-center items-center;
-        .profileDiv {
-          position: relative;
-          width: 400px;
+        @apply flex flex-col justify-center items-center;
+        .profileHeader {
+          @apply py-1 w-full;
+          .profileHeaderLine {
+            @apply flex justify-center items-center text-[#eee] font-bold mb-1;
+            line-height: 24px;
+
+            &:first-child > span {
+              @apply mx-1;
+            }
+            .profileServerSpan {
+              @apply py-1 px-3 bg-[#116] text-sm;
+              border-radius: 14px;
+            }
+            .profileNameSpan {
+              @apply font-normal;
+              & > span {
+                @apply font-extrabold;
+              }
+            }
+            .profileClassSpan {
+              @apply text-sm;
+            }
+
+            &:not(:first-child) > span {
+              @apply mr-2 text-sm;
+
+              &:last-child {
+                @apply mr-0;
+              }
+            }
+            .profileCategorySpan {
+              @apply py-1 px-2 bg-[#116] font-extrabold;
+              border-radius: 12px;
+              font-size: 11px !important;
+            }
+          }
+        }
+
+        .profileBody {
+          @apply relative bg-[#15181d] flex justify-between;
+          width: 450px;
           height: 500px;
-          .emptyProfileIcon {
-            @apply my-[15px] mx-[62.5px] absolute top-1/2 left-1/2;
+
+          .profileEquipmentDiv {
+            @apply w-[70px] h-full relative z-10 flex flex-wrap flex-col py-8 justify-between items-center;
+
+            .profileEquipmentSlot {
+              @apply w-[40px] h-[40px] p-[7px] flex justify-center items-center relative overflow-hidden;
+              box-sizing: content-box;
+              border-radius: 5px;
+
+              .profileEquipmentHoning {
+                @apply absolute top-0 left-1 font-bold text-white;
+                font-size: 11px;
+              }
+              .profileEquipmentQualityBar {
+                @apply absolute bottom-0 w-full h-[9px] bg-[#0003];
+                font-size: 9px;
+                line-height: 9px;
+                border-top: 1px solid #0001;
+
+                .profileEquipmentQualityValue {
+                  @apply absolute top-1/2 left-1/2 text-white z-20;
+                  transform: translate(-50%, -50%);
+                }
+              }
+            }
+          }
+          .profileAccessoryDiv {
+            @apply w-[70px] h-full relative z-10 flex flex-wrap flex-col py-4 justify-between items-center;
+
+            .profileAccessorySlot {
+              @apply w-[46px] h-[46px] p-1 flex justify-center items-center relative overflow-hidden;
+              box-sizing: content-box;
+              border-radius: 5px;
+
+              .profileAccessoryQualityBar {
+                @apply absolute bottom-0 w-full h-[9px] bg-[#0003];
+                font-size: 9px;
+                line-height: 9px;
+                border-top: 1px solid #0001;
+
+                .profileAccessoryQualityValue {
+                  @apply absolute top-1/2 left-1/2 text-white z-20;
+                  transform: translate(-50%, -50%);
+                }
+              }
+            }
+          }
+          .profileImage {
+            @apply absolute top-1/2 left-1/2 z-0;
             transform: translate(-50%, -50%);
+          }
+          // 혹시라도 기본이미지를 못불러오면 대신 출력
+          .emptyProfileIcon {
+            @apply my-[15px] mx-[62.5px] absolute top-1/2 left-1/2 z-0;
+            transform: translate(-200px, -231px);
             width: 275px;
             height: 432px;
           }
-          .profileImage {
-            @apply absolute top-1/2 left-1/2;
-            transform: translate(-50%, -50%);
-          }
         }
-      }
-      .profileDiv {
       }
     }
   }

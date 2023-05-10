@@ -36,3 +36,7 @@ next-env.d.ts
 
 # SSH 연결 키 페어
 /key
+
+# 테스트용파일
+test.ts
+test.js

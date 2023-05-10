@@ -1,6 +1,7 @@
 import { CharData } from "./ReducerType";
 
 export type CharRecentBlockParams = {
+  search: (name: string) => void;
   names: string[];
 };
 
@@ -17,4 +18,20 @@ export type CharMainInfoParams = {
 
 export type CharRecentContainerParams = {
   names: string[];
+};
+
+export type EquipmentSlotProps = {
+  key: string;
+  grade: string;
+  honing: string;
+  iconUrl: string;
+  qualityValue: number;
+};
+
+export type AccessorySlotProps = {
+  key: string;
+  grade: string;
+  iconUrl: string;
+  qualityValue: number;
+  showQuality: boolean;
 };

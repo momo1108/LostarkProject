@@ -1,14 +1,23 @@
 import styles from "@/styles/character/Body.module.scss";
 import { CharRecentBlockParams } from "@/types/CharacterType";
 
-const CharRecentBlock: React.FC<CharRecentBlockParams> = ({ names }) => {
+const CharRecentBlock: React.FC<CharRecentBlockParams> = ({
+  names,
+  search,
+}) => {
   return (
     <div className={styles.recentContainer}>
       {names.length ? (
         <ul className={styles.recentList}>
           {names.map((n, i) => {
             return (
-              <li className={styles.recentListItem} key={`recentNames${i}`}>
+              <li
+                className={styles.recentListItem}
+                key={`recentNames${i}`}
+                onClick={() => {
+                  search(n);
+                }}
+              >
                 <svg
                   className={styles.favoriteIcon}
                   xmlns="http://www.w3.org/2000/svg"

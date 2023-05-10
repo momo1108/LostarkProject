@@ -473,5 +473,50 @@ Redux를 활용해서, dispatch가 되면 api 요청을 보내고, 받아온 정
 
 > github을 사용할 때, 디렉터리명/파일명 대소문자 구분이 안되더라... 세팅을 따로 해줘야 하는걸까? 주의하자.
 
-cors
-prevent body scroll
+##### cors 이슈
+
+로스트아크 OpenAPI에서 제공하는 캐릭터 이미지 url은 캐릭터가 아바타를 착용하고 있지 않으면, null을 반환한다.
+
+대신 공식 홈페이지의 전투정보실에 있는 이미지를 스크래핑해서 사용하려고 하는데, get 요청을 보낼 때 cors policy 에 걸렸다.
+
+해결을 위해 next.js의 rewrites 기능을 config 파일에 설정한다.
+
+##### prevent body scroll
+
+메뉴바에 스크롤 기능을 적용했는데, 전체 바디의 스크롤이 같이 되는 문제가 생겼다.
+
+문제는 메뉴바가 오픈소스 컴포넌트이기 때문에, 이벤트를 수정하기가 쉽지 않다. 분명 데몬 사이트에서는 문제가 없었는데, 무언가 세팅하면서 문제가 생긴 듯 하다.
+
+데몬 사이트에선 아래의 함수를 훅으로 export 해서 사용한다.
+
+```ts
+const preventDefault = (ev: Event) => {
+  if (ev.preventDefault) {
+    ev.preventDefault();
+  }
+  ev.returnValue = false;
+};
+
+const enableBodyScroll = () => {
+  document && document.removeEventListener("wheel", preventDefault, false);
+};
+const disableBodyScroll = () => {
+  document &&
+    document.addEventListener("wheel", preventDefault, {
+      passive: false,
+    });
+};
+```
+
+왜인지 적용이 안돼서, 소스코드를 아래와 같이 수정했다.
+
+```ts
+function overflowSetter(position: string, overflow: string): void {
+  document.documentElement.style.position = position;
+  document.documentElement.style.overflow = overflow;
+  document.body.style.position = position;
+  document.body.style.overflow = overflow;
+}
+```
+
+사용 방식은, 메뉴바의 `onMouseEnter`, `onMouseLeave` 이벤트에 따라 html과 body의 position, overflow 속성을 바꿔서 스크롤이 불가능한 상태로 만드는 것이다.
