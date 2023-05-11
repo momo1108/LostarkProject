@@ -2,14 +2,19 @@ import styles from "@/styles/character/Body.module.scss";
 import { EquipmentSlotProps } from "@/types/CharacterType";
 
 const EquipmentSlot: React.FC<EquipmentSlotProps> = ({
-  key,
   grade,
   honing,
   iconUrl,
   qualityValue,
+  contentSetter,
 }) => {
   return (
-    <div key={key} className={`${styles.profileEquipmentSlot} ${grade}`}>
+    <div
+      data-tooltip-id="equipmentTooltip"
+      data-tooltip-delay-hide={300}
+      onMouseEnter={contentSetter}
+      className={`${styles.profileEquipmentSlot} ${grade}`}
+    >
       <p className={styles.profileEquipmentHoning}>{honing}강</p>
       <img
         src={iconUrl}

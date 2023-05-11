@@ -1,36 +1,24 @@
-import { CharMainInfoParams } from "@/types/CharacterType";
+import {
+  CharMainInfoParams,
+  accessoryOrder,
+  equipmentOrder,
+  gradeClassMap,
+} from "@/types/CharacterType";
 import styles from "@/styles/character/Body.module.scss";
 import EmptyProfile from "@/components/icons/EmptyProfile";
 import { useState, useEffect } from "react";
 import EquipmentSlot from "./slots/EquipmentSlot";
 import AccessorySlot from "./slots/AccessorySlot";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
+import parse from "html-react-parser";
 
-const equipmentOrder: { [key: string]: number } = {
-  투구: 0,
-  어깨: 1,
-  상의: 2,
-  하의: 3,
-  장갑: 4,
-  무기: 5,
-};
-const accessoryOrder: { [key: string]: number } = {
-  목걸이: 0,
-  귀걸이: 1,
-  반지: 2,
-  팔찌: 3,
-  "어빌리티 스톤": 4,
-};
-
-const gradeClassMap: { [key: string]: string } = {
-  전설: "legendaryBackground",
-  유물: "relicsBackground",
-  고대: "ancientBackground",
-  에스더: "estherBackground",
-};
 const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
   const equipKeys = Object.keys(equipmentOrder);
   const accKeys = Object.keys(accessoryOrder);
   const [equipment, setEquipment] = useState<Array<Object>>();
+  const [equipmentTooltipContent, setEquipmentTooltipContent] = useState<any>();
+  const [accessoryTooltipContent, setAccessoryTooltipContent] = useState<any>();
   useEffect(() => {
     if (data.ArmoryEquipment) {
       setEquipment(
@@ -39,9 +27,13 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
           Tooltip: JSON.parse(e.Tooltip),
         }))
       );
-      console.log(equipment);
+      // console.log(equipment);
     }
   }, [data]);
+
+  useEffect(() => {
+    console.log(equipmentTooltipContent);
+  }, [equipmentTooltipContent]);
 
   return (
     <div className={styles.infoContainer}>
@@ -95,6 +87,9 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
                           qualityValue={
                             e.Tooltip.Element_001.value.qualityValue
                           }
+                          contentSetter={() => {
+                            setEquipmentTooltipContent(e);
+                          }}
                         />
                       ))
                   : ""}
@@ -109,7 +104,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
                       )
                       .map((e: any, i: number) => (
                         <AccessorySlot
-                          key={`equipSlot${i}`}
+                          key={`accessorySlot${i}`}
                           grade={gradeClassMap[e.Grade]}
                           iconUrl={e.Icon}
                           qualityValue={
@@ -118,6 +113,10 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
                           showQuality={
                             !(e.Type == "팔찌" || e.Type == "어빌리티 스톤")
                           }
+                          option={e.Tooltip.Element_005.value.Element_001}
+                          contentSetter={() => {
+                            setAccessoryTooltipContent(e);
+                          }}
                         />
                       ))
                   : ""}
@@ -140,8 +139,98 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
       ) : (
         <p>로딩중...</p>
       )}
+      <Tooltip
+        id="equipmentTooltip"
+        className={`${styles.tooltip} ${styles.equipmentTooltip}`}
+        place="right"
+        clickable={true}
+      >
+        {equipmentTooltipContent ? (
+          <>
+            <div
+              dangerouslySetInnerHTML={{
+                __html:
+                  equipmentTooltipContent.Tooltip.Element_000.value.toUpperCase(),
+              }}
+            />
+            <hr />
+            <div className={styles.tooltipGradeDiv}>
+              <img
+                className={gradeClassMap[equipmentTooltipContent.Grade]}
+                src={equipmentTooltipContent.Icon}
+                alt=""
+              />
+              <div className={styles.tooltipGradeInfo}>
+                <p>
+                  {parse(
+                    equipmentTooltipContent.Tooltip.Element_001.value.leftStr0.toUpperCase()
+                  )}
+                </p>
+                <p>
+                  {parse(
+                    equipmentTooltipContent.Tooltip.Element_001.value.leftStr1.toUpperCase()
+                  )}
+                </p>
+                <p>
+                  {parse(
+                    equipmentTooltipContent.Tooltip.Element_001.value.leftStr2.toUpperCase()
+                  )}
+                </p>
+              </div>
+            </div>
+            <div className={styles.tooltipOptionDiv}>
+              <p>
+                {parse(
+                  equipmentTooltipContent.Tooltip.Element_009.value.Element_000.topStr.toUpperCase()
+                )}
+              </p>
+              <p>
+                {parse(
+                  equipmentTooltipContent.Tooltip.Element_005?.value?.Element_000?.toUpperCase()
+                )}
+              </p>
+              <p>
+                {parse(
+                  equipmentTooltipContent.Tooltip.Element_006?.value?.Element_001?.toUpperCase()
+                )}
+              </p>
+              <p>
+                {parse(
+                  equipmentTooltipContent.Tooltip.Element_006?.value?.Element_000?.toUpperCase()
+                )}
+              </p>
+              <p>
+                {parse(
+                  equipmentTooltipContent.Tooltip.Element_005?.value?.Element_001?.toUpperCase()
+                )}
+              </p>
+            </div>
+          </>
+        ) : (
+          "loading..."
+        )}
+      </Tooltip>
+      <Tooltip
+        id="accessoryTooltip"
+        className={`${styles.tooltip} ${styles.accessoryTooltip}`}
+        style={{ zIndex: 30 }}
+        place="right"
+        clickable={true}
+      >
+        <span>Hello</span>
+      </Tooltip>
     </div>
   );
+
+  function parseApiDataToHtmlString(html: string): string {
+    html = html.replaceAll(/FONT/g, "span");
+    html = html.replaceAll(/P/g, "p");
+    html = html.replaceAll(/ALIGN=/g, `style={{textAlign:`);
+    html = html.replaceAll(/COLOR=/g, "style={{color:");
+    html = html.replaceAll(/SIZE=["']/g, "style={{fontSize:");
+
+    return html;
+  }
 };
 
 export default CharMainInfoBlock;

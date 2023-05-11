@@ -2,14 +2,25 @@ import styles from "@/styles/character/Body.module.scss";
 import { AccessorySlotProps } from "@/types/CharacterType";
 
 const AccessorySlot: React.FC<AccessorySlotProps> = ({
-  key,
   grade,
   iconUrl,
   qualityValue,
   showQuality,
+  option,
 }) => {
   return (
-    <div key={key} className={`${styles.profileAccessorySlot} ${grade}`}>
+    <div
+      data-tooltip-id="accessoryTooltip"
+      className={`${styles.profileAccessorySlot} ${grade}`}
+    >
+      <div className={styles.profileAccessoryOption}>
+        {showQuality &&
+          option
+            ?.split("<BR>")
+            .map((e, i) => (
+              <p key={`accOptions${i}`}>{e.substring(0, 1) + e.substring(2)}</p>
+            ))}
+      </div>
       <img
         src={iconUrl}
         alt="로딩실패"
