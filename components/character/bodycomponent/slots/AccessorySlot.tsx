@@ -1,3 +1,4 @@
+import useCssHook from "@/hooks/useBgClassMaker";
 import styles from "@/styles/character/Body.module.scss";
 import { AccessorySlotProps } from "@/types/CharacterType";
 
@@ -7,10 +8,13 @@ const AccessorySlot: React.FC<AccessorySlotProps> = ({
   qualityValue,
   showQuality,
   option,
+  contentSetter,
 }) => {
+  const { bgClassMaker } = useCssHook();
   return (
     <div
       data-tooltip-id="accessoryTooltip"
+      onMouseEnter={contentSetter}
       className={`${styles.profileAccessorySlot} ${grade}`}
     >
       <div className={styles.profileAccessoryOption}>
@@ -35,17 +39,7 @@ const AccessorySlot: React.FC<AccessorySlotProps> = ({
             style={{
               width: `${qualityValue}%`,
             }}
-            className={`h-3 ${
-              qualityValue < 30
-                ? "bg-[#ffd200]"
-                : qualityValue < 70
-                ? "bg-[#61ce02]"
-                : qualityValue < 90
-                ? "bg-[#00B5FF]"
-                : qualityValue < 100
-                ? "bg-[#CE43FC]"
-                : "bg-[#FE9600]"
-            }`}
+            className={`h-3 ${bgClassMaker(qualityValue)}`}
           ></p>
         </div>
       ) : (

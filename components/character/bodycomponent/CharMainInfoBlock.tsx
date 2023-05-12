@@ -11,7 +11,7 @@ import EquipmentSlot from "./slots/EquipmentSlot";
 import AccessorySlot from "./slots/AccessorySlot";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import parse from "html-react-parser";
+import EquipmentTooltip from "./tooltips/EquipmentTooltip";
 
 const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
   const equipKeys = Object.keys(equipmentOrder);
@@ -33,7 +33,8 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
 
   useEffect(() => {
     console.log(equipmentTooltipContent);
-  }, [equipmentTooltipContent]);
+    console.log(accessoryTooltipContent);
+  }, [equipmentTooltipContent, accessoryTooltipContent]);
 
   return (
     <div className={styles.infoContainer}>
@@ -146,74 +147,14 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
         clickable={true}
       >
         {equipmentTooltipContent ? (
-          <>
-            <div
-              dangerouslySetInnerHTML={{
-                __html:
-                  equipmentTooltipContent.Tooltip.Element_000.value.toUpperCase(),
-              }}
-            />
-            <hr />
-            <div className={styles.tooltipGradeDiv}>
-              <img
-                className={gradeClassMap[equipmentTooltipContent.Grade]}
-                src={equipmentTooltipContent.Icon}
-                alt=""
-              />
-              <div className={styles.tooltipGradeInfo}>
-                <p>
-                  {parse(
-                    equipmentTooltipContent.Tooltip.Element_001.value.leftStr0.toUpperCase()
-                  )}
-                </p>
-                <p>
-                  {parse(
-                    equipmentTooltipContent.Tooltip.Element_001.value.leftStr1.toUpperCase()
-                  )}
-                </p>
-                <p>
-                  {parse(
-                    equipmentTooltipContent.Tooltip.Element_001.value.leftStr2.toUpperCase()
-                  )}
-                </p>
-              </div>
-            </div>
-            <div className={styles.tooltipOptionDiv}>
-              <p>
-                {parse(
-                  equipmentTooltipContent.Tooltip.Element_009.value.Element_000.topStr.toUpperCase()
-                )}
-              </p>
-              <p>
-                {parse(
-                  equipmentTooltipContent.Tooltip.Element_005?.value?.Element_000?.toUpperCase()
-                )}
-              </p>
-              <p>
-                {parse(
-                  equipmentTooltipContent.Tooltip.Element_006?.value?.Element_001?.toUpperCase()
-                )}
-              </p>
-              <p>
-                {parse(
-                  equipmentTooltipContent.Tooltip.Element_006?.value?.Element_000?.toUpperCase()
-                )}
-              </p>
-              <p>
-                {parse(
-                  equipmentTooltipContent.Tooltip.Element_005?.value?.Element_001?.toUpperCase()
-                )}
-              </p>
-            </div>
-          </>
+          <EquipmentTooltip data={equipmentTooltipContent} />
         ) : (
-          "loading..."
+          "Loading..."
         )}
       </Tooltip>
       <Tooltip
         id="accessoryTooltip"
         className={`${styles.tooltip} ${styles.accessoryTooltip}`}
-        style={{ zIndex: 30 }}
         place="right"
         clickable={true}
       >
@@ -221,16 +162,6 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
       </Tooltip>
     </div>
   );
-
-  function parseApiDataToHtmlString(html: string): string {
-    html = html.replaceAll(/FONT/g, "span");
-    html = html.replaceAll(/P/g, "p");
-    html = html.replaceAll(/ALIGN=/g, `style={{textAlign:`);
-    html = html.replaceAll(/COLOR=/g, "style={{color:");
-    html = html.replaceAll(/SIZE=["']/g, "style={{fontSize:");
-
-    return html;
-  }
 };
 
 export default CharMainInfoBlock;

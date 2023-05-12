@@ -3,6 +3,26 @@
 @tailwind utilities;
 
 $myBlue: #4691f6;
+$lowQ: #ffd200;
+$mediumLowQ: #61ce02;
+$mediumQ: #00b5ff;
+$highQ: #ce43fc;
+$maxQ: #fe9600;
+.lowQ {
+  background-color: $lowQ;
+}
+.mediumLowQ {
+  background-color: $mediumLowQ;
+}
+.mediumQ {
+  background-color: $mediumQ;
+}
+.highQ {
+  background-color: $highQ;
+}
+.maxQ {
+  background-color: $maxQ;
+}
 
 @font-face {
   font-family: "NanumSquareNeo";

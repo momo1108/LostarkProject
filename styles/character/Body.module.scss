@@ -207,29 +207,55 @@
     }
 
     .tooltip {
-      @apply w-[300px] bg-[#2A2C35] px-0;
+      @apply w-[340px] bg-[#2A2C35] px-0 z-30 max-h-[450px] overflow-auto;
       opacity: 1;
       border-radius: 0;
       border: 1px solid #000;
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+      &::-webkit-scrollbar {
+        width: 4px;
+        height: 8px;
+        background-color: #4a4c55;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #1a1c25;
+      }
 
       & > hr {
         @apply my-1;
         border-color: #000;
       }
-      & > div {
-        @apply px-4;
+      & > div:first-child {
+        @apply px-4 my-0;
       }
+      & > div {
+        @apply px-4 my-3;
+      }
+      .tooltipOuterDiv > div:not(:last-child) {
+        @apply mb-2;
+      }
+
       .tooltipGradeDiv {
-        @apply flex items-center;
+        @apply flex items-center my-2;
         img {
           @apply mr-2;
           border: 1px solid #000;
         }
 
         .tooltipGradeInfo {
-          @apply text-xs;
-          p {
-            font-size: 20px !important;
+          @apply my-1 flex-auto;
+          &:nth-child(n) {
+            @apply py-[2px];
+          }
+
+          .qualityDiv {
+            @apply flex items-center;
+
+            & > div {
+              @apply flex-auto mx-1 bg-[#0002];
+              border: 1px solid #fff3;
+            }
           }
         }
       }

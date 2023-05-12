@@ -1,3 +1,4 @@
+import useCssHook from "@/hooks/useBgClassMaker";
 import styles from "@/styles/character/Body.module.scss";
 import { EquipmentSlotProps } from "@/types/CharacterType";
 
@@ -8,10 +9,10 @@ const EquipmentSlot: React.FC<EquipmentSlotProps> = ({
   qualityValue,
   contentSetter,
 }) => {
+  const { bgClassMaker } = useCssHook();
   return (
     <div
       data-tooltip-id="equipmentTooltip"
-      data-tooltip-delay-hide={300}
       onMouseEnter={contentSetter}
       className={`${styles.profileEquipmentSlot} ${grade}`}
     >
@@ -29,17 +30,7 @@ const EquipmentSlot: React.FC<EquipmentSlotProps> = ({
           style={{
             width: `${qualityValue}%`,
           }}
-          className={`h-3 ${
-            qualityValue < 30
-              ? "bg-[#ffd200]"
-              : qualityValue < 70
-              ? "bg-[#61ce02]"
-              : qualityValue < 90
-              ? "bg-[#00B5FF]"
-              : qualityValue < 100
-              ? "bg-[#CE43FC]"
-              : "bg-[#FE9600]"
-          }`}
+          className={`h-3 ${bgClassMaker(qualityValue)}`}
         ></p>
       </div>
     </div>

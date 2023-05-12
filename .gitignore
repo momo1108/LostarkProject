@@ -38,5 +38,4 @@ next-env.d.ts
 /key
 
 # 테스트용파일
-test.ts
-test.js
+test.*

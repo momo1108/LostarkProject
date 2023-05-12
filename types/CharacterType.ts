@@ -28,6 +28,10 @@ export type EquipmentSlotProps = {
   contentSetter: React.Dispatch<React.SetStateAction<Object | undefined>>;
 };
 
+export type EquipmentTooltipProps = {
+  data: any;
+};
+
 export type AccessorySlotProps = {
   grade: string;
   iconUrl: string;
