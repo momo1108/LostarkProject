@@ -9,11 +9,13 @@ function useApiTagParser() {
   };
   const parseApiDataToHtmlString = useCallback(
     (html: string): ReturnType<typeof domToReact> => {
+      let checker: string = html;
       html = html.toUpperCase();
       html = html.replace(/['"]/g, `"`);
       html = html.replace(/FONT/g, "span");
       html = html.replace(/P/g, "p");
       html = html.replace(/ALIGN="/g, "style='text-align:");
+      html = html.replace(/COLOR=""/g, "");
       html = html.replace(/COLOR="/g, "style='color:");
       html = html.replace(/SIZE="/g, "style='font-size:");
       let ex = stylePatterns.fontSize.exec(html);
@@ -42,12 +44,25 @@ function useApiTagParser() {
           html.substring(ex.index + ex[0].length);
         ex = stylePatterns.textAlign.exec(html);
       }
+
+      html = html.toLowerCase();
+      html = html.replace(
+        /src="[a-zA-z]+locked"/g,
+        `src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/ico_tooltip_locked.png" style="display:inline-block;"`
+      );
+      html = html.replace(
+        /src="[a-zA-z]+changeable"/g,
+        `src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/ico_tooltip_changeable.png" style="display:inline-block;"`
+      );
+      // FONT태그에 스타일 2개인 경우
+      html = html.replace(/;'\sstyle='/g, "; ");
+      if (checker === "fefbweiufbwaueifbawiufb") {
+        console.log(checker);
+        console.log(html);
+      }
       return parse(html);
     },
     []
-  );
-  parseApiDataToHtmlString(
-    "<font size='14'><font color='#91fe02'>갈망</font></font>"
   );
   return { parseApiDataToHtmlString };
 }

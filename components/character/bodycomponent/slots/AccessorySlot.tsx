@@ -17,34 +17,33 @@ const AccessorySlot: React.FC<AccessorySlotProps> = ({
       onMouseEnter={contentSetter}
       className={`${styles.profileAccessorySlot} ${grade}`}
     >
-      <div className={styles.profileAccessoryOption}>
-        {showQuality &&
-          option
-            ?.split("<BR>")
-            .map((e, i) => (
-              <p key={`accOptions${i}`}>{e.substring(0, 1) + e.substring(2)}</p>
-            ))}
+      <div
+        className={`${showQuality ? styles.profileAccessoryOption : "hidden"}`}
+      >
+        {option?.split("<BR>").map((e, i) => (
+          <p key={`accOptions${i}`}>{e.substring(0, 1) + e.substring(2)}</p>
+        ))}
       </div>
       <img
         src={iconUrl}
         alt="로딩실패"
         className={styles.profileAccessoryIcon}
       />
-      {showQuality ? (
-        <div className={styles.profileAccessoryQualityBar}>
-          <span className={styles.profileAccessoryQualityValue}>
-            {qualityValue}
-          </span>
-          <p
-            style={{
-              width: `${qualityValue}%`,
-            }}
-            className={`h-3 ${bgClassMaker(qualityValue)}`}
-          ></p>
-        </div>
-      ) : (
-        ""
-      )}
+      <div
+        className={`${
+          showQuality ? styles.profileAccessoryQualityBar : "hidden"
+        }`}
+      >
+        <span className={styles.profileAccessoryQualityValue}>
+          {qualityValue}
+        </span>
+        <p
+          style={{
+            width: `${qualityValue}%`,
+          }}
+          className={`h-3 ${bgClassMaker(qualityValue)}`}
+        ></p>
+      </div>
     </div>
   );
 };

@@ -12,6 +12,7 @@ import AccessorySlot from "./slots/AccessorySlot";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import EquipmentTooltip from "./tooltips/EquipmentTooltip";
+import AccessoryTooltip from "./tooltips/AccessoryTooltip";
 
 const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
   const equipKeys = Object.keys(equipmentOrder);
@@ -31,10 +32,10 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
     }
   }, [data]);
 
-  useEffect(() => {
-    console.log(equipmentTooltipContent);
-    console.log(accessoryTooltipContent);
-  }, [equipmentTooltipContent, accessoryTooltipContent]);
+  // useEffect(() => {
+  //   console.log(equipmentTooltipContent);
+  //   console.log(accessoryTooltipContent);
+  // }, [equipmentTooltipContent, accessoryTooltipContent]);
 
   return (
     <div className={styles.infoContainer}>
@@ -158,7 +159,11 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
         place="right"
         clickable={true}
       >
-        <span>Hello</span>
+        {accessoryTooltipContent ? (
+          <AccessoryTooltip data={accessoryTooltipContent} />
+        ) : (
+          "Loading..."
+        )}
       </Tooltip>
     </div>
   );

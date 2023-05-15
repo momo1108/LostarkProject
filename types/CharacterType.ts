@@ -32,6 +32,10 @@ export type EquipmentTooltipProps = {
   data: any;
 };
 
+export type AccessoryTooltipProps = {
+  data: any;
+};
+
 export type AccessorySlotProps = {
   grade: string;
   iconUrl: string;
