@@ -137,12 +137,26 @@ body,
   right: 0;
 }
 
+.normalBackground {
+}
+.uncommonBackground {
+  border: 1.5px solid #21330b;
+  background: linear-gradient(135deg, #18220b 0%, #304911 100%);
+}
+.rareBackground {
+  border: 1.5px solid #183653;
+  background: linear-gradient(135deg, #111f2c 0%, #113d5d 100%);
+}
+.epicBackground {
+  border: 1.5px solid #391a4c;
+  background: linear-gradient(135deg, #261331 0%, #480d5d 100%);
+}
 .legendaryBackground {
   border: 1.5px solid rgb(129, 88, 7);
   background: linear-gradient(135deg, #362003 0%, #9e5f04 100%);
 }
 
-.relicsBackground {
+.relicBackground {
   border: 1.5px solid rgb(117, 47, 12);
   background: linear-gradient(135deg, #341a09 0%, #a24006 100%);
 }
@@ -152,7 +166,7 @@ body,
   background: linear-gradient(135deg, #3d3325 0%, #dcc999 100%);
 }
 
-.estherBackground {
+.siderealBackground {
   border: 1.5px solid rgb(37, 142, 174);
   background: linear-gradient(135deg, #0c2e2c 0%, #2faba8 100%);
 }

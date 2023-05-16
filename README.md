@@ -521,5 +521,37 @@ function overflowSetter(position: string, overflow: string): void {
 
 사용 방식은, 메뉴바의 `onMouseEnter`, `onMouseLeave` 이벤트에 따라 html과 body의 position, overflow 속성을 바꿔서 스크롤이 불가능한 상태로 만드는 것이다.
 
-react-tooltip
-html-react-parser
+#### 캐릭터 조회창
+
+기본적으로는 로스트아크 홈페이지의 전투정보실 시스템을 거의 똑같이 참조했다.
+
+추가적인 점은 장비/악세서리 슬롯에 대략적인 정보를 미리 볼 수 있게 표시해준다는 점.
+
+그리고 복잡한 문제가 하나 남아있는데, 바로 툴팁기능이다. 단순 툴팁이 아니라 장비나 악세서리의 툴팁에 해당 장비의 자세한 정보를 출력해주는 기능이다.
+
+여기서 문제는 툴팁 자체를 어떻게 구현할 것인가, 그리고 openAPI의 제한적인 포맷을 어떻게 활용할 것인가이다.
+
+1. 툴팁은 오픈소스 사용 ㅋ.ㅋ
+
+- [`react-tooltip`](https://github.com/ReactTooltip/react-tooltip) 을 활용하여 툴팁기능 자체는 손쉽게 불러왔다.
+- 이제 중요한 건 이 툴팁에 원하는 내용을 출력하는 것.
+
+2. 제한적인 포맷
+
+- Lostark openAPI의 응답데이터를 살펴본 결과, 바로 사용할 수 없는 문제점들이 몇가지가 있었다.
+  1. 응답 데이터 자체는 툴팁에 그대로 사용하면 될 정도로 자세하게 들어가있었다.👍
+  2. 문제는 응답 데이터에 들어간 포맷이, HTML 형태가 아니고, custom Component 형태로 들어가있다.
+  - ex) `<FONT SIZE='12'><FONT COLOR='#A03823'>기본 효과</FONT></FONT>`
+  3. 이런 형태의 데이터가 **문자열** 형태로 들어온다.
+- 뭐 응답데이터의 포맷이 어떻게 되어있는지는 안알려줘도 대충 까보고 파악할 수 있긴하다. 근데 위의 문제점은 내가 직접 parsing function을 만들어야 했다.
+- 처음 생각한 가능성들은 아래와 같다.
+  1. 커스텀 태그 텍스트를 tagName 과 props 를 감지해서 직접 jsx element 로 만들어낸다.
+  2. 정규식을 사용해서 하드코딩 text replace를 통해 수정한다
+
+당연히 1번 방식이 확장성이 좋긴 하겠지만, Lostark 측의 응답 데이터 포맷이 실제로 게임 플레이해보면 알겠지만 그렇게 쉽게 바꾸리만한 것이 아니기 때문에, 간편하게 2번 방식으로 구현했다.
+
+replace를 해도 결과값은 결국 text이기 때문에, text를 jsx로 파싱해줄 기능이 필요하다. 이것도 오픈소스를 사용했다 ㅋ.ㅋ
+
+- [`html-react-parser`](https://www.npmjs.com/package/html-react-parser)
+
+이제 결과적으로 내가 원하는 가장 기본적인 캐릭터 정보 출력 항목은 완성됐다.

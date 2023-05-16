@@ -1,6 +1,8 @@
 import {
   CharMainInfoParams,
   accessoryOrder,
+  emptyAccessoryBackgroundMap,
+  emptyEquipmentBackgroundMap,
   equipmentOrder,
   gradeClassMap,
 } from "@/types/CharacterType";
@@ -15,21 +17,31 @@ import EquipmentTooltip from "./tooltips/EquipmentTooltip";
 import AccessoryTooltip from "./tooltips/AccessoryTooltip";
 
 const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
-  const equipKeys = Object.keys(equipmentOrder);
-  const accKeys = Object.keys(accessoryOrder);
-  const [equipment, setEquipment] = useState<Array<Object>>();
+  const [equipment, setEquipment] = useState<Array<any>>();
+  const [accessory, setAccessory] = useState<Array<any>>();
   const [equipmentTooltipContent, setEquipmentTooltipContent] = useState<any>();
   const [accessoryTooltipContent, setAccessoryTooltipContent] = useState<any>();
   useEffect(() => {
+    const equipment_tmp = new Array(6);
+    const accessory_tmp = new Array(7);
     if (data.ArmoryEquipment) {
-      setEquipment(
-        data.ArmoryEquipment.map((e: any) => ({
-          ...e,
-          Tooltip: JSON.parse(e.Tooltip),
-        }))
-      );
-      // console.log(equipment);
+      data.ArmoryEquipment.map((e: any) => ({
+        ...e,
+        Tooltip: JSON.parse(e.Tooltip),
+      })).forEach((e: any) => {
+        if (equipmentOrder[e.Type]) equipment_tmp[equipmentOrder[e.Type]] = e;
+        if (accessoryOrder[e.Type]) {
+          if (!!accessory_tmp[accessoryOrder[e.Type]])
+            accessory_tmp[accessoryOrder[e.Type] + 1] = e;
+          else accessory_tmp[accessoryOrder[e.Type]] = e;
+        }
+      });
     }
+    setEquipment(equipment_tmp);
+    setAccessory(accessory_tmp);
+    console.log(equipment_tmp);
+    console.log(accessory_tmp);
+    console.log(data);
   }, [data]);
 
   // useEffect(() => {
@@ -74,53 +86,65 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
             <div className={styles.profileBody}>
               <div className={styles.profileEquipmentDiv}>
                 {equipment
-                  ? equipment
-                      .filter((e: any) => equipKeys.includes(e.Type))
-                      .sort(
-                        (a: any, b: any) =>
-                          equipmentOrder[a.Type] - equipmentOrder[b.Type]
-                      )
-                      .map((e: any, i: number) => (
+                  ? [0, 1, 2, 3, 4, 5].map((e: number) =>
+                      equipment[e] ? (
                         <EquipmentSlot
-                          key={`equipSlot${i}`}
-                          grade={gradeClassMap[e.Grade]}
-                          honing={e.Name.split(" ")[0]}
-                          iconUrl={e.Icon}
+                          key={`equipSlot${e}`}
+                          grade={gradeClassMap[equipment[e].Grade]}
+                          honing={equipment[e].Name.split(" ")[0]}
+                          iconUrl={equipment[e].Icon}
                           qualityValue={
-                            e.Tooltip.Element_001.value.qualityValue
+                            equipment[e].Tooltip.Element_001.value.qualityValue
                           }
                           contentSetter={() => {
-                            setEquipmentTooltipContent(e);
+                            setEquipmentTooltipContent(equipment[e]);
                           }}
                         />
-                      ))
+                      ) : (
+                        <div
+                          key={`emptyEquipmentSlot${e}`}
+                          className={`${styles.profileEquipmentSlot} ${
+                            styles.profileEmptySlot
+                          } ${styles[emptyEquipmentBackgroundMap[e]]}`}
+                        ></div>
+                      )
+                    )
                   : ""}
               </div>
               <div className={styles.profileAccessoryDiv}>
-                {equipment
-                  ? equipment
-                      .filter((e: any) => accKeys.includes(e.Type))
-                      .sort(
-                        (a: any, b: any) =>
-                          accessoryOrder[a.Type] - accessoryOrder[b.Type]
-                      )
-                      .map((e: any, i: number) => (
+                {accessory
+                  ? [0, 1, 2, 3, 4, 5, 6].map((e: number) =>
+                      accessory[e] ? (
                         <AccessorySlot
-                          key={`accessorySlot${i}`}
-                          grade={gradeClassMap[e.Grade]}
-                          iconUrl={e.Icon}
+                          key={`accessorySlot${e}`}
+                          grade={gradeClassMap[accessory[e].Grade]}
+                          iconUrl={accessory[e].Icon}
                           qualityValue={
-                            e.Tooltip.Element_001.value.qualityValue
+                            accessory[e].Tooltip.Element_001.value.qualityValue
                           }
                           showQuality={
-                            !(e.Type == "팔찌" || e.Type == "어빌리티 스톤")
+                            !(
+                              accessory[e].Type == "팔찌" ||
+                              accessory[e].Type == "어빌리티 스톤"
+                            ) &&
+                            parseFloat(data.ArmoryProfile.ItemAvgLevel) >= 1415
                           }
-                          option={e.Tooltip.Element_005.value.Element_001}
+                          option={
+                            accessory[e].Tooltip.Element_005.value.Element_001
+                          }
                           contentSetter={() => {
-                            setAccessoryTooltipContent(e);
+                            setAccessoryTooltipContent(accessory[e]);
                           }}
                         />
-                      ))
+                      ) : (
+                        <div
+                          key={`emptyAccessorySlot${e}`}
+                          className={`${styles.profileAccessorySlot} ${
+                            styles.profileEmptySlot
+                          } ${styles[emptyAccessoryBackgroundMap[e]]}`}
+                        ></div>
+                      )
+                    )
                   : ""}
               </div>
 

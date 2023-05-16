@@ -16,13 +16,23 @@ const EquipmentSlot: React.FC<EquipmentSlotProps> = ({
       onMouseEnter={contentSetter}
       className={`${styles.profileEquipmentSlot} ${grade}`}
     >
-      <p className={styles.profileEquipmentHoning}>{honing}강</p>
+      <p
+        className={`${styles.profileEquipmentHoning}${
+          honing.startsWith("+") ? "" : " hidden"
+        }`}
+      >
+        {honing}강
+      </p>
       <img
         src={iconUrl}
         alt="로딩실패"
         className={styles.profileEquipmentIcon}
       />
-      <div className={styles.profileEquipmentQualityBar}>
+      <div
+        className={`${styles.profileEquipmentQualityBar}${
+          qualityValue >= 0 ? "" : " hidden"
+        }`}
+      >
         <span className={styles.profileEquipmentQualityValue}>
           {qualityValue}
         </span>

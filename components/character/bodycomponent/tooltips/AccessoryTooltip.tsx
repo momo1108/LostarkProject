@@ -53,12 +53,40 @@ const AccessoryTooltip: React.FC<AccessoryTooltipProps> = ({ data }) => {
       </div>
       <hr />
       <div className={styles.tooltipOptionDiv}>
-        <p>{parse(data.Tooltip.Element_004.value.Element_000)}</p>
-        <p>{parse(data.Tooltip.Element_004.value.Element_001)}</p>
+        {data.Tooltip.Element_004?.type === "ItemPartBox" ? (
+          <>
+            <p>{parse(data.Tooltip.Element_004.value.Element_000)}</p>
+            <p>{parse(data.Tooltip.Element_004.value.Element_001)}</p>
+          </>
+        ) : (
+          <></>
+        )}
         {["목걸이", "귀걸이", "반지"].includes(data.Type) ? (
           <>
-            <p>{parse(data.Tooltip.Element_005.value.Element_000)}</p>
-            <p>{parse(data.Tooltip.Element_005.value.Element_001)}</p>
+            {data.Tooltip.Element_005?.type === "ItemPartBox" ? (
+              <>
+                <p>{parse(data.Tooltip.Element_005.value.Element_000)}</p>
+                <p>{parse(data.Tooltip.Element_005.value.Element_001)}</p>
+              </>
+            ) : (
+              <></>
+            )}
+            {data.Tooltip.Element_006?.type === "ItemPartBox" ? (
+              <>
+                <p>{parse(data.Tooltip.Element_006.value.Element_000)}</p>
+                <p>{parse(data.Tooltip.Element_006.value.Element_001)}</p>
+              </>
+            ) : (
+              <></>
+            )}
+            {data.Tooltip.Element_007?.type === "ItemPartBox" ? (
+              <>
+                <p>{parse(data.Tooltip.Element_007.value.Element_000)}</p>
+                <p>{parse(data.Tooltip.Element_007.value.Element_001)}</p>
+              </>
+            ) : (
+              <></>
+            )}
           </>
         ) : (
           <></>
@@ -101,16 +129,20 @@ const AccessoryTooltip: React.FC<AccessoryTooltipProps> = ({ data }) => {
           </div>
         </>
       ) : data.Type !== "팔찌" ? (
-        <div>
-          {parse(data.Tooltip.Element_006.value.Element_000.topStr)}
-          {Object.values(
-            data.Tooltip.Element_006.value.Element_000.contentStr
-          ).map((el: any, i1) => {
-            return (
-              <p key={`accessoryEngraving${i1}`}>{parse(el.contentStr)}</p>
-            );
-          })}
-        </div>
+        data.Tooltip.Element_006.type === "IndentStringGroup" ? (
+          <div>
+            {parse(data.Tooltip.Element_006.value.Element_000.topStr)}
+            {Object.values(
+              data.Tooltip.Element_006.value.Element_000.contentStr
+            ).map((el: any, i1) => {
+              return (
+                <p key={`accessoryEngraving${i1}`}>{parse(el.contentStr)}</p>
+              );
+            })}
+          </div>
+        ) : (
+          <></>
+        )
       ) : (
         <></>
       )}

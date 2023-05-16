@@ -27,32 +27,56 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
         <img className={gradeClassMap[data.Grade]} src={data.Icon} alt="" />
         <div className={styles.tooltipGradeInfo}>
           <p>{parse(data.Tooltip.Element_001.value.leftStr0)}</p>
-          <div className={styles.qualityDiv}>
-            {parse(data.Tooltip.Element_001.value.leftStr1)}
-            &nbsp;
-            <span style={{ fontSize: 14 }}>
-              {data.Tooltip.Element_001.value.qualityValue}
-            </span>
-            <div>
-              <div
-                style={{
-                  width: `${data.Tooltip.Element_001.value.qualityValue}%`,
-                }}
-                className={`h-3 ${bgClassMaker(
-                  data.Tooltip.Element_001.value.qualityValue
-                )}`}
-              />
+          {data.Tooltip.Element_001.value.qualityValue >= 0 ? (
+            <div className={styles.qualityDiv}>
+              {parse(data.Tooltip.Element_001.value.leftStr1)}
+              &nbsp;
+              <span style={{ fontSize: 14 }}>
+                {data.Tooltip.Element_001.value.qualityValue}
+              </span>
+              <div>
+                <div
+                  style={{
+                    width: `${data.Tooltip.Element_001.value.qualityValue}%`,
+                  }}
+                  className={`h-3 ${bgClassMaker(
+                    data.Tooltip.Element_001.value.qualityValue
+                  )}`}
+                />
+              </div>
             </div>
-          </div>
+          ) : (
+            <></>
+          )}
           <p>{parse(data.Tooltip.Element_001.value.leftStr2)} </p>
         </div>
       </div>
       <hr />
       <div className={styles.tooltipOptionDiv}>
-        <p>{parse(data.Tooltip.Element_005.value.Element_000)}</p>
-        <p>{parse(data.Tooltip.Element_005.value.Element_001)}</p>
-        <p>{parse(data.Tooltip.Element_006.value.Element_000)}</p>
-        <p>{parse(data.Tooltip.Element_006.value.Element_001)}</p>
+        {data.Tooltip.Element_005?.type === "ItemPartBox" ? (
+          <>
+            <p>{parse(data.Tooltip.Element_005.value.Element_000)}</p>
+            <p>{parse(data.Tooltip.Element_005.value.Element_001)}</p>
+          </>
+        ) : (
+          <></>
+        )}
+        {data.Tooltip.Element_006?.type === "ItemPartBox" ? (
+          <>
+            <p>{parse(data.Tooltip.Element_006.value.Element_000)}</p>
+            <p>{parse(data.Tooltip.Element_006.value.Element_001)}</p>
+          </>
+        ) : (
+          <></>
+        )}
+        {data.Tooltip.Element_007?.type === "ItemPartBox" ? (
+          <>
+            <p>{parse(data.Tooltip.Element_007.value.Element_000)}</p>
+            <p>{parse(data.Tooltip.Element_007.value.Element_001)}</p>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
       {elements.map((e: string) => {
         if (!data.Tooltip[`Element${e}`]) return "";

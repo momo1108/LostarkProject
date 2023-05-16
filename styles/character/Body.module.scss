@@ -1,3 +1,8 @@
+$brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+@function getEmptySlotBackground($num) {
+  @return url(https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot#{$num}.png);
+}
+
 .container {
   @apply flex flex-auto flex-col items-center justify-center;
 
@@ -38,8 +43,8 @@
   }
 
   .recentContainer {
-    @apply text-3xl min-w-[450px] min-h-[400px] font-bold flex flex-col justify-center items-center text-[#bbb] my-2 bg-[#fff2];
-    border: 3px solid #888;
+    @apply text-3xl flex-auto w-3/4 font-bold flex flex-col justify-center items-center text-[#bbb] my-2 bg-[#222];
+    border: 1px solid #373737;
     border-radius: 10px;
 
     .iconBox {
@@ -189,6 +194,45 @@
                 }
               }
             }
+          }
+          .profileEmptySlot {
+            @apply w-[43px] h-[43px] p-[7px] #{!important};
+            background-repeat: no-repeat;
+            border-radius: 5px;
+            background-size: contain;
+          }
+          .profileEmptyHelm {
+            background-image: $brighter, getEmptySlotBackground(1);
+          }
+          .profileEmptyShoulders {
+            background-image: $brighter, getEmptySlotBackground(2);
+          }
+          .profileEmptyChestpiece {
+            background-image: $brighter, getEmptySlotBackground(3);
+          }
+          .profileEmptyPants {
+            background-image: $brighter, getEmptySlotBackground(4);
+          }
+          .profileEmptyGloves {
+            background-image: $brighter, getEmptySlotBackground(5);
+          }
+          .profileEmptyWeapon {
+            background-image: $brighter, getEmptySlotBackground(6);
+          }
+          .profileEmptyNecklace {
+            background-image: $brighter, getEmptySlotBackground(7);
+          }
+          .profileEmptyEarring {
+            background-image: $brighter, getEmptySlotBackground(8);
+          }
+          .profileEmptyRing {
+            background-image: $brighter, getEmptySlotBackground(10);
+          }
+          .profileEmptyBracelet {
+            background-image: $brighter, getEmptySlotBackground(19);
+          }
+          .profileEmptyAbilityStone {
+            background-image: $brighter, getEmptySlotBackground(12);
           }
           .profileImage {
             @apply absolute top-1/2 left-1/2 z-0;
