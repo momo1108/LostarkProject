@@ -29,8 +29,9 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
         ...e,
         Tooltip: JSON.parse(e.Tooltip),
       })).forEach((e: any) => {
-        if (equipmentOrder[e.Type]) equipment_tmp[equipmentOrder[e.Type]] = e;
-        if (accessoryOrder[e.Type]) {
+        if (equipmentOrder.hasOwnProperty(e.Type))
+          equipment_tmp[equipmentOrder[e.Type]] = e;
+        if (accessoryOrder.hasOwnProperty(e.Type)) {
           if (!!accessory_tmp[accessoryOrder[e.Type]])
             accessory_tmp[accessoryOrder[e.Type] + 1] = e;
           else accessory_tmp[accessoryOrder[e.Type]] = e;
