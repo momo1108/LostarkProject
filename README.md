@@ -9,10 +9,10 @@
 - react
 - react-router
 - redux
+- Next.js
 
 ### Back-end
 
-- Next.js
 
 ### 배포 서버
 

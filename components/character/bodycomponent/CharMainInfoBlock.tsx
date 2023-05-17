@@ -1,29 +1,32 @@
 import {
-  CharMainInfoParams,
+  CharMainInfoProps,
   accessoryOrder,
-  emptyAccessoryBackgroundMap,
-  emptyEquipmentBackgroundMap,
+  avatarOrder,
   equipmentOrder,
-  gradeClassMap,
 } from "@/types/CharacterType";
 import styles from "@/styles/character/Body.module.scss";
 import EmptyProfile from "@/components/icons/EmptyProfile";
 import { useState, useEffect } from "react";
-import EquipmentSlot from "./slots/EquipmentSlot";
-import AccessorySlot from "./slots/AccessorySlot";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import EquipmentTooltip from "./tooltips/EquipmentTooltip";
 import AccessoryTooltip from "./tooltips/AccessoryTooltip";
+import ArmoryProfile from "./innercontaineritems/ArmoryProfile";
 
-const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
+const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
+  loading,
+  data,
+  render,
+}) => {
   const [equipment, setEquipment] = useState<Array<any>>();
   const [accessory, setAccessory] = useState<Array<any>>();
+  const [avatar, setAvatar] = useState<Array<any>>();
   const [equipmentTooltipContent, setEquipmentTooltipContent] = useState<any>();
   const [accessoryTooltipContent, setAccessoryTooltipContent] = useState<any>();
   useEffect(() => {
     const equipment_tmp = new Array(6);
     const accessory_tmp = new Array(7);
+    const avatar_tmp = new Array(12);
     if (data.ArmoryEquipment) {
       data.ArmoryEquipment.map((e: any) => ({
         ...e,
@@ -40,9 +43,36 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
     }
     setEquipment(equipment_tmp);
     setAccessory(accessory_tmp);
-    console.log(equipment_tmp);
-    console.log(accessory_tmp);
-    console.log(data);
+    // console.log(equipment_tmp);
+    // console.log(accessory_tmp);
+    if (data.ArmoryAvatars) {
+      data.ArmoryAvatars.map((e: any) => ({
+        ...e,
+        Tooltip: JSON.parse(e.Tooltip),
+      })).forEach((e: any) => {
+        const index = avatarOrder[e.Type];
+        // e.Type을 avatarOrder에 매칭시켜 부위별 아바타의
+        // 정보를 아바타 배열 고정위치에 삽입
+        // 이동효과는 ""로 들어옴 ㅡ,.ㅡ
+        if (!e.Type) avatar_tmp[avatarOrder["이동 효과 아바타"]] = e;
+        else {
+          // e.Type이 제대로 들어오는 나머지
+          if (avatar_tmp[index]) {
+            // openApi는 전설부터 정렬해서 보내주는데
+            // 혹시 몰라서 예비용 조건문 추가.
+            if (avatar_tmp[index].Grade === "영웅") {
+              avatar_tmp[index + 1] = avatar_tmp[index];
+              avatar_tmp[index] = e;
+            } else {
+              avatar_tmp[index + 1] = e;
+            }
+          } else avatar_tmp[index] = e;
+        }
+      });
+    }
+    setAvatar(avatar_tmp);
+    // console.log(avatar_tmp);
+    // console.log(data);
   }, [data]);
 
   // useEffect(() => {
@@ -50,122 +80,37 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
   //   console.log(accessoryTooltipContent);
   // }, [equipmentTooltipContent, accessoryTooltipContent]);
 
-  return (
+  return loading ? (
+    <div className={styles.loadingContainer}>
+      <p className={styles.loadingMessage}>검색을 진행중입니다.</p>
+      <svg
+        id="triangle"
+        width="180"
+        height="180"
+        viewBox="-3 -4 39 39"
+        data-testid="triangle-svg"
+        className={styles.loadingSvg}
+      >
+        <polygon
+          fill="transparent"
+          stroke="#55f4"
+          strokeWidth="2"
+          points="16,0 32,32 0,32"
+        ></polygon>
+      </svg>
+    </div>
+  ) : render ? (
     <div className={styles.infoContainer}>
-      {render ? (
-        <>
-          <div className={styles.infoContainerItemDiv}>
-            <div className={styles.profileHeader}>
-              <p className={styles.profileHeaderLine}>
-                <span className={styles.profileServerSpan}>
-                  @{data.ArmoryProfile.ServerName}
-                </span>
-                <span className={styles.profileNameSpan}>
-                  [ <b>Lv.{data.ArmoryProfile.CharacterLevel}</b>{" "}
-                  <span>{data.ArmoryProfile.CharacterName}</span> ]
-                </span>
-                <span className={styles.profileClassSpan}>
-                  {data.ArmoryProfile.CharacterClassName}
-                </span>
-              </p>
-              <p className={styles.profileHeaderLine}>
-                <span className={styles.profileCategorySpan}>아이템 레벨</span>
-                <span>{data.ArmoryProfile.ItemAvgLevel.replace(",", "")}</span>
-                <span className={styles.profileCategorySpan}>원정대 레벨</span>
-                <span>{data.ArmoryProfile.ExpeditionLevel}</span>
-              </p>
-              <p className={styles.profileHeaderLine}>
-                <span className={styles.profileCategorySpan}>영지</span>
-                <span>
-                  {data.ArmoryProfile.TownName} Lv.
-                  {data.ArmoryProfile.TownLevel}
-                </span>
-                <span className={styles.profileCategorySpan}>칭호</span>
-                <span>{data.ArmoryProfile.Title}</span>
-              </p>
-            </div>
-            <div className={styles.profileBody}>
-              <div className={styles.profileEquipmentDiv}>
-                {equipment
-                  ? [0, 1, 2, 3, 4, 5].map((e: number) =>
-                      equipment[e] ? (
-                        <EquipmentSlot
-                          key={`equipSlot${e}`}
-                          grade={gradeClassMap[equipment[e].Grade]}
-                          honing={equipment[e].Name.split(" ")[0]}
-                          iconUrl={equipment[e].Icon}
-                          qualityValue={
-                            equipment[e].Tooltip.Element_001.value.qualityValue
-                          }
-                          contentSetter={() => {
-                            setEquipmentTooltipContent(equipment[e]);
-                          }}
-                        />
-                      ) : (
-                        <div
-                          key={`emptyEquipmentSlot${e}`}
-                          className={`${styles.profileEquipmentSlot} ${
-                            styles.profileEmptySlot
-                          } ${styles[emptyEquipmentBackgroundMap[e]]}`}
-                        ></div>
-                      )
-                    )
-                  : ""}
-              </div>
-              <div className={styles.profileAccessoryDiv}>
-                {accessory
-                  ? [0, 1, 2, 3, 4, 5, 6].map((e: number) =>
-                      accessory[e] ? (
-                        <AccessorySlot
-                          key={`accessorySlot${e}`}
-                          grade={gradeClassMap[accessory[e].Grade]}
-                          iconUrl={accessory[e].Icon}
-                          qualityValue={
-                            accessory[e].Tooltip.Element_001.value.qualityValue
-                          }
-                          showQuality={
-                            !(
-                              accessory[e].Type == "팔찌" ||
-                              accessory[e].Type == "어빌리티 스톤"
-                            ) &&
-                            parseFloat(data.ArmoryProfile.ItemAvgLevel) >= 1415
-                          }
-                          option={
-                            accessory[e].Tooltip.Element_005.value.Element_001
-                          }
-                          contentSetter={() => {
-                            setAccessoryTooltipContent(accessory[e]);
-                          }}
-                        />
-                      ) : (
-                        <div
-                          key={`emptyAccessorySlot${e}`}
-                          className={`${styles.profileAccessorySlot} ${
-                            styles.profileEmptySlot
-                          } ${styles[emptyAccessoryBackgroundMap[e]]}`}
-                        ></div>
-                      )
-                    )
-                  : ""}
-              </div>
+      <ArmoryProfile
+        data={data}
+        equipment={equipment}
+        accessory={accessory}
+        setEquipmentTooltipContent={setEquipmentTooltipContent}
+        setAccessoryTooltipContent={setAccessoryTooltipContent}
+      />
+      <div className={styles.infoContainerItemDiv}>hello</div>
+      <div className={styles.infoContainerItemDiv}>hello</div>
 
-              {data.ArmoryProfile.CharacterImage ? (
-                <img
-                  className={styles.profileImage}
-                  src={data.ArmoryProfile.CharacterImage}
-                  alt=""
-                />
-              ) : (
-                <EmptyProfile />
-              )}
-            </div>
-          </div>
-          <div className={styles.infoContainerItemDiv}>hello</div>
-          <div className={styles.infoContainerItemDiv}>hello</div>
-        </>
-      ) : (
-        <p>로딩중...</p>
-      )}
       <Tooltip
         id="equipmentTooltip"
         className={`${styles.tooltip} ${styles.equipmentTooltip}`}
@@ -190,6 +135,20 @@ const CharMainInfoBlock: React.FC<CharMainInfoParams> = ({ data, render }) => {
           "Loading..."
         )}
       </Tooltip>
+    </div>
+  ) : (
+    <div className={styles.emptyContainer}>
+      <p className={styles.emptyMessage}>
+        <span className={styles.charName}>
+          {data.ArmoryProfile?.CharacterName}
+        </span>{" "}
+        캐릭터 정보가 없습니다.
+        <br />
+        캐릭터명을 확인해주세요.
+      </p>
+      <div className={styles.emptyBody}>
+        <EmptyProfile />
+      </div>
     </div>
   );
 };

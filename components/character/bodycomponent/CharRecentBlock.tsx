@@ -1,10 +1,7 @@
 import styles from "@/styles/character/Body.module.scss";
-import { CharRecentBlockParams } from "@/types/CharacterType";
+import { CharRecentBlockProps } from "@/types/CharacterType";
 
-const CharRecentBlock: React.FC<CharRecentBlockParams> = ({
-  names,
-  search,
-}) => {
+const CharRecentBlock: React.FC<CharRecentBlockProps> = ({ names, search }) => {
   return (
     <div className={styles.recentContainer}>
       {names.length ? (

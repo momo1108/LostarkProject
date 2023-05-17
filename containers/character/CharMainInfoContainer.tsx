@@ -15,12 +15,14 @@ export default function CharMainInfoContainer() {
   );
   const [render, setRender] = useState<boolean>(false);
   useEffect(() => {
-    setRender(!loading && "ArmoryProfile" in data);
+    if (!loading && data.ArmoryProfile && data.ArmoryProfile.CharacterImage)
+      setRender(true);
+    else setRender(false);
   }, [loading, data]);
 
   useEffect(() => {
     dispatch(getChar(router.query.name![0]));
   }, [dispatch, router]);
 
-  return <CharMainInfoBox data={data} render={render} />;
+  return <CharMainInfoBox loading={loading} data={data} render={render} />;
 }

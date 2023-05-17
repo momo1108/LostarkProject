@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import styles from "@/styles/character/Body.module.scss";
-import { CharSearchBarParams } from "@/types/CharacterType";
+import { CharSearchBarProps } from "@/types/CharacterType";
 
-const CharSearchBar: React.FC<CharSearchBarParams> = ({
+const CharSearchBar: React.FC<CharSearchBarProps> = ({
   search,
   loading,
   shrink,

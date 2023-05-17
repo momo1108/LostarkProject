@@ -2,6 +2,9 @@ $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
 @function getEmptySlotBackground($num) {
   @return url(https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot#{$num}.png);
 }
+@function getEmptyAvatarSlotBackground($num) {
+  @return url(https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_avatar_slot#{$num}.png);
+}
 
 .container {
   @apply flex flex-auto flex-col items-center justify-center;
@@ -134,6 +137,39 @@ $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
           }
         }
 
+        .profileMenu {
+          @apply flex mb-2;
+          .profileMenuSep {
+            @apply mx-6;
+            border-left: 1px solid #444;
+          }
+          .profileMenuBtn {
+            @apply text-white hover:font-bold px-4 py-1 cursor-pointer relative;
+            &::after {
+              content: "";
+              position: absolute;
+              width: 100%;
+              transform: scaleX(0);
+              height: 2px;
+              bottom: 0;
+              left: 0;
+              background-color: #172f9c;
+              transform-origin: bottom right;
+              transition: transform 0.25s ease-out;
+            }
+            &:hover::after {
+              transform: scaleX(1);
+              transform-origin: bottom left;
+            }
+            &.active {
+              @apply font-bold;
+              &::after {
+                transform: scaleX(1) !important;
+              }
+            }
+          }
+        }
+
         .profileBody {
           @apply relative bg-[#15181d] flex justify-between;
           width: 450px;
@@ -234,17 +270,34 @@ $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
           .profileEmptyAbilityStone {
             background-image: $brighter, getEmptySlotBackground(12);
           }
+          .profileEmptyWeaponAvatar {
+            background-image: $brighter, getEmptyAvatarSlotBackground(1);
+          }
+          .profileEmptyInstrumentAvatar {
+            background-image: $brighter, getEmptyAvatarSlotBackground(2);
+          }
+          .profileEmptyMovementAvatar {
+            background-image: $brighter, getEmptyAvatarSlotBackground(8);
+          }
+          .profileEmptyHeadAvatar {
+            background-image: $brighter, getEmptyAvatarSlotBackground(3);
+          }
+          .profileEmptyFace1Avatar {
+            background-image: $brighter, getEmptyAvatarSlotBackground(4);
+          }
+          .profileEmptyFace2Avatar {
+            background-image: $brighter, getEmptyAvatarSlotBackground(5);
+          }
+          .profileEmptyChestpieceAvatar {
+            background-image: $brighter, getEmptyAvatarSlotBackground(6);
+          }
+          .profileEmptyPantsAvatar {
+            background-image: $brighter, getEmptyAvatarSlotBackground(7);
+          }
           .profileImage {
             @apply absolute top-1/2 left-1/2 z-0;
             transform: translate(-50%, -50%);
             height: 500px;
-          }
-          // 혹시라도 기본이미지를 못불러오면 대신 출력
-          .emptyProfileIcon {
-            @apply my-[15px] mx-[62.5px] absolute top-1/2 left-1/2 z-0;
-            transform: translate(-200px, -231px);
-            width: 275px;
-            height: 432px;
           }
         }
       }
@@ -304,6 +357,50 @@ $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
         }
       }
     }
+  }
+
+  .loadingContainer {
+    @apply flex-auto flex w-full flex-col items-center justify-center;
+    .loadingSvg {
+      @apply m-4;
+      transform-origin: 50% 65%;
+      polygon {
+        stroke-dasharray: 17;
+        animation: 2.5s cubic-bezier(0.35, 0.04, 0.63, 0.95) 0s infinite normal
+          none running spinning;
+      }
+    }
+    .loadingMessage {
+      @apply text-white font-bold text-2xl;
+    }
+  }
+
+  .emptyContainer {
+    @apply flex-auto flex w-full flex-col items-center justify-center;
+    .emptyMessage {
+      @apply text-white font-bold;
+      .charName {
+        @apply text-[#ee0393];
+      }
+    }
+    .emptyBody {
+      @apply relative;
+      width: 450px;
+      height: 500px;
+      // 혹시라도 기본이미지 링크가 없으면 없는 캐릭터로
+      .emptyProfileIcon {
+        @apply my-[15px] mx-[62.5px] absolute top-1/2 left-1/2 z-0;
+        transform: translate(-200px, -231px);
+        width: 275px;
+        height: 432px;
+      }
+    }
+  }
+}
+
+@keyframes spinning {
+  100% {
+    stroke-dashoffset: 136;
   }
 }
 

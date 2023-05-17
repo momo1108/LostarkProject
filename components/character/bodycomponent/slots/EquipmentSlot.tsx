@@ -6,6 +6,7 @@ const EquipmentSlot: React.FC<EquipmentSlotProps> = ({
   grade,
   honing,
   iconUrl,
+  showQuality,
   qualityValue,
   contentSetter,
 }) => {
@@ -30,7 +31,7 @@ const EquipmentSlot: React.FC<EquipmentSlotProps> = ({
       />
       <div
         className={`${styles.profileEquipmentQualityBar}${
-          qualityValue >= 0 ? "" : " hidden"
+          qualityValue >= 0 && showQuality ? "" : " hidden"
         }`}
       >
         <span className={styles.profileEquipmentQualityValue}>

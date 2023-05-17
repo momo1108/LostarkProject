@@ -1,29 +1,43 @@
 import { CharData } from "./ReducerType";
 
-export type CharRecentBlockParams = {
+export type CharRecentBlockProps = {
   search: (name: string) => void;
   names: string[];
 };
 
-export type CharSearchBarParams = {
+export type CharSearchBarProps = {
   search: (name: string) => void;
   loading: boolean;
   shrink: boolean;
 };
 
-export type CharMainInfoParams = {
+export type CharMainInfoProps = {
+  loading: boolean;
   data: CharData;
   render: boolean;
 };
 
-export type CharRecentContainerParams = {
+export type CharRecentContainerProps = {
   names: string[];
+};
+
+export type ArmoryProfileProps = {
+  data: CharData;
+  equipment: any;
+  accessory: any;
+  setEquipmentTooltipContent: React.Dispatch<
+    React.SetStateAction<Object | undefined>
+  >;
+  setAccessoryTooltipContent: React.Dispatch<
+    React.SetStateAction<Object | undefined>
+  >;
 };
 
 export type EquipmentSlotProps = {
   grade: string;
   honing: string;
   iconUrl: string;
+  showQuality: boolean;
   qualityValue: number;
   contentSetter: React.Dispatch<React.SetStateAction<Object | undefined>>;
 };
@@ -45,14 +59,6 @@ export type AccessorySlotProps = {
   contentSetter: React.Dispatch<React.SetStateAction<Object | undefined>>;
 };
 
-export type FontProps = {
-  [key: string]: any;
-};
-
-export type PProps = {
-  [key: string]: any;
-};
-
 export const equipmentOrder: { [key: string]: number } = {
   투구: 0,
   어깨: 1,
@@ -67,6 +73,16 @@ export const accessoryOrder: { [key: string]: number } = {
   반지: 3,
   팔찌: 5,
   "어빌리티 스톤": 6,
+};
+export const avatarOrder: { [key: string]: number } = {
+  "무기 아바타": 0,
+  "악기 아바타": 2,
+  "이동 효과 아바타": 3,
+  "머리 아바타": 4,
+  "얼굴1 아바타": 6,
+  "얼굴2 아바타": 7,
+  "상의 아바타": 8,
+  "하의 아바타": 10,
 };
 export const emptyEquipmentBackgroundMap: { [key: number]: string } = {
   0: "profileEmptyHelm",
@@ -84,6 +100,20 @@ export const emptyAccessoryBackgroundMap: { [key: number]: string } = {
   4: "profileEmptyRing",
   5: "profileEmptyBracelet",
   6: "profileEmptyAbilityStone",
+};
+export const emptyAvatarBackgroundMap: { [key: number]: string } = {
+  0: "profileEmptyWeaponAvatar",
+  1: "profileEmptyWeaponAvatar",
+  2: "profileEmptyInstrumentAvatar",
+  3: "profileEmptyMovementAvatar",
+  4: "profileEmptyHeadAvatar",
+  5: "profileEmptyHeadAvatar",
+  6: "profileEmptyFace1Avatar",
+  7: "profileEmptyFace2Avatar",
+  8: "profileEmptyChestpieceAvatar",
+  9: "profileEmptyChestpieceAvatar",
+  10: "profileEmptyPantsAvatar",
+  11: "profileEmptyPantsAvatar",
 };
 
 export const gradeClassMap: { [key: string]: string } = {
