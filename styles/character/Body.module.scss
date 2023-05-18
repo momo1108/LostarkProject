@@ -1,4 +1,5 @@
 $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+$brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
 @function getEmptySlotBackground($num) {
   @return url(https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot#{$num}.png);
 }
@@ -98,7 +99,7 @@ $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
       @apply bg-[#0901] w-full relative min-h-[600px] max-w-[550px] mx-auto;
 
       &:first-child {
-        @apply flex flex-col justify-center items-center;
+        @apply flex flex-col items-center;
         .profileHeader {
           @apply py-1 w-full;
           .profileHeaderLine {
@@ -144,7 +145,7 @@ $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
             border-left: 1px solid #444;
           }
           .profileMenuBtn {
-            @apply text-white hover:font-bold px-4 py-1 cursor-pointer relative;
+            @apply text-white text-center hover:font-bold w-[70px] py-1 cursor-pointer relative;
             &::after {
               content: "";
               position: absolute;
@@ -184,8 +185,9 @@ $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
               border-radius: 5px;
 
               .profileEquipmentHoning {
-                @apply absolute top-0 left-1 font-bold text-white;
+                @apply absolute top-0 left-0 font-bold text-white bg-[#0005] px-1;
                 font-size: 11px;
+                border-radius: 5px;
               }
               .profileEquipmentQualityBar {
                 @apply absolute bottom-0 w-full h-[9px] bg-[#0003];
@@ -231,6 +233,36 @@ $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
               }
             }
           }
+          .profileAvatarDiv {
+            @apply w-[140px] h-full px-2 relative z-10 flex flex-wrap flex-col py-8 justify-between items-start;
+            &:nth-child(2) {
+              @apply items-end;
+            }
+
+            .profileAvatarSubAscDiv,
+            .profileAvatarSubDescDiv {
+              @apply flex w-full justify-between items-center;
+            }
+            .profileAvatarSubDescDiv {
+              @apply flex-row-reverse;
+            }
+            .profileAvatarSlot {
+              @apply w-[46px] h-[46px] p-1 flex justify-center items-center relative overflow-hidden;
+              box-sizing: content-box;
+              border-radius: 5px;
+              &.profileEmptySlot {
+                @apply w-[41px] h-[41px] p-[7px] #{!important};
+                background-repeat: no-repeat;
+                border-radius: 5px;
+                background-size: contain;
+              }
+            }
+            .blankAvatarSlot {
+              @apply w-[46px] h-[46px] p-1 flex;
+              box-sizing: content-box;
+              border-radius: 5px;
+            }
+          }
           .profileEmptySlot {
             @apply w-[43px] h-[43px] p-[7px] #{!important};
             background-repeat: no-repeat;
@@ -271,28 +303,28 @@ $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
             background-image: $brighter, getEmptySlotBackground(12);
           }
           .profileEmptyWeaponAvatar {
-            background-image: $brighter, getEmptyAvatarSlotBackground(1);
+            background-image: $brighter2, getEmptyAvatarSlotBackground(1);
           }
           .profileEmptyInstrumentAvatar {
-            background-image: $brighter, getEmptyAvatarSlotBackground(2);
+            background-image: $brighter2, getEmptyAvatarSlotBackground(2);
           }
           .profileEmptyMovementAvatar {
-            background-image: $brighter, getEmptyAvatarSlotBackground(8);
+            background-image: $brighter2, getEmptyAvatarSlotBackground(8);
           }
           .profileEmptyHeadAvatar {
-            background-image: $brighter, getEmptyAvatarSlotBackground(3);
+            background-image: $brighter2, getEmptyAvatarSlotBackground(3);
           }
           .profileEmptyFace1Avatar {
-            background-image: $brighter, getEmptyAvatarSlotBackground(4);
+            background-image: $brighter2, getEmptyAvatarSlotBackground(4);
           }
           .profileEmptyFace2Avatar {
-            background-image: $brighter, getEmptyAvatarSlotBackground(5);
+            background-image: $brighter2, getEmptyAvatarSlotBackground(5);
           }
           .profileEmptyChestpieceAvatar {
-            background-image: $brighter, getEmptyAvatarSlotBackground(6);
+            background-image: $brighter2, getEmptyAvatarSlotBackground(6);
           }
           .profileEmptyPantsAvatar {
-            background-image: $brighter, getEmptyAvatarSlotBackground(7);
+            background-image: $brighter2, getEmptyAvatarSlotBackground(7);
           }
           .profileImage {
             @apply absolute top-1/2 left-1/2 z-0;
@@ -306,6 +338,7 @@ $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
     .tooltip {
       @apply w-[340px] bg-[#2A2C35] px-0 z-30 max-h-[450px] overflow-auto;
       opacity: 1;
+      font-size: 14px;
       border-radius: 0;
       border: 1px solid #000;
       -ms-overflow-style: none; /* IE and Edge */
@@ -336,7 +369,8 @@ $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
       .tooltipGradeDiv {
         @apply flex items-center my-2;
         img {
-          @apply mr-2;
+          @apply mr-2 w-[64px];
+          box-sizing: content-box;
           border: 1px solid #000;
         }
 
@@ -355,6 +389,10 @@ $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
             }
           }
         }
+      }
+
+      .tooltipTradeParagraph {
+        @apply flex justify-between items-center;
       }
     }
   }

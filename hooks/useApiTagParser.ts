@@ -11,6 +11,12 @@ function useApiTagParser() {
     (html: string): ReturnType<typeof domToReact> => {
       let checker: string = html;
       html = html.toUpperCase();
+
+      // 아바타 성향 관련 전처리
+      if (html.startsWith("|")) html = html.slice(1);
+      html = html.replace(/&TDC_SMART|&TDC_COURAGE|&TDC_CHARM|&TDC_KIND/g, "");
+      html = html.trim();
+
       html = html.replace(/['"]/g, `"`);
       html = html.replace(/FONT/g, "span");
       html = html.replace(/P/g, "p");

@@ -25,10 +25,14 @@ export type ArmoryProfileProps = {
   data: CharData;
   equipment: any;
   accessory: any;
+  avatar: any;
   setEquipmentTooltipContent: React.Dispatch<
     React.SetStateAction<Object | undefined>
   >;
   setAccessoryTooltipContent: React.Dispatch<
+    React.SetStateAction<Object | undefined>
+  >;
+  setAvatarTooltipContent: React.Dispatch<
     React.SetStateAction<Object | undefined>
   >;
 };
@@ -42,14 +46,6 @@ export type EquipmentSlotProps = {
   contentSetter: React.Dispatch<React.SetStateAction<Object | undefined>>;
 };
 
-export type EquipmentTooltipProps = {
-  data: any;
-};
-
-export type AccessoryTooltipProps = {
-  data: any;
-};
-
 export type AccessorySlotProps = {
   grade: string;
   iconUrl: string;
@@ -57,6 +53,20 @@ export type AccessorySlotProps = {
   showQuality: boolean;
   option: string;
   contentSetter: React.Dispatch<React.SetStateAction<Object | undefined>>;
+};
+
+export type AvatarSlotProps = {
+  grade: string;
+  iconUrl: string;
+  contentSetter: React.Dispatch<React.SetStateAction<Object | undefined>>;
+};
+
+export type EquipmentTooltipProps = {
+  data: any;
+};
+
+export type AccessoryTooltipProps = {
+  data: any;
 };
 
 export const equipmentOrder: { [key: string]: number } = {

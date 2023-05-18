@@ -254,3 +254,59 @@ const ArmoryProfile: React.FC<ArmoryProfileProps> = ({
 };
 
 export default ArmoryProfile;
+/*
+ArmoryGem{
+  Gems	[Gem{
+    Slot	integer($int32)
+    Name	string
+    Icon	string
+    Level	integer($int32)
+    Grade	string
+    Tooltip	string
+  }]
+  Effects	[GemEffect{
+    GemSlot	integer($int32)
+    Name	string
+    Description	string
+    Icon	string
+    Tooltip	string
+  }]
+}
+
+ArmoryEngraving{
+  Engravings	[Engraving{
+    Slot	integer($int32)
+    Name	string
+    Icon	string
+    Tooltip	string
+  }]
+  Effects	[Effect{
+    Name	string
+    Description	string
+  }]
+}
+
+ArmorySkill{
+  Name	string
+  Icon	string
+  Level	integer($int32)
+  Type	string
+  IsAwakening	boolean
+  Tripods	[SkillTripod{
+    Tier	integer($int32)
+    Slot	integer($int32)
+    Name	string
+    Icon	string
+    Level	integer($int32)
+    IsSelected	boolean
+    Tooltip	string
+  }]
+  Rune	SkillRune{
+    Name	string
+    Icon	string
+    Grade	string
+    Tooltip	string
+  }
+  Tooltip	string
+}
+*/

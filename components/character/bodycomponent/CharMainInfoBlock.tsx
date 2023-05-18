@@ -12,6 +12,7 @@ import "react-tooltip/dist/react-tooltip.css";
 import EquipmentTooltip from "./tooltips/EquipmentTooltip";
 import AccessoryTooltip from "./tooltips/AccessoryTooltip";
 import ArmoryProfile from "./innercontaineritems/ArmoryProfile";
+import AvatarTooltip from "./tooltips/AvatarTooltip";
 
 const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
   loading,
@@ -23,6 +24,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
   const [avatar, setAvatar] = useState<Array<any>>();
   const [equipmentTooltipContent, setEquipmentTooltipContent] = useState<any>();
   const [accessoryTooltipContent, setAccessoryTooltipContent] = useState<any>();
+  const [avatarTooltipContent, setAvatarTooltipContent] = useState<any>();
   useEffect(() => {
     const equipment_tmp = new Array(6);
     const accessory_tmp = new Array(7);
@@ -60,7 +62,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
           if (avatar_tmp[index]) {
             // openApi는 전설부터 정렬해서 보내주는데
             // 혹시 몰라서 예비용 조건문 추가.
-            if (avatar_tmp[index].Grade === "영웅") {
+            if (e.IsInner) {
               avatar_tmp[index + 1] = avatar_tmp[index];
               avatar_tmp[index] = e;
             } else {
@@ -71,8 +73,14 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
       });
     }
     setAvatar(avatar_tmp);
+
+    // console.log("========================");
+    // avatar_tmp.forEach((element: any) => {
+    //   console.log(element.Type, element.Grade, element.Tooltip);
+    // });
+    // console.log("========================");
     // console.log(avatar_tmp);
-    // console.log(data);
+    console.log(data);
   }, [data]);
 
   // useEffect(() => {
@@ -105,8 +113,10 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
         data={data}
         equipment={equipment}
         accessory={accessory}
+        avatar={avatar}
         setEquipmentTooltipContent={setEquipmentTooltipContent}
         setAccessoryTooltipContent={setAccessoryTooltipContent}
+        setAvatarTooltipContent={setAvatarTooltipContent}
       />
       <div className={styles.infoContainerItemDiv}>hello</div>
       <div className={styles.infoContainerItemDiv}>hello</div>
@@ -131,6 +141,19 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
       >
         {accessoryTooltipContent ? (
           <AccessoryTooltip data={accessoryTooltipContent} />
+        ) : (
+          "Loading..."
+        )}
+      </Tooltip>
+      <Tooltip
+        id="avatarTooltip"
+        className={`${styles.tooltip} ${styles.avatarTooltip}`}
+        place="right"
+        clickable={true}
+        offset={16}
+      >
+        {avatarTooltipContent ? (
+          <AvatarTooltip data={avatarTooltipContent} />
         ) : (
           "Loading..."
         )}
