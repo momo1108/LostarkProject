@@ -1,6 +1,7 @@
 import styles from "@/styles/character/Body.module.scss";
-import { EquipmentTooltipProps, gradeClassMap } from "@/types/CharacterType";
+import { gradeClassMap } from "@/types/CharacterType";
 import useApiTagParser from "@/hooks/useApiTagParser";
+import { EquipmentTooltipProps } from "@/types/EAAType";
 
 const AvatarTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
   const { parseApiDataToHtmlString: parse } = useApiTagParser();

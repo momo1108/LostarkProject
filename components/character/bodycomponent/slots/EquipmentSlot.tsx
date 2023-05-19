@@ -1,6 +1,6 @@
 import useCssHook from "@/hooks/useBgClassMaker";
 import styles from "@/styles/character/Body.module.scss";
-import { EquipmentSlotProps } from "@/types/CharacterType";
+import { EquipmentSlotProps } from "@/types/EAAType";
 
 const EquipmentSlot: React.FC<EquipmentSlotProps> = ({
   grade,

@@ -100,236 +100,277 @@ $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
 
       &:first-child {
         @apply flex flex-col items-center;
-        .profileHeader {
-          @apply py-1 w-full;
-          .profileHeaderLine {
-            @apply flex justify-center items-center text-[#eee] font-bold mb-1;
-            line-height: 24px;
+      }
 
-            &:first-child > span {
-              @apply mx-1;
-            }
-            .profileServerSpan {
-              @apply py-1 px-3 bg-[#116] text-sm;
-              border-radius: 14px;
-            }
-            .profileNameSpan {
-              @apply font-normal;
-              & > span {
-                @apply font-extrabold;
-              }
-            }
-            .profileClassSpan {
-              @apply text-sm;
-            }
+      .profileHeader {
+        @apply py-1 w-full;
+        .profileHeaderLine {
+          @apply flex justify-center items-center text-[#eee] font-bold mb-1;
+          line-height: 24px;
 
-            &:not(:first-child) > span {
-              @apply mr-2 text-sm;
+          &:first-child > span {
+            @apply mx-1;
+          }
+          .profileServerSpan {
+            @apply py-1 px-3 bg-[#116] text-sm;
+            border-radius: 14px;
+          }
+          .profileNameSpan {
+            @apply font-normal;
+            & > span {
+              @apply font-extrabold;
+            }
+          }
+          .profileClassSpan {
+            @apply text-sm;
+          }
 
-              &:last-child {
-                @apply mr-0;
-              }
+          &:not(:first-child) > span {
+            @apply mr-2 text-sm;
+
+            &:last-child {
+              @apply mr-0;
             }
-            .profileCategorySpan {
-              @apply py-1 px-2 bg-[#116] font-extrabold;
-              border-radius: 12px;
-              font-size: 11px !important;
-            }
+          }
+          .profileCategorySpan {
+            @apply py-1 px-2 bg-[#116] font-extrabold;
+            border-radius: 12px;
+            font-size: 11px !important;
           }
         }
+      }
 
-        .profileMenu {
-          @apply flex mb-2;
-          .profileMenuSep {
-            @apply mx-6;
-            border-left: 1px solid #444;
+      .profileMenu {
+        @apply flex mb-2;
+        .profileMenuSep {
+          @apply mx-6;
+          border-left: 1px solid #444;
+        }
+        .profileMenuBtn {
+          @apply text-white text-center hover:font-bold w-[70px] py-1 cursor-pointer relative;
+          &::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #172f9c;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
           }
-          .profileMenuBtn {
-            @apply text-white text-center hover:font-bold w-[70px] py-1 cursor-pointer relative;
+          &:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+          }
+          &.active {
+            @apply font-bold;
             &::after {
-              content: "";
-              position: absolute;
-              width: 100%;
-              transform: scaleX(0);
-              height: 2px;
-              bottom: 0;
-              left: 0;
-              background-color: #172f9c;
-              transform-origin: bottom right;
-              transition: transform 0.25s ease-out;
+              transform: scaleX(1) !important;
             }
-            &:hover::after {
-              transform: scaleX(1);
-              transform-origin: bottom left;
+          }
+        }
+      }
+
+      .profileBody {
+        @apply relative bg-[#15181d] flex justify-between;
+        width: 450px;
+        height: 500px;
+
+        .profileEquipmentDiv {
+          @apply w-[70px] h-full relative z-10 flex flex-wrap flex-col py-8 justify-between items-center;
+
+          .profileEquipmentSlot {
+            @apply w-[40px] h-[40px] p-[7px] flex justify-center items-center relative overflow-hidden;
+            box-sizing: content-box;
+            border-radius: 5px;
+
+            .profileEquipmentHoning {
+              @apply absolute top-0 left-0 font-bold text-white bg-[#0005] px-1;
+              font-size: 11px;
+              border-radius: 5px;
             }
-            &.active {
-              @apply font-bold;
-              &::after {
-                transform: scaleX(1) !important;
+            .profileEquipmentQualityBar {
+              @apply absolute bottom-0 w-full h-[9px] bg-[#0003];
+              font-size: 9px;
+              line-height: 9px;
+              border-top: 1px solid #0001;
+
+              .profileEquipmentQualityValue {
+                @apply absolute top-1/2 left-1/2 text-white z-20;
+                transform: translate(-50%, -50%);
               }
             }
           }
         }
+        .profileAccessoryDiv {
+          @apply w-[70px] h-full relative z-10 flex flex-wrap flex-col py-4 justify-between items-center;
 
-        .profileBody {
-          @apply relative bg-[#15181d] flex justify-between;
-          width: 450px;
-          height: 500px;
-
-          .profileEquipmentDiv {
-            @apply w-[70px] h-full relative z-10 flex flex-wrap flex-col py-8 justify-between items-center;
-
-            .profileEquipmentSlot {
-              @apply w-[40px] h-[40px] p-[7px] flex justify-center items-center relative overflow-hidden;
-              box-sizing: content-box;
-              border-radius: 5px;
-
-              .profileEquipmentHoning {
-                @apply absolute top-0 left-0 font-bold text-white bg-[#0005] px-1;
-                font-size: 11px;
-                border-radius: 5px;
-              }
-              .profileEquipmentQualityBar {
-                @apply absolute bottom-0 w-full h-[9px] bg-[#0003];
-                font-size: 9px;
-                line-height: 9px;
-                border-top: 1px solid #0001;
-
-                .profileEquipmentQualityValue {
-                  @apply absolute top-1/2 left-1/2 text-white z-20;
-                  transform: translate(-50%, -50%);
-                }
-              }
-            }
-          }
-          .profileAccessoryDiv {
-            @apply w-[70px] h-full relative z-10 flex flex-wrap flex-col py-4 justify-between items-center;
-
-            .profileAccessorySlot {
-              @apply w-[46px] h-[46px] p-1 flex justify-center items-center relative overflow-hidden;
-              box-sizing: content-box;
-              border-radius: 5px;
-
-              .profileAccessoryOption {
-                @apply absolute top-0 left-0 font-bold text-white bg-[#0005] pb-[5px] px-1;
-                font-size: 11px;
-                border-radius: 5px;
-
-                & > p {
-                  height: 11px;
-                }
-              }
-
-              .profileAccessoryQualityBar {
-                @apply absolute bottom-0 w-full h-[9px] bg-[#0003];
-                font-size: 9px;
-                line-height: 9px;
-                border-top: 1px solid #0001;
-
-                .profileAccessoryQualityValue {
-                  @apply absolute top-1/2 left-1/2 text-white z-20;
-                  transform: translate(-50%, -50%);
-                }
-              }
-            }
-          }
-          .profileAvatarDiv {
-            @apply w-[140px] h-full px-2 relative z-10 flex flex-wrap flex-col py-8 justify-between items-start;
-            &:nth-child(2) {
-              @apply items-end;
-            }
-
-            .profileAvatarSubAscDiv,
-            .profileAvatarSubDescDiv {
-              @apply flex w-full justify-between items-center;
-            }
-            .profileAvatarSubDescDiv {
-              @apply flex-row-reverse;
-            }
-            .profileAvatarSlot {
-              @apply w-[46px] h-[46px] p-1 flex justify-center items-center relative overflow-hidden;
-              box-sizing: content-box;
-              border-radius: 5px;
-              &.profileEmptySlot {
-                @apply w-[41px] h-[41px] p-[7px] #{!important};
-                background-repeat: no-repeat;
-                border-radius: 5px;
-                background-size: contain;
-              }
-            }
-            .blankAvatarSlot {
-              @apply w-[46px] h-[46px] p-1 flex;
-              box-sizing: content-box;
-              border-radius: 5px;
-            }
-          }
-          .profileEmptySlot {
-            @apply w-[43px] h-[43px] p-[7px] #{!important};
-            background-repeat: no-repeat;
+          .profileAccessorySlot {
+            @apply w-[46px] h-[46px] p-1 flex justify-center items-center relative overflow-hidden;
+            box-sizing: content-box;
             border-radius: 5px;
-            background-size: contain;
+
+            .profileAccessoryOption {
+              @apply absolute top-0 left-0 font-bold text-white bg-[#0005] pb-[5px] px-1;
+              font-size: 11px;
+              border-radius: 5px;
+
+              & > p {
+                height: 11px;
+              }
+            }
+
+            .profileAccessoryQualityBar {
+              @apply absolute bottom-0 w-full h-[9px] bg-[#0003];
+              font-size: 9px;
+              line-height: 9px;
+              border-top: 1px solid #0001;
+
+              .profileAccessoryQualityValue {
+                @apply absolute top-1/2 left-1/2 text-white z-20;
+                transform: translate(-50%, -50%);
+              }
+            }
           }
-          .profileEmptyHelm {
-            background-image: $brighter, getEmptySlotBackground(1);
+        }
+        .profileAvatarDiv {
+          @apply w-[140px] h-full px-2 relative z-10 flex flex-wrap flex-col py-8 justify-between items-start;
+          &:nth-child(2) {
+            @apply items-end;
           }
-          .profileEmptyShoulders {
-            background-image: $brighter, getEmptySlotBackground(2);
+
+          .profileAvatarSubAscDiv,
+          .profileAvatarSubDescDiv {
+            @apply flex w-full justify-between items-center;
           }
-          .profileEmptyChestpiece {
-            background-image: $brighter, getEmptySlotBackground(3);
+          .profileAvatarSubDescDiv {
+            @apply flex-row-reverse;
           }
-          .profileEmptyPants {
-            background-image: $brighter, getEmptySlotBackground(4);
+          .profileAvatarSlot {
+            @apply w-[46px] h-[46px] p-1 flex justify-center items-center relative overflow-hidden;
+            box-sizing: content-box;
+            border-radius: 5px;
+            &.profileEmptySlot {
+              @apply w-[41px] h-[41px] p-[7px] #{!important};
+              background-repeat: no-repeat;
+              border-radius: 5px;
+              background-size: contain;
+            }
           }
-          .profileEmptyGloves {
-            background-image: $brighter, getEmptySlotBackground(5);
+          .blankAvatarSlot {
+            @apply w-[46px] h-[46px] p-1 flex;
+            box-sizing: content-box;
+            border-radius: 5px;
           }
-          .profileEmptyWeapon {
-            background-image: $brighter, getEmptySlotBackground(6);
+        }
+        .profileEmptySlot {
+          @apply w-[43px] h-[43px] p-[7px] #{!important};
+          background-repeat: no-repeat;
+          border-radius: 5px;
+          background-size: contain;
+        }
+        .profileEmptyHelm {
+          background-image: $brighter, getEmptySlotBackground(1);
+        }
+        .profileEmptyShoulders {
+          background-image: $brighter, getEmptySlotBackground(2);
+        }
+        .profileEmptyChestpiece {
+          background-image: $brighter, getEmptySlotBackground(3);
+        }
+        .profileEmptyPants {
+          background-image: $brighter, getEmptySlotBackground(4);
+        }
+        .profileEmptyGloves {
+          background-image: $brighter, getEmptySlotBackground(5);
+        }
+        .profileEmptyWeapon {
+          background-image: $brighter, getEmptySlotBackground(6);
+        }
+        .profileEmptyNecklace {
+          background-image: $brighter, getEmptySlotBackground(7);
+        }
+        .profileEmptyEarring {
+          background-image: $brighter, getEmptySlotBackground(8);
+        }
+        .profileEmptyRing {
+          background-image: $brighter, getEmptySlotBackground(10);
+        }
+        .profileEmptyBracelet {
+          background-image: $brighter, getEmptySlotBackground(19);
+        }
+        .profileEmptyAbilityStone {
+          background-image: $brighter, getEmptySlotBackground(12);
+        }
+        .profileEmptyWeaponAvatar {
+          background-image: $brighter2, getEmptyAvatarSlotBackground(1);
+        }
+        .profileEmptyInstrumentAvatar {
+          background-image: $brighter2, getEmptyAvatarSlotBackground(2);
+        }
+        .profileEmptyMovementAvatar {
+          background-image: $brighter2, getEmptyAvatarSlotBackground(8);
+        }
+        .profileEmptyHeadAvatar {
+          background-image: $brighter2, getEmptyAvatarSlotBackground(3);
+        }
+        .profileEmptyFace1Avatar {
+          background-image: $brighter2, getEmptyAvatarSlotBackground(4);
+        }
+        .profileEmptyFace2Avatar {
+          background-image: $brighter2, getEmptyAvatarSlotBackground(5);
+        }
+        .profileEmptyChestpieceAvatar {
+          background-image: $brighter2, getEmptyAvatarSlotBackground(6);
+        }
+        .profileEmptyPantsAvatar {
+          background-image: $brighter2, getEmptyAvatarSlotBackground(7);
+        }
+        .profileImage {
+          @apply absolute top-1/2 left-1/2 z-0;
+          transform: translate(-50%, -50%);
+          height: 500px;
+        }
+      }
+
+      // &:nth-child(2) {
+      //   @apply flex flex-wrap;
+      // }
+      .engravingHeader {
+        @apply flex flex-wrap gap-2 py-1 px-4 items-center min-h-[64px];
+        .engravingHeaderP {
+          @apply text-[#eee] text-sm bg-[#116] font-bold px-3 py-1;
+          border-radius: 14px;
+        }
+        .engravingEquipDiv {
+          @apply flex items-center text-[#eee] gap-2 mx-2 text-sm font-bold;
+          .engravingEquipIconDiv {
+            @apply w-[56px] h-[56px] relative;
+
+            img {
+              @apply absolute top-1/2 left-1/2;
+              transform: translate(-50%, -50%);
+            }
+
+            .engravingEquipIconImage {
+              border-radius: 50%;
+            }
           }
-          .profileEmptyNecklace {
-            background-image: $brighter, getEmptySlotBackground(7);
+          .engravingEquipNameP {
+            @apply max-w-[90px];
+            line-break: anywhere;
           }
-          .profileEmptyEarring {
-            background-image: $brighter, getEmptySlotBackground(8);
-          }
-          .profileEmptyRing {
-            background-image: $brighter, getEmptySlotBackground(10);
-          }
-          .profileEmptyBracelet {
-            background-image: $brighter, getEmptySlotBackground(19);
-          }
-          .profileEmptyAbilityStone {
-            background-image: $brighter, getEmptySlotBackground(12);
-          }
-          .profileEmptyWeaponAvatar {
-            background-image: $brighter2, getEmptyAvatarSlotBackground(1);
-          }
-          .profileEmptyInstrumentAvatar {
-            background-image: $brighter2, getEmptyAvatarSlotBackground(2);
-          }
-          .profileEmptyMovementAvatar {
-            background-image: $brighter2, getEmptyAvatarSlotBackground(8);
-          }
-          .profileEmptyHeadAvatar {
-            background-image: $brighter2, getEmptyAvatarSlotBackground(3);
-          }
-          .profileEmptyFace1Avatar {
-            background-image: $brighter2, getEmptyAvatarSlotBackground(4);
-          }
-          .profileEmptyFace2Avatar {
-            background-image: $brighter2, getEmptyAvatarSlotBackground(5);
-          }
-          .profileEmptyChestpieceAvatar {
-            background-image: $brighter2, getEmptyAvatarSlotBackground(6);
-          }
-          .profileEmptyPantsAvatar {
-            background-image: $brighter2, getEmptyAvatarSlotBackground(7);
-          }
-          .profileImage {
-            @apply absolute top-1/2 left-1/2 z-0;
-            transform: translate(-50%, -50%);
-            height: 500px;
+        }
+      }
+      .engravingBody {
+        @apply px-2;
+        .engravingEffectsDiv {
+          @apply inline-flex items-center text-[#eee] gap-2 mx-2 text-xs font-bold;
+
+          .engravingEquipIconImage {
+            border-radius: 50%;
           }
         }
       }

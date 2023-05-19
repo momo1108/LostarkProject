@@ -70,7 +70,23 @@ function useApiTagParser() {
     },
     []
   );
-  return { parseApiDataToHtmlString };
+  const parseEngravingPoint = useCallback(
+    (html: string): ReturnType<typeof domToReact> => {
+      const point: number = parseInt(html.replace(/<[^>]+>/g, "").slice(11));
+      const color: string =
+        point >= 12
+          ? "#fe9600"
+          : point >= 9
+          ? "#ce43fc"
+          : point >= 6
+          ? "#00b5ff"
+          : "#61ce02";
+
+      return parse(`<span style="color:${color};">+${point}</span>`);
+    },
+    []
+  );
+  return { parseApiDataToHtmlString, parseEngravingPoint };
 }
 
 export default useApiTagParser;

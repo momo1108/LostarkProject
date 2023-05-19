@@ -4,8 +4,8 @@ import {
   emptyAccessoryBackgroundMap,
   emptyAvatarBackgroundMap,
   emptyEquipmentBackgroundMap,
-  gradeClassMap,
-} from "@/types/CharacterType";
+} from "@/types/EAAType";
+import { gradeClassMap } from "@/types/CharacterType";
 import EquipmentSlot from "../slots/EquipmentSlot";
 import AccessorySlot from "../slots/AccessorySlot";
 import AvatarSlot from "../slots/AvatarSlot";

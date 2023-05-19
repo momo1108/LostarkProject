@@ -13,7 +13,6 @@
 
 ### Back-end
 
-
 ### 배포 서버
 
 - Amazon Web Service EC2
@@ -548,9 +547,9 @@ function overflowSetter(position: string, overflow: string): void {
   1. 커스텀 태그 텍스트를 tagName 과 props 를 감지해서 직접 jsx element 로 만들어낸다.
   2. 정규식을 사용해서 하드코딩 text replace를 통해 수정한다
 
-당연히 1번 방식이 확장성이 좋긴 하겠지만, Lostark 측의 응답 데이터 포맷이 실제로 게임 플레이해보면 알겠지만 그렇게 쉽게 바꾸리만한 것이 아니기 때문에, 간편하게 2번 방식으로 구현했다.
+당연히 1번 방식이 확장성이 좋긴 하겠지만, Lostark 측의 응답 데이터 포맷이 실제로 게임 플레이해보면 알겠지만 그렇게 쉽게 바뀔만한 것이 아니기 때문에, 간편하게 2번 방식으로 구현했다.
 
-replace를 해도 결과값은 결국 text이기 때문에, text를 jsx로 파싱해줄 기능이 필요하다. 이것도 오픈소스를 사용했다 ㅋ.ㅋ
+replace를 해도 결과값은 결국 text이기 때문에, text를 React element로 파싱해줄 기능이 필요하다. 이것도 오픈소스를 사용했다 ㅋ.ㅋ
 
 - [`html-react-parser`](https://www.npmjs.com/package/html-react-parser)
 

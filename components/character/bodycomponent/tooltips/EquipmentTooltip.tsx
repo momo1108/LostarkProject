@@ -1,7 +1,8 @@
 import styles from "@/styles/character/Body.module.scss";
-import { EquipmentTooltipProps, gradeClassMap } from "@/types/CharacterType";
+import { gradeClassMap } from "@/types/CharacterType";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import useCssHook from "@/hooks/useBgClassMaker";
+import { EquipmentTooltipProps } from "@/types/EAAType";
 
 const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
   const { parseApiDataToHtmlString: parse } = useApiTagParser();

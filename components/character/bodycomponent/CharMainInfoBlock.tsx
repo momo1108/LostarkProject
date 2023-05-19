@@ -1,9 +1,5 @@
-import {
-  CharMainInfoProps,
-  accessoryOrder,
-  avatarOrder,
-  equipmentOrder,
-} from "@/types/CharacterType";
+import { CharMainInfoProps } from "@/types/CharacterType";
+import { accessoryOrder, avatarOrder, equipmentOrder } from "@/types/EAAType";
 import styles from "@/styles/character/Body.module.scss";
 import EmptyProfile from "@/components/icons/EmptyProfile";
 import { useState, useEffect } from "react";
@@ -13,6 +9,7 @@ import EquipmentTooltip from "./tooltips/EquipmentTooltip";
 import AccessoryTooltip from "./tooltips/AccessoryTooltip";
 import ArmoryProfile from "./innercontaineritems/ArmoryProfile";
 import AvatarTooltip from "./tooltips/AvatarTooltip";
+import ArmoryEGC from "./innercontaineritems/ArmoryEGC";
 
 const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
   loading,
@@ -118,7 +115,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
         setAccessoryTooltipContent={setAccessoryTooltipContent}
         setAvatarTooltipContent={setAvatarTooltipContent}
       />
-      <div className={styles.infoContainerItemDiv}>hello</div>
+      <ArmoryEGC data={data} />
       <div className={styles.infoContainerItemDiv}>hello</div>
 
       <Tooltip

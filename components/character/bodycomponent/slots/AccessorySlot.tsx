@@ -1,6 +1,6 @@
 import useCssHook from "@/hooks/useBgClassMaker";
 import styles from "@/styles/character/Body.module.scss";
-import { AccessorySlotProps } from "@/types/CharacterType";
+import { AccessorySlotProps } from "@/types/EAAType";
 
 const AccessorySlot: React.FC<AccessorySlotProps> = ({
   grade,
