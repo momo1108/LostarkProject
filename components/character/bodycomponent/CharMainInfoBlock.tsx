@@ -22,6 +22,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
   const [equipmentTooltipContent, setEquipmentTooltipContent] = useState<any>();
   const [accessoryTooltipContent, setAccessoryTooltipContent] = useState<any>();
   const [avatarTooltipContent, setAvatarTooltipContent] = useState<any>();
+  const [engravingTooltipContent, setEngravingTooltipContent] = useState<any>();
   useEffect(() => {
     const equipment_tmp = new Array(6);
     const accessory_tmp = new Array(7);
@@ -115,7 +116,10 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
         setAccessoryTooltipContent={setAccessoryTooltipContent}
         setAvatarTooltipContent={setAvatarTooltipContent}
       />
-      <ArmoryEGC data={data} />
+      <ArmoryEGC
+        data={data}
+        setEngravingTooltipContent={setEngravingTooltipContent}
+      />
       <div className={styles.infoContainerItemDiv}>hello</div>
 
       <Tooltip
@@ -154,6 +158,15 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
         ) : (
           "Loading..."
         )}
+      </Tooltip>
+      <Tooltip
+        id="engravingTooltip"
+        className={`${styles.tooltip} ${styles.engravingTooltip}`}
+        place="top"
+        clickable={true}
+        offset={12}
+      >
+        {engravingTooltipContent ? engravingTooltipContent : "Loading..."}
       </Tooltip>
     </div>
   ) : (

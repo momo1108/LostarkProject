@@ -86,7 +86,11 @@ function useApiTagParser() {
     },
     []
   );
-  return { parseApiDataToHtmlString, parseEngravingPoint };
+  const parseGemName = useCallback((html: string): [string, number] => {
+    const info: string[] = html.replace(/<[^>]+>/g, "").split(" ");
+    return [info[0][0] + info[1][0], info[1][0] === "멸" ? 0 : 1];
+  }, []);
+  return { parseApiDataToHtmlString, parseEngravingPoint, parseGemName };
 }
 
 export default useApiTagParser;

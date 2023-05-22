@@ -2,25 +2,54 @@ import useApiTagParser from "@/hooks/useApiTagParser";
 import styles from "@/styles/character/Body.module.scss";
 import {
   ArmoryEGCProps,
-  LOAWA_ENG_ICON_URL,
   engravingIconMap,
   engravingLevelColorMap,
 } from "@/types/EGCType";
 import { useEffect, useState } from "react";
 
-const ArmoryEGC: React.FC<ArmoryEGCProps> = ({ data }) => {
+const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
+  data,
+  setEngravingTooltipContent,
+}) => {
   // console.log("ArmoryEGC");
-  const { parseEngravingPoint } = useApiTagParser();
+  const { parseEngravingPoint, parseGemName } = useApiTagParser();
   const [engEquip, setEngEquip] = useState<any>();
+  const [gemEquip, setGemEquip] = useState<any>(new Array(11));
   useEffect(() => {
-    if (data.ArmoryEngraving?.Engraving)
+    if (data.ArmoryEngraving?.Engravings) {
       setEngEquip(
         data.ArmoryEngraving.Engravings.map((e: any) => ({
           ...e,
           Tooltip: JSON.parse(e.Tooltip),
         }))
       );
-    else setEngEquip(new Array(2));
+    } else setEngEquip(new Array(2));
+
+    if (data.ArmoryGem?.Gems) {
+      const mergedGemInfo: [] = data.ArmoryGem.Gems.map((gem: any) => {
+        const effect = data.ArmoryGem.Effects.find(
+          (ef: any) => ef.GemSlot === gem.Slot
+        );
+        const [ShortenedName, Type] = parseGemName(gem.Name);
+        return {
+          ...gem,
+          SkillIcon: effect.Icon,
+          Description: `${effect.Name} : ${effect.Description}`,
+          ShortenedName,
+          Type,
+        };
+      });
+      mergedGemInfo.sort((a: any, b: any) => {
+        return a.Type === b.Type
+          ? a.Level === b.Level
+            ? a.Slot - b.Slot
+            : b.Level - a.Level
+          : a.Type - b.Type;
+      });
+      setGemEquip(mergedGemInfo);
+      console.log(mergedGemInfo);
+    }
+
     console.log(engEquip);
   }, [data]);
 
@@ -89,12 +118,16 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({ data }) => {
             return (
               <div
                 key={`engEffects${i}`}
+                data-tooltip-id="engravingTooltip"
+                onMouseEnter={() => {
+                  setEngravingTooltipContent(e.Description);
+                }}
                 className={styles.engravingEffectsDiv}
               >
                 <img
                   className={styles.engravingEquipIconImage}
                   width={35}
-                  src={`${LOAWA_ENG_ICON_URL}${engravingIconMap[name[0]]}`}
+                  src={`/images/${engravingIconMap[name[0]]}`}
                   alt=""
                 />
                 <span className={isNegativeEffect ? "text-red-500" : ""}>
@@ -108,6 +141,23 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({ data }) => {
           })
         ) : (
           <p>활성화된 각인 효과가 없습니다.</p>
+        )}
+      </div>
+      <div className={styles.gemHeader}>
+        <p className={styles.gemHeaderP}>장착 보석</p>
+      </div>
+      <div className={styles.gemBody}>
+        {gemEquip && gemEquip[0] ? (
+          gemEquip.map((e: any, i: number) => {
+            return (
+              <div key={`gemSlot${i}`}>
+                <img src={e.Icon} alt="" />
+                <p>{e.ShortenedName}</p>
+              </div>
+            );
+          })
+        ) : (
+          <p>장착중인 보석이 없습니다.</p>
         )}
       </div>
     </div>

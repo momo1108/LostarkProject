@@ -18,14 +18,23 @@ const AvatarTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
       </div>
       <hr />
       <div>
-        <p>{parse(data.Tooltip.Element_002.value)}</p>
-        <p className={styles.tooltipTradeParagraph}>
-          {parse(data.Tooltip.Element_003.value)}{" "}
-          {parse(data.Tooltip.Element_004.value)}
-        </p>
+        {data.Tooltip.Element_003.type === "MultiTextBox" ? (
+          <p className={styles.tooltipTradeParagraph}>
+            {parse(data.Tooltip.Element_002.value)}
+            <span>{parse(data.Tooltip.Element_003.value)}</span>
+          </p>
+        ) : (
+          <>
+            <p>{parse(data.Tooltip.Element_002.value)}</p>
+            <p className={styles.tooltipTradeParagraph}>
+              {parse(data.Tooltip.Element_003.value)}{" "}
+              {parse(data.Tooltip.Element_004.value)}
+            </p>
+          </>
+        )}
       </div>
       <hr />
-      {[5, 6, 7, 8, 9].map((e: number) => {
+      {[4, 5, 6, 7, 8, 9].map((e: number) => {
         const tmp = data.Tooltip[`Element_00${e}`];
         if (!tmp) return;
 
@@ -59,10 +68,16 @@ export default AvatarTooltip;
 - value
 1 - ItemTitle : 등급
 - value - leftStr0
-2~4 - 직업, 귀속, 거래회수
+2 - 직업
 
 # 변동
-5~
+3~
+귀속여부/거래가능회수 - SingleTextBox
+-value
+
+거래가능(오른쪽정렬) - MultiTextBox
+- value
+
 덧입기 알림 - SingleTextBox
 - value
 

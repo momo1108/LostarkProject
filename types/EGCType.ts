@@ -4,10 +4,11 @@ Engraving, Gem, Card 를 위한 타입파일
 
 import { CharData } from "./ReducerType";
 
-export const LOAWA_ENG_ICON_URL = "https://static.loawa.com/seals/";
-
 export type ArmoryEGCProps = {
   data: CharData;
+  setEngravingTooltipContent: React.Dispatch<
+    React.SetStateAction<Object | undefined>
+  >;
 };
 
 export const engravingLevelColorMap: { [key: string]: string } = {

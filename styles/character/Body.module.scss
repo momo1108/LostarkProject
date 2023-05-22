@@ -339,13 +339,13 @@ $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
       //   @apply flex flex-wrap;
       // }
       .engravingHeader {
-        @apply flex flex-wrap gap-2 py-1 px-4 items-center min-h-[64px];
+        @apply flex gap-2 py-1 px-4 items-center min-h-[64px];
         .engravingHeaderP {
           @apply text-[#eee] text-sm bg-[#116] font-bold px-3 py-1;
           border-radius: 14px;
         }
         .engravingEquipDiv {
-          @apply flex items-center text-[#eee] gap-2 mx-2 text-sm font-bold;
+          @apply flex items-center text-[#eee] gap-2 mx-auto text-sm font-bold;
           .engravingEquipIconDiv {
             @apply w-[56px] h-[56px] relative;
 
@@ -365,14 +365,25 @@ $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
         }
       }
       .engravingBody {
-        @apply px-2;
+        @apply px-4;
         .engravingEffectsDiv {
-          @apply inline-flex items-center text-[#eee] gap-2 mx-2 text-xs font-bold;
+          @apply inline-flex w-[156px] items-center text-[#eee] gap-2 mx-2 text-xs font-bold;
 
           .engravingEquipIconImage {
             border-radius: 50%;
           }
         }
+      }
+
+      .gemHeader {
+        @apply flex py-1 px-4 mt-4;
+        .gemHeaderP {
+          @apply text-[#eee] text-sm bg-[#116] font-bold px-3 py-1;
+          border-radius: 14px;
+        }
+      }
+      .gemBody {
+        @apply flex;
       }
     }
 
@@ -435,6 +446,10 @@ $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
       .tooltipTradeParagraph {
         @apply flex justify-between items-center;
       }
+    }
+
+    .engravingTooltip {
+      @apply p-2;
     }
   }
 
