@@ -1,6 +1,6 @@
 import styles from "@/styles/character/Body.module.scss";
 import {
-  ArmoryProfileProps,
+  ArmoryEAAProps,
   emptyAccessoryBackgroundMap,
   emptyAvatarBackgroundMap,
   emptyEquipmentBackgroundMap,
@@ -25,7 +25,7 @@ import { useState, Fragment } from "react";
 new Array(12)
 최대 12개
 */
-const ArmoryProfile: React.FC<ArmoryProfileProps> = ({
+const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
   data,
   equipment,
   accessory,
@@ -253,4 +253,4 @@ const ArmoryProfile: React.FC<ArmoryProfileProps> = ({
   );
 };
 
-export default ArmoryProfile;
+export default ArmoryEAA;

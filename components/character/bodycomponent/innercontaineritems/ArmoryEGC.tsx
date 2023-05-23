@@ -1,15 +1,19 @@
 import useApiTagParser from "@/hooks/useApiTagParser";
 import styles from "@/styles/character/Body.module.scss";
+import { gradeClassMap } from "@/types/CharacterType";
 import {
   ArmoryEGCProps,
   engravingIconMap,
   engravingLevelColorMap,
+  gradeCardBackgroundMap,
+  gradeTextColorMap,
 } from "@/types/EGCType";
 import { useEffect, useState } from "react";
 
 const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
   data,
   setEngravingTooltipContent,
+  setGemTooltipContent,
 }) => {
   // console.log("ArmoryEGC");
   const { parseEngravingPoint, parseGemName } = useApiTagParser();
@@ -34,7 +38,7 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
         return {
           ...gem,
           SkillIcon: effect.Icon,
-          Description: `${effect.Name} : ${effect.Description}`,
+          Description: [effect.Name, effect.Description],
           ShortenedName,
           Type,
         };
@@ -47,16 +51,16 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
           : a.Type - b.Type;
       });
       setGemEquip(mergedGemInfo);
-      console.log(mergedGemInfo);
+      // console.log(mergedGemInfo);
     }
 
-    console.log(engEquip);
+    // console.log(engEquip);
   }, [data]);
 
   return (
     <div className={styles.infoContainerItemDiv}>
-      <div className={styles.engravingHeader}>
-        <p className={styles.engravingHeaderP}>장착 각인</p>
+      <div className={`${styles.egcHeader} ${styles.engravingHeader}`}>
+        <p className={styles.egcHeaderP}>장착 각인</p>
         {engEquip ? (
           [0, 1].map((e: number) => {
             return engEquip[e] ? (
@@ -126,16 +130,21 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
               >
                 <img
                   className={styles.engravingEquipIconImage}
-                  width={35}
+                  width={43}
                   src={`/images/${engravingIconMap[name[0]]}`}
                   alt=""
                 />
                 <span className={isNegativeEffect ? "text-red-500" : ""}>
                   {name[0]}
                 </span>
-                <span style={{ color: engravingLevelColorMap[name[1]] }}>
+                <p
+                  className={styles.engravingLevel}
+                  style={{
+                    backgroundColor: engravingLevelColorMap[`${name[1]}d`],
+                  }}
+                >
                   {name[1]}
-                </span>
+                </p>
               </div>
             );
           })
@@ -143,21 +152,95 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
           <p>활성화된 각인 효과가 없습니다.</p>
         )}
       </div>
-      <div className={styles.gemHeader}>
-        <p className={styles.gemHeaderP}>장착 보석</p>
+      <div className={styles.egcHeader}>
+        <p className={styles.egcHeaderP}>장착 보석</p>
       </div>
       <div className={styles.gemBody}>
         {gemEquip && gemEquip[0] ? (
           gemEquip.map((e: any, i: number) => {
             return (
-              <div key={`gemSlot${i}`}>
-                <img src={e.Icon} alt="" />
-                <p>{e.ShortenedName}</p>
+              <div
+                data-tooltip-id="gemTooltip"
+                onMouseEnter={() => {
+                  setGemTooltipContent(e);
+                }}
+                className={styles.gemSlot}
+                key={`gemSlot${i}`}
+              >
+                <img
+                  className={`${styles.gemImg} ${gradeClassMap[e.Grade]}`}
+                  src={e.Icon}
+                  alt=""
+                />
+                <p className={styles.gemOption}>{e.ShortenedName}</p>
               </div>
             );
           })
         ) : (
           <p>장착중인 보석이 없습니다.</p>
+        )}
+      </div>
+      <div className={styles.egcHeader}>
+        <p className={styles.egcHeaderP}>장착 카드</p>
+      </div>
+      <div className={styles.cardBody}>
+        {data.ArmoryCard?.Cards ? (
+          <>
+            <div className={styles.cardList}>
+              {data.ArmoryCard.Cards.map((e: any) => {
+                return (
+                  <div className={styles.cardSlot}>
+                    <div
+                      className={styles.cardImageDiv}
+                      data-grade={gradeCardBackgroundMap[e.Grade]}
+                    >
+                      <img src={e.Icon} className={styles.cardIcon} alt="" />
+                      {e.AwakeTotal ? (
+                        <div className={styles.awakeningDiv}>
+                          {[1, 2, 3, 4, 5].map((a: number) => (
+                            <img
+                              src={
+                                a <= e.AwakeCount
+                                  ? "/images/gem_awakened.png"
+                                  : "/images/gem_not_awakened.png"
+                              }
+                              alt="AwakeningSlot"
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    <p
+                      style={{ color: gradeTextColorMap[e.Grade] }}
+                      className={styles.cardTitle}
+                    >
+                      {e.Name}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className={styles.cardEffectsDiv}>
+              {data.ArmoryCard.Effects.map((e: any) => {
+                return (
+                  <>
+                    <p>세트 발동 효과 {e.Index + 1}</p>
+                    {e.Items.map((e2: any) => (
+                      <div>
+                        <p>{e2.Name}</p>
+                        <p>{e2.Description}</p>
+                      </div>
+                    ))}
+                  </>
+                );
+              })}
+            </div>
+          </>
+        ) : (
+          <p>장착중인 카드가 없습니다.</p>
         )}
       </div>
     </div>
@@ -219,5 +302,25 @@ ArmorySkill{
     Tooltip	string
   }
   Tooltip	string
+}
+
+ArmoryCard{
+  Cards	[Card{
+    Slot	integer($int32)
+    Name	string
+    Icon	string
+    AwakeCount	integer($int32)
+    AwakeTotal	integer($int32)
+    Grade	string
+    Tooltip	string
+  }]
+  Effects	[CardEffect{
+    Index	integer($int32)
+    CardSlots	[integer($int32)]
+    Items	[Effect{
+      Name	[...]
+      Description	[...]
+    }]
+  }]
 }
 */

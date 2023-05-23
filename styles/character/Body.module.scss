@@ -1,5 +1,6 @@
 $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
 $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
+$gemSlotsize: 60px;
 @function getEmptySlotBackground($num) {
   @return url(https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot#{$num}.png);
 }
@@ -92,14 +93,16 @@ $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
   }
 
   .infoContainer {
-    @apply flex-auto grid w-full grid-cols-1 
-    lg:grid-cols-2 2xl:grid-cols-3 gap-2;
+    @apply flex-auto flex flex-wrap lg:flex-nowrap w-full md:px-16 gap-2 justify-center;
 
     .infoContainerItemDiv {
-      @apply bg-[#0901] w-full relative min-h-[600px] max-w-[550px] mx-auto;
+      @apply bg-[#0901] relative min-h-[600px];
 
       &:first-child {
-        @apply flex flex-col items-center;
+        @apply flex flex-col items-center w-[550px];
+      }
+      &:nth-child(2) {
+        @apply relative flex flex-col min-w-[550px] max-w-[780px];
       }
 
       .profileHeader {
@@ -338,14 +341,19 @@ $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
       // &:nth-child(2) {
       //   @apply flex flex-wrap;
       // }
-      .engravingHeader {
-        @apply flex gap-2 py-1 px-4 items-center min-h-[64px];
-        .engravingHeaderP {
-          @apply text-[#eee] text-sm bg-[#116] font-bold px-3 py-1;
+
+      .egcHeader {
+        @apply flex py-1 px-4 mt-4;
+        .egcHeaderP {
+          @apply text-[#eee] text-base bg-[#116] font-bold px-3 py-1 shrink-0;
           border-radius: 14px;
         }
+        &.engravingHeader {
+          @apply gap-6 items-center min-h-[64px] mt-0;
+        }
+
         .engravingEquipDiv {
-          @apply flex items-center text-[#eee] gap-2 mx-auto text-sm font-bold;
+          @apply flex items-center text-[#eee] gap-2 text-base font-bold;
           .engravingEquipIconDiv {
             @apply w-[56px] h-[56px] relative;
 
@@ -359,31 +367,92 @@ $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
             }
           }
           .engravingEquipNameP {
-            @apply max-w-[90px];
+            @apply min-w-[100px] max-w-[140px];
             line-break: anywhere;
           }
         }
       }
+
       .engravingBody {
         @apply px-4;
         .engravingEffectsDiv {
-          @apply inline-flex w-[156px] items-center text-[#eee] gap-2 mx-2 text-xs font-bold;
+          @apply inline-flex min-w-[23%] max-w-[29%] items-center text-[#eee] gap-2 mx-2 text-sm font-bold;
 
           .engravingEquipIconImage {
             border-radius: 50%;
           }
+          .engravingLevel {
+            @apply shrink-0 w-4 h-4 leading-4 text-center;
+          }
         }
       }
 
-      .gemHeader {
-        @apply flex py-1 px-4 mt-4;
-        .gemHeaderP {
-          @apply text-[#eee] text-sm bg-[#116] font-bold px-3 py-1;
-          border-radius: 14px;
+      .gemBody {
+        @apply flex flex-wrap px-4 gap-2 my-2;
+        .gemSlot {
+          @apply relative;
+          width: $gemSlotsize;
+          height: $gemSlotsize;
+          .gemImg {
+            width: $gemSlotsize;
+            height: $gemSlotsize;
+          }
+
+          .gemOption {
+            @apply absolute bottom-[1px] right-[1px] font-bold text-sm text-white bg-[#0006] px-2;
+            border-radius: 10px;
+          }
         }
       }
-      .gemBody {
-        @apply flex;
+
+      .cardBody {
+        @apply flex flex-wrap px-4 my-2;
+        .cardList {
+          @apply flex flex-wrap gap-2 w-full;
+          .cardSlot {
+            @apply flex flex-col gap-1 w-[15%];
+            .cardImageDiv {
+              @apply relative inline-block;
+              &::before {
+                @apply absolute top-0 left-0 bottom-0 right-0;
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                content: "";
+              }
+              &[data-grade="uncommon"]::before {
+                background-image: url("/images/card_uncommon.png");
+              }
+              &[data-grade="common"]::before {
+                background-image: url("/images/card_common.png");
+              }
+              &[data-grade="rare"]::before {
+                background-image: url("/images/card_rare.png");
+              }
+              &[data-grade="epic"]::before {
+                background-image: url("/images/card_epic.png");
+              }
+              &[data-grade="legendary"]::before {
+                background-image: url("/images/card_legendary.png");
+              }
+              .cardIcon {
+                padding: 2px;
+              }
+              .awakeningDiv {
+                @apply absolute inline-flex bottom-1 left-0 right-0 mx-auto;
+                width: 90%;
+                img {
+                  width: 20%;
+                }
+              }
+            }
+            .cardTitle {
+              @apply text-center font-bold text-sm px-1;
+            }
+          }
+        }
+        .cardEffectsDiv {
+          @apply text-white;
+        }
       }
     }
 
@@ -450,6 +519,25 @@ $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
 
     .engravingTooltip {
       @apply p-2;
+    }
+
+    .gemTooltip {
+      .gemTooltipBody {
+        @apply flex items-center;
+        .iconDiv {
+          @apply w-[60px];
+          border: 1px solid #000;
+          img {
+            @apply w-full;
+          }
+        }
+        .descrDiv {
+          @apply px-4;
+          & > p:first-child {
+            @apply text-[#facf3a];
+          }
+        }
+      }
     }
   }
 

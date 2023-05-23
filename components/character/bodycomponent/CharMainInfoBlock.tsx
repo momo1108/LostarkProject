@@ -7,9 +7,10 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import EquipmentTooltip from "./tooltips/EquipmentTooltip";
 import AccessoryTooltip from "./tooltips/AccessoryTooltip";
-import ArmoryProfile from "./innercontaineritems/ArmoryProfile";
 import AvatarTooltip from "./tooltips/AvatarTooltip";
 import ArmoryEGC from "./innercontaineritems/ArmoryEGC";
+import GemTooltip from "./tooltips/GemTooltip";
+import ArmoryEAA from "./innercontaineritems/ArmoryEAA";
 
 const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
   loading,
@@ -23,6 +24,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
   const [accessoryTooltipContent, setAccessoryTooltipContent] = useState<any>();
   const [avatarTooltipContent, setAvatarTooltipContent] = useState<any>();
   const [engravingTooltipContent, setEngravingTooltipContent] = useState<any>();
+  const [gemTooltipContent, setGemTooltipContent] = useState<any>();
   useEffect(() => {
     const equipment_tmp = new Array(6);
     const accessory_tmp = new Array(7);
@@ -107,7 +109,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
     </div>
   ) : render ? (
     <div className={styles.infoContainer}>
-      <ArmoryProfile
+      <ArmoryEAA
         data={data}
         equipment={equipment}
         accessory={accessory}
@@ -119,8 +121,8 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
       <ArmoryEGC
         data={data}
         setEngravingTooltipContent={setEngravingTooltipContent}
+        setGemTooltipContent={setGemTooltipContent}
       />
-      <div className={styles.infoContainerItemDiv}>hello</div>
 
       <Tooltip
         id="equipmentTooltip"
@@ -167,6 +169,19 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
         offset={12}
       >
         {engravingTooltipContent ? engravingTooltipContent : "Loading..."}
+      </Tooltip>
+      <Tooltip
+        id="gemTooltip"
+        className={`${styles.tooltip} ${styles.gemTooltip}`}
+        place="top"
+        clickable={true}
+        offset={12}
+      >
+        {gemTooltipContent ? (
+          <GemTooltip data={gemTooltipContent} />
+        ) : (
+          "Loading..."
+        )}
       </Tooltip>
     </div>
   ) : (
