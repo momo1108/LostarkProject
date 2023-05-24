@@ -3,10 +3,11 @@ import DataService from "@/service/DataService";
 import MenuHeader from "@/components/MenuHeader";
 import { MenuProps } from "@/types/MenuType";
 import CharBody from "@/components/character/CharBody";
+import { nanumNeo } from "@/types/GlobalType";
 
 const Character: React.FC<MenuProps> = ({ menu }) => {
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${nanumNeo.className}`}>
       <MenuHeader menu={menu} />
       <CharBody />
     </div>
