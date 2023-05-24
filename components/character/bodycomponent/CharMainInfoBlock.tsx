@@ -4,7 +4,6 @@ import styles from "@/styles/character/Body.module.scss";
 import EmptyProfile from "@/components/icons/EmptyProfile";
 import { useState, useEffect } from "react";
 import { Tooltip } from "react-tooltip";
-import "react-tooltip/dist/react-tooltip.css";
 import EquipmentTooltip from "./tooltips/EquipmentTooltip";
 import AccessoryTooltip from "./tooltips/AccessoryTooltip";
 import AvatarTooltip from "./tooltips/AvatarTooltip";
@@ -45,7 +44,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
     }
     setEquipment(equipment_tmp);
     setAccessory(accessory_tmp);
-    // console.log(equipment_tmp);
+    console.log(equipment_tmp);
     // console.log(accessory_tmp);
     if (data.ArmoryAvatars) {
       data.ArmoryAvatars.map((e: any) => ({
@@ -141,6 +140,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
         className={`${styles.tooltip} ${styles.accessoryTooltip}`}
         place="right"
         clickable={true}
+        delayHide={10}
       >
         {accessoryTooltipContent ? (
           <AccessoryTooltip data={accessoryTooltipContent} />
@@ -154,6 +154,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
         place="right"
         clickable={true}
         offset={16}
+        delayHide={1}
       >
         {avatarTooltipContent ? (
           <AvatarTooltip data={avatarTooltipContent} />
@@ -167,6 +168,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
         place="top"
         clickable={true}
         offset={12}
+        delayHide={1}
       >
         {engravingTooltipContent ? engravingTooltipContent : "Loading..."}
       </Tooltip>
@@ -176,6 +178,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
         place="top"
         clickable={true}
         offset={12}
+        delayHide={1}
       >
         {gemTooltipContent ? (
           <GemTooltip data={gemTooltipContent} />

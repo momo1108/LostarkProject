@@ -1,6 +1,6 @@
 import useCssHook from "@/hooks/useBgClassMaker";
 import styles from "@/styles/character/Body.module.scss";
-import { AvatarSlotProps } from "@/types/CharacterType";
+import { AvatarSlotProps } from "@/types/EAAType";
 
 const AvatarSlot: React.FC<AvatarSlotProps> = ({
   grade,
