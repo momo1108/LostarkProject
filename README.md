@@ -774,3 +774,5 @@ export const nanumNeo = localFont({
 근데 이게 next router로 push할때에는 해당 페이지에 대해 preloading이 동작하지 않는다. 따라서 사용할 폰트를 최상위 페이지에서 import를 하는게 맞는 것 같은데...
 
 요것저것 건들다가 `_app.tsx` 의 `<Component>`에 className을 갖다 넣었더니 잘 되는 것 같다.
+
+라고 생각했으나, 인덱스 페이지가 아닌 서브 루트로 들어가버리니 또 이게 안되네.... 아오 열받아
