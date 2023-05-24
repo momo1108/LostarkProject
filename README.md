@@ -554,3 +554,215 @@ replace를 해도 결과값은 결국 text이기 때문에, text를 React elemen
 - [`html-react-parser`](https://www.npmjs.com/package/html-react-parser)
 
 이제 결과적으로 내가 원하는 가장 기본적인 캐릭터 정보 출력 항목은 완성됐다.
+
+#### 폰트 설정 이슈
+
+이 프로젝트에서 사용하는 폰트는 총 2가지로 정했다.
+
+영어에 사용할 `Roboto`, 한글에 사용할 `NanumSquareNeo` 가 그 2가지가 되시겠다.
+
+Google Fonts와 Naver에서 직접 다운로드 받아서 사용하는데, 바로 사용하기에는 용량이 너무 커서, woff 형식으로 변환해 용량을 최소화하기로 했다.
+
+결과적으로 `NanumSquareNeo`는 Light, Regular, Bold, ExtraBold 4가지를 합쳐 `2.8MB` 정도이고, `Roboto`는 Light, Regular, Bold 3가지를 합쳐 `212KB` 이다.
+
+나눔스퀘어네오는 최근에 나온 폰트라서 한번 써봤는데, 용량을 줄여도 정말 오질라고 크다.
+
+이제 글꼴 적용을 위해, 처음에 사용하던 방법은 `globals.scss`에 직접 `font-face`를 지정해주는 방식을 사용했다.
+
+```scss
+@font-face {
+  font-family: "NanumSquareNeo";
+  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-aLt.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "NanumSquareNeo";
+  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-bRg.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "NanumSquareNeo";
+  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-cBd.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "NanumSquareNeo";
+  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-dEb.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto/Roboto-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto/Roboto-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto/Roboto-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+html {
+  font-family: "Roboto", "NanumSquareNeo", sans-serif;
+}
+```
+
+물론 잘 적용이 되긴 하지만, 문제점을 하나 발견했다.
+
+**페이지가 렌더 된 후에 폰트가 로딩이 된다는 점이다.**
+
+다시말해서 폰트가 preloading이 되지 않는다. 페이지를 연 후에 텍스트가 로딩되고 나서 글꼴이 바뀌는게 눈에 보이는 순간 정말 허접해 보여서 자존심이 상하더라....😂
+
+문제를 해결할때에는 역시 [`Document`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts)를 봐야한다.
+
+역시나 Next.js 에서는 폰트 관련 기능들도 제공해주고 있었다. 👍
+
+##### 기본 사용법
+
+여차저차 해석을 해보니, Next.js 에서는 브라우저에서 따로 요청을 보내는 일 없이 배포한 도메인 자체에서 Google Fonts를 제공받을 수 있다고 한다.
+
+기본적은 사용법은 아래와 같으며, Next.js 에서는 `variable fonts`의 사용을 권장하고 있다.
+
+```js
+import { Inter } from "next/font/google";
+
+// If loading a variable font, you don't need to specify the font weight
+const inter = Inter({ subsets: ["latin"] });
+
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <main className={inter.className}>
+      <Component {...pageProps} />
+    </main>
+  );
+}
+```
+
+##### Local Fonts
+
+내 경우에는 local 환경에 직접 다운로드 받아서 사용하기 때문에, 이를 위한 다른 방법이 제공된다.
+
+`next/font/local` 를 사용해, 직접 폰트 경로를 지정해서 사용할 수 있다. Document의 예시는 아래와 같다.
+
+```js
+import localFont from "next/font/local";
+
+const roboto = localFont({
+  src: [
+    {
+      path: "./Roboto-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./Roboto-Italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "./Roboto-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./Roboto-BoldItalic.woff2",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+});
+
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <main className={roboto.className}>
+      <Component {...pageProps} />
+    </main>
+  );
+}
+```
+
+다만 내 프로젝트는 TypeScript 환경의 최신버전의 Next.js와 Redux까지 사용하기 때문에, `_app.js` 구성이 조금 다르다.
+
+그 외에 Tailwind와의 호환방식도 있는데, `tailwind.config.js` 를 수정하다가 충돌이 났는지, scss 변수가 먹통이 되는 이슈가 발생했다. 그냥 기본 사용 방식으로 쓰기로 했다. 🥹
+
+어쨌든 위의 방식처럼 font function이 페이지에서 호출되면, 글로벌하게 모든 routes에 사용할 수 있는게 아니라, 해당 페이지와 관련된 routes 에서만 preload가 된다.
+
+따라서 위의 방식은 Single Page에서 사용하는 방법이다. Font를 다른 페이지에서도 재활용하기 위해서는 어떻게 해야할까?
+
+##### Reusing Fonts
+
+Next.js에서 제공하는 `localFont`, Google font 함수를 실행하면, 해당 폰트는 application의 하나의 instance 에서만 host된다.
+
+따라서 같은 폰트를 여러 파일에서 함수를 호출해 사용할 경우, 같은 폰트에 대해서 여러개의 instance가 host된다. 따라서 아래와 같은 방식을 추천하더라.
+
+1. 하나의 공유 파일에서 font loader 함수를 실행한다.
+2. constant로서 export한다.
+3. 그 constant를 내가 사용하고 싶은 파일에서 import 한다.
+
+드디어 허접한 폰트로딩을 벗어나 제대로된 preloading을 사용하게 되었도다. 시크릿탭을 사용해서 접속을 해봐도, 새로고침을 무한반복 해봐도 폰트가 변화하면서 생기던 울렁거림이 보이지 않는것을 보니 속이 다 시원하다.
+
+- /types/GlobalType.ts
+
+```ts
+import localFont from "next/font/local";
+
+export const roboto = localFont({
+  src: [
+    {
+      path: "../fonts/Roboto/Roboto-Light.woff",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Roboto/Roboto-Regular.woff",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Roboto/Roboto-Bold.woff",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+});
+
+export const nanumNeo = localFont({
+  src: [
+    {
+      path: "../fonts/NanumSquareNeo/NanumSquareNeo-aLt.woff",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../fonts/NanumSquareNeo/NanumSquareNeo-bRg.woff",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/NanumSquareNeo/NanumSquareNeo-cBd.woff",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../fonts/NanumSquareNeo/NanumSquareNeo-dEb.woff",
+      weight: "800",
+      style: "normal",
+    },
+  ],
+});
+```
+
+설정 후 크롬 브라우저 개발자 도구에 Network탭을 통해 확인해보니, 메인페이지에서 import 코드를 넣고 실행하면 페이지로딩 시 내가 설정한 7개의 woff 파일이 로딩되는 것을 확인했다..(개수는 맞으니까 맞겠지?)
+
+다른 페이지로 이동을 해도 다시 로딩이 되지 않는것을 보니, 제대로 reusing이 되고 있다고 판단된다. 끝!

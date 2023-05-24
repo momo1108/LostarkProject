@@ -3,12 +3,13 @@ import MainHeader from "@/components/MainHeader";
 import MainBody from "@/components/MainBody";
 import { MainProps } from "@/types/MainPageType";
 import DataService from "@/service/DataService";
+import { nanumNeo, roboto } from "@/types/GlobalType";
 
 const Home: React.FC<MainProps> = ({ menu }) => {
   // console.log(process.env.CLIENT_TOKEN);
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${roboto.className}`}>
       <MainHeader />
       <MainBody menu={menu} />
     </div>

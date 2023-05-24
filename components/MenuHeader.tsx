@@ -7,6 +7,7 @@ import useDrag from "@/hooks/useDrag.ts";
 import usePreventBodyScroll from "@/hooks/usePreventBodyScroll.ts";
 import "react-horizontal-scrolling-menu/dist/styles.css";
 import { useRouter } from "next/router";
+import { nanumNeo, roboto } from "@/types/GlobalType";
 
 type scrollVisibilityApiType = React.ContextType<typeof VisibilityContext>;
 
@@ -26,12 +27,12 @@ const MenuHeader: React.FC<MenuProps> = ({ menu }) => {
 
   return (
     <div
-      className={styles.headerContainer}
+      className={`${styles.headerContainer} ${nanumNeo.className}`}
       onMouseEnter={disableScroll}
       onMouseLeave={enableScroll}
     >
       <div className={styles.homeDiv}>
-        <Link href={"/"} className={styles.homeLink}>
+        <Link href={"/"} className={`${styles.homeLink} ${roboto.className}`}>
           LOAPLE
         </Link>
       </div>

@@ -24,53 +24,6 @@ $maxQ: #fe9600;
   background-color: $maxQ;
 }
 
-@font-face {
-  font-family: "NanumSquareNeo";
-  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-aLt.woff") format("woff");
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
-  font-family: "NanumSquareNeo";
-  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-bRg.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: "NanumSquareNeo";
-  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-cBd.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: "NanumSquareNeo";
-  src: url("../fonts/NanumSquareNeo/NanumSquareNeo-dEb.woff") format("woff");
-  font-weight: 800;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Roboto";
-  src: url("../fonts/Roboto/Roboto-Light.woff") format("woff");
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Roboto";
-  src: url("../fonts/Roboto/Roboto-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Roboto";
-  src: url("../fonts/Roboto/Roboto-Bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-}
-
-html {
-  font-family: "Roboto", "NanumSquareNeo", sans-serif;
-}
-
 .svgIcon {
   width: 1.5em;
   height: 1.5em;
