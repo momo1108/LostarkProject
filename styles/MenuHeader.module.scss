@@ -10,7 +10,7 @@ $myBlue: #4691f6;
   @apply text-white h-[70px] flex items-center
     justify-between px-3 fixed top-0 w-full z-50;
   background-color: #0009;
-  border-bottom: 1px solid #3335;
+  border-bottom: 1px solid rgba(97, 97, 97, 0.333);
 
   .homeDiv {
     @apply mx-2 flex;

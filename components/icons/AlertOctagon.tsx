@@ -1,6 +1,6 @@
-import { AlertOctagonProps } from "@/types/IconType";
+import { IconProps } from "@/types/IconType";
 
-const AlertOctagon: React.FC<AlertOctagonProps> = ({
+const AlertOctagon: React.FC<IconProps> = ({
   size = 24,
   color = "#000000",
   width = 2,

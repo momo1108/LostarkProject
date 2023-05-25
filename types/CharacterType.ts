@@ -1,8 +1,8 @@
-import { CharData } from "./ReducerType";
+import { CharData, SearchedData } from "./ReducerType";
 
 export type CharRecentBlockProps = {
   search: (name: string) => void;
-  names: string[];
+  data: SearchedData[];
 };
 
 export type CharSearchBarProps = {
@@ -15,10 +15,6 @@ export type CharMainInfoProps = {
   loading: boolean;
   data: CharData;
   render: boolean;
-};
-
-export type CharRecentContainerProps = {
-  names: string[];
 };
 
 export const gradeClassMap: { [key: string]: string } = {

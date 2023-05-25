@@ -1,6 +1,7 @@
 import { all } from "redux-saga/effects";
 import { charSaga } from "./character";
+import { searchedSaga } from "./searched";
 
 export default function* rootSaga() {
-  yield all([charSaga()]);
+  yield all([charSaga(), searchedSaga()]);
 }

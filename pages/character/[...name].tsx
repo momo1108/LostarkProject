@@ -5,6 +5,7 @@ import CharBody from "@/components/character/CharBody";
 import DataService from "@/service/DataService";
 import CharFooter from "@/components/character/CharFooter";
 import { nanumNeo } from "@/types/GlobalType";
+import CharacterService from "@/service/CharacterService";
 
 const CharDetail: React.FC<MenuProps> = ({ menu }) => {
   return (
@@ -21,6 +22,10 @@ export default CharDetail;
 export async function getStaticProps() {
   try {
     const menu = await DataService.getMenu();
+    // const data: any = await CharacterService.getCharacterSummary(
+    //   params.name[0]
+    // );
+    // console.log(data);
     return {
       props: {
         menu,

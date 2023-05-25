@@ -1,5 +1,7 @@
-export type AlertOctagonProps = {
-  size: number;
-  color: string;
-  width: number;
+export type IconProps = {
+  size?: number;
+  color?: string;
+  width?: number;
+  fill?: string;
+  className?: string;
 };

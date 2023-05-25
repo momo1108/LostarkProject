@@ -44,7 +44,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
     }
     setEquipment(equipment_tmp);
     setAccessory(accessory_tmp);
-    console.log(equipment_tmp);
+    // console.log(equipment_tmp);
     // console.log(accessory_tmp);
     if (data.ArmoryAvatars) {
       data.ArmoryAvatars.map((e: any) => ({
