@@ -20,7 +20,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "img.lostark.co.kr",
         port: "",
-        pathname: "/armory/**",
+        pathname: "/**",
       },
     ],
   },
