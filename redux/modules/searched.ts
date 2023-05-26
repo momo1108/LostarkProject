@@ -73,7 +73,9 @@ function checker(state: SearchedData[], data: CharData): SearchedData[] {
           name: data.ArmoryProfile.CharacterName,
           level,
           class: data.ArmoryProfile.CharacterClassName,
+          img: data.ArmoryProfile.CharacterImage,
           like: false,
+          server: data.ArmoryProfile.ServerName,
         },
       ];
 }

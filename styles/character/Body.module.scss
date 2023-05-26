@@ -48,9 +48,7 @@ $gemSlotsize: 60px;
   }
 
   .recentContainer {
-    @apply text-3xl flex-auto w-3/4 font-bold flex flex-col justify-center items-center text-[#bbb] my-2 bg-[#222];
-    border: 1px solid #373737;
-    border-radius: 10px;
+    @apply text-3xl flex-auto w-full px-4 font-bold flex flex-col justify-center items-center text-[#bbb] my-2;
 
     .iconBox {
       @apply w-[300px] h-[300px] mb-5 relative;
@@ -69,24 +67,40 @@ $gemSlotsize: 60px;
       @apply w-full flex-auto;
 
       .recentListItem {
-        @apply flex text-xl items-center px-2 py-3 hover:bg-[#1d2026]
-        cursor-pointer transition-all duration-200 ease-in-out;
-        border-bottom: 1px solid #444;
+        @apply flex flex-col text-base items-center px-2 py-3 bg-[#14181d]
+        cursor-pointer transition-all duration-200 ease-in-out relative hover:text-[#4691f6];
+        width: 300px;
+        height: 400px;
+        background-size: 100% 100%;
+        background-image: url("/images/searched_card_outline.png");
 
-        &:first-child {
-          border-radius: 10px 10px 0 0;
+        .recentItemHeader {
+          @apply flex items-start w-full pl-4 text-sm font-bold;
+          &:first-child {
+            @apply justify-between text-lg font-extrabold relative;
+            .recentIconDiv {
+              @apply absolute top-0 right-1 bg-[#0008] transition-all duration-300;
+            }
+          }
+          &:nth-child(2) {
+            @apply gap-2;
+          }
+        }
+
+        &:hover .recentItemHeader .recentIconDiv {
+          background-color: #0000;
+        }
+
+        img {
+          @apply absolute bottom-4 left-0 right-0 mx-auto;
         }
 
         .favoriteIcon {
-          @apply cursor-pointer hover:stroke-red-500 transition-all duration-200 mx-2;
-        }
-
-        .recentName {
-          @apply grow;
+          @apply inline-block cursor-pointer hover:stroke-red-500 transition-all duration-200 mx-2;
         }
 
         .deleteIcon {
-          @apply cursor-pointer hover:stroke-[#437dcb] transition-all duration-200 mx-2;
+          @apply inline-block cursor-pointer hover:stroke-[#437dcb] transition-all duration-200 mx-2;
         }
       }
     }
@@ -133,6 +147,11 @@ $gemSlotsize: 60px;
             @apply text-sm;
           }
 
+          img {
+            max-width: 23px;
+            max-width: 23px;
+          }
+
           &:not(:first-child) > span {
             @apply mr-2;
 
@@ -143,6 +162,9 @@ $gemSlotsize: 60px;
           .profileCategorySpan {
             @apply py-1 px-2 bg-[#116] font-extrabold text-sm;
             border-radius: 12px;
+          }
+          &:nth-child(3) span {
+            @apply max-w-[160px];
           }
         }
       }

@@ -10,6 +10,7 @@ import EquipmentSlot from "../slots/EquipmentSlot";
 import AccessorySlot from "../slots/AccessorySlot";
 import AvatarSlot from "../slots/AvatarSlot";
 import { useState, Fragment } from "react";
+import { classImageMap } from "@/types/GlobalType";
 
 /*
 아바타 왼쪽 : 무기, 무기
@@ -82,6 +83,12 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
             [ <b>Lv.{data.ArmoryProfile.CharacterLevel}</b>{" "}
             <span>{data.ArmoryProfile.CharacterName}</span> ]
           </span>
+          <img
+            src={`/images/${
+              classImageMap[data.ArmoryProfile.CharacterClassName]
+            }`}
+            alt=""
+          />
           <span className={styles.profileClassSpan}>
             {data.ArmoryProfile.CharacterClassName}
           </span>

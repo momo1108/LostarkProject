@@ -14,6 +14,16 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "img.lostark.co.kr",
+        port: "",
+        pathname: "/armory/**",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

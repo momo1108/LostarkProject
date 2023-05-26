@@ -344,7 +344,7 @@ getStaticProps 를 사용할 때, Next.js의 api 기능을 활용하는것은 �
 
 전체적인 뼈대는 [`react-horizontal-scrolling-menu` ](https://www.npmjs.com/package/react-horizontal-scrolling-menu)라는 모듈을 사용했다.
 
-아이콘은 http://svgicons.sparkk.fr/ , https://iconsvg.xyz/ 을 참조.
+아이콘은 http://svgicons.sparkk.fr/ , https://iconsvg.xyz/ , https://feathericons.com/ 을 참조.
 
 세세한 부분은 직접 css나 js를 사용해서 수정을 해줘야했다.
 
@@ -775,4 +775,25 @@ export const nanumNeo = localFont({
 
 요것저것 건들다가 `_app.tsx` 의 `<Component>`에 className을 갖다 넣었더니 잘 되는 것 같다.
 
-라고 생각했으나, 인덱스 페이지가 아닌 서브 루트로 들어가버리니 또 이게 안되네.... 아오 열받아
+라고 생각했으나, 인덱스 페이지가 아닌 경로로 바로 들어가버리니 또 이게 안된다 🤬🤬🤬🤬
+
+어차피 이렇게 접속하는 경우는 많지 않으니 그냥 사용하자.
+
+#### Lazy Loading
+
+개발서버에서 페이지 로딩 시간이 가끔 오래걸리는 경우가 생기는걸 확인했다.
+
+개발자 도구로 살펴보니, 메인 js파일이 로드되고 나서 페이지가 렌더링되는데 그 크기가 무려 1.2MB!
+
+Lazy Loading을 적용하면 특정 경로의 페이지 렌더링에 필요한 JS의 양을 줄여서 처음 접속시 로딩속도를 향상시켜준다.
+
+Lazy Loading으로 import 된 라이브러리나 Client Components의 로딩을 연기시킬 수 있고, 필요한 경우에만 client bundle에 포함시킬 수 있다.(ex. modal을 클릭할때까지 로딩을 연기시킨다.)
+
+사용 방법은 2가지가 있다.
+
+1. `next/dynamic`의 [**Dynamic Imports**](https://nextjs.org/docs/pages/building-your-application/optimizing/lazy-loading#nextdynamic) 를 사용한 방법
+2. [**`<Suspense>`**](https://react.dev/reference/react/Suspense) 컴포넌트와 [`React.lazy()`](https://react.dev/reference/react/lazy) 를 사용한 방법
+
+근데 빌드서버를 사용하니까 알아서 code split이 되네 🤣
+
+기타 optimizing은 여기서 참조 (https://nextjs.org/docs/pages/building-your-application/optimizing)

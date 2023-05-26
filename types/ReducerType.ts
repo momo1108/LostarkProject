@@ -17,6 +17,8 @@ export type SearchedData = {
   like: boolean;
   level: number;
   class: string;
+  img: string;
+  server: string;
 };
 
 export type RootState = {

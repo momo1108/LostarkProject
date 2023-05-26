@@ -3,6 +3,7 @@ import Empty from "@/components/icons/Empty";
 import Favorite from "@/components/icons/Favorite";
 import styles from "@/styles/character/Body.module.scss";
 import { CharRecentBlockProps } from "@/types/CharacterType";
+import Image from "next/image";
 
 const CharRecentBlock: React.FC<CharRecentBlockProps> = ({ data, search }) => {
   return (
@@ -18,9 +19,25 @@ const CharRecentBlock: React.FC<CharRecentBlockProps> = ({ data, search }) => {
                   search(n.name);
                 }}
               >
-                <Favorite className={styles.favoriteIcon} />
-                <p className={styles.recentName}>{n.name}</p>
-                <Delete className={styles.deleteIcon} />
+                <div className={styles.recentItemHeader}>
+                  <span>{n.name}</span>
+                  <div className={styles.recentIconDiv}>
+                    <Favorite className={styles.favoriteIcon} color="#aaa" />
+                    <Delete className={styles.deleteIcon} color="#aaa" />
+                  </div>
+                </div>
+                <div className={styles.recentItemHeader}>
+                  <span>Lv. {n.level}</span>
+                  <span>
+                    {n.class}@{n.server}
+                  </span>
+                </div>
+                <Image
+                  src={n.img}
+                  alt="캐릭터 이미지"
+                  width={270}
+                  height={312.5}
+                />
               </li>
             );
           })}
