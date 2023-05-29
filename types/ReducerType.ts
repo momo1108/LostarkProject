@@ -14,7 +14,7 @@ export type SearchedState = {
 
 export type SearchedData = {
   name: string;
-  like: boolean;
+  like: number;
   level: number;
   class: string;
   img: string;

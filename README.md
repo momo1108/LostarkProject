@@ -797,3 +797,8 @@ Lazy Loading으로 import 된 라이브러리나 Client Components의 로딩을 
 근데 빌드서버를 사용하니까 알아서 code split이 되네 🤣
 
 기타 optimizing은 여기서 참조 (https://nextjs.org/docs/pages/building-your-application/optimizing)
+
+#### Redux 관련 이슈
+
+useDispatch 훅을 사용해 컴포넌트 내에서 action을 실행시킬 때, 컨테이너 컴포넌트와 프레젠테이션 컴포넌트 중 어디에서 실행하냐에 따라 실행 결과가 달라졌다.
+컨테이너에서 실행할 경우 원인을 알수없는 data 초기화가 일어났다.

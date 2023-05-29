@@ -1,10 +1,11 @@
 import CharMainInfoContainer from "@/containers/character/CharMainInfoContainer";
 import CharRecentContainer from "@/containers/character/CharRecentContainer";
 import CharSearchContainer from "@/containers/character/CharSearchContainer";
-import { init, save } from "@/redux/modules/searched";
+import useReduxDispatchWrapper from "@/hooks/useReduxDispatchWrapper";
+import { save, success } from "@/redux/modules/searched";
 import styles from "@/styles/character/Body.module.scss";
 import { nanumNeo } from "@/types/GlobalType";
-import { CharState, RootState } from "@/types/ReducerType";
+import { CharData, RootState } from "@/types/ReducerType";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -13,22 +14,25 @@ import { useDispatch } from "react-redux";
 export default function CharBody() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { dispatchWrapper } = useReduxDispatchWrapper();
   const [pointer, setPointer] = useState<boolean>(false);
   const searched = "name" in router.query;
   const recentData = useSelector((state: RootState) => state.searched.data);
 
-  const { data } = useSelector<RootState, CharState>(
-    (state) => state.character
+  const data = useSelector<RootState, CharData>(
+    (state) => state.character.data
   );
 
+  // 검색 시 유효한 검색건에 대하여 검색기록 저장.
   useEffect(() => {
     if (data.ArmoryProfile && data.ArmoryProfile.CharacterImage) {
       setPointer(true);
-      dispatch(save(data));
+      dispatchWrapper(save, data);
     }
   }, [data]);
+  // 검색기록이 변경되었을 때, pointer 로 이중 체크 후 localStorage에 저장.
   useEffect(() => {
-    if (recentData.length && pointer) {
+    if (pointer) {
       setPointer(false);
       localStorage.setItem("recent_search", JSON.stringify(recentData));
       while (
@@ -43,7 +47,7 @@ export default function CharBody() {
   useEffect(() => {
     const recent_search = localStorage.getItem("recent_search");
     if (recent_search) {
-      dispatch(init(JSON.parse(recent_search)));
+      dispatchWrapper(success, JSON.parse(recent_search));
     }
   }, [dispatch]);
 
@@ -52,7 +56,11 @@ export default function CharBody() {
       className={`${styles.container} ${styles.searched} ${nanumNeo.className}`}
     >
       <CharSearchContainer />
-      {searched ? <CharMainInfoContainer /> : <CharRecentContainer />}
+      {searched ? (
+        <CharMainInfoContainer />
+      ) : (
+        <CharRecentContainer setPointer={setPointer} />
+      )}
     </div>
   );
 }

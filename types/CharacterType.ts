@@ -2,6 +2,7 @@ import { CharData, SearchedData } from "./ReducerType";
 
 export type CharRecentBlockProps = {
   search: (name: string) => void;
+  setPointer: (value: React.SetStateAction<boolean>) => void;
   data: SearchedData[];
 };
 

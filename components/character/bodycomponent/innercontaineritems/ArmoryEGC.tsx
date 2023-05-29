@@ -17,7 +17,11 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
   setGemTooltipContent,
 }) => {
   // console.log("ArmoryEGC");
-  const { parseEngravingPoint, parseGemName } = useApiTagParser();
+  const {
+    parseEngravingPoint,
+    parseGemName,
+    parseApiDataToHtmlString: parse,
+  } = useApiTagParser();
   const [engEquip, setEngEquip] = useState<any>();
   const [gemEquip, setGemEquip] = useState<any>(new Array(11));
   const [selectedCards, setSelectedCards] = useState<any>([]);
@@ -273,7 +277,7 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
                         >
                           <p className={styles.cardSetDetailTitle}>{e2.Name}</p>
                           <p className={styles.cardSetDetailDescr}>
-                            {e2.Description}
+                            {parse(e2.Description.replace("<BR><BR>", "<BR>"))}
                           </p>
                         </div>
                       ))}

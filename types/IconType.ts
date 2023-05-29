@@ -5,4 +5,5 @@ export type IconProps = {
   fill?: string;
   className?: string;
   type?: number;
+  onClick?: React.MouseEventHandler<SVGSVGElement>;
 };

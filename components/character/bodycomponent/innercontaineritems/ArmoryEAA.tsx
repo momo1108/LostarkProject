@@ -11,6 +11,7 @@ import AccessorySlot from "../slots/AccessorySlot";
 import AvatarSlot from "../slots/AvatarSlot";
 import { useState, Fragment } from "react";
 import { classImageMap } from "@/types/GlobalType";
+import Image from "next/image";
 
 /*
 아바타 왼쪽 : 무기, 무기
@@ -250,9 +251,12 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
           </>
         )}
 
-        <img
+        <Image
           className={styles.profileImage}
           src={data.ArmoryProfile.CharacterImage}
+          quality={100}
+          width={432.2}
+          height={500}
           alt=""
         />
       </div>
