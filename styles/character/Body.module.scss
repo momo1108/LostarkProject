@@ -1,6 +1,7 @@
 $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
 $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
 $gemSlotsize: 60px;
+$basicFontColor: #eee;
 @function getEmptySlotBackground($num) {
   @return url(https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot#{$num}.png);
 }
@@ -12,16 +13,45 @@ $gemSlotsize: 60px;
   @apply flex flex-auto flex-col items-center justify-center;
 
   .searchDiv {
-    @apply w-full min-h-[50px] my-2 py-2 flex justify-center items-center;
+    @apply w-full min-h-[50px] my-2 py-2 flex justify-center items-center gap-4;
 
-    .searchInput {
-      @apply h-8 mx-2 px-2 outline-none bg-transparent text-white w-[300px];
-      border-bottom: 1px solid #8885;
-      transition: border-bottom 0.2s linear, box-shadow 0.2s linear;
+    .searchInputWrapper {
+      @apply relative w-[300px];
+      .searchInput {
+        @apply h-8 px-2 outline-none bg-transparent text-white w-full;
+        border-bottom: 1px solid #8885;
+        transition: border-bottom 0.2s linear, box-shadow 0.2s linear;
 
-      &:focus {
-        border-bottom: 1px solid #888a;
-        box-shadow: 0px 6px 4px -2px #fff2;
+        &:focus {
+          border-bottom: 1px solid #888a;
+          box-shadow: 0px 6px 4px -2px #fff2;
+        }
+      }
+      .dropdown {
+        @apply absolute bottom-0 left-0 w-[300px] bg-[#151515] z-40 flex-col max-h-[160px] overflow-auto;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+
+        color: $basicFontColor;
+        transform: translate(0, 100%);
+        .dropdownTitle {
+          @apply text-center py-[2px] bg-[#ddd1] text-xs;
+        }
+
+        .dropdownItem {
+          @apply inline-flex items-center py-2 text-base font-bold px-1 hover:bg-[#fff1] cursor-pointer;
+
+          .dropdownNameSpan {
+            @apply mx-2;
+          }
+
+          .deleteIcon {
+            margin-left: auto;
+          }
+        }
       }
     }
 
@@ -38,9 +68,15 @@ $gemSlotsize: 60px;
 
   // 검색 후 줄어든 검색창
   .searchDiv.shrinked {
-    @apply w-full min-h-[40px] my-1 py-1 text-sm;
-    .searchInput {
-      @apply h-8 mx-1 px-1 w-[240px];
+    @apply w-full min-h-[40px] my-1 py-1 text-sm gap-2;
+    .searchInputWrapper {
+      @apply w-[240px];
+      .searchInput {
+        @apply h-8 px-1;
+      }
+      .dropdown {
+        @apply w-[320px];
+      }
     }
     .searchBtn {
       @apply font-bold w-20 h-8 text-sm;
@@ -49,6 +85,10 @@ $gemSlotsize: 60px;
 
   .recentContainer {
     @apply text-3xl flex-auto w-full px-4 font-bold flex flex-col justify-center items-center text-[#bbb] my-2;
+
+    .recentTitle {
+      @apply text-2xl font-extrabold mb-4;
+    }
 
     .iconBox {
       @apply w-[300px] h-[300px] mb-5 relative;
@@ -73,6 +113,9 @@ $gemSlotsize: 60px;
         height: 400px;
         background-size: 100% 100%;
         background-image: url("/images/searched_card_outline.png");
+        &:hover {
+          background-image: url("/images/searched_card_outline_hover.png");
+        }
 
         .recentItemHeader {
           @apply flex items-start w-full pl-4 text-sm font-bold;
@@ -93,14 +136,6 @@ $gemSlotsize: 60px;
 
         img {
           @apply absolute bottom-4 left-0 right-0 mx-auto;
-        }
-
-        .favoriteIcon {
-          @apply inline-block cursor-pointer hover:stroke-red-500 transition-all duration-200 mx-2;
-        }
-
-        .deleteIcon {
-          @apply inline-block cursor-pointer hover:stroke-[#437dcb] transition-all duration-200 mx-2;
         }
       }
     }
@@ -127,7 +162,8 @@ $gemSlotsize: 60px;
       .profileHeader {
         @apply py-1 w-full;
         .profileHeaderLine {
-          @apply flex justify-center items-center text-[#eee] font-bold mb-1;
+          @apply flex justify-center items-center font-bold mb-1;
+          color: $basicFontColor;
           line-height: 24px;
 
           &:first-child > span {
@@ -360,7 +396,6 @@ $gemSlotsize: 60px;
         .profileImage {
           @apply absolute top-1/2 left-1/2 z-0;
           transform: translate(-50%, -50%);
-          width: auto;
         }
       }
 
@@ -378,7 +413,8 @@ $gemSlotsize: 60px;
         .egcHeader {
           @apply flex py-1 px-4;
           .egcHeaderP {
-            @apply text-[#eee] text-base bg-[#116] font-bold px-3 py-1 shrink-0;
+            @apply text-base bg-[#116] font-bold px-3 py-1 shrink-0;
+            color: $basicFontColor;
             border-radius: 14px;
           }
           &.engravingHeader {
@@ -386,7 +422,8 @@ $gemSlotsize: 60px;
           }
 
           .engravingEquipDiv {
-            @apply flex items-center text-[#eee] gap-2 text-base font-bold;
+            @apply flex items-center gap-2 text-base font-bold;
+            color: $basicFontColor;
             .engravingEquipIconDiv {
               @apply w-[56px] h-[56px] relative;
 
@@ -409,13 +446,14 @@ $gemSlotsize: 60px;
         .engravingBody {
           @apply px-4;
           .engravingEffectsDiv {
-            @apply inline-flex min-w-[23%] max-w-[29%] items-center text-[#eee] gap-2 mx-2 text-sm font-bold;
+            @apply inline-flex min-w-[23%] max-w-[29%] items-center gap-2 mx-2 text-sm font-bold;
+            color: $basicFontColor;
 
             .engravingEquipIconImage {
               border-radius: 50%;
             }
             .engravingLevel {
-              @apply shrink-0 w-4 h-4 leading-4 text-center;
+              @apply shrink-0 w-4 h-4 leading-4 text-center font-extrabold;
             }
           }
         }

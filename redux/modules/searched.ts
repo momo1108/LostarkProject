@@ -52,8 +52,8 @@ const reducer = handleActions<SearchedState, SearchedData[]>(
 
 export default reducer;
 
-function checker(state: SearchedData[], data: CharData): SearchedData[] {
-  if (!data.ArmoryProfile) return [];
+export function checker(state: SearchedData[], data: CharData): SearchedData[] {
+  if (!data.ArmoryProfile) return state;
   let duplicate: boolean = false;
   const level = parseInt(data.ArmoryProfile.ItemAvgLevel.replace(",", ""));
   console.log(state);

@@ -127,3 +127,11 @@ body,
 .react-tooltip-arrow {
   display: none;
 }
+
+.favoriteIcon {
+  @apply inline-block cursor-pointer hover:stroke-red-500 transition-all duration-200 mx-2;
+}
+
+.deleteIcon {
+  @apply inline-block cursor-pointer hover:stroke-[#437dcb] transition-all duration-200 mx-2;
+}

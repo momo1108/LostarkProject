@@ -3,27 +3,26 @@ import { RootState, SearchedData } from "@/types/ReducerType";
 import { useSelector } from "react-redux";
 import { useCallback } from "react";
 import { useRouter } from "next/router";
-import useReduxDispatchWrapper from "@/hooks/useReduxDispatchWrapper";
-import { success } from "@/redux/modules/searched";
 
 type CharRecentContainerProps = {
-  setPointer: (value: React.SetStateAction<boolean>) => void;
+  searchedDataList: SearchedData[];
+  like: (name: string) => void;
+  remove: (name: string) => void;
 };
 const CharRecentContainer: React.FC<CharRecentContainerProps> = ({
-  setPointer,
+  searchedDataList,
+  like,
+  remove,
 }) => {
   const router = useRouter();
-  const { dispatchWrapper } = useReduxDispatchWrapper();
-  const data = useSelector<RootState, SearchedData[]>(
-    (state) => state.searched.data
-  );
+  // const data = useSelector<RootState, SearchedData[]>(
+  //   (state) => state.searched.data
+  // );
   const search = useCallback((name: string) => {
     router.push("/character/" + name);
   }, []);
 
-  return (
-    <CharRecentBlock data={data} search={search} setPointer={setPointer} />
-  );
+  return <CharRecentBlock {...{ searchedDataList, search, like, remove }} />;
 };
 
 export default CharRecentContainer;

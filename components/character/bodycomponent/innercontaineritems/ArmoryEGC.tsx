@@ -374,4 +374,30 @@ ArmoryCard{
     }]
   }]
 }
+
+
+ArmorySkill{
+  Name	string
+  Icon	string
+  Level	integer($int32)
+  Type	string
+  IsAwakening	boolean
+  Tripods	[SkillTripod{
+    Tier	integer($int32)
+    Slot	integer($int32)
+    Name	string
+    Icon	string
+    Level	integer($int32)
+    IsSelected	boolean
+    Tooltip	string
+  }]
+  Rune	SkillRune{
+    Name	string
+    Icon	string
+    Grade	string
+    Tooltip	string
+  }
+  Tooltip	string
+}
+
 */

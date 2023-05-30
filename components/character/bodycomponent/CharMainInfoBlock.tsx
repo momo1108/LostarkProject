@@ -1,4 +1,4 @@
-import { CharMainInfoProps } from "@/types/CharacterType";
+import { CharMainInfoBlockProps } from "@/types/CharacterType";
 import { accessoryOrder, avatarOrder, equipmentOrder } from "@/types/EAAType";
 import styles from "@/styles/character/Body.module.scss";
 import EmptyProfile from "@/components/icons/EmptyProfile";
@@ -11,7 +11,7 @@ import ArmoryEGC from "./innercontaineritems/ArmoryEGC";
 import GemTooltip from "./tooltips/GemTooltip";
 import ArmoryEAA from "./innercontaineritems/ArmoryEAA";
 
-const CharMainInfoBlock: React.FC<CharMainInfoProps> = ({
+const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
   loading,
   data,
   render,
