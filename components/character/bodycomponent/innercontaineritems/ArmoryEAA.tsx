@@ -74,7 +74,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
   }
   // console.log("ArmoryProfile");
   return (
-    <div className={styles.infoContainerItemDiv}>
+    <>
       <div className={styles.profileHeader}>
         <p className={styles.profileHeaderLine}>
           <span className={styles.profileServerSpan}>
@@ -260,7 +260,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
           alt=""
         />
       </div>
-    </div>
+    </>
   );
 };
 

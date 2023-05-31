@@ -93,7 +93,23 @@ function useApiTagParser() {
       info[1][0] === "멸" ? 0 : 1,
     ];
   }, []);
-  return { parseApiDataToHtmlString, parseEngravingPoint, parseGemName };
+  const parseSkillPoint = useCallback(
+    (point: number): ReturnType<typeof domToReact> => {
+      const color: string =
+        point >= 10 ? "#fe9600" : point >= 7 ? "#ce43fc" : "#00b5ff";
+
+      return parse(
+        `<span style="color:${color}; font-weight:800; font-size:13px;">${point}</span>`
+      );
+    },
+    []
+  );
+  return {
+    parseApiDataToHtmlString,
+    parseEngravingPoint,
+    parseGemName,
+    parseSkillPoint,
+  };
 }
 
 export default useApiTagParser;

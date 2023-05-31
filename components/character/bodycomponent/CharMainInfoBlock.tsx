@@ -1,4 +1,4 @@
-import { CharMainInfoBlockProps } from "@/types/CharacterType";
+import { CharMainInfoBlockProps, InfoMenu } from "@/types/CharacterType";
 import { accessoryOrder, avatarOrder, equipmentOrder } from "@/types/EAAType";
 import styles from "@/styles/character/Body.module.scss";
 import EmptyProfile from "@/components/icons/EmptyProfile";
@@ -10,6 +10,7 @@ import AvatarTooltip from "./tooltips/AvatarTooltip";
 import ArmoryEGC from "./innercontaineritems/ArmoryEGC";
 import GemTooltip from "./tooltips/GemTooltip";
 import ArmoryEAA from "./innercontaineritems/ArmoryEAA";
+import ArmoryST from "./innercontaineritems/ArmoryST";
 
 const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
   loading,
@@ -19,6 +20,10 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
   const [equipment, setEquipment] = useState<Array<any>>();
   const [accessory, setAccessory] = useState<Array<any>>();
   const [avatar, setAvatar] = useState<Array<any>>();
+  const [infoMenuList, setInfoMenuList] = useState<InfoMenu>({
+    names: ["각인/보석/카드", "스킬/트라이포드"],
+    activeMenu: 0,
+  });
   const [equipmentTooltipContent, setEquipmentTooltipContent] = useState<any>();
   const [accessoryTooltipContent, setAccessoryTooltipContent] = useState<any>();
   const [avatarTooltipContent, setAvatarTooltipContent] = useState<any>();
@@ -73,6 +78,8 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
     }
     setAvatar(avatar_tmp);
 
+    setInfoMenuList({ ...infoMenuList, activeMenu: 0 });
+
     // console.log("========================");
     // avatar_tmp.forEach((element: any) => {
     //   console.log(element.Type, element.Grade, element.Tooltip);
@@ -108,21 +115,48 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
     </div>
   ) : render ? (
     <div className={styles.infoContainer}>
-      <ArmoryEAA
-        data={data}
-        equipment={equipment}
-        accessory={accessory}
-        avatar={avatar}
-        setEquipmentTooltipContent={setEquipmentTooltipContent}
-        setAccessoryTooltipContent={setAccessoryTooltipContent}
-        setAvatarTooltipContent={setAvatarTooltipContent}
-      />
-      <ArmoryEGC
-        data={data}
-        setEngravingTooltipContent={setEngravingTooltipContent}
-        setGemTooltipContent={setGemTooltipContent}
-      />
-
+      <div className={styles.infoContainerItemDiv}>
+        <ArmoryEAA
+          data={data}
+          equipment={equipment}
+          accessory={accessory}
+          avatar={avatar}
+          setEquipmentTooltipContent={setEquipmentTooltipContent}
+          setAccessoryTooltipContent={setAccessoryTooltipContent}
+          setAvatarTooltipContent={setAvatarTooltipContent}
+        />
+      </div>
+      <div className={styles.infoContainerItemDiv}>
+        <ul className={styles.infoMenuList}>
+          {infoMenuList.names.map((e: string, i: number) => {
+            return (
+              <li
+                className={`${styles.infoMenuItem} ${
+                  infoMenuList.activeMenu === i ? styles.active : ""
+                }`}
+                onClick={() => {
+                  setInfoMenuList({
+                    ...infoMenuList,
+                    activeMenu: i,
+                  });
+                }}
+              >
+                {e}
+              </li>
+            );
+          })}
+        </ul>
+        <ArmoryEGC
+          data={data}
+          className={infoMenuList.activeMenu === 0 ? "" : "hidden"}
+          setEngravingTooltipContent={setEngravingTooltipContent}
+          setGemTooltipContent={setGemTooltipContent}
+        />
+        <ArmoryST
+          data={data}
+          className={infoMenuList.activeMenu === 1 ? "" : "hidden"}
+        />
+      </div>
       <Tooltip
         id="equipmentTooltip"
         className={`${styles.tooltip} ${styles.equipmentTooltip}`}

@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 
 const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
   data,
+  className,
   setEngravingTooltipContent,
   setGemTooltipContent,
 }) => {
@@ -64,7 +65,7 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
   }, [data]);
 
   return (
-    <div className={styles.infoContainerItemDiv}>
+    <div className={className}>
       <div className={styles.egcDiv}>
         <div className={`${styles.egcHeader} ${styles.engravingHeader}`}>
           <p className={styles.egcHeaderP}>장착 각인</p>
@@ -331,30 +332,6 @@ ArmoryEngraving{
   }]
 }
 
-ArmorySkill{
-  Name	string
-  Icon	string
-  Level	integer($int32)
-  Type	string
-  IsAwakening	boolean
-  Tripods	[SkillTripod{
-    Tier	integer($int32)
-    Slot	integer($int32)
-    Name	string
-    Icon	string
-    Level	integer($int32)
-    IsSelected	boolean
-    Tooltip	string
-  }]
-  Rune	SkillRune{
-    Name	string
-    Icon	string
-    Grade	string
-    Tooltip	string
-  }
-  Tooltip	string
-}
-
 ArmoryCard{
   Cards	[Card{
     Slot	integer($int32)
@@ -374,30 +351,4 @@ ArmoryCard{
     }]
   }]
 }
-
-
-ArmorySkill{
-  Name	string
-  Icon	string
-  Level	integer($int32)
-  Type	string
-  IsAwakening	boolean
-  Tripods	[SkillTripod{
-    Tier	integer($int32)
-    Slot	integer($int32)
-    Name	string
-    Icon	string
-    Level	integer($int32)
-    IsSelected	boolean
-    Tooltip	string
-  }]
-  Rune	SkillRune{
-    Name	string
-    Icon	string
-    Grade	string
-    Tooltip	string
-  }
-  Tooltip	string
-}
-
 */

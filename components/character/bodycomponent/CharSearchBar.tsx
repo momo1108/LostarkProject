@@ -95,6 +95,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
     }
     search(name);
     divRef.current?.blur();
+    nameRef.current!.blur();
   }
 };
 

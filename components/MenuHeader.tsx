@@ -52,7 +52,9 @@ const MenuHeader: React.FC<MenuProps> = ({ menu }) => {
                 key={m.id}
                 onClick={dragging ? undefined : () => router.push(m.url)}
                 className={`${styles.menuLink} ${
-                  router.route === m.url ? styles.activeMenuLink : ""
+                  router.route.split("/")[1] === m.url.split("/")[1]
+                    ? styles.activeMenuLink
+                    : ""
                 }`}
               >
                 {m.title}

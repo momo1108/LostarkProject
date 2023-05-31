@@ -33,3 +33,8 @@ export const gradeClassMap: { [key: string]: string } = {
   고대: "ancientBackground",
   에스더: "siderealBackground",
 };
+
+export type InfoMenu = {
+  names: string[];
+  activeMenu: number;
+};

@@ -6,6 +6,7 @@ import { CharData } from "./ReducerType";
 
 export type ArmoryEGCProps = {
   data: CharData;
+  className: string;
   setEngravingTooltipContent: React.Dispatch<
     React.SetStateAction<Object | undefined>
   >;
