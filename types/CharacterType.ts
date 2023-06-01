@@ -23,17 +23,6 @@ export type CharMainInfoBlockProps = {
   render: boolean;
 };
 
-export const gradeClassMap: { [key: string]: string } = {
-  일반: "normalBackground",
-  고급: "uncommonBackground",
-  희귀: "rareBackground",
-  영웅: "epicBackground",
-  전설: "legendaryBackground",
-  유물: "relicBackground",
-  고대: "ancientBackground",
-  에스더: "siderealBackground",
-};
-
 export type InfoMenu = {
   names: string[];
   activeMenu: number;

@@ -569,22 +569,73 @@ $basicFontColor: #eee;
         }
       }
 
-      .stDiv {
-        @apply py-2 px-2 flex font-bold items-center gap-2;
-        color: $basicFontColor;
-
-        .skillIconSlot {
-          @apply flex w-[50px] h-[50px] justify-center items-center;
-          background-image: url(https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_skill_slot.png);
-          .skillIcon {
-            @apply w-[44px];
-          }
+      .stContainer {
+        @apply max-h-[640px] overflow-auto;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+        &::-webkit-scrollbar {
+          width: 4px;
+          height: 8px;
+          background-color: #1a1c25;
         }
+        &::-webkit-scrollbar-thumb {
+          background-color: #4a4c55;
+        }
+        .stDiv {
+          @apply py-3 pl-2 pr-4 flex font-bold items-center gap-2;
+          color: $basicFontColor;
 
-        .skillDescr {
-          @apply inline-flex flex-col;
-          .skillLevelP {
-            @apply text-xs;
+          .skillIconSlot {
+            @apply flex w-[50px] h-[50px] justify-center items-center;
+            background-image: url(https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_skill_slot.png);
+            .skillIcon {
+              @apply w-[44px];
+            }
+          }
+
+          .skillDescr {
+            @apply inline-flex flex-col min-w-[100px];
+            .skillLevelP {
+              @apply text-xs;
+            }
+          }
+
+          .skillTripods {
+            @apply flex gap-2 ml-4 min-w-[145px] h-[65px];
+            .usedTripod {
+              @apply relative flex w-[70px] justify-center;
+              img {
+                @apply w-[43px] h-[43px];
+                border-radius: 21.5px;
+                border: 1.5px solid rgb(42, 42, 42);
+              }
+              .tripodSlot {
+                @apply absolute inline-flex text-sm font-extrabold;
+                right: 12px;
+                top: -5px;
+              }
+              .tripodDescrItem {
+                @apply absolute flex flex-col text-xs text-center;
+                bottom: -4px;
+                .tripodNameP {
+                  @apply w-[90px];
+                }
+              }
+            }
+          }
+
+          .skillRune {
+            @apply relative w-14 h-14 flex justify-center items-center ml-auto;
+            border-radius: 50%;
+            border: 2px solid rgb(36, 36, 36);
+            box-shadow: inset 0px 0px 7px 0px #000;
+            img {
+              @apply w-12 h-12;
+            }
+            .runeNameP {
+              @apply absolute text-sm;
+              bottom: -7px;
+            }
           }
         }
       }
@@ -655,7 +706,8 @@ $basicFontColor: #eee;
       }
     }
 
-    .engravingTooltip {
+    .engravingTooltip,
+    .tripodTooltip {
       @apply p-2;
     }
 
@@ -676,6 +728,10 @@ $basicFontColor: #eee;
           }
         }
       }
+    }
+
+    .runeTooltip {
+      @apply font-bold text-sm;
     }
   }
 

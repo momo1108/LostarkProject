@@ -86,7 +86,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
     // });
     // console.log("========================");
     // console.log(avatar_tmp);
-    console.log(data);
+    // console.log(data);
   }, [data]);
 
   // useEffect(() => {
@@ -131,6 +131,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
           {infoMenuList.names.map((e: string, i: number) => {
             return (
               <li
+                key={`infoMenu${i}`}
                 className={`${styles.infoMenuItem} ${
                   infoMenuList.activeMenu === i ? styles.active : ""
                 }`}

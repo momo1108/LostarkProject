@@ -30,15 +30,6 @@ export const gradeCardBackgroundMap: { [key: string]: string } = {
   유물: "legendary",
 };
 
-export const gradeTextColorMap: { [key: string]: string } = {
-  일반: "#fffd",
-  고급: "#63e925",
-  희귀: "#00B0FA",
-  영웅: "#ce43fc",
-  전설: "#F99200",
-  유물: "#FA5D00",
-};
-
 export const engravingLevelColorMap: { [key: string]: string } = {
   "3": "#fe9600",
   "2": "#ce43fc",

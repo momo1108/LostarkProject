@@ -124,6 +124,34 @@ body,
   background: linear-gradient(135deg, #0c2e2c 0%, #2faba8 100%);
 }
 
+.commonColor {
+  color: #eee;
+}
+.uncommonColor {
+  color: #63e925;
+}
+.rareColor {
+  color: #00b0fa;
+}
+.epicColor {
+  color: #ce43fc;
+}
+.legendaryColor {
+  color: #f99200;
+}
+
+.relicColor {
+  color: #fa5d00;
+}
+
+.ancientColor {
+  color: #e3c7a1;
+}
+
+.siderealColor {
+  color: #3cf2e6;
+}
+
 .react-tooltip-arrow {
   display: none;
 }

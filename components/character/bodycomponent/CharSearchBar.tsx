@@ -14,6 +14,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
 }) => {
   const nameRef = useRef<HTMLInputElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [dropdownVisibility, setDropdownVisibility] = useState<boolean>(false);
   return (
     <div
@@ -35,6 +36,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
           className={`${styles.dropdown}${
             shrink && dropdownVisibility ? " flex" : " hidden"
           }`}
+          ref={dropdownRef}
         >
           <h4 className={styles.dropdownTitle}>최근 검색 기록</h4>
           {searchedDataList
@@ -96,6 +98,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
     search(name);
     divRef.current?.blur();
     nameRef.current!.blur();
+    dropdownRef.current!.scrollTop = 0;
   }
 };
 

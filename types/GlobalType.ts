@@ -45,6 +45,28 @@ export const nanumNeo = localFont({
   ],
 });
 
+export const gradeClassMap: { [key: string]: string } = {
+  일반: "normalBackground",
+  고급: "uncommonBackground",
+  희귀: "rareBackground",
+  영웅: "epicBackground",
+  전설: "legendaryBackground",
+  유물: "relicBackground",
+  고대: "ancientBackground",
+  에스더: "siderealBackground",
+};
+
+export const gradeTextColorMap: { [key: string]: string } = {
+  일반: "commonColor",
+  고급: "uncommonColor",
+  희귀: "rareColor",
+  영웅: "epicColor",
+  전설: "legendaryColor",
+  유물: "relicColor",
+  고대: "ancientColor",
+  에스더: "siderealColor",
+};
+
 export const classImageMap: { [key: string]: string } = {
   호크아이: "class_1.png",
   소서리스: "class_2.png",

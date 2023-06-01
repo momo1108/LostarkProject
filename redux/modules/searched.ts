@@ -56,7 +56,6 @@ export function checker(state: SearchedData[], data: CharData): SearchedData[] {
   if (!data.ArmoryProfile) return state;
   let duplicate: boolean = false;
   const level = parseInt(data.ArmoryProfile.ItemAvgLevel.replace(",", ""));
-  console.log(state);
   const tmp = state.map((e: SearchedData) => {
     if (e.name === data.ArmoryProfile.CharacterName) {
       duplicate = true;

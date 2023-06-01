@@ -1,5 +1,5 @@
 import styles from "@/styles/character/Body.module.scss";
-import { gradeClassMap } from "@/types/CharacterType";
+import { gradeClassMap } from "@/types/GlobalType";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import { EquipmentTooltipProps } from "@/types/EAAType";
 

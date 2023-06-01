@@ -1,13 +1,12 @@
 import AlertOctagon from "@/components/icons/AlertOctagon";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import styles from "@/styles/character/Body.module.scss";
-import { gradeClassMap } from "@/types/CharacterType";
+import { gradeClassMap, gradeTextColorMap } from "@/types/GlobalType";
 import {
   ArmoryEGCProps,
   engravingIconMap,
   engravingLevelColorMap,
   gradeCardBackgroundMap,
-  gradeTextColorMap,
 } from "@/types/EGCType";
 import { useEffect, useState } from "react";
 
