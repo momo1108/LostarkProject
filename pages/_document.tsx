@@ -9,20 +9,20 @@ export default function Document() {
         <meta property="og:title" content="Loaple - Lostark Helper" />
         <meta
           property="og:description"
-          content="스타벅스는 세계에서 가장 큰 다국적 커피 전문점으로, 64개국에서 총 23,187개의 매점을 운영하고 있습니다."
+          content="로아플은 세계에서 가장 작은 로스트아크 웹서비스로, 혼자 야무지게 만든 웹서비스입니다."
         />
-        <meta property="og:image" content="./images/starbucks_seo.jpg" />
-        <meta property="og:url" content="https://starbucks.co.kr" />
+        <meta property="og:image" content="/images/loaple_seo.jpg" />
+        <meta property="og:url" content="http://loaple.site" />
 
         <meta property="twitter:card" content="summary" />
         <meta property="twitter:site" content="Loaple" />
         <meta property="twitter:title" content="Loaple - Lostark Helper" />
         <meta
           property="twitter:description"
-          content="스타벅스는 세계에서 가장 큰 다국적 커피 전문점으로, 64개국에서 총 23,187개의 매점을 운영하고 있습니다."
+          content="로아플은 세계에서 가장 작은 로스트아크 웹서비스로, 혼자 야무지게 만든 웹서비스입니다."
         />
-        <meta property="twitter:image" content="./images/starbucks_seo.jpg" />
-        <meta property="twitter:url" content="https://starbucks.co.kr" />
+        <meta property="twitter:image" content="/images/loaple_seo.jpg" />
+        <meta property="twitter:url" content="http://loaple.site" />
       </Head>
       <body>
         <Main />
