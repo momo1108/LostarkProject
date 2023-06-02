@@ -3,12 +3,7 @@ import { accessoryOrder, avatarOrder, equipmentOrder } from "@/types/EAAType";
 import styles from "@/styles/character/Body.module.scss";
 import EmptyProfile from "@/components/icons/EmptyProfile";
 import { useState, useEffect } from "react";
-import { Tooltip } from "react-tooltip";
-import EquipmentTooltip from "./tooltips/EquipmentTooltip";
-import AccessoryTooltip from "./tooltips/AccessoryTooltip";
-import AvatarTooltip from "./tooltips/AvatarTooltip";
-import ArmoryEGC from "./innercontaineritems/ArmoryEGC";
-import GemTooltip from "./tooltips/GemTooltip";
+import ArmoryTEGC from "./innercontaineritems/ArmoryTEGC";
 import ArmoryEAA from "./innercontaineritems/ArmoryEAA";
 import ArmoryST from "./innercontaineritems/ArmoryST";
 
@@ -24,11 +19,6 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
     names: ["각인/보석/카드", "스킬/트라이포드"],
     activeMenu: 0,
   });
-  const [equipmentTooltipContent, setEquipmentTooltipContent] = useState<any>();
-  const [accessoryTooltipContent, setAccessoryTooltipContent] = useState<any>();
-  const [avatarTooltipContent, setAvatarTooltipContent] = useState<any>();
-  const [engravingTooltipContent, setEngravingTooltipContent] = useState<any>();
-  const [gemTooltipContent, setGemTooltipContent] = useState<any>();
   useEffect(() => {
     const equipment_tmp = new Array(6);
     const accessory_tmp = new Array(7);
@@ -89,11 +79,6 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
     // console.log(data);
   }, [data]);
 
-  // useEffect(() => {
-  //   console.log(equipmentTooltipContent);
-  //   console.log(accessoryTooltipContent);
-  // }, [equipmentTooltipContent, accessoryTooltipContent]);
-
   return loading ? (
     <div className={styles.loadingContainer}>
       <p className={styles.loadingMessage}>검색을 진행중입니다.</p>
@@ -121,9 +106,6 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
           equipment={equipment}
           accessory={accessory}
           avatar={avatar}
-          setEquipmentTooltipContent={setEquipmentTooltipContent}
-          setAccessoryTooltipContent={setAccessoryTooltipContent}
-          setAvatarTooltipContent={setAvatarTooltipContent}
         />
       </div>
       <div className={styles.infoContainerItemDiv}>
@@ -147,80 +129,15 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
             );
           })}
         </ul>
-        <ArmoryEGC
+        <ArmoryTEGC
           data={data}
           className={infoMenuList.activeMenu === 0 ? "" : "hidden"}
-          setEngravingTooltipContent={setEngravingTooltipContent}
-          setGemTooltipContent={setGemTooltipContent}
         />
         <ArmoryST
           data={data}
           className={infoMenuList.activeMenu === 1 ? "" : "hidden"}
         />
       </div>
-      <Tooltip
-        id="equipmentTooltip"
-        className={`${styles.tooltip} ${styles.equipmentTooltip}`}
-        place="right"
-        clickable={true}
-      >
-        {equipmentTooltipContent ? (
-          <EquipmentTooltip data={equipmentTooltipContent} />
-        ) : (
-          "Loading..."
-        )}
-      </Tooltip>
-      <Tooltip
-        id="accessoryTooltip"
-        className={`${styles.tooltip} ${styles.accessoryTooltip}`}
-        place="right"
-        clickable={true}
-        delayHide={10}
-      >
-        {accessoryTooltipContent ? (
-          <AccessoryTooltip data={accessoryTooltipContent} />
-        ) : (
-          "Loading..."
-        )}
-      </Tooltip>
-      <Tooltip
-        id="avatarTooltip"
-        className={`${styles.tooltip} ${styles.avatarTooltip}`}
-        place="right"
-        clickable={true}
-        offset={16}
-        delayHide={1}
-      >
-        {avatarTooltipContent ? (
-          <AvatarTooltip data={avatarTooltipContent} />
-        ) : (
-          "Loading..."
-        )}
-      </Tooltip>
-      <Tooltip
-        id="engravingTooltip"
-        className={`${styles.tooltip} ${styles.engravingTooltip}`}
-        place="top"
-        clickable={true}
-        offset={12}
-        delayHide={1}
-      >
-        {engravingTooltipContent ? engravingTooltipContent : "Loading..."}
-      </Tooltip>
-      <Tooltip
-        id="gemTooltip"
-        className={`${styles.tooltip} ${styles.gemTooltip}`}
-        place="top"
-        clickable={true}
-        offset={12}
-        delayHide={1}
-      >
-        {gemTooltipContent ? (
-          <GemTooltip data={gemTooltipContent} />
-        ) : (
-          "Loading..."
-        )}
-      </Tooltip>
     </div>
   ) : (
     <div className={styles.emptyContainer}>

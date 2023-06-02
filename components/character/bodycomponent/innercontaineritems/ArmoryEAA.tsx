@@ -12,6 +12,10 @@ import AvatarSlot from "../slots/AvatarSlot";
 import { useState, Fragment } from "react";
 import { classImageMap } from "@/types/GlobalType";
 import Image from "next/image";
+import { Tooltip } from "react-tooltip";
+import EquipmentTooltip from "../tooltips/EquipmentTooltip";
+import AccessoryTooltip from "../tooltips/AccessoryTooltip";
+import AvatarTooltip from "../tooltips/AvatarTooltip";
 
 /*
 아바타 왼쪽 : 무기, 무기
@@ -32,11 +36,11 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
   equipment,
   accessory,
   avatar,
-  setEquipmentTooltipContent,
-  setAccessoryTooltipContent,
-  setAvatarTooltipContent,
 }) => {
   const [menu, setMenu] = useState<number>(0);
+  const [equipmentTooltipContent, setEquipmentTooltipContent] = useState<any>();
+  const [accessoryTooltipContent, setAccessoryTooltipContent] = useState<any>();
+  const [avatarTooltipContent, setAvatarTooltipContent] = useState<any>();
   function emptyAvatarChecker(e: number): React.ReactElement {
     if (avatar[e]) {
       return (
@@ -260,6 +264,45 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
           alt=""
         />
       </div>
+      <Tooltip
+        id="equipmentTooltip"
+        className={`${styles.tooltip} ${styles.equipmentTooltip}`}
+        place="right"
+        clickable={true}
+      >
+        {equipmentTooltipContent ? (
+          <EquipmentTooltip data={equipmentTooltipContent} />
+        ) : (
+          "Loading..."
+        )}
+      </Tooltip>
+      <Tooltip
+        id="accessoryTooltip"
+        className={`${styles.tooltip} ${styles.accessoryTooltip}`}
+        place="right"
+        clickable={true}
+        delayHide={10}
+      >
+        {accessoryTooltipContent ? (
+          <AccessoryTooltip data={accessoryTooltipContent} />
+        ) : (
+          "Loading..."
+        )}
+      </Tooltip>
+      <Tooltip
+        id="avatarTooltip"
+        className={`${styles.tooltip} ${styles.avatarTooltip}`}
+        place="right"
+        clickable={true}
+        offset={16}
+        delayHide={1}
+      >
+        {avatarTooltipContent ? (
+          <AvatarTooltip data={avatarTooltipContent} />
+        ) : (
+          "Loading..."
+        )}
+      </Tooltip>
     </>
   );
 };

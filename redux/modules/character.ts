@@ -55,10 +55,13 @@ function* getCharSaga(action: Action<string>) {
       CharacterService.getCharacterSummary,
       action.payload
     );
-    // if (!data.ArmoryProfile.CharacterImage) {
-    //   url = yield call(CharacterService.getCharacterImageUrl, action.payload);
-    //   data.ArmoryProfile.CharacterImage = url ? url : null;
-    // }
+    if (!data.ArmoryProfile.CharacterImage) {
+      const url: string | undefined = yield call(
+        CharacterService.getCharacterImageUrl,
+        action.payload
+      );
+      data.ArmoryProfile.CharacterImage = url ? url : null;
+    }
 
     yield put(success({ data }));
   } catch (error: any) {

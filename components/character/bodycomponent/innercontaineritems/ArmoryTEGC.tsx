@@ -3,20 +3,19 @@ import useApiTagParser from "@/hooks/useApiTagParser";
 import styles from "@/styles/character/Body.module.scss";
 import { gradeClassMap, gradeTextColorMap } from "@/types/GlobalType";
 import {
-  ArmoryEGCProps,
+  ArmoryTEGCProps,
+  StatData,
+  TendencyData,
   engravingIconMap,
   engravingLevelColorMap,
   gradeCardBackgroundMap,
 } from "@/types/EGCType";
 import { useEffect, useState } from "react";
+import { Tooltip } from "react-tooltip";
+import GemTooltip from "../tooltips/GemTooltip";
 
-const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
-  data,
-  className,
-  setEngravingTooltipContent,
-  setGemTooltipContent,
-}) => {
-  // console.log("ArmoryEGC");
+const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
+  // console.log("ArmoryTEGC");
   const {
     parseEngravingPoint,
     parseGemName,
@@ -25,6 +24,9 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
   const [engEquip, setEngEquip] = useState<any>();
   const [gemEquip, setGemEquip] = useState<any>(new Array(11));
   const [selectedCards, setSelectedCards] = useState<any>([]);
+  const [myStats, setMyStats] = useState<any>(new Object());
+  const [engravingTooltipContent, setEngravingTooltipContent] = useState<any>();
+  const [gemTooltipContent, setGemTooltipContent] = useState<any>();
   useEffect(() => {
     if (data.ArmoryEngraving?.Engravings) {
       setEngEquip(
@@ -60,115 +62,164 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
       // console.log(mergedGemInfo);
     }
 
+    // console.log(data.ArmoryProfile.Stats);
+    const tmp_stats: { [key: string]: string } = {};
+    data.ArmoryProfile?.Stats?.forEach((e: StatData) => {
+      tmp_stats[e.Type] = e.Value;
+    });
+    setMyStats({ ...tmp_stats });
+
     // console.log(engEquip);
-  }, [data]);
+  }, []);
 
   return (
     <div className={className}>
-      <div className={styles.egcDiv}>
-        <div className={`${styles.egcHeader} ${styles.engravingHeader}`}>
-          <p className={styles.egcHeaderP}>장착 각인</p>
-          {engEquip ? (
-            [0, 1].map((e: number) => {
-              return engEquip[e] ? (
-                <div
-                  key={`equipEngraving${e}`}
-                  className={styles.engravingEquipDiv}
-                >
-                  <div className={styles.engravingEquipIconDiv}>
-                    <img
-                      className={styles.engravingEquipIconSlot}
-                      src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave.png"
-                      alt="emptyslot"
-                    />
-                    <img
-                      className={styles.engravingEquipIconImage}
-                      width={41}
-                      src={engEquip[e].Icon}
-                      alt=""
-                    />
-                  </div>
-                  <p className={styles.engravingEquipNameP}>
-                    {engEquip[e].Name}
-                  </p>
-                  <p>
-                    {parseEngravingPoint(
-                      engEquip[e].Tooltip.Element_001.value.leftText
-                    )}
-                  </p>
-                </div>
-              ) : (
-                <div
-                  key={`equipEngraving${e}`}
-                  className={styles.engravingEquipDiv}
-                >
-                  <div className={styles.engravingEquipIconDiv}>
-                    <img
-                      className={styles.engravingEquipIconSlot}
-                      src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave.png"
-                      alt="emptyslot"
-                    />
-                    <img
-                      className={styles.engravingEquipIconImage}
-                      width={56}
-                      src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave_over.png"
-                      alt=""
-                    />
-                  </div>
-                  <p className={styles.engravingEquipNameP}>없음</p>
-                </div>
-              );
-            })
-          ) : (
-            <></>
-          )}
-        </div>
-        <div className={styles.engravingBody}>
-          {data.ArmoryEngraving && data.ArmoryEngraving.Effects ? (
-            data.ArmoryEngraving.Effects.map((e: any, i: number) => {
-              const name: string[] = e.Name.split(" Lv. ");
-              const isNegativeEffect: boolean = name[0].includes("감소");
+      <div className={styles.tegcDiv}>
+        <div className={styles.statsTendencyDiv}>
+          <div className={styles.tegcHeader}>
+            <span className={styles.tegcHeaderSpan}>특성</span>
+          </div>
+          <div className={styles.statsBody}>
+            {["최대 생명력", "공격력"].map((e: string) => {
               return (
-                <div
-                  key={`engEffects${i}`}
-                  data-tooltip-id="engravingTooltip"
-                  onMouseEnter={() => {
-                    setEngravingTooltipContent(e.Description);
-                  }}
-                  className={styles.engravingEffectsDiv}
-                >
-                  <img
-                    className={styles.engravingEquipIconImage}
-                    width={43}
-                    src={`/images/${engravingIconMap[name[0]]}`}
-                    alt=""
-                  />
-                  <span className={isNegativeEffect ? "text-red-500" : ""}>
-                    {name[0]}
-                  </span>
-                  <p
-                    className={styles.engravingLevel}
-                    style={{
-                      backgroundColor: engravingLevelColorMap[`${name[1]}d`],
-                    }}
-                  >
-                    {name[1]}
-                  </p>
+                <div key={`stats_${e}`}>
+                  {e} : {myStats[e]}
                 </div>
               );
-            })
-          ) : (
-            <div className={styles.emptyEGC}>
-              <AlertOctagon size={110} color="#fff" width={2} />
-              활성화된 각인 효과가 없습니다.
-            </div>
-          )}
+            })}
+            {["치명", "특화", "신속", "제압", "인내", "숙련"].map(
+              (e: string) => {
+                return (
+                  <div key={`stats_${e}`}>
+                    {e} : {myStats[e]}
+                  </div>
+                );
+              }
+            )}
+          </div>
+          <div className={styles.tegcHeader}>
+            <span className={styles.tegcHeaderSpan}>성향</span>
+          </div>
+          <div className={styles.tendencyBody}>
+            {data.ArmoryProfile.Tendencies?.map((e: TendencyData) => {
+              return (
+                <div key={`tendency_${e.Type}`}>
+                  {e.Type} : {e.Point}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className={styles.engravingDiv}>
+          <div className={styles.tegcHeader}>
+            <span className={styles.tegcHeaderSpan}>장착 각인</span>
+          </div>
+          <div className={styles.engravingHeader}>
+            {engEquip ? (
+              [0, 1].map((e: number) => {
+                return engEquip[e] ? (
+                  <div
+                    key={`equipEngraving${e}`}
+                    className={styles.engravingEquipDiv}
+                  >
+                    <div className={styles.engravingEquipIconDiv}>
+                      <img
+                        className={styles.engravingEquipIconSlot}
+                        src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave.png"
+                        alt="emptyslot"
+                      />
+                      <img
+                        className={styles.engravingEquipIconImage}
+                        width={31}
+                        src={engEquip[e].Icon}
+                        alt=""
+                      />
+                    </div>
+                    <p className={styles.engravingEquipNameP}>
+                      {engEquip[e].Name}
+                    </p>
+                    <p>
+                      {parseEngravingPoint(
+                        engEquip[e].Tooltip.Element_001.value.leftText
+                      )}
+                    </p>
+                  </div>
+                ) : (
+                  <div
+                    key={`equipEngraving${e}`}
+                    className={styles.engravingEquipDiv}
+                  >
+                    <div className={styles.engravingEquipIconDiv}>
+                      <img
+                        className={styles.engravingEquipIconSlot}
+                        src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave.png"
+                        alt="emptyslot"
+                      />
+                      <img
+                        className={styles.engravingEquipIconImage}
+                        width={42}
+                        src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave_over.png"
+                        alt=""
+                      />
+                    </div>
+                    <p className={styles.engravingEquipNameP}>없음</p>
+                  </div>
+                );
+              })
+            ) : (
+              <span>각인 미장착</span>
+            )}
+          </div>
+          <div className={styles.tegcHeader}>
+            <span className={styles.tegcHeaderSpan}>활성 각인</span>
+          </div>
+          <div className={styles.engravingBody}>
+            {data.ArmoryEngraving && data.ArmoryEngraving.Effects ? (
+              data.ArmoryEngraving.Effects.map((e: any, i: number) => {
+                const name: string[] = e.Name.split(" Lv. ");
+                const isNegativeEffect: boolean = name[0].includes("감소");
+                return (
+                  <div
+                    key={`engEffects${i}`}
+                    data-tooltip-id="engravingTooltip"
+                    onMouseEnter={() => {
+                      setEngravingTooltipContent(e.Description);
+                    }}
+                    className={styles.engravingEffectsDiv}
+                  >
+                    <img
+                      className={styles.engravingEquipIconImage}
+                      width={43}
+                      src={`/images/${engravingIconMap[name[0]]}`}
+                      alt=""
+                    />
+                    <span className={isNegativeEffect ? "text-red-500" : ""}>
+                      {name[0]}
+                    </span>
+                    <p
+                      className={styles.engravingLevel}
+                      style={{
+                        backgroundColor: engravingLevelColorMap[`${name[1]}d`],
+                      }}
+                    >
+                      {name[1]}
+                    </p>
+                  </div>
+                );
+              })
+            ) : (
+              <div className={styles.emptyTEGC}>
+                <AlertOctagon size={110} color="#fff" width={2} />
+                활성화된 각인 효과가 없습니다.
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <hr />
-      <div className={styles.egcDiv}>
-        <div className={styles.egcHeader}>
-          <p className={styles.egcHeaderP}>장착 보석</p>
+      <div className={styles.tegcDiv}>
+        <div className={styles.tegcHeader}>
+          <p className={styles.tegcHeaderP}>장착 보석</p>
         </div>
         <div className={styles.gemBody}>
           {gemEquip && gemEquip[0] ? (
@@ -192,7 +243,7 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
               );
             })
           ) : (
-            <div className={styles.emptyEGC}>
+            <div className={styles.emptyTEGC}>
               <AlertOctagon size={110} color="#fff" width={2} /> 장착중인 보석이
               없습니다.
             </div>
@@ -200,9 +251,9 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
         </div>
       </div>
       <hr />
-      <div className={styles.egcDiv}>
-        <div className={styles.egcHeader}>
-          <p className={styles.egcHeaderP}>장착 카드</p>
+      <div className={styles.tegcDiv}>
+        <div className={styles.tegcHeader}>
+          <p className={styles.tegcHeaderP}>장착 카드</p>
         </div>
         <div className={styles.cardBody}>
           {data.ArmoryCard?.Cards ? (
@@ -287,18 +338,42 @@ const ArmoryEGC: React.FC<ArmoryEGCProps> = ({
               </div>
             </>
           ) : (
-            <div className={styles.emptyEGC}>
+            <div className={styles.emptyTEGC}>
               <AlertOctagon size={110} color="#fff" width={2} /> 장착중인 카드가
               없습니다.
             </div>
           )}
         </div>
       </div>
+      <Tooltip
+        id="engravingTooltip"
+        className={`${styles.tooltip} ${styles.engravingTooltip}`}
+        place="left"
+        clickable={true}
+        offset={12}
+        delayHide={1}
+      >
+        {engravingTooltipContent ? engravingTooltipContent : "Loading..."}
+      </Tooltip>
+      <Tooltip
+        id="gemTooltip"
+        className={`${styles.tooltip} ${styles.gemTooltip}`}
+        place="top"
+        clickable={true}
+        offset={12}
+        delayHide={1}
+      >
+        {gemTooltipContent ? (
+          <GemTooltip data={gemTooltipContent} />
+        ) : (
+          "Loading..."
+        )}
+      </Tooltip>
     </div>
   );
 };
 
-export default ArmoryEGC;
+export default ArmoryTEGC;
 /*
 ArmoryGem{
   Gems	[Gem{

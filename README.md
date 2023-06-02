@@ -825,3 +825,4 @@ useDispatch 훅을 사용해 컴포넌트 내에서 action을 실행시킬 때, 
 특성/성향 모달로 출력기능
 아이디내 캐릭터 보기
 순위는 어떻게 했을까?
+차트라이브러리 혹시라도 참조(charjs - https://react-chartjs-2.js.org/)

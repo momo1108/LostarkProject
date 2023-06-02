@@ -14,7 +14,7 @@ const CharRecentBlock: React.FC<CharRecentBlockProps> = ({
   remove,
 }) => {
   // const { dispatchWrapper } = useReduxDispatchWrapper();
-  console.log(searchedDataList);
+  // console.log(searchedDataList);
   return (
     <div className={styles.recentContainer}>
       {searchedDataList.length ? (

@@ -13,6 +13,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
   searchedDataList,
 }) => {
   const nameRef = useRef<HTMLInputElement>(null);
+  const buttonRef = useRef<HTMLInputElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [dropdownVisibility, setDropdownVisibility] = useState<boolean>(false);
@@ -38,7 +39,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
           }`}
           ref={dropdownRef}
         >
-          <h4 className={styles.dropdownTitle}>최근 검색 기록</h4>
+          <h4 className={styles.dropdownTitle}>검색 기록</h4>
           {searchedDataList
             .sort((a, b) => b.like - a.like)
             .map((e) => {
@@ -77,6 +78,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
       </div>
       <input
         type="button"
+        ref={buttonRef}
         className={styles.searchBtn}
         value="검색"
         onClick={click}
@@ -90,7 +92,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
       return;
     }
     const name = nameRef.current!.value;
-    console.log(name);
+    // console.log(name);
     if (!name) {
       alert("닉네임을 입력하세요!");
       return;
@@ -98,6 +100,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
     search(name);
     divRef.current?.blur();
     nameRef.current!.blur();
+    buttonRef.current!.blur();
     dropdownRef.current!.scrollTop = 0;
   }
 };

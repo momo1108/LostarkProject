@@ -4,15 +4,9 @@ Engraving, Gem, Card 를 위한 타입파일
 
 import { CharData } from "./ReducerType";
 
-export type ArmoryEGCProps = {
+export type ArmoryTEGCProps = {
   data: CharData;
   className: string;
-  setEngravingTooltipContent: React.Dispatch<
-    React.SetStateAction<Object | undefined>
-  >;
-  setGemTooltipContent: React.Dispatch<
-    React.SetStateAction<Object | undefined>
-  >;
 };
 
 export type GemTooltipProps = {
@@ -20,6 +14,10 @@ export type GemTooltipProps = {
 };
 
 export type GemData = any;
+
+export type StatData = any;
+
+export type TendencyData = any;
 
 export const gradeCardBackgroundMap: { [key: string]: string } = {
   일반: "common",

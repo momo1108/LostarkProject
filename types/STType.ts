@@ -6,14 +6,19 @@ export type ArmorySTProps = {
 };
 
 export type RuneTooltipProps = {
-  data: Rune;
+  data: RuneTooltip;
+};
+
+export type SkillTooltipProps = {
+  data: SkillTooltip;
 };
 
 export type SkillData = any;
 
 export type Tripod = any;
 
-export type Rune = any;
+export type RuneTooltip = any;
+export type SkillTooltip = any;
 
 export const tripodTierToColorMap: { [key: number]: string } = {
   0: "#56a1df",

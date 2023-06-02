@@ -9,15 +9,6 @@ export type ArmoryEAAProps = {
   equipment: any;
   accessory: any;
   avatar: any;
-  setEquipmentTooltipContent: React.Dispatch<
-    React.SetStateAction<Object | undefined>
-  >;
-  setAccessoryTooltipContent: React.Dispatch<
-    React.SetStateAction<Object | undefined>
-  >;
-  setAvatarTooltipContent: React.Dispatch<
-    React.SetStateAction<Object | undefined>
-  >;
 };
 
 export type EquipmentSlotProps = {

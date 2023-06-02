@@ -153,12 +153,23 @@ $basicFontColor: #eee;
         @apply flex flex-col items-center w-[550px] pt-2 pb-8;
       }
       &:nth-child(2) {
-        @apply relative flex flex-col min-w-[550px] max-w-[780px];
+        @apply relative flex flex-col min-w-[640px] max-w-[780px];
       }
       hr {
         border-color: #282828;
       }
-
+      .infoMenuList {
+        @apply flex text-[#9aa1ad] font-bold gap-1;
+        .infoMenuItem {
+          @apply w-full text-center py-2 transition-all duration-100 ease-linear cursor-pointer;
+          border-bottom: 2px solid #9aa1ad;
+        }
+        .infoMenuItem.active {
+          color: #fffdec;
+          border-color: #fffdec;
+          box-shadow: inset 0px -10px 13px -10px #fffdec;
+        }
+      }
       /* ###############################
       ########## ArmoryEAA 관련 #########
       ############################### */
@@ -403,44 +414,41 @@ $basicFontColor: #eee;
       }
 
       /* ###############################
-      ########## ArmoryEGC 관련 #########
+      ########## ArmoryTEGC 관련 #########
       ############################### */
-      .infoMenuList {
-        @apply flex text-[#9aa1ad] font-bold gap-1;
-        .infoMenuItem {
-          @apply w-full text-center py-2 transition-all duration-100 ease-linear cursor-pointer;
-          border-bottom: 2px solid #9aa1ad;
-        }
-        .infoMenuItem.active {
-          color: #fffdec;
-          border-color: #fffdec;
-          box-shadow: inset 0px -10px 13px -10px #fffdec;
-        }
-      }
-      .egcDiv {
-        @apply flex flex-col my-3;
-        &:first-child {
-          @apply mt-1;
-        }
-        .emptyEGC {
-          @apply flex flex-col w-full items-center justify-center text-white text-lg font-extrabold;
-        }
-        .egcHeader {
-          @apply flex py-1 px-4;
-          .egcHeaderP {
-            @apply text-base bg-[#116] font-bold px-3 py-1 shrink-0;
-            color: $basicFontColor;
-            border-radius: 14px;
-          }
-          &.engravingHeader {
-            @apply gap-6 items-center min-h-[64px] mt-0;
-          }
 
+      .tegcDiv {
+        @apply flex flex-col mb-6;
+        &:first-child {
+          @apply grid grid-cols-3 gap-1;
+        }
+        .emptyTEGC {
+          @apply flex flex-col w-full items-center justify-center text-white text-lg font-extrabold text-center;
+        }
+        .tegcHeader {
+          @apply flex py-1 justify-center text-sm font-bold mb-4;
+          color: #bbb;
+          background: linear-gradient(
+            180.2deg,
+            rgba(14, 15, 23, 0.8) 6.8%,
+            rgba(33, 43, 49, 0.8) 131%
+          );
+        }
+
+        .statsTendencyDiv {
+          @apply col-span-2;
+          color: $basicFontColor;
+        }
+
+        .engravingDiv {
+          .engravingHeader {
+            @apply gap-2 flex flex-col items-center justify-center min-h-[64px] mb-4;
+          }
           .engravingEquipDiv {
             @apply flex items-center gap-2 text-base font-bold;
             color: $basicFontColor;
             .engravingEquipIconDiv {
-              @apply w-[56px] h-[56px] relative;
+              @apply w-[42px] h-[42px] relative;
 
               img {
                 @apply absolute top-1/2 left-1/2;
@@ -456,19 +464,22 @@ $basicFontColor: #eee;
               line-break: anywhere;
             }
           }
-        }
 
-        .engravingBody {
-          @apply px-4;
-          .engravingEffectsDiv {
-            @apply inline-flex min-w-[23%] max-w-[29%] items-center gap-2 mx-2 text-sm font-bold;
-            color: $basicFontColor;
+          .engravingBody {
+            @apply px-4 flex flex-wrap gap-2 justify-center;
+            .engravingEffectsDiv {
+              @apply inline-flex items-center gap-2 text-sm font-bold;
+              color: $basicFontColor;
 
-            .engravingEquipIconImage {
-              border-radius: 50%;
-            }
-            .engravingLevel {
-              @apply shrink-0 w-4 h-4 leading-4 text-center font-extrabold;
+              .engravingEquipIconImage {
+                border-radius: 50%;
+              }
+              span {
+                @apply w-28;
+              }
+              .engravingLevel {
+                @apply shrink-0 w-4 h-4 leading-4 text-center font-extrabold;
+              }
             }
           }
         }
@@ -536,6 +547,7 @@ $basicFontColor: #eee;
               }
               .cardTitle {
                 @apply text-center font-bold text-sm px-1;
+                color: $basicFontColor;
               }
             }
           }
@@ -569,8 +581,11 @@ $basicFontColor: #eee;
         }
       }
 
+      /* ###############################
+      ########## ArmoryST 관련 #########
+      ############################### */
       .stContainer {
-        @apply max-h-[640px] overflow-auto;
+        @apply max-h-[640px] overflow-auto flex-auto;
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
         &::-webkit-scrollbar {
@@ -581,12 +596,16 @@ $basicFontColor: #eee;
         &::-webkit-scrollbar-thumb {
           background-color: #4a4c55;
         }
+
+        .emptyST {
+          @apply flex flex-col w-full items-center justify-center text-white text-lg font-extrabold my-6;
+        }
         .stDiv {
-          @apply py-3 pl-2 pr-4 flex font-bold items-center gap-2;
+          @apply w-[640px] py-3 pl-2 pr-4 flex font-bold items-center gap-2;
           color: $basicFontColor;
 
           .skillIconSlot {
-            @apply flex w-[50px] h-[50px] justify-center items-center;
+            @apply flex shrink-0 w-[50px] h-[50px] justify-center items-center;
             background-image: url(https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_skill_slot.png);
             .skillIcon {
               @apply w-[44px];
@@ -594,14 +613,14 @@ $basicFontColor: #eee;
           }
 
           .skillDescr {
-            @apply inline-flex flex-col min-w-[100px];
+            @apply inline-flex flex-col min-w-[125px];
             .skillLevelP {
               @apply text-xs;
             }
           }
 
           .skillTripods {
-            @apply flex gap-2 ml-4 min-w-[145px] h-[65px];
+            @apply flex shrink-0 gap-2 ml-4 min-w-[226px] h-[65px];
             .usedTripod {
               @apply relative flex w-[70px] justify-center;
               img {
@@ -624,8 +643,15 @@ $basicFontColor: #eee;
             }
           }
 
+          .skillGems {
+            @apply w-20 flex shrink-0 flex-col justify-center items-center text-sm mx-4;
+            div {
+              @apply inline-flex items-center;
+            }
+          }
+
           .skillRune {
-            @apply relative w-14 h-14 flex justify-center items-center ml-auto;
+            @apply relative w-14 h-14 flex shrink-0 justify-center items-center;
             border-radius: 50%;
             border: 2px solid rgb(36, 36, 36);
             box-shadow: inset 0px 0px 7px 0px #000;
@@ -732,6 +758,32 @@ $basicFontColor: #eee;
 
     .runeTooltip {
       @apply font-bold text-sm;
+    }
+
+    .skillTooltip {
+      @apply text-sm;
+      .skillTitle {
+        @apply font-bold text-center;
+      }
+      .skillEl1 {
+        @apply flex;
+        img {
+          @apply mr-2;
+          border: 1px solid #000;
+        }
+        .skillType {
+          @apply flex flex-col w-full justify-between font-bold;
+          .skillTypeDetail {
+            @apply flex justify-between;
+          }
+        }
+      }
+      .skillDescr {
+        @apply flex flex-col gap-2 font-bold;
+        * {
+          font-size: 12px !important;
+        }
+      }
     }
   }
 

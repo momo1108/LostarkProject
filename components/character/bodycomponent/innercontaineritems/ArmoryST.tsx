@@ -10,9 +10,13 @@ import useApiTagParser from "@/hooks/useApiTagParser";
 import { gradeClassMap, gradeTextColorMap } from "@/types/GlobalType";
 import { Tooltip } from "react-tooltip";
 import RuneTooltip from "../tooltips/RuneTooltip";
+import SkillTooltip from "../tooltips/SkillTooltip";
+import AlertOctagon from "@/components/icons/AlertOctagon";
+import { GemData } from "@/types/EGCType";
 
 const ArmoryST: React.FC<ArmorySTProps> = ({ className, data }) => {
   const [skillDataList, setSkillDataList] = useState<SkillData[]>();
+  const [skillTooltipContent, setSkillTooltipContent] = useState<string>();
   const [tripodTooltipContent, setTripodTooltipContent] = useState<string>();
   const [runeTooltipContent, setRuneTooltipContent] = useState<string>();
   const { parseSkillPoint, parseApiDataToHtmlString: parse } =
@@ -31,90 +35,156 @@ const ArmoryST: React.FC<ArmorySTProps> = ({ className, data }) => {
   useEffect(() => {
     const tmp: SkillData[] = [];
 
-    data.ArmorySkills.forEach((e: SkillData) => {
+    data.ArmorySkills?.forEach((e: SkillData) => {
+      // console.log(
+      //   Object.keys(JSON.parse(e.Tooltip)).length,
+      //   JSON.parse(e.Tooltip)
+      // );
       if (e.Level > 1 || e.Rune) {
         const tmp_tripod = new Array(3);
         e.UsedTripods = setTripodInfo(e.Tripods, tmp_tripod);
         tmp.push(e);
       }
     });
+
+    tmp.map((e: SkillData) => {
+      e.Gems = [];
+      data.ArmoryGem?.Effects.forEach((g: GemData) => {
+        if (e.Name === g.Name) {
+          e.Gems.push({
+            ...data.ArmoryGem.Gems[g.GemSlot],
+            Description: g.Description,
+          });
+        }
+      });
+      return e;
+    });
+
     setSkillDataList(tmp);
+    // console.log(tmp);
   }, []);
 
   return (
     <>
       <div className={`${className} ${styles.stContainer}`}>
-        {skillDataList?.map((e) => {
-          return (
-            <Fragment key={`skillSlot_${e.Name}`}>
-              <div className={styles.stDiv}>
-                <div className={styles.skillIconSlot}>
-                  <img src={e.Icon} className={styles.skillIcon} alt="" />
-                </div>
-                <div className={styles.skillDescr}>
-                  <p className={styles.skillLevelP}>
-                    Lv. {parseSkillPoint(e.Level)}
-                  </p>
-                  <p className={styles.skillNameP}>{e.Name}</p>
-                </div>
-                <div className={styles.skillTripods}>
-                  {e.UsedTripods.map((t: Tripod) => {
-                    if (t)
-                      return (
-                        <div
-                          data-tooltip-id="tripodTooltip"
-                          onMouseEnter={() => {
-                            setTripodTooltipContent(t.Tooltip);
-                          }}
-                          className={styles.usedTripod}
-                          key={`${e.Name}_${t.Tier}_${t.Level}`}
-                        >
-                          <img src={t.Icon} alt="" />
-                          <p className={styles.tripodSlot}>{t.Slot}</p>
-                          <div
-                            className={styles.tripodDescrItem}
-                            key={`${e.Name}_${t.Name}`}
-                            style={{ color: tripodTierToColorMap[t.Tier] }}
-                          >
-                            <p className={styles.tripodNameP}>{t.Name}</p>
-                            <p>Lv. {t.Level}</p>
-                          </div>
-                        </div>
-                      );
-                  })}
-                </div>
-                <div
-                  data-tooltip-id={e.Rune ? "runeTooltip" : ""}
-                  onMouseEnter={() => {
-                    e.Rune
-                      ? setRuneTooltipContent(JSON.parse(e.Rune.Tooltip))
-                      : "";
-                  }}
-                  className={`${styles.skillRune} ${
-                    gradeClassMap[e.Rune?.Grade]
-                  }`}
-                >
-                  {e.Rune ? (
-                    <>
-                      <img src={e.Rune.Icon} alt="" />
-                      <p
-                        className={`${styles.runeNameP} ${
-                          gradeTextColorMap[e.Rune.Grade]
-                        }`}
-                      >
-                        {e.Rune.Name}
+        {skillDataList ? (
+          skillDataList.length ? (
+            skillDataList.map((e) => {
+              return (
+                <Fragment key={`skillSlot_${e.Name}`}>
+                  <div className={styles.stDiv}>
+                    <div
+                      className={styles.skillIconSlot}
+                      data-tooltip-id="skillTooltip"
+                      onMouseEnter={() => {
+                        setSkillTooltipContent(JSON.parse(e.Tooltip));
+                      }}
+                    >
+                      <img src={e.Icon} className={styles.skillIcon} alt="" />
+                    </div>
+                    <div className={styles.skillDescr}>
+                      <p className={styles.skillLevelP}>
+                        Lv. {parseSkillPoint(e.Level)}
                       </p>
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-              <hr />
-            </Fragment>
-          );
-        })}
+                      <p className={styles.skillNameP}>{e.Name}</p>
+                    </div>
+                    <div className={styles.skillTripods}>
+                      {e.UsedTripods.map((t: Tripod) => {
+                        if (t)
+                          return (
+                            <div
+                              data-tooltip-id="tripodTooltip"
+                              onMouseEnter={() => {
+                                setTripodTooltipContent(t.Tooltip);
+                              }}
+                              className={styles.usedTripod}
+                              key={`${e.Name}_${t.Tier}_${t.Level}`}
+                            >
+                              <img src={t.Icon} alt="" />
+                              <p className={styles.tripodSlot}>{t.Slot}</p>
+                              <div
+                                className={styles.tripodDescrItem}
+                                key={`${e.Name}_${t.Name}`}
+                                style={{
+                                  color: tripodTierToColorMap[t.Tier],
+                                }}
+                              >
+                                <p className={styles.tripodNameP}>{t.Name}</p>
+                                <p>Lv. {t.Level}</p>
+                              </div>
+                            </div>
+                          );
+                      })}
+                    </div>
+
+                    <div className={styles.skillGems}>
+                      {e.Gems.map((g: GemData) => {
+                        return (
+                          <div key={`${e.Name}_${g.Slot}`}>
+                            <img width={40} src={g.Icon} alt="" />
+                            <p>{`${g.Level}${
+                              g.Description.startsWith("피해") ? "멸" : "홍"
+                            }`}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div
+                      data-tooltip-id={e.Rune ? "runeTooltip" : ""}
+                      onMouseEnter={() => {
+                        e.Rune
+                          ? setRuneTooltipContent(JSON.parse(e.Rune.Tooltip))
+                          : "";
+                      }}
+                      className={`${styles.skillRune} ${
+                        gradeClassMap[e.Rune?.Grade]
+                      }`}
+                    >
+                      {e.Rune ? (
+                        <>
+                          <img src={e.Rune.Icon} alt="" />
+                          <p
+                            className={`${styles.runeNameP} ${
+                              gradeTextColorMap[e.Rune.Grade]
+                            }`}
+                          >
+                            {e.Rune.Name}
+                          </p>
+                        </>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </div>
+                  <hr />
+                </Fragment>
+              );
+            })
+          ) : (
+            <div className={styles.emptyST}>
+              <AlertOctagon size={110} color="#fff" width={2} /> 사용중인 스킬이
+              없습니다.
+            </div>
+          )
+        ) : (
+          "로딩중"
+        )}
       </div>
+      <Tooltip
+        id="skillTooltip"
+        className={`${styles.tooltip} ${styles.skillTooltip}`}
+        place="right"
+        clickable={true}
+        offset={6}
+        delayHide={1}
+      >
+        {skillTooltipContent ? (
+          <SkillTooltip data={skillTooltipContent} />
+        ) : (
+          "Loading..."
+        )}
+      </Tooltip>
       <Tooltip
         id="tripodTooltip"
         className={`${styles.tooltip} ${styles.tripodTooltip}`}

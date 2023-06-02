@@ -19,7 +19,7 @@ const EquipmentSlot: React.FC<EquipmentSlotProps> = ({
     >
       <p
         className={`${styles.profileEquipmentHoning}${
-          honing.startsWith("+") ? "" : " hidden"
+          honing.startsWith("+") && showQuality ? "" : " hidden"
         }`}
       >
         {honing}강

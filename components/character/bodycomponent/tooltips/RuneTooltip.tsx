@@ -4,6 +4,7 @@ import { RuneTooltipProps } from "@/types/STType";
 
 const RuneTooltip: React.FC<RuneTooltipProps> = ({ data }) => {
   const { parseApiDataToHtmlString: parse } = useApiTagParser();
+  // console.log(data);
 
   return (
     <>
