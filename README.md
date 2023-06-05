@@ -828,3 +828,5 @@ useDispatch 훅을 사용해 컴포넌트 내에서 action을 실행시킬 때, 
 차트라이브러리 혹시라도 참조(charjs - https://react-chartjs-2.js.org/)
 
 seo - next-seo 라이브러리 참조.
+
+useEffect 내부에서 api 요청을 보낼 때 주의 - https://www.youtube.com/watch?v=QQYeipc_cik
