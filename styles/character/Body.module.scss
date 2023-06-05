@@ -435,33 +435,74 @@ $basicFontColor: #eee;
           );
         }
 
-        .statsTendencyDiv {
-          @apply col-span-2;
+        .statsDiv {
+          @apply col-span-1;
           color: $basicFontColor;
+          .statsBody {
+            @apply flex flex-col gap-1;
+            &:nth-child(2) {
+              @apply mb-4;
+            }
+            .statsP {
+              @apply flex justify-between px-[12%] mb-1;
+              .statsSpan {
+                @apply text-[#e4ba27] font-bold;
+              }
+            }
+          }
+        }
+
+        .tendencyDiv {
+          @apply col-span-1;
+          color: $basicFontColor;
+          .tendencyBody {
+            @apply flex flex-col gap-4;
+            .tendencyInnerDiv {
+              @apply flex px-2 items-center;
+              img {
+                @apply inline-block;
+              }
+              .tendencyContentDiv {
+                @apply w-full;
+                .tendencyP {
+                  @apply flex justify-between text-sm font-bold;
+                }
+                .tendencyBar {
+                  @apply h-2 bg-[#444];
+                  div {
+                    @apply h-2 block bg-[#0096ff];
+                  }
+                }
+              }
+            }
+          }
         }
 
         .engravingDiv {
           .engravingHeader {
-            @apply gap-2 flex flex-col items-center justify-center min-h-[64px] mb-4;
-          }
-          .engravingEquipDiv {
-            @apply flex items-center gap-2 text-base font-bold;
-            color: $basicFontColor;
-            .engravingEquipIconDiv {
-              @apply w-[42px] h-[42px] relative;
+            @apply gap-1 flex flex-col items-center justify-center min-h-[64px] mb-4;
+            .engravingEquipDiv {
+              @apply flex items-center gap-2 text-base font-bold;
+              color: $basicFontColor;
+              .engravingEquipIconDiv {
+                @apply w-[36px] h-[36px] relative;
 
-              img {
-                @apply absolute top-1/2 left-1/2;
-                transform: translate(-50%, -50%);
-              }
+                img {
+                  @apply absolute top-1/2 left-1/2;
+                  transform: translate(-50%, -50%);
+                }
 
-              .engravingEquipIconImage {
-                border-radius: 50%;
+                .engravingEquipIconImage {
+                  border-radius: 50%;
+                }
               }
-            }
-            .engravingEquipNameP {
-              @apply max-w-[140px];
-              line-break: anywhere;
+              .engravingEquipNameP {
+                @apply max-w-[140px];
+                line-break: anywhere;
+              }
+              .engravingEquipPointP {
+                @apply font-extrabold;
+              }
             }
           }
 
@@ -475,10 +516,10 @@ $basicFontColor: #eee;
                 border-radius: 50%;
               }
               span {
-                @apply w-28;
+                @apply w-32;
               }
               .engravingLevel {
-                @apply shrink-0 w-4 h-4 leading-4 text-center font-extrabold;
+                @apply shrink-0 w-6 h-6 leading-6 text-center font-extrabold text-lg;
               }
             }
           }
@@ -732,6 +773,11 @@ $basicFontColor: #eee;
       }
     }
 
+    .equipmentTooltip {
+      * {
+        font-size: 14px !important;
+      }
+    }
     .engravingTooltip,
     .tripodTooltip {
       @apply p-2;

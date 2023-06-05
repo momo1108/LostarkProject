@@ -4,6 +4,10 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <meta
+          name="keywords"
+          content="로스트아크,로아플,loaple,Loaple,로스트아크사이트"
+        />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Loaple" />
         <meta property="og:title" content="Loaple - Lostark Helper" />

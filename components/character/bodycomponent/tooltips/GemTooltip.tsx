@@ -1,6 +1,6 @@
 import styles from "@/styles/character/Body.module.scss";
 import useApiTagParser from "@/hooks/useApiTagParser";
-import { GemTooltipProps } from "@/types/EGCType";
+import { GemTooltipProps } from "@/types/TEGCType";
 
 const GemTooltip: React.FC<GemTooltipProps> = ({ data }) => {
   const { parseApiDataToHtmlString: parse } = useApiTagParser();

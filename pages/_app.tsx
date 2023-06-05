@@ -11,6 +11,7 @@ export default function App({ Component, ...rest }: AppProps) {
   return (
     <Provider store={store}>
       <Head>
+        <title>로아플 - 로스트아크 유저를 위한 도구모음</title>
         <title>Loaple - Lostark Helper</title>
       </Head>
       <Component

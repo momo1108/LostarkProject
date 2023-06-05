@@ -19,6 +19,13 @@ export type StatData = any;
 
 export type TendencyData = any;
 
+export const tendencyImageMap: { [key: string]: string } = {
+  지성: "/images/tendency1.png",
+  담력: "/images/tendency2.png",
+  매력: "/images/tendency3.png",
+  친절: "/images/tendency4.png",
+};
+
 export const gradeCardBackgroundMap: { [key: string]: string } = {
   일반: "common",
   고급: "uncommon",

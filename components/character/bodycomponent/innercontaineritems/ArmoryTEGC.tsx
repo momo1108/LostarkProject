@@ -9,7 +9,8 @@ import {
   engravingIconMap,
   engravingLevelColorMap,
   gradeCardBackgroundMap,
-} from "@/types/EGCType";
+  tendencyImageMap,
+} from "@/types/TEGCType";
 import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import GemTooltip from "../tooltips/GemTooltip";
@@ -75,36 +76,55 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
   return (
     <div className={className}>
       <div className={styles.tegcDiv}>
-        <div className={styles.statsTendencyDiv}>
+        <div className={styles.statsDiv}>
           <div className={styles.tegcHeader}>
-            <span className={styles.tegcHeaderSpan}>특성</span>
+            <span className={styles.tegcHeaderSpan}>기본 특성</span>
           </div>
           <div className={styles.statsBody}>
-            {["최대 생명력", "공격력"].map((e: string) => {
+            {["공격력", "최대 생명력"].map((e: string) => {
               return (
-                <div key={`stats_${e}`}>
-                  {e} : {myStats[e]}
-                </div>
+                <p className={styles.statsP} key={`stats_${e}`}>
+                  <span className={styles.statsSpan}>{e}</span> {myStats[e]}
+                </p>
               );
             })}
+          </div>
+          <div className={styles.tegcHeader}>
+            <span className={styles.tegcHeaderSpan}>전투 특성</span>
+          </div>
+          <div className={styles.statsBody}>
             {["치명", "특화", "신속", "제압", "인내", "숙련"].map(
               (e: string) => {
                 return (
-                  <div key={`stats_${e}`}>
-                    {e} : {myStats[e]}
-                  </div>
+                  <p className={styles.statsP} key={`stats_${e}`}>
+                    <span className={styles.statsSpan}>{e}</span> {myStats[e]}
+                  </p>
                 );
               }
             )}
           </div>
+        </div>
+        <div className={styles.tendencyDiv}>
           <div className={styles.tegcHeader}>
             <span className={styles.tegcHeaderSpan}>성향</span>
           </div>
           <div className={styles.tendencyBody}>
             {data.ArmoryProfile.Tendencies?.map((e: TendencyData) => {
               return (
-                <div key={`tendency_${e.Type}`}>
-                  {e.Type} : {e.Point}
+                <div
+                  className={styles.tendencyInnerDiv}
+                  key={`tendency_${e.Type}`}
+                >
+                  <img src={tendencyImageMap[e.Type]} alt="" />
+                  <div className={styles.tendencyContentDiv}>
+                    <p className={styles.tendencyP}>
+                      <span>{e.Type}</span>
+                      <span>{e.Point}</span>
+                    </p>
+                    <div className={styles.tendencyBar}>
+                      <div style={{ width: `${e.Point / 10}%` }}></div>
+                    </div>
+                  </div>
                 </div>
               );
             })}
@@ -130,7 +150,7 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
                       />
                       <img
                         className={styles.engravingEquipIconImage}
-                        width={31}
+                        width={28}
                         src={engEquip[e].Icon}
                         alt=""
                       />
@@ -138,7 +158,7 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
                     <p className={styles.engravingEquipNameP}>
                       {engEquip[e].Name}
                     </p>
-                    <p>
+                    <p className={styles.engravingEquipPointP}>
                       {parseEngravingPoint(
                         engEquip[e].Tooltip.Element_001.value.leftText
                       )}
@@ -157,7 +177,7 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
                       />
                       <img
                         className={styles.engravingEquipIconImage}
-                        width={42}
+                        width={36}
                         src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave_over.png"
                         alt=""
                       />
@@ -189,7 +209,7 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
                   >
                     <img
                       className={styles.engravingEquipIconImage}
-                      width={43}
+                      width={33}
                       src={`/images/${engravingIconMap[name[0]]}`}
                       alt=""
                     />
