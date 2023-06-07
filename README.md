@@ -830,3 +830,323 @@ useDispatch 훅을 사용해 컴포넌트 내에서 action을 실행시킬 때, 
 seo - next-seo 라이브러리 참조.
 
 useEffect 내부에서 api 요청을 보낼 때 주의 - https://www.youtube.com/watch?v=QQYeipc_cik
+
+#### 각인세팅
+
+검색기능부터 구현해야 한다.
+
+최소 세팅 비용을 구하기 위한 알고리즘을 짜야한다.
+
+먼저 필요한 각인에 맞게 검색을 하는 방법부터 구상하자.
+
+기본적인 검색 파라미터는 아래와 같다.
+
+```js
+RequestAuctionItems{
+  ItemLevelMin	integer($int32)
+  ItemLevelMax	integer($int32)
+  ItemGradeQuality	integer($int32), default: null
+  SkillOptions	[SearchDetailOption{
+    FirstOption	integer($int32), default: null
+    SecondOption	integer($int32), default: null
+    MinValue	integer($int32), default: null
+    MaxValue	integer($int32), default: null
+  }]
+  EtcOptions	[SearchDetailOption{
+    FirstOption	integer($int32), default: null
+    SecondOption	integer($int32), default: null
+    MinValue	integer($int32), default: null
+    MaxValue	integer($int32), default: null
+  }]
+  Sort	string(Enum: [ BIDSTART_PRICE, BUY_PRICE, EXPIREDATE, ITEM_GRADE, ITEM_LEVEL, ITEM_QUALITY ])
+  CategoryCode	integer($int32)
+  CharacterClass	string
+  ItemTier	integer($int32), default: null
+  ItemGrade	string
+  ItemName	string
+  PageNo	integer($int32)
+  SortCondition	string(Enum: [ ASC, DESC ])
+}
+```
+
+자세한 검색조건은 apirequest.json 을 참조.
+
+- EtcOptions
+  - FirstOption : 대분류(2:전투 특성, 3:각인 효과, 6:감소 효과, 5:팔지 특수 효과, 4:팔찌 옵션 수량)
+  - Categories : 종류
+  ```json
+  [
+    {
+      "Subs": [
+        {
+          "Code": 170300,
+          "CodeName": "아뮬렛"
+        },
+        {
+          "Code": 180000,
+          "CodeName": "무기"
+        },
+        {
+          "Code": 190010,
+          "CodeName": "투구"
+        },
+        {
+          "Code": 190020,
+          "CodeName": "상의"
+        },
+        {
+          "Code": 190030,
+          "CodeName": "하의"
+        },
+        {
+          "Code": 190040,
+          "CodeName": "장갑"
+        },
+        {
+          "Code": 190050,
+          "CodeName": "어깨"
+        }
+      ],
+      "Code": 10000,
+      "CodeName": "장비"
+    },
+    {
+      "Subs": [],
+      "Code": 30000,
+      "CodeName": "어빌리티 스톤"
+    },
+    {
+      "Subs": [
+        {
+          "Code": 200010,
+          "CodeName": "목걸이"
+        },
+        {
+          "Code": 200020,
+          "CodeName": "귀걸이"
+        },
+        {
+          "Code": 200030,
+          "CodeName": "반지"
+        },
+        {
+          "Code": 200040,
+          "CodeName": "팔찌"
+        }
+      ],
+      "Code": 200000,
+      "CodeName": "장신구"
+    },
+    {
+      "Subs": [],
+      "Code": 210000,
+      "CodeName": "보석"
+    }
+  ]
+  ```
+
+icepeng의 검색을 참조해보니 아래와 같다.
+
+```json
+{
+  "CategoryCode": 200010,
+  "Sort": "BUY_PRICE",
+  "SortCondition": "ASC",
+  "ItemTier": 3,
+  "ItemGrade": "고대",
+  "ItemGradeQuality": 50,
+  "EtcOptions": [
+    { "FirstOption": 2, "SecondOption": 15, "MinValue": 0 },
+    { "FirstOption": 2, "SecondOption": 16, "MinValue": 0 },
+    { "FirstOption": 3, "SecondOption": 118, "MinValue": 3 },
+    { "FirstOption": 3, "SecondOption": 141, "MinValue": 3 }
+  ],
+  "PageNo": 1
+}
+```
+
+```json
+{
+  "CategoryCode": 200020,
+  "Sort": "BUY_PRICE",
+  "SortCondition": "ASC",
+  "ItemTier": 3,
+  "ItemGrade": "고대",
+  "ItemGradeQuality": 50,
+  "EtcOptions": [
+    { "FirstOption": 2, "SecondOption": 15, "MinValue": 0 },
+    { "FirstOption": 2, "SecondOption": "", "MinValue": 0 },
+    { "FirstOption": 3, "SecondOption": 118, "MinValue": 3 },
+    { "FirstOption": 3, "SecondOption": 141, "MinValue": 3 }
+  ],
+  "PageNo": 1
+}
+```
+
+```json
+{
+  "CategoryCode": 200020,
+  "Sort": "BUY_PRICE",
+  "SortCondition": "ASC",
+  "ItemTier": 3,
+  "ItemGrade": "고대",
+  "ItemGradeQuality": 50,
+  "EtcOptions": [
+    { "FirstOption": 2, "SecondOption": 16, "MinValue": 0 },
+    { "FirstOption": 2, "SecondOption": "", "MinValue": 0 },
+    { "FirstOption": 3, "SecondOption": 118, "MinValue": 3 },
+    { "FirstOption": 3, "SecondOption": 141, "MinValue": 3 }
+  ],
+  "PageNo": 1
+}
+```
+
+1. 전투 특성에 맞게 검색을 한다.
+
+- 목걸이의 경우에는 특성 고정.
+- 귀걸이, 반지같은 경우 2가지 특성을 사용하는 경우가 존재.
+  - 각각의 특성에 대해서 같은 조건으로 검색을 진행
+
+2. 각인(고민이 필요)
+
+- dummy 각인을 사용할 수 있는가?
+- 사용가능)
+  - 같은 특성 조건에 대해
+
+```ts
+interface Accessory {
+  종류: string;
+  특성: {
+    특성종류: string;
+    종류: string;
+    값: number;
+  }[];
+}
+
+function findValidCombination(): Accessory[] | null {
+  const necklaces: Accessory[] = [
+    {
+      종류: "목걸이",
+      특성: [
+        { 특성종류: "전투특성", 종류: "치", 값: 450 },
+        { 특성종류: "전투특성", 종류: "특", 값: 460 },
+        { 특성종류: "각인특성", 종류: "e1", 값: 6 },
+        { 특성종류: "각인특성", 종류: "e3", 값: 3 },
+        { 특성종류: "페널티특성", 전투특성종류: "p2", 값: 2 },
+      ],
+    },
+    // 다른 목걸이들의 조합도 추가할 수 있습니다.
+  ];
+
+  const earrings: Accessory[] = [
+    {
+      종류: "귀걸이",
+      특성: [
+        { 특성종류: "전투특성", 종류: "치", 값: 200 },
+        { 특성종류: "각인특성", 종류: "e2", 값: 4 },
+        { 특성종류: "각인특성", 종류: "e4", 값: 5 },
+        { 특성종류: "페널티특성", 전투특성종류: "p1", 값: 1 },
+      ],
+    },
+    // 다른 귀걸이들의 조합도 추가할 수 있습니다.
+  ];
+
+  const rings: Accessory[] = [
+    {
+      종류: "반지",
+      특성: [
+        { 특성종류: "전투특성", 종류: "신", 값: 150 },
+        { 특성종류: "각인특성", 종류: "e5", 값: 3 },
+        { 특성종류: "각인특성", 종류: "e6", 값: 6 },
+        { 특성종류: "페널티특성", 전투특성종류: "p3", 값: 3 },
+      ],
+    },
+    // 다른 반지들의 조합도 추가할 수 있습니다.
+  ];
+
+  let validCombination: Accessory[] | null = null;
+
+  // 가능한 조합 찾기
+  for (const necklace of necklaces) {
+    for (const earring1 of earrings) {
+      for (const earring2 of earrings) {
+        for (const ring1 of rings) {
+          for (const ring2 of rings) {
+            const combination: Accessory[] = [
+              necklace,
+              earring1,
+              earring2,
+              ring1,
+              ring2,
+            ];
+            const battleStats: string[] = [];
+            const engravings: string[] = [];
+            let penaltyTotal = 0;
+
+            for (const accessory of combination) {
+              for (const attribute of accessory.특성) {
+                if (attribute.특성종류 === "전투특성") {
+                  battleStats.push(attribute.종류);
+                } else if (attribute.특성종류 === "각인특성") {
+                  engravings.push(attribute.종류);
+                } else if (attribute.특성종류 === "페널티특성") {
+                  penaltyTotal += attribute.값;
+                }
+              }
+            }
+
+            // 원하는 전투특성의 종류별 최소값 이상을 가지는지 확인
+            if (
+              battleStats.includes("치") &&
+              battleStats.includes("특") &&
+              battleStats.includes("신") &&
+              battleStats.includes("제") &&
+              battleStats.includes("인") &&
+              battleStats.includes("숙")
+            ) {
+              // 각인특성의 종류별 최소값 이상을 가지는지 확인
+              if (
+                engravings.includes("e1") &&
+                engravings.includes("e2") &&
+                engravings.includes("e3") &&
+                engravings.includes("e4") &&
+                engravings.includes("e5") &&
+                engravings.includes("e6")
+              ) {
+                // 모든 페널티특성의 합이 5 미만인지 확인
+                if (penaltyTotal < 5) {
+                  validCombination = combination;
+                  break;
+                }
+              }
+            }
+          }
+          if (validCombination !== null) break;
+        }
+        if (validCombination !== null) break;
+      }
+      if (validCombination !== null) break;
+    }
+    if (validCombination !== null) break;
+  }
+
+  return validCombination;
+}
+
+// 가능한 조합 찾기
+const validCombination = findValidCombination();
+
+if (validCombination !== null) {
+  console.log("조합을 찾았습니다.");
+  validCombination.forEach((accessory) => {
+    console.log(`${accessory.종류}:`);
+    accessory.특성.forEach((attribute) => {
+      console.log(
+        `${attribute.특성종류} - 종류: ${attribute.종류}, 값: ${attribute.값}`
+      );
+    });
+  });
+} else {
+  console.log("조건을 만족하는 조합이 없습니다.");
+}
+```

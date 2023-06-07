@@ -468,9 +468,10 @@ $basicFontColor: #eee;
                   @apply flex justify-between text-sm font-bold;
                 }
                 .tendencyBar {
-                  @apply h-2 bg-[#444];
-                  div {
+                  @apply h-2 bg-[#444] overflow-hidden;
+                  .tendencyValueBar {
                     @apply h-2 block bg-[#0096ff];
+                    animation: stretch 0.4s ease-out 0s;
                   }
                 }
               }
@@ -897,5 +898,15 @@ $basicFontColor: #eee;
 
   100% {
     transform: rotate(0);
+  }
+}
+
+@keyframes stretch {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0%);
   }
 }

@@ -122,7 +122,10 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
                       <span>{e.Point}</span>
                     </p>
                     <div className={styles.tendencyBar}>
-                      <div style={{ width: `${e.Point / 10}%` }}></div>
+                      <div
+                        className={styles.tendencyValueBar}
+                        style={{ width: `${e.Point / 10}%` }}
+                      ></div>
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,6 @@
 $basicFontColor: #eee;
 
 .body {
-  @apply flex-auto;
+  @apply flex-auto px-48;
   color: $basicFontColor;
 }
