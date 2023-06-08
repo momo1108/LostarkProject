@@ -1,5 +1,5 @@
+import EngraveSearchBlock from "@/components/engrave/bodycomponent/EngraveSearchBlock";
 import EngraveService from "@/service/EngraveService";
-import styles from "@/styles/engrave/Body.module.scss";
 
 type EngraveSearchContainerProps = {};
 const EngraveSearchContainer: React.FC = () => {
@@ -22,12 +22,7 @@ const EngraveSearchContainer: React.FC = () => {
     });
     console.log(res);
   };
-  return (
-    <div className={styles.searchContainer}>
-      Search Hello
-      <button onClick={click}>눌러!</button>
-    </div>
-  );
+  return <EngraveSearchBlock />;
 };
 
 export default EngraveSearchContainer;

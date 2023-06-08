@@ -165,3 +165,16 @@ body,
 .deleteIcon {
   @apply inline-block cursor-pointer hover:stroke-[#437dcb] transition-all duration-200 mx-2;
 }
+
+.hideScroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 8px;
+    background-color: #1a1c25;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #4a4c55;
+  }
+}
