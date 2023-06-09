@@ -141,17 +141,64 @@ body,
 .legendaryColor {
   color: #f99200;
 }
-
 .relicColor {
   color: #fa5d00;
 }
-
 .ancientColor {
   color: #e3c7a1;
 }
-
 .siderealColor {
   color: #3cf2e6;
+}
+
+.commonBgColor {
+  background-color: #eee;
+}
+.uncommonBgColor {
+  background-color: #63e925;
+}
+.rareBgColor {
+  background-color: #0081b8;
+}
+.epicBgColor {
+  background-color: #9a30bd;
+}
+.legendaryBgColor {
+  background-color: #ca7600;
+}
+.relicBgColor {
+  background-color: #fa5d00;
+}
+.ancientBgColor {
+  background-color: #e3c7a1;
+}
+.siderealBgColor {
+  background-color: #3cf2e6;
+}
+
+.commonBorderColor {
+  border-color: #eee;
+}
+.uncommonBorderColor {
+  border-color: #63e925;
+}
+.rareBorderColor {
+  border-color: #0081b8;
+}
+.epicBorderColor {
+  border-color: #9a30bd;
+}
+.legendaryBorderColor {
+  border-color: #ca7600;
+}
+.relicBorderColor {
+  border-color: #fa5d00;
+}
+.ancientBorderColor {
+  border-color: #e3c7a1;
+}
+.siderealBorderColor {
+  border-color: #3cf2e6;
 }
 
 .react-tooltip-arrow {

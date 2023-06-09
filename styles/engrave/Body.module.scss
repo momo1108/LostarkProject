@@ -1,5 +1,6 @@
 $basicFontColor: #eee;
 $myBlue: #4691f6;
+$myLightBlue: #76b1ff;
 
 .body {
   @apply flex-auto px-48 pt-2;
@@ -9,53 +10,139 @@ $myBlue: #4691f6;
     @apply flex flex-wrap;
 
     .targetEngraveDiv {
-      @apply w-[700px] h-[500px] inline-block;
+      @apply flex flex-col px-2 py-4 w-[400px] gap-4;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px -5px #fff;
+      .targetTitle {
+        @apply text-xl font-bold text-center;
+      }
 
       .targetSearchDiv {
-        @apply inline-flex relative;
-        .targetSearchInput {
-          @apply outline-none p-1 bg-transparent;
-          border-bottom: 1px solid #888a;
+        @apply inline-flex relative justify-center mx-auto;
+        .engraveIcon {
+          @apply absolute left-2 top-0 bottom-0 my-auto;
+          &.activeIcon {
+            stroke: $myLightBlue;
+          }
         }
 
-        .dropdown {
-          @apply absolute top-9 left-0 w-[650px] pt-7;
-          box-shadow: 0px 0px 7px -3px #ababab;
-          .dropdownHeader {
-            @apply absolute top-0 text-sm w-full z-10 text-center py-1 font-bold;
-            background: linear-gradient(
-              180.2deg,
-              rgb(8, 8, 8) 6.8%,
-              rgb(30, 30, 30) 131%
-            );
+        .targetSearchInput {
+          @apply relative w-48 outline-none py-2 pl-9 bg-transparent;
+          border: 1px solid #888a;
+          border-radius: 5px;
+          color: #ddd;
 
-            svg {
-              @apply absolute right-2 top-0 bottom-0 my-auto cursor-pointer;
-              &:hover {
-                stroke: $myBlue;
+          &.focused {
+            border-color: $myLightBlue;
+            color: $myLightBlue;
+          }
+          &.focused::placeholder {
+            color: $myLightBlue;
+          }
+        }
+
+        .dropdownWrapper {
+          @apply absolute top-11 left-0 w-[650px] overflow-hidden z-10;
+          .dropdown {
+            @apply w-full pt-7;
+            animation: dropdown 300ms ease-out;
+            box-shadow: 0px 0px 7px -3px #ababab;
+            .dropdownHeader {
+              @apply absolute top-0 text-sm w-full text-center py-1 font-bold;
+              background: linear-gradient(
+                180.2deg,
+                rgb(8, 8, 8) 6.8%,
+                rgb(30, 30, 30) 131%
+              );
+
+              svg {
+                @apply absolute right-2 top-0 bottom-0 my-auto cursor-pointer;
+                &:hover {
+                  stroke: $myBlue;
+                }
+              }
+            }
+
+            .dropdownList {
+              @apply w-full h-[400px] flex flex-wrap content-start gap-2 overflow-auto bg-[#222] p-2;
+              .dropdownListItem {
+                @apply relative inline-flex min-w-[110px] gap-2 items-center py-1 pl-3 pr-4 cursor-pointer font-bold;
+                border: 2px solid #494949;
+                p {
+                  @apply flex-auto text-center;
+                }
+
+                .selectedItem {
+                  @apply flex absolute bg-[#000d] justify-center items-center;
+                  transition: opacity 100ms ease-out;
+                  left: -2px;
+                  right: -2px;
+                  top: -2px;
+                  bottom: -2px;
+                  border: 2px solid $myBlue;
+                  color: $myBlue;
+                }
+
+                img {
+                  @apply inline;
+                }
               }
             }
           }
+        }
+      }
 
-          .dropdownList {
-            @apply w-full h-[400px] flex flex-wrap content-start gap-2 overflow-auto bg-[#222] p-2;
-            .dropdownListItem {
-              @apply relative inline-flex gap-2 items-center py-1 px-2 cursor-pointer font-bold;
-              border: 2px solid #494949;
-
-              &.selectedItem {
-                border-color: $myBlue;
+      .targetList {
+        @apply inline-flex flex-col items-start mx-auto;
+        .targetListItem {
+          @apply h-[86px] inline-flex p-2 pr-8 items-center gap-2;
+          .targetListItemTitle {
+            @apply min-w-[134px] text-center font-bold text-[#ccc];
+            span {
+              color: $myBlue;
+            }
+          }
+          .engraveImgSlot {
+            @apply relative inline-flex justify-center;
+            .engraveImg {
+              @apply absolute top-1/2 left-1/2 w-[55px] h-[55px];
+              transform: translate(-50%, -50%);
+              &::after {
+                @apply absolute top-0 left-0 right-0 bottom-0 block;
+                content: "";
+                border-radius: 50%;
+                box-shadow: inset 0px 0px 20px -4px #000;
               }
+            }
+          }
+          .engraveLevelList {
+            @apply flex gap-1;
+            li {
+              @apply inline-flex justify-center items-center w-5 h-5 font-bold cursor-pointer text-xs;
+              transition: transform 200ms ease-out;
+              border-radius: 50%;
+              border-width: 1px;
 
-              &.selectedItem::after {
-                @apply absolute left-0 right-0 top-0 bottom-0 bg-[#000d] flex justify-center items-center;
-                content: "목표 각인";
-                color: $myBlue;
+              &:hover {
+                transform: scale(1.2);
               }
+            }
+          }
+        }
 
-              img {
-                @apply inline;
-              }
+        .emptyTargetListItem {
+          @apply h-[100px] relative flex justify-center items-center text-2xl font-extrabold text-[#ccc];
+          p {
+            @apply relative;
+            color: #2f73cd;
+          }
+          .emptyTargetListItemIconDiv {
+            @apply absolute top-1/2 left-1/2;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            svg {
+              transform: skew(-20deg) rotate(20deg);
+              stroke: $myLightBlue;
             }
           }
         }
@@ -64,5 +151,14 @@ $myBlue: #4691f6;
     .equipEngraveDiv {
       @apply bg-[#0f02] w-[400px] h-[500px] inline-flex;
     }
+  }
+}
+
+@keyframes dropdown {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0%);
   }
 }

@@ -1162,3 +1162,8 @@ if (validCombination !== null) {
   console.log("조건을 만족하는 조합이 없습니다.");
 }
 ```
+
+테두리
+
+- https://pixabay.com/vectors/abstract-art-border-frame-1861373/
+- https://pixabay.com/vectors/vintage-frame-line-art-antique-old-5331242/

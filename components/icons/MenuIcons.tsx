@@ -18,7 +18,7 @@ const MenuIcons: React.FC<IconProps> = ({
         viewBox="0 0 24 24"
         fill="none"
         stroke={color}
-        strokeWidth="2"
+        strokeWidth={width}
         strokeLinecap="round"
         strokeLinejoin="round"
       >
@@ -38,7 +38,7 @@ const MenuIcons: React.FC<IconProps> = ({
         viewBox="0 0 24 24"
         fill="none"
         stroke={color}
-        strokeWidth="1.5"
+        strokeWidth={width}
         strokeLinecap="round"
         strokeLinejoin="round"
       >
