@@ -7,4 +7,5 @@ export type Menu = {
   title: string;
   desc: string;
   url: string;
+  strokeWidth: number;
 };

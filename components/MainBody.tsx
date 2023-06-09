@@ -1,5 +1,6 @@
 import styles from "@/styles/MainBody.module.scss";
-import { MainProps, Menu } from "@/types/MainPageType";
+import { MainProps } from "@/types/MainPageType";
+import { Menu } from "@/types/MenuType";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useWindowSize from "@/hooks/useWindowSize";
@@ -8,6 +9,7 @@ import MenuIcons from "./icons/MenuIcons";
 const MainBody: React.FC<MainProps> = ({ menu }) => {
   const hexPerLines = useWindowSize();
   const [alignedMenu, setAlignedMenu] = useState<Menu[][]>([]);
+  console.log(menu);
   useEffect(() => {
     if (hexPerLines >= 2) {
       let lineIndex = 0,
@@ -32,6 +34,7 @@ const MainBody: React.FC<MainProps> = ({ menu }) => {
           title: "dummy",
           desc: "dummy",
           url: "dummy",
+          strokeWidth: 1,
         });
       }
       setAlignedMenu(menuArr);
@@ -43,7 +46,7 @@ const MainBody: React.FC<MainProps> = ({ menu }) => {
       {alignedMenu.map((line, lineIndex) => {
         return (
           <div className={styles.lineDiv} key={`line${lineIndex}`}>
-            {line.map((m) => {
+            {line.map((m: Menu) => {
               return m.id === 999 ? (
                 <div className={styles.dummyLink} key="dummyMenu">
                   <p></p>
@@ -56,7 +59,11 @@ const MainBody: React.FC<MainProps> = ({ menu }) => {
                 >
                   <div className={styles.menuDiv}>
                     <p className={styles.menuContent}>
-                      <MenuIcons className={styles.menuIcon} type={m.id} />
+                      <MenuIcons
+                        width={m.strokeWidth}
+                        className={styles.menuIcon}
+                        type={m.id}
+                      />
                       {m.title}
                     </p>
                     {/* 정육각형 비율 3.4641 : 4 */}

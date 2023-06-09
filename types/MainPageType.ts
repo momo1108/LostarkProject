@@ -1,10 +1,5 @@
-export type MainProps = {
-    menu: Menu[];
-}
+import { Menu } from "./MenuType";
 
-export type Menu = {
-    id: number;
-    title: string;
-    desc: string;
-    url: string;
-}
+export type MainProps = {
+  menu: Menu[];
+};
