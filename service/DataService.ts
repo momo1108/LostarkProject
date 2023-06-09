@@ -1,4 +1,4 @@
-import { Menu } from "@/types/MainPageType";
+import { Menu } from "@/types/MenuType";
 import path from "path";
 
 const { readFileSync } = require("fs");
