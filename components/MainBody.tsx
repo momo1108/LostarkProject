@@ -9,7 +9,6 @@ import MenuIcons from "./icons/MenuIcons";
 const MainBody: React.FC<MainProps> = ({ menu }) => {
   const hexPerLines = useWindowSize();
   const [alignedMenu, setAlignedMenu] = useState<Menu[][]>([]);
-  console.log(menu);
   useEffect(() => {
     if (hexPerLines >= 2) {
       let lineIndex = 0,
