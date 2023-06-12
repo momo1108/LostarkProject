@@ -66,6 +66,7 @@ enum SortCondition {
 }
 
 export const engraveLevelColorMap: { [key: number]: string } = {
+  0: "uncommon",
   1: "rare",
   2: "epic",
   3: "legendary",
