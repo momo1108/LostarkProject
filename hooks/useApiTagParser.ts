@@ -104,11 +104,21 @@ function useApiTagParser() {
     },
     []
   );
+  const parseTextformat = useCallback((text: string): string => {
+    const openPattern = /<textformat[\w\s\d='-]+>/g;
+    const closePattern = /<\/textformat.+/g;
+    const emptyFontPattern = /<font>\s+<\/font>/g;
+    text = text.replace(openPattern, "");
+    text = text.replace(closePattern, "");
+    text = text.replace(emptyFontPattern, "");
+    return text;
+  }, []);
   return {
     parseApiDataToHtmlString,
     parseEngravingPoint,
     parseGemName,
     parseSkillPoint,
+    parseTextformat,
   };
 }
 

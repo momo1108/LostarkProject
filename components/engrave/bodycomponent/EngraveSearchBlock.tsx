@@ -5,22 +5,72 @@ import { useState, useRef, useEffect, useMemo, ChangeEvent } from "react";
 import { engraveLevelColorMap } from "@/types/EngraveType";
 import Delete from "@/components/icons/Delete";
 import Edit from "@/components/icons/Edit";
+import Check from "@/components/icons/Check";
+import MySelect from "@/components/custom/MySelect";
 
-type EngraveInfo = { name: string; level: number; enableInput?: boolean };
+type EngraveInfo = {
+  name: string;
+  level: number;
+  enableInput?: boolean;
+  inputValue?: string;
+};
 enum DropdownMode {
   TARGET,
   EQUIP,
   ABILITY_STONE,
   NONE,
 }
+enum CheckMode {
+  TARGET,
+  EQUIP,
+  ABILITY_STONE,
+}
+enum AbilityInputMode {
+  ENABLE,
+  DISABLE,
+  SAVE,
+}
 const ENGRAVES = Object.keys(engravingIconMap)
   .filter((e: string) => !e.includes("감소"))
   .sort();
+
+const NEGATIVE_ENGRAVES = [
+  {
+    name: "공격력 감소",
+    level: 0,
+    inputValue: "0",
+    enableInput: false,
+  },
+  {
+    name: "공격속도 감소",
+    level: 0,
+    inputValue: "0",
+    enableInput: false,
+  },
+  {
+    name: "방어력 감소",
+    level: 0,
+    inputValue: "0",
+    enableInput: false,
+  },
+  {
+    name: "이동속도 감소",
+    level: 0,
+    inputValue: "0",
+    enableInput: false,
+  },
+];
 
 const EngraveSearchBlock: React.FC = () => {
   const [targetList, setTargetList] = useState<EngraveInfo[]>([]);
   const [equipList, setEquipList] = useState<EngraveInfo[]>([]);
   const [abilityList, setAbilityList] = useState<EngraveInfo[]>([]);
+  const [negativeEngrave, setNegativeEngrave] = useState<EngraveInfo>({
+    name: "감소 효과 선택",
+    level: 0,
+    enableInput: false,
+    inputValue: "0",
+  });
   const [dropdownMode, setDropdownMode] = useState<DropdownMode>(3);
   const [searchValue, setSearchValue] = useState<string>("");
   // 자꾸 자식요소(각인) 클릭 시 blur이벤트때문에 dropdown이 사라졌다가 다시나옴.
@@ -191,7 +241,7 @@ const EngraveSearchBlock: React.FC = () => {
               );
             })
           ) : (
-            <li className={styles.emptyListItem}>
+            <li data-empty-type="1" className={styles.emptyListItem}>
               <div className={styles.emptyListItemIconDiv}>
                 <MenuIcons
                   className={styles.emptyListItemIcon}
@@ -310,66 +360,79 @@ const EngraveSearchBlock: React.FC = () => {
         <table className={styles.equipList}>
           <tbody>
             {equipList.length ? (
-              equipList.map((e: EngraveInfo, i: number) => {
-                return (
-                  <tr
-                    className={styles.equipListItem}
-                    key={`selected_engrave_${e.name}`}
-                  >
-                    <td>
-                      <div className={styles.engraveImgSlot}>
-                        <div className={styles.engraveImg}>
+              <>
+                {equipList.map((e: EngraveInfo, i: number) => {
+                  return (
+                    <tr
+                      className={styles.equipListItem}
+                      key={`selected_engrave_${e.name}`}
+                    >
+                      <td>
+                        <div className={styles.engraveImgSlot}>
+                          <div className={styles.engraveImg}>
+                            <img
+                              width={"100%"}
+                              src={`/images/${engravingIconMap[e.name]}`}
+                              alt=""
+                            />
+                          </div>
                           <img
-                            width={"100%"}
-                            src={`/images/${engravingIconMap[e.name]}`}
-                            alt=""
+                            width={51}
+                            src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave.png"
+                            alt="emptyslot"
                           />
                         </div>
-                        <img
-                          width={51}
-                          src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave.png"
-                          alt="emptyslot"
-                        />
-                      </div>
-                    </td>
-                    <td>
-                      <p className={styles.equipListItemTitle}>{e.name}</p>
-                    </td>
-                    <td>
-                      <div className={styles.equipListItemButtons}>
-                        <p
-                          className={`${styles.equipListItemValue} ${
-                            engraveLevelColorMap[e.level]
-                          }Color`}
-                        >
-                          +{e.level * 3 + 3}
-                        </p>
-                        <div className={styles.equipListItemButtonDiv}>
-                          <button
-                            onClick={() => setEquipEngraveLevel(i, e.level + 1)}
+                      </td>
+                      <td>
+                        <p className={styles.equipListItemTitle}>{e.name}</p>
+                      </td>
+                      <td>
+                        <div className={styles.equipListItemButtons}>
+                          <p
+                            className={`${styles.equipListItemValue} ${
+                              engraveLevelColorMap[e.level]
+                            }Color`}
                           >
-                            +
-                          </button>
-                          <button
-                            onClick={() => setEquipEngraveLevel(i, e.level - 1)}
-                          >
-                            -
-                          </button>
+                            +{e.level * 3 + 3}
+                          </p>
+                          <div className={styles.equipListItemButtonDiv}>
+                            <button
+                              className={styles.plusMinusButtons}
+                              onClick={() =>
+                                setEquipEngraveLevel(i, e.level + 1)
+                              }
+                            >
+                              +
+                            </button>
+                            <button
+                              className={styles.plusMinusButtons}
+                              onClick={() =>
+                                setEquipEngraveLevel(i, e.level - 1)
+                              }
+                            >
+                              -
+                            </button>
+                          </div>
+                          <Delete
+                            size={22}
+                            color="#aaa"
+                            onClick={() => {
+                              const tmp = JSON.parse(JSON.stringify(equipList));
+                              tmp.splice(i, 1);
+                              setEquipList(tmp);
+                            }}
+                          />
                         </div>
-                        <Delete
-                          size={22}
-                          color="#aaa"
-                          onClick={() => {
-                            const tmp = JSON.parse(JSON.stringify(equipList));
-                            tmp.splice(i, 1);
-                            setEquipList(tmp);
-                          }}
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })
+                      </td>
+                    </tr>
+                  );
+                })}
+                {equipList.length === 1 ? (
+                  <tr className={styles.equipListItem}></tr>
+                ) : (
+                  ""
+                )}
+              </>
             ) : (
               <tr className={styles.emptyListItem}>
                 <td>
@@ -492,70 +555,254 @@ const EngraveSearchBlock: React.FC = () => {
         <table className={styles.equipList}>
           <tbody>
             {abilityList.length ? (
-              abilityList.map((e: EngraveInfo, i: number) => {
-                return (
-                  <tr
-                    className={styles.equipListItem}
-                    key={`selected_engrave_${e.name}`}
-                  >
-                    <td>
-                      <div className={styles.engraveImgSlot}>
-                        <div className={styles.engraveImg}>
-                          <img
-                            width={"100%"}
-                            src={`/images/${engravingIconMap[e.name]}`}
-                            alt=""
-                          />
-                        </div>
-                        <img
-                          width={51}
-                          src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave.png"
-                          alt="emptyslot"
-                        />
-                      </div>
-                    </td>
-                    <td>
-                      <p className={styles.equipListItemTitle}>{e.name}</p>
-                    </td>
-                    <td>
-                      <div className={styles.equipListItemButtons}>
-                        {abilityList[i].enableInput ? (
-                          <input
-                            type="text"
-                            className={styles.equipAbilityInput}
-                            value={abilityList[i].level}
-                            onChange={(event) => {
-                              setAbilityEngraveLevel(i, event);
-                            }}
-                          />
-                        ) : (
-                          <p className={styles.equipAbilityP}>
-                            {abilityList[i].level}
-                          </p>
-                        )}
-                        <div className={styles.equipAbilityButtons}>
-                          <button>
-                            <Edit size={20} />
-                          </button>
-                          <div>
-                            <button>+</button>
-                            <button>-</button>
+              <>
+                {abilityList.map((e: EngraveInfo, i: number) => {
+                  return (
+                    <tr
+                      className={styles.equipListItem}
+                      key={`selected_engrave_${e.name}`}
+                    >
+                      <td>
+                        <div className={styles.engraveImgSlot}>
+                          <div className={styles.engraveImg}>
+                            <img
+                              width={"100%"}
+                              src={`/images/${engravingIconMap[e.name]}`}
+                              alt=""
+                            />
                           </div>
+                          <img
+                            width={51}
+                            src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave.png"
+                            alt="emptyslot"
+                          />
                         </div>
-                        <Delete
-                          size={22}
-                          color="#aaa"
-                          onClick={() => {
-                            const tmp = JSON.parse(JSON.stringify(abilityList));
-                            tmp.splice(i, 1);
-                            setAbilityList(tmp);
-                          }}
+                      </td>
+                      <td>
+                        <p className={styles.equipListItemTitle}>{e.name}</p>
+                      </td>
+                      <td>
+                        <div className={styles.equipListItemButtons}>
+                          {e.enableInput ? (
+                            <div className={styles.equipAbilityInputDiv}>
+                              <p className={styles.inputArea}>
+                                +
+                                <input
+                                  type="text"
+                                  className={styles.equipAbilityInput}
+                                  value={e.inputValue}
+                                  onKeyDown={(event) => {
+                                    if (event.code === "Enter")
+                                      setAbilityInput(i, 2);
+                                  }}
+                                  onChange={(event) => {
+                                    const tmp = JSON.parse(
+                                      JSON.stringify(abilityList)
+                                    );
+                                    tmp.splice(i, 1, {
+                                      ...e,
+                                      inputValue: event.target.value,
+                                    });
+                                    setAbilityList(tmp);
+                                  }}
+                                />
+                              </p>
+                              <button
+                                onClick={() => {
+                                  setAbilityInput(i, 2);
+                                }}
+                              >
+                                <Check color="#0f0" size={25} />
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setAbilityInput(i, 1);
+                                }}
+                              >
+                                <MenuIcons type={3} color="#f00" size={25} />
+                              </button>
+                            </div>
+                          ) : (
+                            <>
+                              <p className={styles.equipAbilityP}>+{e.level}</p>
+                              <div className={styles.equipAbilityButtons}>
+                                <button
+                                  className={styles.editButton}
+                                  onClick={() => {
+                                    setAbilityInput(i, 0);
+                                  }}
+                                >
+                                  <Edit size={15} />
+                                </button>
+                                <div>
+                                  <button
+                                    className={styles.plusMinusButtons}
+                                    onClick={() => {
+                                      setAbilityEngraveLevel(i, e.level + 1);
+                                    }}
+                                  >
+                                    +
+                                  </button>
+                                  <button
+                                    className={styles.plusMinusButtons}
+                                    onClick={() => {
+                                      setAbilityEngraveLevel(i, e.level - 1);
+                                    }}
+                                  >
+                                    -
+                                  </button>
+                                </div>
+                              </div>
+                              <Delete
+                                size={22}
+                                color="#aaa"
+                                onClick={() => {
+                                  const tmp = JSON.parse(
+                                    JSON.stringify(abilityList)
+                                  );
+                                  tmp.splice(i, 1);
+                                  setAbilityList(tmp);
+                                }}
+                              />
+                            </>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+                <tr className={styles.equipListItem}>
+                  <td>
+                    <div className={styles.engraveImgSlot}>
+                      <div className={styles.engraveImg}>
+                        <img
+                          width={"100%"}
+                          src={`/images/${
+                            engravingIconMap[negativeEngrave.name]
+                          }`}
+                          alt=""
                         />
                       </div>
-                    </td>
-                  </tr>
-                );
-              })
+                      <img
+                        width={51}
+                        src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave.png"
+                        alt="emptyslot"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <MySelect
+                      title={negativeEngrave.name}
+                      data={NEGATIVE_ENGRAVES}
+                      mapFunction={(e, i) => {
+                        return <span>{e.name}</span>;
+                      }}
+                      onClickFunction={(e, i) => {
+                        setNegativeEngrave({
+                          ...negativeEngrave,
+                          name: e.name,
+                        });
+                      }}
+                    />
+                  </td>
+                  <td>
+                    <div
+                      className={`${styles.equipListItemButtons} ${styles.negativeItemButtons}`}
+                    >
+                      {negativeEngrave.enableInput ? (
+                        <div className={styles.equipAbilityInputDiv}>
+                          <p className={styles.inputArea}>
+                            -
+                            <input
+                              type="text"
+                              className={styles.equipAbilityInput}
+                              value={negativeEngrave.inputValue}
+                              onKeyDown={(event) => {
+                                if (event.code === "Enter") {
+                                  setNegativeAbilityInput(2);
+                                }
+                              }}
+                              onChange={(event) => {
+                                setNegativeEngrave({
+                                  ...negativeEngrave,
+                                  inputValue: event.target.value,
+                                });
+                              }}
+                            />
+                          </p>
+                          <button
+                            onClick={() => {
+                              console.log("check");
+                              setNegativeAbilityInput(2);
+                            }}
+                          >
+                            <Check color="#0f0" size={25} />
+                          </button>
+                          <button
+                            onClick={() => {
+                              setNegativeAbilityInput(1);
+                            }}
+                          >
+                            <MenuIcons type={3} color="#f00" size={25} />
+                          </button>
+                        </div>
+                      ) : (
+                        <>
+                          <p className={styles.equipAbilityP}>
+                            -{negativeEngrave.level}
+                          </p>
+                          <div className={styles.equipAbilityButtons}>
+                            <button
+                              className={styles.editButton}
+                              onClick={() => {
+                                setNegativeAbilityInput(0);
+                              }}
+                            >
+                              <Edit size={15} />
+                            </button>
+                            <div>
+                              <button
+                                className={styles.plusMinusButtons}
+                                onClick={() => {
+                                  if (negativeEngrave.level === 10) {
+                                    alert(
+                                      "0~10 사이의 값만 설정이 가능합니다."
+                                    );
+                                    return;
+                                  }
+                                  setNegativeEngrave({
+                                    ...negativeEngrave,
+                                    level: negativeEngrave.level + 1,
+                                  });
+                                }}
+                              >
+                                +
+                              </button>
+                              <button
+                                className={styles.plusMinusButtons}
+                                onClick={() => {
+                                  if (negativeEngrave.level === 0) {
+                                    alert(
+                                      "0~10 사이의 값만 설정이 가능합니다."
+                                    );
+                                    return;
+                                  }
+                                  setNegativeEngrave({
+                                    ...negativeEngrave,
+                                    level: negativeEngrave.level - 1,
+                                  });
+                                }}
+                              >
+                                -
+                              </button>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              </>
             ) : (
               <tr className={styles.emptyListItem}>
                 <td>
@@ -567,7 +814,7 @@ const EngraveSearchBlock: React.FC = () => {
                       type={1}
                     />
                   </div>
-                  <p>장착된 각인이 없습니다.</p>
+                  <p>어빌리티 스톤 정보가 없습니다.</p>
                 </td>
               </tr>
             )}
@@ -577,7 +824,7 @@ const EngraveSearchBlock: React.FC = () => {
     </div>
   );
 
-  function check(name: string, mode: number) {
+  function check(name: string, mode: CheckMode) {
     if (mode === 0) {
       const index = targetList.findIndex((e: EngraveInfo) => e.name === name);
       if (index > -1)
@@ -603,7 +850,7 @@ const EngraveSearchBlock: React.FC = () => {
       } else
         setAbilityList([
           ...abilityList,
-          { name, level: 7, enableInput: false },
+          { name, level: 7, enableInput: false, inputValue: "7" },
         ]);
     }
   }
@@ -621,23 +868,97 @@ const EngraveSearchBlock: React.FC = () => {
     setEquipList(tmp);
   }
 
-  function setAbilityEngraveLevel(
-    i: number,
-    event: ChangeEvent<HTMLInputElement>
-  ) {
-    const tmp_value: number = parseInt(event.target.value);
-    console.dir(event.target);
-    console.dir(tmp_value, isNaN(tmp_value));
-    if (isNaN(tmp_value)) {
-      alert("숫자만 입력해주세요.");
-      return;
-    } else if (tmp_value > 10 || tmp_value < 0) {
+  function setAbilityEngraveLevel(i: number, level: number) {
+    if (level > 10 || level < 0) {
       alert("잘못된 값이 입력됐습니다.\n0~10 사이의 값을 입력해주세요.");
       return;
     }
     const tmp = JSON.parse(JSON.stringify(abilityList));
-    tmp.splice(i, 1, { ...abilityList[i], level: event.target.value });
+    tmp.splice(i, 1, { ...abilityList[i], level, inputValue: level });
     setAbilityList(tmp);
+  }
+
+  function setAbilityInput(i: number, mode: AbilityInputMode) {
+    const tmp = JSON.parse(JSON.stringify(abilityList));
+    if (mode === 0) {
+      tmp.splice(i, 1, {
+        ...abilityList[i],
+        enableInput: true,
+        inputValue: abilityList[i].level,
+      });
+      setAbilityList(tmp);
+    } else if (mode === 1) {
+      tmp.splice(i, 1, {
+        ...abilityList[i],
+        enableInput: false,
+        inputValue: abilityList[i].level,
+      });
+      setAbilityList(tmp);
+    } else {
+      const tmpValue = parseInt(abilityList[i].inputValue!);
+      if (isNaN(tmpValue)) {
+        tmp.splice(i, 1, {
+          ...abilityList[i],
+          enableInput: false,
+          inputValue: abilityList[i].level,
+        });
+        setAbilityList(tmp);
+      } else {
+        let tmpLevel;
+        if (tmpValue > 10 || tmpValue < 0) {
+          alert("잘못된 값이 입력됐습니다.\n0~10 사이의 값을 입력해주세요.");
+          tmpLevel = abilityList[i].level;
+        } else {
+          tmpLevel = tmpValue;
+        }
+        tmp.splice(i, 1, {
+          ...abilityList[i],
+          enableInput: false,
+          level: tmpLevel,
+        });
+        setAbilityList(tmp);
+      }
+    }
+  }
+
+  function setNegativeAbilityInput(mode: AbilityInputMode) {
+    if (mode === 0) {
+      setNegativeEngrave({
+        ...negativeEngrave,
+        enableInput: true,
+        inputValue: negativeEngrave.level.toString(),
+      });
+    } else if (mode === 1) {
+      setNegativeEngrave({
+        ...negativeEngrave,
+        inputValue: negativeEngrave.level.toString(),
+        enableInput: false,
+      });
+    } else {
+      const tmpValue = parseInt(negativeEngrave.inputValue!);
+      console.log(tmpValue);
+      if (isNaN(tmpValue)) {
+        setNegativeEngrave({
+          ...negativeEngrave,
+          inputValue: negativeEngrave.level.toString(),
+          enableInput: false,
+        });
+      } else {
+        console.log("here");
+        let tmpLevel;
+        if (tmpValue > 10 || tmpValue < 0) {
+          alert("잘못된 값이 입력됐습니다.\n0~10 사이의 값을 입력해주세요.");
+          tmpLevel = negativeEngrave.level;
+        } else {
+          tmpLevel = tmpValue;
+        }
+        setNegativeEngrave({
+          ...negativeEngrave,
+          level: tmpLevel,
+          enableInput: false,
+        });
+      }
+    }
   }
 };
 

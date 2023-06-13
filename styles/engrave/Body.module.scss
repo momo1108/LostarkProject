@@ -43,7 +43,7 @@ $myLightBlue: #76b1ff;
       }
 
       .targetList {
-        @apply inline-flex flex-col items-start mx-auto;
+        @apply inline-flex flex-col items-start mx-auto min-h-[400px];
         .targetListItem {
           @apply h-[86px] inline-flex p-2 pr-6 items-center gap-2;
           .targetListItemTitle {
@@ -108,16 +108,23 @@ $myLightBlue: #76b1ff;
       .equipList {
         @apply text-center min-h-[140px];
         .equipListItem {
-          @apply h-[70px];
+          @apply h-[70px] align-middle;
           .equipListItemButtons {
             @apply inline-flex justify-center items-center gap-2;
-            .equipAbilityInput {
-              @apply w-8 text-2xl font-extrabold text-right outline-none;
-              background: transparent;
-              border-bottom: 1px solid #fff;
+            .equipAbilityInputDiv {
+              @apply w-[141px] text-2xl font-extrabold flex gap-2;
+              .inputArea {
+                @apply w-12 h-11 text-right;
+                line-height: 44px;
+              }
+              .equipAbilityInput {
+                @apply w-8 text-2xl font-extrabold text-right outline-none;
+                background: transparent;
+                border-bottom: 1px solid #fff;
+              }
             }
             .equipAbilityP {
-              @apply w-8 text-2xl font-extrabold text-right;
+              @apply w-12 text-2xl font-extrabold text-right;
             }
             .equipAbilityButtons {
               @apply flex gap-1 font-bold items-start;
@@ -129,11 +136,28 @@ $myLightBlue: #76b1ff;
                 }
               }
             }
+
+            &.negativeItemButtons {
+              @apply w-[141px] justify-start;
+            }
           }
           .equipListItemTitle {
-            @apply text-center font-bold text-[#ccc];
+            @apply text-center font-bold text-[#ccc] w-[150px];
             span {
               color: $myBlue;
+            }
+            .negativeSelect {
+              @apply outline-none;
+              color: rgb(195, 56, 56);
+              background: transparent;
+              -moz-appearance: none;
+              -webkit-appearance: none;
+              appearance: none;
+
+              option {
+                @apply p-4;
+                background: black;
+              }
             }
           }
           .equipListItemValue {
@@ -147,7 +171,7 @@ $myLightBlue: #76b1ff;
             }
           }
           .engraveImgSlot {
-            @apply relative inline-flex justify-center;
+            @apply relative inline-flex justify-center my-auto;
             .engraveImg {
               @apply absolute top-1/2 left-1/2 w-[40px] h-[40px];
               transform: translate(-50%, -50%);
@@ -248,6 +272,15 @@ $myLightBlue: #76b1ff;
 
     .emptyListItem {
       @apply h-[100px] relative flex justify-center items-center text-2xl font-extrabold text-[#ccc];
+      &[data-empty-type="1"] {
+        @apply h-[400px];
+        svg {
+          animation: rotating 6s linear infinite;
+          stroke: $myLightBlue;
+          width: 150px;
+          height: 150px;
+        }
+      }
       p {
         @apply relative;
         color: #2f73cd;
@@ -261,6 +294,18 @@ $myLightBlue: #76b1ff;
           animation: rotating 6s linear infinite;
           stroke: $myLightBlue;
         }
+      }
+    }
+
+    .plusMinusButtons:hover {
+      @apply font-extrabold text-lg transition-all duration-200;
+      background: #fff;
+      color: #111;
+    }
+    .editButton:hover {
+      svg {
+        @apply transition-all duration-100;
+        stroke: $myBlue;
       }
     }
   }

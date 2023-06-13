@@ -1,4 +1,4 @@
-import { IconProps } from "@/types/IconType";
+import { IconProps } from "@/types/CustomType";
 
 const MenuIcons: React.FC<IconProps> = ({
   size = 50,

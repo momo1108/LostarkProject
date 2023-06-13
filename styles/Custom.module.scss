@@ -1,0 +1,50 @@
+.mySelect {
+  @apply min-w-[100px] relative font-extrabold;
+  color: rgb(195, 56, 56);
+
+  .indicator {
+    @apply absolute right-2 top-0 bottom-0 my-auto transition-all duration-300;
+    stroke: rgb(195, 56, 56);
+    fill: rgb(195, 56, 56);
+  }
+
+  &[data-show="true"] {
+    .indicator {
+      transform: rotateX(180deg);
+    }
+  }
+}
+
+.optionList {
+  @apply absolute flex-col w-[150px];
+  background: #020e1e;
+  border: 2px solid #092344;
+  border-radius: 5px;
+  .optionItem {
+    @apply p-2;
+    border-bottom: 1px solid #092344;
+    &:last-child {
+      border: none;
+    }
+    &:hover {
+      background: #061831;
+    }
+  }
+}
+
+.bottom {
+  @apply bottom-0 left-1/2;
+  transform: translate(-50%, 100%);
+}
+.top {
+  @apply top-0 left-1/2;
+  transform: translate(-50%, -100%);
+}
+.right {
+  @apply right-0 top-1/2;
+  transform: translate(100%, -50%);
+}
+.left {
+  @apply left-0 top-1/2;
+  transform: translate(-100%, -50%);
+}

@@ -21,6 +21,7 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
     parseEngravingPoint,
     parseGemName,
     parseApiDataToHtmlString: parse,
+    parseTextformat,
   } = useApiTagParser();
   const [engEquip, setEngEquip] = useState<any>();
   const [gemEquip, setGemEquip] = useState<any>(new Array(11));
@@ -28,6 +29,7 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
   const [myStats, setMyStats] = useState<any>(new Object());
   const [engravingTooltipContent, setEngravingTooltipContent] = useState<any>();
   const [gemTooltipContent, setGemTooltipContent] = useState<any>();
+  const [statsTooltipContent, setStatsTooltipContent] = useState<any>();
   useEffect(() => {
     if (data.ArmoryEngraving?.Engravings) {
       setEngEquip(
@@ -64,9 +66,9 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
     }
 
     // console.log(data.ArmoryProfile.Stats);
-    const tmp_stats: { [key: string]: string } = {};
+    const tmp_stats: { [key: string]: [string, Array<string>] } = {};
     data.ArmoryProfile?.Stats?.forEach((e: StatData) => {
-      tmp_stats[e.Type] = e.Value;
+      tmp_stats[e.Type] = [e.Value, e.Tooltip];
     });
     setMyStats({ ...tmp_stats });
 
@@ -83,8 +85,16 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
           <div className={styles.statsBody}>
             {["공격력", "최대 생명력"].map((e: string) => {
               return (
-                <p className={styles.statsP} key={`stats_${e}`}>
-                  <span className={styles.statsSpan}>{e}</span> {myStats[e]}
+                <p
+                  data-tooltip-id="statsTooltip"
+                  onMouseEnter={() => {
+                    if (myStats[e]) setStatsTooltipContent(myStats[e][1]);
+                  }}
+                  className={styles.statsP}
+                  key={`stats_${e}`}
+                >
+                  <span className={styles.statsSpan}>{e}</span>{" "}
+                  {myStats[e] ? myStats[e][0] : "Loading..."}
                 </p>
               );
             })}
@@ -96,8 +106,16 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
             {["치명", "특화", "신속", "제압", "인내", "숙련"].map(
               (e: string) => {
                 return (
-                  <p className={styles.statsP} key={`stats_${e}`}>
-                    <span className={styles.statsSpan}>{e}</span> {myStats[e]}
+                  <p
+                    data-tooltip-id="statsTooltip"
+                    onMouseEnter={() => {
+                      if (myStats[e]) setStatsTooltipContent(myStats[e][1]);
+                    }}
+                    className={styles.statsP}
+                    key={`stats_${e}`}
+                  >
+                    <span className={styles.statsSpan}>{e}</span>{" "}
+                    {myStats[e] ? myStats[e][0] : "Loading..."}
                   </p>
                 );
               }
@@ -391,6 +409,24 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
         ) : (
           "Loading..."
         )}
+      </Tooltip>
+      <Tooltip
+        id="statsTooltip"
+        className={`${styles.tooltip} ${styles.statsTooltip}`}
+        place="right"
+        clickable={true}
+        delayHide={1}
+      >
+        <ul>
+          {statsTooltipContent ? (
+            statsTooltipContent.map((e: string, i: number) => {
+              const tmp: string = parseTextformat(e);
+              return <li key={`stats_tooltip_line_${i}`}> {parse(tmp)}</li>;
+            })
+          ) : (
+            <li>"Loading..."</li>
+          )}
+        </ul>
       </Tooltip>
     </div>
   );
