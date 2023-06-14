@@ -1,3 +1,102 @@
+import { engravingIconMap } from "./TEGCType";
+
+export type EngraveInfo = {
+  name: string;
+  level?: number;
+  point?: number;
+  enableInput?: boolean;
+  inputValue?: string;
+};
+
+export type AccessoryInfo = {
+  type: AccessoryType;
+  stat1: Stat;
+  stat2?: Stat;
+  isOwned: boolean;
+  engraveInfo: {
+    engrave1: EngraveInfo;
+    engrave2: EngraveInfo;
+    negativeEngrave: EngraveInfo;
+  };
+};
+
+enum AccessoryType {
+  NECKLACE,
+  EARRING,
+  RING,
+}
+
+enum StatsType {
+  CRITICAL,
+  SPECIALTY,
+  AGILITY,
+  SUBDUE,
+  ENDURANCE,
+  PROFICIENCY,
+}
+
+type Stat = {
+  type: StatsType;
+  value: number;
+};
+
+export enum DropdownMode {
+  TARGET,
+  EQUIP,
+  ABILITY_STONE,
+  NONE,
+}
+
+export enum CheckMode {
+  TARGET,
+  EQUIP,
+  ABILITY_STONE,
+}
+
+export enum AbilityInputMode {
+  ENABLE,
+  DISABLE,
+  SAVE,
+}
+
+export const ENGRAVES = Object.keys(engravingIconMap)
+  .filter((e: string) => !e.includes("감소"))
+  .sort();
+
+export const NEGATIVE_ENGRAVES = [
+  {
+    name: "공격력 감소",
+    level: 0,
+    inputValue: "0",
+    enableInput: false,
+  },
+  {
+    name: "공격속도 감소",
+    level: 0,
+    inputValue: "0",
+    enableInput: false,
+  },
+  {
+    name: "방어력 감소",
+    level: 0,
+    inputValue: "0",
+    enableInput: false,
+  },
+  {
+    name: "이동속도 감소",
+    level: 0,
+    inputValue: "0",
+    enableInput: false,
+  },
+];
+
+export const NEGATIVE_ENGRAVES_POINT: { [key: string]: number } = {
+  "공격력 감소": 0,
+  "공격속도 감소": 0,
+  "방어력 감소": 0,
+  "이동속도 감소": 0,
+};
+
 export type AuctionItemSearchReq = {
   CategoryCode: number;
   EtcOptions: EtcOption[];

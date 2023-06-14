@@ -1,8 +1,6 @@
 import CharMainInfoContainer from "@/containers/character/CharMainInfoContainer";
 import CharRecentContainer from "@/containers/character/CharRecentContainer";
 import CharSearchContainer from "@/containers/character/CharSearchContainer";
-import useReduxDispatchWrapper from "@/hooks/useReduxDispatchWrapper";
-import { checker, save, success } from "@/redux/modules/searched";
 import styles from "@/styles/character/Body.module.scss";
 import { nanumNeo } from "@/types/GlobalType";
 import { CharData, RootState, SearchedData } from "@/types/ReducerType";
@@ -17,6 +15,34 @@ export default function CharBody() {
 
   const [searchedDataList, setSearchedDataList] = useState<SearchedData[]>([]);
   const [loadSDL, setLoadSDL] = useState<boolean>(false);
+
+  const checker = useCallback((state: SearchedData[], data: CharData) => {
+    if (!data.ArmoryProfile) return state;
+    let duplicate: boolean = false;
+    const level = parseInt(data.ArmoryProfile.ItemAvgLevel.replace(",", ""));
+    const tmp = state.map((e: SearchedData) => {
+      if (e.name === data.ArmoryProfile.CharacterName) {
+        duplicate = true;
+        return {
+          ...e,
+          level,
+        };
+      } else return e;
+    });
+    return duplicate
+      ? tmp
+      : [
+          ...tmp,
+          {
+            name: data.ArmoryProfile.CharacterName,
+            level,
+            class: data.ArmoryProfile.CharacterClassName,
+            img: data.ArmoryProfile.CharacterImage,
+            like: -1,
+            server: data.ArmoryProfile.ServerName,
+          },
+        ];
+  }, []);
 
   useEffect(() => {
     const initData = localStorage.getItem("recent_search");

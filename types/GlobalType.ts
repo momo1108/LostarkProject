@@ -1,5 +1,16 @@
 import localFont from "next/font/local";
 
+export type PageProps = {
+  children?: (JSX.Element | string)[] | (JSX.Element | string);
+  className?: string;
+};
+
+export type ModalProps = {
+  children?: (JSX.Element | string)[] | (JSX.Element | string);
+  className?: string;
+  isOpen?: boolean;
+};
+
 export const roboto = localFont({
   src: [
     {

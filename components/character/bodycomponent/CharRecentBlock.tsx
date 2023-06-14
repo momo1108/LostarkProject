@@ -1,8 +1,6 @@
 import Delete from "@/components/icons/Delete";
 import Empty from "@/components/icons/Empty";
 import Favorite from "@/components/icons/Favorite";
-import useReduxDispatchWrapper from "@/hooks/useReduxDispatchWrapper";
-import { success } from "@/redux/modules/searched";
 import styles from "@/styles/character/Body.module.scss";
 import { CharRecentBlockProps } from "@/types/CharacterType";
 import Image from "next/image";

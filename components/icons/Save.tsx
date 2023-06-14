@@ -1,10 +1,10 @@
 import { IconProps } from "@/types/CustomType";
 
-const AlertOctagon: React.FC<IconProps> = ({
+const Save: React.FC<IconProps> = ({
   className,
-  size = 24,
+  size = 16,
   color = "#000000",
-  width = 2,
+  width = 3,
 }) => (
   <svg
     className={className}
@@ -18,9 +18,8 @@ const AlertOctagon: React.FC<IconProps> = ({
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
-    <line x1="12" y1="8" x2="12" y2="12"></line>
-    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5" />
   </svg>
 );
-export default AlertOctagon;
+
+export default Save;

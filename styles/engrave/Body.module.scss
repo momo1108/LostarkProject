@@ -1,4 +1,5 @@
 $basicFontColor: #eee;
+$myDarkBlue: #2a5996;
 $myBlue: #4691f6;
 $myLightBlue: #76b1ff;
 
@@ -7,213 +8,236 @@ $myLightBlue: #76b1ff;
   color: $basicFontColor;
 
   .searchContainer {
-    @apply flex flex-wrap gap-8 items-start;
+    @apply flex flex-col gap-4;
 
-    .targetEngraveDiv {
-      @apply flex flex-col px-2 py-4 w-[450px] gap-4;
-      border-radius: 10px;
-      box-shadow: 0px 0px 10px -5px #fff;
-      .targetTitle {
-        @apply text-xl font-bold text-center;
-      }
-
-      .targetSearchDiv {
-        @apply inline-flex relative justify-center mx-auto;
-        .engraveIcon {
-          @apply absolute left-2 top-0 bottom-0 my-auto;
-          &.activeIcon {
-            stroke: $myLightBlue;
-          }
-        }
-
-        .targetSearchInput {
-          @apply relative w-48 outline-none py-2 pl-9 bg-transparent;
-          border: 1px solid #888a;
-          border-radius: 5px;
-          color: #ddd;
-
-          &.focused {
-            border-color: $myLightBlue;
-            color: $myLightBlue;
-          }
-          &.focused::placeholder {
-            color: $myLightBlue;
-          }
-        }
-      }
-
-      .targetList {
-        @apply inline-flex flex-col items-start mx-auto min-h-[400px];
-        .targetListItem {
-          @apply h-[86px] inline-flex p-2 pr-6 items-center gap-2;
-          .targetListItemTitle {
-            @apply min-w-[134px] text-center font-bold text-[#ccc];
-            span {
-              color: $myBlue;
-            }
-          }
-          .engraveImgSlot {
-            @apply relative inline-flex justify-center;
-            .engraveImg {
-              @apply absolute top-1/2 left-1/2 w-[45px] h-[45px];
-              transform: translate(-50%, -50%);
-              &::after {
-                @apply absolute top-0 left-0 right-0 bottom-0 block;
-                content: "";
-                border-radius: 50%;
-                box-shadow: inset 0px 0px 20px -4px #000;
-              }
-            }
-          }
-          .engraveLevelList {
-            @apply flex gap-1 pl-3;
-            li {
-              @apply inline-flex justify-center items-center w-6 h-6 font-bold cursor-pointer text-xs;
-              transition: transform 200ms ease-out;
-              border-width: 1px;
-
-              &:hover {
-                transform: scale(1.2);
-              }
-            }
-          }
-        }
-      }
+    .searchHeader {
+      @apply flex w-full gap-4 items-center h-10;
     }
-    .equipEngraveDiv {
-      @apply flex flex-col px-2 py-4 w-[380px] gap-4 bg-[#f001];
-      border-radius: 10px;
-      box-shadow: 0px 0px 10px -5px #fff;
-      .equipTitle {
-        @apply text-xl font-bold text-center;
-      }
-      .equipSearchDiv {
-        @apply inline-flex relative justify-center mx-auto;
-        .dropdownSelect {
-          @apply flex justify-center gap-1 p-1 pr-2 cursor-pointer w-[130px];
-          border: 2px solid #bbb;
-          border-radius: 5px;
-          &:hover,
-          &.focused {
-            background: $myBlue;
-            border-color: $myBlue;
-            color: #fff;
-            svg {
-              stroke: #fff;
-            }
-          }
-        }
+
+    .searchBody {
+      @apply flex flex-wrap gap-8 items-start;
+
+      .bodyBoxShadow {
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px -5px #fff;
       }
 
-      .equipList {
-        @apply text-center min-h-[140px];
-        .equipListItem {
-          @apply h-[70px] align-middle;
-          .equipListItemButtons {
-            @apply inline-flex justify-center items-center gap-2;
-            .equipAbilityInputDiv {
-              @apply w-[141px] text-2xl font-extrabold flex gap-2;
-              .inputArea {
-                @apply w-12 h-11 text-right;
-                line-height: 44px;
-              }
-              .equipAbilityInput {
-                @apply w-8 text-2xl font-extrabold text-right outline-none;
-                background: transparent;
-                border-bottom: 1px solid #fff;
-              }
-            }
-            .equipAbilityP {
-              @apply w-12 text-2xl font-extrabold text-right;
-            }
-            .equipAbilityButtons {
-              @apply flex gap-1 font-bold items-start;
-              div {
-                @apply flex flex-col gap-1;
-                button {
-                  @apply w-5 h-5 inline-flex justify-center items-center;
-                  border: 1px solid #fff;
-                }
-              }
-            }
-
-            &.negativeItemButtons {
-              @apply w-[141px] justify-start;
-            }
-          }
-          .equipListItemTitle {
-            @apply text-center font-bold text-[#ccc] w-[150px];
-            span {
-              color: $myBlue;
-            }
-            .negativeSelect {
-              @apply outline-none;
-              color: rgb(195, 56, 56);
-              background: transparent;
-              -moz-appearance: none;
-              -webkit-appearance: none;
-              appearance: none;
-
-              option {
-                @apply p-4;
-                background: black;
-              }
-            }
-          }
-          .equipListItemValue {
-            @apply text-2xl font-extrabold w-12 text-center;
-          }
-          .equipListItemButtonDiv {
-            @apply flex flex-col gap-1;
-            button {
-              @apply w-5 h-5 flex justify-center items-center font-bold;
-              border: 1px solid white;
-            }
-          }
-          .engraveImgSlot {
-            @apply relative inline-flex justify-center my-auto;
-            .engraveImg {
-              @apply absolute top-1/2 left-1/2 w-[40px] h-[40px];
-              transform: translate(-50%, -50%);
-              &::after {
-                @apply absolute top-0 left-0 right-0 bottom-0 block;
-                content: "";
-                border-radius: 50%;
-                box-shadow: inset 0px 0px 20px -4px #000;
-              }
-            }
-          }
-          .engraveLevelList {
-            @apply flex gap-1 pl-3;
-            li {
-              @apply inline-flex justify-center items-center w-6 h-6 font-bold cursor-pointer text-xs;
-              transition: transform 200ms ease-out;
-              border-width: 1px;
-
-              &:hover {
-                transform: scale(1.2);
-              }
-            }
-          }
+      .targetEngraveDiv {
+        @apply flex flex-col px-2 py-4 w-[450px] gap-4;
+        .targetTitle {
+          @apply flex text-xl font-bold items-center justify-center gap-2;
         }
 
-        .emptyListItem {
-          @apply h-[140px] relative flex justify-center items-center text-2xl font-extrabold text-[#ccc];
-          p {
-            @apply relative;
-            color: #2f73cd;
-          }
-          .emptyListItemIconDiv {
-            @apply absolute top-1/2 left-1/2;
-            transform: translate(-50%, -50%);
-            opacity: 0.3;
-            svg {
-              transform: skew(-20deg) rotate(20deg);
+        .targetSearchDiv {
+          @apply inline-flex relative justify-center mx-auto;
+          .engraveIcon {
+            @apply absolute left-2 top-0 bottom-0 my-auto;
+            &.activeIcon {
               stroke: $myLightBlue;
             }
           }
+
+          .targetSearchInput {
+            @apply relative w-48 outline-none py-2 pl-9 bg-transparent;
+            border: 1px solid #888a;
+            border-radius: 5px;
+            color: #ddd;
+
+            &.focused {
+              border-color: $myLightBlue;
+              color: $myLightBlue;
+            }
+            &.focused::placeholder {
+              color: $myLightBlue;
+            }
+          }
+        }
+
+        .targetList {
+          @apply inline-flex flex-col items-start mx-auto min-h-[400px];
+          .targetListItem {
+            @apply h-[86px] inline-flex p-2 pr-6 items-center gap-2;
+            .targetListItemTitle {
+              @apply min-w-[134px] text-center font-bold text-[#ccc];
+              span {
+                color: $myBlue;
+              }
+            }
+            .engraveImgSlot {
+              @apply relative inline-flex justify-center;
+              .engraveImg {
+                @apply absolute top-1/2 left-1/2 w-[45px] h-[45px];
+                transform: translate(-50%, -50%);
+                &::after {
+                  @apply absolute top-0 left-0 right-0 bottom-0 block;
+                  content: "";
+                  border-radius: 50%;
+                  box-shadow: inset 0px 0px 20px -4px #000;
+                }
+              }
+            }
+            .engraveLevelList {
+              @apply flex gap-1 pl-3;
+              li {
+                @apply inline-flex justify-center items-center w-6 h-6 font-bold cursor-pointer text-xs;
+                transition: transform 200ms ease-out;
+                border-width: 1px;
+
+                &:hover {
+                  transform: scale(1.2);
+                }
+              }
+            }
+          }
         }
       }
+      .equipEngraveDiv {
+        @apply flex flex-col px-7 py-4 w-[420px] gap-4 bg-[#f001];
+        .equipTitle {
+          @apply text-xl font-bold text-center;
+        }
+        .equipSearchDiv {
+          @apply inline-flex relative justify-center mx-auto;
+          .dropdownSelect {
+            @apply flex justify-center gap-1 p-1 pr-2 cursor-pointer w-[130px] transition-all duration-200;
+            border: 2px solid #bbb;
+            border-radius: 5px;
+            &:hover,
+            &.focused {
+              background: $myBlue;
+              border-color: $myBlue;
+              color: #fff;
+              svg {
+                stroke: #fff;
+              }
+            }
+          }
+        }
+
+        .equipList {
+          @apply text-center min-h-[140px];
+          .equipListItem {
+            @apply h-[70px] align-middle;
+            .equipListItemButtons {
+              @apply inline-flex justify-center items-center gap-2;
+              .equipAbilityInputDiv {
+                @apply w-[141px] text-2xl font-extrabold flex gap-2;
+                .inputArea {
+                  @apply w-12 h-11 text-right;
+                  line-height: 44px;
+                }
+                .equipAbilityInput {
+                  @apply w-8 text-2xl font-extrabold text-right outline-none;
+                  background: transparent;
+                  border-bottom: 1px solid #fff;
+                }
+              }
+              .equipAbilityP {
+                @apply w-12 text-2xl font-extrabold text-right;
+              }
+              .equipAbilityButtons {
+                @apply flex gap-1 font-bold items-start;
+                div {
+                  @apply flex flex-col gap-1;
+                  button {
+                    @apply w-5 h-5 inline-flex justify-center items-center;
+                    border: 1px solid #fff;
+                  }
+                }
+              }
+
+              &.negativeItemButtons {
+                @apply w-[141px] justify-start;
+              }
+            }
+            .equipListItemTitle {
+              @apply text-center font-bold text-[#ccc] w-[150px];
+              span {
+                color: $myBlue;
+              }
+              .negativeSelect {
+                @apply outline-none;
+                color: rgb(195, 56, 56);
+                background: transparent;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                appearance: none;
+
+                option {
+                  @apply p-4;
+                  background: black;
+                }
+              }
+            }
+            .equipListItemValue {
+              @apply text-2xl font-extrabold w-12 text-center;
+            }
+            .equipListItemButtonDiv {
+              @apply flex flex-col gap-1;
+              button {
+                @apply w-5 h-5 flex justify-center items-center font-bold;
+                border: 1px solid white;
+              }
+            }
+            .engraveImgSlot {
+              @apply relative inline-flex justify-center my-auto;
+              .engraveImg {
+                @apply absolute top-1/2 left-1/2 w-[40px] h-[40px];
+                transform: translate(-50%, -50%);
+
+                &.emptyEngraveImg {
+                  @apply w-[51px] h-[51px];
+                }
+                &::after {
+                  @apply absolute top-0 left-0 right-0 bottom-0 block;
+                  content: "";
+                  border-radius: 50%;
+                  box-shadow: inset 0px 0px 20px -4px #000;
+                }
+              }
+            }
+            .engraveLevelList {
+              @apply flex gap-1 pl-3;
+              li {
+                @apply inline-flex justify-center items-center w-6 h-6 font-bold cursor-pointer text-xs;
+                transition: transform 200ms ease-out;
+                border-width: 1px;
+
+                &:hover {
+                  transform: scale(1.2);
+                }
+              }
+            }
+          }
+
+          .emptyListItem {
+            @apply h-[140px] relative flex justify-center items-center text-2xl font-extrabold text-[#ccc];
+            p {
+              @apply relative;
+              color: #2f73cd;
+            }
+            .emptyListItemIconDiv {
+              @apply absolute top-1/2 left-1/2;
+              transform: translate(-50%, -50%);
+              opacity: 0.3;
+              svg {
+                transform: skew(-20deg) rotate(20deg);
+                stroke: $myLightBlue;
+              }
+            }
+          }
+        }
+      }
+      .targetAccessoryDiv {
+        @apply flex flex-col px-7 py-4 w-[420px] gap-4 bg-[#f001];
+        h4 {
+          @apply flex text-xl font-bold items-center justify-center gap-2;
+        }
+      }
+    }
+
+    .searchFooter {
+      @apply flex w-full gap-4 items-center h-10;
     }
 
     .dropdownWrapper {
@@ -265,6 +289,12 @@ $myLightBlue: #76b1ff;
             img {
               @apply inline;
             }
+          }
+
+          .emptyDropdownListItem {
+            @apply w-full text-xl font-bold text-center;
+            height: 41.56px;
+            line-height: 41.56px;
           }
         }
       }

@@ -36,7 +36,6 @@ export default class CharacterService {
     });
     if (res.data) return res.data;
     else {
-      alert("존재하지 않는 닉네임 입니다!");
       throw new Error("존재하지 않는 닉네임 입니다!");
     }
   };

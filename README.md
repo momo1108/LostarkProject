@@ -344,7 +344,7 @@ getStaticProps 를 사용할 때, Next.js의 api 기능을 활용하는것은 �
 
 전체적인 뼈대는 [`react-horizontal-scrolling-menu` ](https://www.npmjs.com/package/react-horizontal-scrolling-menu)라는 모듈을 사용했다.
 
-아이콘은 http://svgicons.sparkk.fr/ , https://iconsvg.xyz/ , https://feathericons.com/ 을 참조.
+아이콘은 http://svgicons.sparkk.fr/ , https://iconsvg.xyz/ , https://feathericons.com/, https://www.svgrepo.com/ 을 참조.
 
 세세한 부분은 직접 css나 js를 사용해서 수정을 해줘야했다.
 
@@ -1167,3 +1167,33 @@ if (validCombination !== null) {
 
 - https://pixabay.com/vectors/abstract-art-border-frame-1861373/
 - https://pixabay.com/vectors/vintage-frame-line-art-antique-old-5331242/
+
+#### 모달
+
+모달 설정 시 고민한 부분
+
+- 컴포넌트 트리 구조가 복잡한 경우, 어떻게 모달 state 설정을 할 것인가?
+  - Redux를 이용한 설정
+  - [createPortal](https://react.dev/reference/react-dom/createPortal#createportal)
+
+액션과 디스패치 등등 여러 설정이 필요한 Redux보단 간단하게 createPortal을 사용해 보기로 결정.
+
+```js
+createPortal(children, domNode, key?)
+```
+
+##### Parameters
+
+- child : React로 렌더될 수 있는 것이라면 아무거나.(JSX 요소-`<div />`, `<SomeComponent />`, Fragment, 문자열, 숫자, 그리고 이런것들의 배열)
+- domNode : `document.getElementById()`로 리턴되는 것과 같은 특정 DOM node. 이 Node는 미리 존재해야 한다. update 도중에 또다른 DOM node를 전달하는 것은 portal content의 재생성을 유발한다.
+- key(optional) : portal의 key로 사용될 유일 문자열 or 숫자.
+
+##### Returns
+
+React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. React가 render output에서 해당 값을 마주치면, `children` 파라미터를 `domNode` 파라미터에 위치시킨다.
+
+참조 : React Document(https://react.dev/reference/react-dom/createPortal#createportal)
+
+#### React Hook 실수들
+
+- https://www.youtube.com/watch?v=GGo3MVBFr1A

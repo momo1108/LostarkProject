@@ -45,6 +45,7 @@ export const engravingLevelColorMap: { [key: string]: string } = {
 };
 
 export const engravingIconMap: { [key: string]: string } = {
+  "감소 효과 선택": "empty_engrave.png",
   "공격력 감소": "001.png",
   "공격속도 감소": "002.png",
   "방어력 감소": "003.png",

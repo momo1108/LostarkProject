@@ -5,15 +5,15 @@ import CharBody from "@/components/character/CharBody";
 import DataService from "@/service/DataService";
 import CharFooter from "@/components/character/CharFooter";
 import { nanumNeo } from "@/types/GlobalType";
-import CharacterService from "@/service/CharacterService";
+import Page from "@/components/Page";
 
 const CharDetail: React.FC<MenuProps> = ({ menu }) => {
   return (
-    <div className={`${styles.container} ${nanumNeo.className}`}>
+    <Page className={`${styles.container} ${nanumNeo.className}`}>
       <MenuHeader menu={menu} />
       <CharBody />
       <CharFooter />
-    </div>
+    </Page>
   );
 };
 

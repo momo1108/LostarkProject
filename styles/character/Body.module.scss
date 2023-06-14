@@ -5,10 +5,10 @@ $basicFontColor: #eee;
 $myBlue: #4691f6;
 $myLightBlue: #76b1ff;
 @function getEmptySlotBackground($num) {
-  @return url(https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot#{$num}.png);
+  @return url(/images/empty_equipment_#{$num}.png);
 }
 @function getEmptyAvatarSlotBackground($num) {
-  @return url(https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_avatar_slot#{$num}.png);
+  @return url(/images/empty_avatar_#{$num}.png);
 }
 
 .container {
@@ -377,13 +377,13 @@ $myLightBlue: #76b1ff;
           background-image: $brighter, getEmptySlotBackground(8);
         }
         .profileEmptyRing {
-          background-image: $brighter, getEmptySlotBackground(10);
+          background-image: $brighter, getEmptySlotBackground(9);
         }
         .profileEmptyBracelet {
-          background-image: $brighter, getEmptySlotBackground(19);
+          background-image: $brighter, getEmptySlotBackground(10);
         }
         .profileEmptyAbilityStone {
-          background-image: $brighter, getEmptySlotBackground(12);
+          background-image: $brighter, getEmptySlotBackground(11);
         }
         .profileEmptyWeaponAvatar {
           background-image: $brighter2, getEmptyAvatarSlotBackground(1);
@@ -651,7 +651,7 @@ $myLightBlue: #76b1ff;
 
           .skillIconSlot {
             @apply flex shrink-0 w-[50px] h-[50px] justify-center items-center;
-            background-image: url(https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_skill_slot.png);
+            background-image: url(/images/skill_slot.png);
             .skillIcon {
               @apply w-[44px];
             }

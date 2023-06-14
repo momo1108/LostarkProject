@@ -1,11 +1,13 @@
 import { IconProps } from "@/types/CustomType";
 
 const Edit: React.FC<IconProps> = ({
+  className,
   size = 24,
   color = "#fff",
   width = 2,
 }) => (
   <svg
+    className={className}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}

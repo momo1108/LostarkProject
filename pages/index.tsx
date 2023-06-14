@@ -4,15 +4,16 @@ import MainBody from "@/components/MainBody";
 import { MainProps } from "@/types/MainPageType";
 import DataService from "@/service/DataService";
 import { roboto } from "@/types/GlobalType";
+import Page from "@/components/Page";
 
 const Home: React.FC<MainProps> = ({ menu }) => {
   // console.log(process.env.CLIENT_TOKEN);
 
   return (
-    <div className={`${styles.container} ${roboto.className}`}>
+    <Page className={`${styles.container} ${roboto.className}`}>
       <MainHeader />
       <MainBody menu={menu} />
-    </div>
+    </Page>
   );
 };
 

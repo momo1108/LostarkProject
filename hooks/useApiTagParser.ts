@@ -54,11 +54,11 @@ function useApiTagParser() {
       html = html.toLowerCase();
       html = html.replace(
         /src="[a-zA-z]+locked"/g,
-        `src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/ico_tooltip_locked.png" style="display:inline-block;"`
+        `src="/images/option_locked.png" style="display:inline-block;"`
       );
       html = html.replace(
         /src="[a-zA-z]+changeable"/g,
-        `src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/ico_tooltip_changeable.png" style="display:inline-block;"`
+        `src="/images/option_changeable.png" style="display:inline-block;"`
       );
       // FONT태그에 스타일 2개인 경우
       html = html.replace(/;'\sstyle='/g, "; ");

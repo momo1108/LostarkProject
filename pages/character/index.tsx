@@ -4,13 +4,14 @@ import MenuHeader from "@/components/MenuHeader";
 import { MenuProps } from "@/types/MenuType";
 import CharBody from "@/components/character/CharBody";
 import { nanumNeo } from "@/types/GlobalType";
+import Page from "@/components/Page";
 
 const Character: React.FC<MenuProps> = ({ menu }) => {
   return (
-    <div className={`${styles.container} ${nanumNeo.className}`}>
+    <Page className={`${styles.container} ${nanumNeo.className}`}>
       <MenuHeader menu={menu} />
       <CharBody />
-    </div>
+    </Page>
   );
 };
 

@@ -94,7 +94,7 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
                   key={`stats_${e}`}
                 >
                   <span className={styles.statsSpan}>{e}</span>{" "}
-                  {myStats[e] ? myStats[e][0] : "Loading..."}
+                  {myStats[e] ? myStats[e][0] : "0"}
                 </p>
               );
             })}
@@ -115,7 +115,7 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
                     key={`stats_${e}`}
                   >
                     <span className={styles.statsSpan}>{e}</span>{" "}
-                    {myStats[e] ? myStats[e][0] : "Loading..."}
+                    {myStats[e] ? myStats[e][0] : "0"}
                   </p>
                 );
               }
@@ -166,7 +166,7 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
                     <div className={styles.engravingEquipIconDiv}>
                       <img
                         className={styles.engravingEquipIconSlot}
-                        src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave.png"
+                        src="/images/engrave_slot.png"
                         alt="emptyslot"
                       />
                       <img
@@ -193,13 +193,13 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
                     <div className={styles.engravingEquipIconDiv}>
                       <img
                         className={styles.engravingEquipIconSlot}
-                        src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave.png"
+                        src="/images/engrave_slot.png"
                         alt="emptyslot"
                       />
                       <img
                         className={styles.engravingEquipIconImage}
                         width={36}
-                        src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot_engrave_over.png"
+                        src="/images/empty_engrave.png"
                         alt=""
                       />
                     </div>
