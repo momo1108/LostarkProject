@@ -5,7 +5,9 @@ import { useState, useMemo, useRef } from "react";
 import {
   AbilityInputMode,
   AccessoryInfo,
+  CASES,
   CheckMode,
+  Combination,
   DropdownMode,
   ENGRAVES,
   EngraveInfo,
@@ -18,7 +20,6 @@ import Edit from "@/components/icons/Edit";
 import Check from "@/components/icons/Check";
 import MySelect from "@/components/custom/MySelect";
 import Close from "@/components/icons/Close";
-import Modal from "@/components/modal/Modal";
 import Save from "@/components/icons/Save";
 import Load from "@/components/icons/Load";
 import Search from "@/components/icons/Search";
@@ -27,6 +28,8 @@ import Target from "@/components/icons/Target";
 import Ring from "@/components/icons/Ring";
 
 const EngraveSearchBlock: React.FC = () => {
+  const answer: Combination[] = [];
+  const tmp: number[][] = [];
   const [targetList, setTargetList] = useState<EngraveInfo[]>([]);
   const [equipList, setEquipList] = useState<EngraveInfo[]>([]);
   const [abilityList, setAbilityList] = useState<EngraveInfo[]>([]);
@@ -991,24 +994,163 @@ const EngraveSearchBlock: React.FC = () => {
     setAbilityList(info.abilityList);
     setNegativeEngrave(info.negativeEngrave);
   }
-  async function searchSetting() {
-    // const res = await EngraveService.getAuctionItems({
-    //   CategoryCode: 200020,
-    //   EtcOptions: [
-    //     {
-    //       FirstOption: 2,
-    //       SecondOption: 15,
-    //       MinValue: 0,
-    //     },
-    //   ],
-    //   ItemGrade: "고대",
-    //   ItemGradeQuality: 50,
-    //   ItemTier: 3,
-    //   PageNo: 1,
-    //   Sort: 1,
-    //   SortCondition: 0,
-    // });
-    // console.log(res);
+
+  function searchSetting() {
+    const tmp_info: { name: string; point: number }[] = targetList.map(
+      (e: EngraveInfo) => {
+        return { name: e.name, point: e.level! * 5 };
+      }
+    );
+    equipList.map((e: EngraveInfo) => {
+      const index = tmp_info.findIndex((e2) => e2.name === e.name);
+      if (index >= 0) {
+        tmp_info[index].point -= e.level! * 3 + 3;
+        if (tmp_info[index].point <= 0) tmp_info.splice(index, 1);
+      }
+    });
+    abilityList.map((e: EngraveInfo) => {
+      const index = tmp_info.findIndex((e2) => e2.name === e.name);
+      if (index >= 0) {
+        tmp_info[index].point -= e.point!;
+        if (tmp_info[index].point <= 0) tmp_info.splice(index, 1);
+      }
+    });
+
+    const total_point = tmp_info.reduce(
+      (acc: number, cur: { name: string; point: number }) => acc + cur.point,
+      0
+    );
+
+    pickTwo(tmp_info, 0, total_point, tmp_info.length);
+
+    answer.sort((a, b) =>
+      a.sum === b.sum
+        ? a.max === b.max
+          ? b.useless_count - a.useless_count
+          : a.max - b.max
+        : a.sum - b.sum
+    );
+
+    const accessory_order_list = findAccessoryOrderList(false, false);
+    console.log(answer[0]);
+    console.log(accessory_order_list);
+  }
+
+  function pickTwo(
+    input: { name: string; point: number }[],
+    count: number,
+    point_sum: number,
+    need_count: number
+  ) {
+    // 완성된 경우
+    if (need_count <= 0) {
+      if (count === 5) {
+        // 5꽉
+        const data = JSON.parse(JSON.stringify(tmp));
+        const [sum, max, useless_count]: number[] = data.reduce(
+          (cur: number[], el: number[]) => [
+            cur[0] + el[1] + el[3],
+            Math.max(cur[1], el[1], el[3]),
+            cur[2] + (el[0] === -1 ? 1 : 0) + (el[2] === -1 ? 1 : 0),
+          ],
+          [0, 0, 0]
+        );
+        answer.push({
+          data,
+          sum,
+          max,
+          useless_count,
+        });
+        return;
+      } else {
+        const tmp_copy = JSON.parse(JSON.stringify(tmp));
+        const data = [
+          ...tmp_copy,
+          ...Array(5 - tmp_copy.length).fill([-1, 3, -1, 3]),
+        ];
+        const [sum, max, useless_count]: number[] = data.reduce(
+          (cur: number[], el: number[]) => [
+            cur[0] + el[1] + el[3],
+            Math.max(cur[1], el[1], el[3]),
+            cur[2] + (el[0] === -1 ? 1 : 0) + (el[2] === -1 ? 1 : 0),
+          ],
+          [0, 0, 0]
+        );
+        answer.push({
+          data,
+          sum,
+          max,
+          useless_count,
+        });
+        return;
+      }
+    }
+
+    /*
+    가지치기
+    1. 각 case에 대해서 차감 전 남아있는 포인트가 case의 포인트보다 작으면 안된다.
+       (단, case의 포인트가 3인 경우는 제외)
+    2. 각 case에 대해서 포인트 차감 후 남은 포인트가 count * 9 보다 크면 안된다.
+    3. i나 j 위치에 0 이하의 point 값인 경우에 대해, point 필요 각인이 많으면 skip한다.
+      - point_i가 0 이하 
+        - point_j가 0 이하 & 필요각인 1개 이상 -> continue j
+        - point_j가 1 이상 & 필요각인 2개 이상 -> continue i
+      - point_i가 1 이상
+        - point_j가 0 이하 & 필요각인 2개 이상 -> continue j
+      - 단, 5개 이전에 이미 만족된 경우도 고려해야한다.
+    */
+
+    // 2번 가지치기
+    if (point_sum > (5 - count) * 9) return;
+
+    let uselessI = false,
+      uselessJ = false;
+
+    for (let i = 0; i < input.length; i++) {
+      // 3번 가지치기 -1
+      if (input[i].point <= 0 && need_count >= 2) continue;
+
+      // 필요없는 각인의 경우 표기
+      if (input[i].point <= 0) uselessI = true;
+
+      for (let j = i + 1; j < input.length; j++) {
+        // 3번 가지치기 -2
+        if (input[j].point <= 0) {
+          if (need_count >= 2) continue;
+          else if (need_count >= 1 && input[i].point <= 0) continue;
+          uselessJ = true;
+        }
+
+        for (const [case0, case1] of CASES) {
+          // 1번 가지치기
+          if (case0 > input[i].point && case0 > 3) continue;
+          if (case1 > input[j].point && case1 > 3) continue;
+          const minI = Math.min(input[i].point, case0);
+          const minJ = Math.min(input[j].point, case1);
+          input[i].point -= minI;
+          input[j].point -= minJ;
+          tmp.push([uselessI ? -1 : i, case0, uselessJ ? -1 : j, case1]);
+          pickTwo(
+            input,
+            count + 1,
+            point_sum - minI - minJ,
+            input.reduce(
+              (count, engrave) => (engrave.point > 0 ? count + 1 : count),
+              0
+            )
+          );
+          tmp.pop();
+          input[i].point += minI;
+          input[j].point += minJ;
+        }
+
+        uselessJ = false;
+      }
+      uselessI = false;
+    }
+  }
+
+  function oldSearchSetting() {
     let count = 5;
     let option_list = [];
     const tmp_info: { name: string; point: number }[] = targetList.map(
@@ -1062,6 +1204,130 @@ const EngraveSearchBlock: React.FC = () => {
       option_list.push(tmp_element);
     }
     console.log(option_list);
+  }
+
+  /**
+   * 완성된 각인 조합으로 모든 검색 조합 찾기
+   * - 경우의 수
+   * 1. 각 귀걸이 쌍과 반지 쌍의 특성이 다른경우
+   *   5! = 120
+   * 2. 귀걸이 쌍만 특성이 다른 경우
+   *   5 * 12(=4P2) * 1(=2C2) = 60
+   * 3. 반지 쌍만 특성이 다른 경우
+   *   5 * 6(=4C2) * 2(=2P2) = 60
+   * 3. 귀걸이 쌍과 반지 쌍의 특성이 같은 경우
+   *   5 * 6(=4C2) * 1(=2C2) = 30
+   */
+  function findAccessoryOrderList(
+    ear_diff: boolean,
+    ring_diff: boolean
+  ): string[][] {
+    const order_list: string[][] = [];
+    const order: string[] = ["", "", "", "", ""];
+
+    for (let necklace = 0; necklace < 5; necklace++) {
+      order[necklace] = "necklace";
+      if (ear_diff) {
+        for (let ear1 = 0; ear1 < 5; ear1++) {
+          if (order[ear1]) continue;
+          order[ear1] = "ear1";
+          for (let ear2 = 0; ear2 < 5; ear2++) {
+            if (order[ear2]) continue;
+            order[ear2] = "ear2";
+
+            if (ring_diff) {
+              for (let ring1 = 0; ring1 < 5; ring1++) {
+                if (order[ring1]) continue;
+                order[ring1] = "ring1";
+                for (let ring2 = 0; ring2 < 5; ring2++) {
+                  if (order[ring2]) continue;
+                  order[ring2] = "ring2";
+                  order_list.push([...order]);
+                  order[ring2] = "";
+                }
+                order[ring1] = "";
+              }
+            } else {
+              for (let ring1 = 0; ring1 < 5; ring1++) {
+                if (order[ring1]) continue;
+                order[ring1] = "ring1";
+                for (let ring2 = ring1 + 1; ring2 < 5; ring2++) {
+                  if (order[ring2]) continue;
+                  order[ring2] = "ring2";
+                  order_list.push([...order]);
+                  order[ring2] = "";
+                }
+                order[ring1] = "";
+              }
+            }
+
+            order[ear2] = "";
+          }
+          order[ear1] = "";
+        }
+      } else {
+        for (let ear1 = 0; ear1 < 5; ear1++) {
+          if (order[ear1]) continue;
+          order[ear1] = "ear1";
+          for (let ear2 = ear1 + 1; ear2 < 5; ear2++) {
+            if (order[ear2]) continue;
+            order[ear2] = "ear2";
+
+            if (ring_diff) {
+              for (let ring1 = 0; ring1 < 5; ring1++) {
+                if (order[ring1]) continue;
+                order[ring1] = "ring1";
+                for (let ring2 = 0; ring2 < 5; ring2++) {
+                  if (order[ring2]) continue;
+                  order[ring2] = "ring2";
+                  order_list.push([...order]);
+                  order[ring2] = "";
+                }
+                order[ring1] = "";
+              }
+            } else {
+              for (let ring1 = 0; ring1 < 5; ring1++) {
+                if (order[ring1]) continue;
+                order[ring1] = "ring1";
+                for (let ring2 = ring1 + 1; ring2 < 5; ring2++) {
+                  if (order[ring2]) continue;
+                  order[ring2] = "ring2";
+                  order_list.push([...order]);
+                  order[ring2] = "";
+                }
+                order[ring1] = "";
+              }
+            }
+
+            order[ear2] = "";
+          }
+          order[ear1] = "";
+        }
+      }
+      order[necklace] = "";
+    }
+
+    return order_list;
+  }
+
+  async function apiSearch() {
+    const res = await EngraveService.getAuctionItems({
+      CategoryCode: 200020,
+      EtcOptions: [
+        {
+          FirstOption: 2,
+          SecondOption: 15,
+          MinValue: 0,
+        },
+      ],
+      ItemGrade: "고대",
+      ItemGradeQuality: 50,
+      ItemTier: 3,
+      PageNo: 1,
+      Sort: 1,
+      SortCondition: 0,
+    });
+    console.log(res);
   }
 };
 

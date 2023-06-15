@@ -8,6 +8,23 @@ export type EngraveInfo = {
   inputValue?: string;
 };
 
+export type Combination = {
+  data: number[][];
+  sum: number;
+  max: number;
+  useless_count: number;
+};
+
+export const CASES: number[][] = [
+  [6, 3],
+  [5, 3],
+  [4, 3],
+  [3, 6],
+  [3, 5],
+  [3, 4],
+  [3, 3],
+];
+
 export type AccessoryInfo = {
   type: AccessoryType;
   stat1: Stat;
