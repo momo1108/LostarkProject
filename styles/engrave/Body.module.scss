@@ -4,7 +4,7 @@ $myBlue: #4691f6;
 $myLightBlue: #76b1ff;
 
 .body {
-  @apply flex-auto px-48 pt-2;
+  @apply flex-auto xl:px-48 lg:px-32 md:px-16 sm:px-8 px-4 pt-2;
   color: $basicFontColor;
 
   .searchContainer {
@@ -92,7 +92,7 @@ $myLightBlue: #76b1ff;
         }
       }
       .equipEngraveDiv {
-        @apply flex flex-col px-7 py-4 w-[420px] gap-4 bg-[#f001];
+        @apply flex flex-col px-7 py-4 w-[420px] gap-4;
         .equipTitle {
           @apply text-xl font-bold text-center;
         }
@@ -229,9 +229,73 @@ $myLightBlue: #76b1ff;
         }
       }
       .targetAccessoryDiv {
-        @apply flex flex-col px-7 py-4 w-[420px] gap-4 bg-[#f001];
+        @apply flex flex-col px-7 py-4 min-w-[450px] gap-4;
         h4 {
           @apply flex text-xl font-bold items-center justify-center gap-2;
+        }
+        h5 {
+          @apply font-bold;
+        }
+
+        .accessoryTableCol1 {
+          @apply py-2;
+          div {
+            @apply px-2 pb-1 inline-flex flex-col min-w-[76px] min-h-[74px] justify-center items-center;
+            border: 2px solid #fff;
+            border-radius: 10px;
+          }
+        }
+
+        .accessoryTableCol2 {
+          .colBlock {
+            @apply flex flex-col w-24 items-center;
+            h5 {
+              @apply w-14 pl-2 text-lg;
+            }
+            div {
+              @apply relative inline-block;
+              .accessoryQuailityInput {
+                @apply outline-none w-14 mt-1 text-right pb-[2px];
+                background: none;
+                border-bottom: 1px solid transparent;
+                &:focus {
+                  @apply font-bold;
+                  color: $myBlue;
+                }
+              }
+              &::before {
+                @apply absolute bottom-0 right-4 w-8;
+                content: "";
+                border-bottom: 1px solid #aaa;
+              }
+              &::after {
+                @apply absolute bottom-0 right-4 w-0 duration-500;
+                transition: width 0.5s;
+                content: "";
+                border-bottom: 1px solid $myBlue;
+              }
+              &:has(.accessoryQuailityInput:focus)::after {
+                @apply w-8;
+              }
+            }
+          }
+        }
+
+        .accessoryTableCol3 {
+          .colBlock {
+            @apply flex flex-col;
+            h5 {
+              @apply inline-flex text-lg w-[70px] justify-center;
+            }
+          }
+        }
+        .accessoryTableCol4 {
+          .colBlock {
+            @apply flex flex-col;
+            h5 {
+              @apply inline-flex text-lg w-[70px] justify-center;
+            }
+          }
         }
       }
     }

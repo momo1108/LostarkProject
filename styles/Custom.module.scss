@@ -1,11 +1,13 @@
 .mySelect {
-  @apply min-w-[100px] relative font-extrabold;
-  color: rgb(195, 56, 56);
+  @apply relative font-extrabold pr-6;
 
   .indicator {
     @apply absolute right-2 top-0 bottom-0 my-auto transition-all duration-300;
-    stroke: rgb(195, 56, 56);
-    fill: rgb(195, 56, 56);
+  }
+  border: 2px solid;
+
+  &:focus {
+    border: 2px solid;
   }
 
   &[data-show="true"] {
@@ -16,18 +18,14 @@
 }
 
 .optionList {
-  @apply absolute flex-col w-[150px];
-  background: #020e1e;
-  border: 2px solid #092344;
+  @apply absolute flex-col z-10;
+  border: 2px solid;
   border-radius: 5px;
   .optionItem {
     @apply p-2;
-    border-bottom: 1px solid #092344;
+    border-bottom: 1px solid;
     &:last-child {
       border: none;
-    }
-    &:hover {
-      background: #061831;
     }
   }
 }

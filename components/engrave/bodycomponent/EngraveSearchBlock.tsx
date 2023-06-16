@@ -11,8 +11,10 @@ import {
   DropdownMode,
   ENGRAVES,
   EngraveInfo,
+  EtcOption,
   NEGATIVE_ENGRAVES,
   NEGATIVE_ENGRAVES_POINT,
+  accessoryOrderMap,
   engraveLevelColorMap,
 } from "@/types/EngraveType";
 import Delete from "@/components/icons/Delete";
@@ -26,6 +28,9 @@ import Search from "@/components/icons/Search";
 import EngraveService from "@/service/EngraveService";
 import Target from "@/components/icons/Target";
 import Ring from "@/components/icons/Ring";
+import Ring2 from "@/components/icons/Ring2";
+import Necklace from "@/components/icons/Necklace";
+import Earring from "@/components/icons/Earring";
 
 const EngraveSearchBlock: React.FC = () => {
   const answer: Combination[] = [];
@@ -39,7 +44,82 @@ const EngraveSearchBlock: React.FC = () => {
     enableInput: false,
     inputValue: "0",
   });
-  const [accessoryList, setAccessoryList] = useState<AccessoryInfo[]>([]);
+  const [necklaceState, setNecklaceState] = useState<AccessoryInfo>({
+    type: 0,
+    quality: 50,
+    stat1: { type: "치명", value: 0 },
+    stat2: { type: "특화", value: 0 },
+    isOwned: false,
+    engraveInfo: {
+      engrave1: { name: "" },
+      engrave2: { name: "" },
+      negativeEngrave: { name: "" },
+    },
+  });
+  const [earringState1, setEarringState1] = useState<AccessoryInfo>({
+    type: 1,
+    quality: 50,
+    stat1: { type: "치명", value: 0 },
+    stat2: { type: "특화", value: 0 },
+    isOwned: false,
+    engraveInfo: {
+      engrave1: { name: "" },
+      engrave2: { name: "" },
+      negativeEngrave: { name: "" },
+    },
+  });
+  const [earringState2, setEarringState2] = useState<AccessoryInfo>({
+    type: 1,
+    quality: 50,
+    stat1: { type: "치명", value: 0 },
+    stat2: { type: "특화", value: 0 },
+    isOwned: false,
+    engraveInfo: {
+      engrave1: { name: "" },
+      engrave2: { name: "" },
+      negativeEngrave: { name: "" },
+    },
+  });
+  const [ringState1, setRingState1] = useState<AccessoryInfo>({
+    type: 2,
+    quality: 50,
+    stat1: { type: "치명", value: 0 },
+    stat2: { type: "특화", value: 0 },
+    isOwned: false,
+    engraveInfo: {
+      engrave1: { name: "" },
+      engrave2: { name: "" },
+      negativeEngrave: { name: "" },
+    },
+  });
+  const [ringState2, setRingState2] = useState<AccessoryInfo>({
+    type: 2,
+    quality: 50,
+    stat1: { type: "치명", value: 0 },
+    stat2: { type: "특화", value: 0 },
+    isOwned: false,
+    engraveInfo: {
+      engrave1: { name: "" },
+      engrave2: { name: "" },
+      negativeEngrave: { name: "" },
+    },
+  });
+  const accessoryList = {
+    getter: [
+      necklaceState,
+      earringState1,
+      earringState2,
+      ringState1,
+      ringState2,
+    ],
+    setter: [
+      setNecklaceState,
+      setEarringState1,
+      setEarringState2,
+      setRingState1,
+      setRingState2,
+    ],
+  };
 
   const [dropdownMode, setDropdownMode] = useState<DropdownMode>(3);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -691,8 +771,11 @@ const EngraveSearchBlock: React.FC = () => {
                       <MySelect
                         title={negativeEngrave.name}
                         data={NEGATIVE_ENGRAVES}
+                        width={115}
+                        height={30}
+                        offset={3}
                         mapFunction={(e, i) => {
-                          return <span>{e.name}</span>;
+                          return e.name;
                         }}
                         onClickFunction={(e, i) => {
                           setNegativeEngrave({
@@ -823,6 +906,161 @@ const EngraveSearchBlock: React.FC = () => {
             <Ring size={30} />
             악세서리 설정
           </h4>
+          <table>
+            <tbody>
+              {accessoryList.getter.map((e: AccessoryInfo, i: number) => {
+                return (
+                  <tr key={`accessory_table_row_${i}`}>
+                    <td className={styles.accessoryTableCol1}>
+                      <div>
+                        {i === 0 ? (
+                          <>
+                            <h5>목걸이</h5>
+                            <Necklace size={30} fill="#fff" />
+                          </>
+                        ) : i === 1 ? (
+                          <>
+                            <h5>귀걸이1</h5>
+                            <Earring size={30} fill="#fff" fill2="#555" />
+                          </>
+                        ) : i === 2 ? (
+                          <>
+                            <h5>귀걸이2</h5>
+                            <Earring size={30} fill="#555" fill2="#fff" />
+                          </>
+                        ) : i === 3 ? (
+                          <>
+                            <h5>반지1</h5>
+                            <Ring2 size={30} fill="#fff" fill2="#555" />
+                          </>
+                        ) : (
+                          <>
+                            <h5>반지2</h5>
+                            <Ring2
+                              size={30}
+                              first={false}
+                              fill="#555"
+                              fill2="#fff"
+                            />
+                          </>
+                        )}
+                      </div>
+                    </td>
+                    <td className={styles.accessoryTableCol2}>
+                      <div className={styles.colBlock}>
+                        <label>
+                          <h5>품질</h5>
+                          <div>
+                            <input
+                              className={styles.accessoryQuailityInput}
+                              type="number"
+                              max={100}
+                              min={0}
+                              value={e.quality}
+                              onChange={(event) => {
+                                let quality_tmp = parseInt(event.target.value);
+                                quality_tmp = quality_tmp
+                                  ? quality_tmp > 100
+                                    ? 100
+                                    : quality_tmp < 0
+                                    ? 0
+                                    : quality_tmp
+                                  : 0;
+                                accessoryList.setter[i]({
+                                  ...e,
+                                  quality: quality_tmp ? quality_tmp : 0,
+                                });
+                              }}
+                            />
+                          </div>
+                        </label>
+                      </div>
+                    </td>
+                    <td className={styles.accessoryTableCol3}>
+                      <div className={styles.colBlock}>
+                        <h5>특성1</h5>
+                        <MySelect
+                          width={70}
+                          height={30}
+                          title={e.stat1.type}
+                          place="right"
+                          offset={3}
+                          color="#ccc"
+                          data={[
+                            "치명",
+                            "특화",
+                            "신속",
+                            "제압",
+                            "인내",
+                            "숙련",
+                          ]}
+                          mapFunction={(el) => {
+                            return <span>{el}</span>;
+                          }}
+                          onClickFunction={(el) => {
+                            console.log(e.stat1, el);
+                            if (e.type === 0 && el === e.stat2.type) {
+                              alert("이미 선택된 특성입니다.");
+                              return;
+                            }
+                            accessoryList.setter[i]({
+                              ...e,
+                              stat1: { ...e.stat1, type: el },
+                            });
+                          }}
+                        />
+                      </div>
+                    </td>
+                    <td className={styles.accessoryTableCol4}>
+                      {e.type === 0 ? (
+                        <div className={styles.colBlock}>
+                          <h5>특성2</h5>
+                          <MySelect
+                            width={70}
+                            height={30}
+                            title={e.stat2.type}
+                            place="right"
+                            offset={3}
+                            color="#ccc"
+                            data={[
+                              "치명",
+                              "특화",
+                              "신속",
+                              "제압",
+                              "인내",
+                              "숙련",
+                            ]}
+                            mapFunction={(el) => {
+                              return <span>{el}</span>;
+                            }}
+                            onClickFunction={(el) => {
+                              console.log(e.stat1, el);
+                              if (e.type === 0 && el === e.stat1.type) {
+                                alert("이미 선택된 특성입니다.");
+                                return;
+                              }
+                              accessoryList.setter[i]({
+                                ...e,
+                                stat2: { ...e.stat2, type: el },
+                              });
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                    </td>
+                    <td className={styles.accessoryTableCol5}>
+                      <div className={styles.colBlock}>
+                        <h5>보유중</h5>
+                        <p>미구현</p>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
       <div className={styles.searchFooter}>
@@ -982,6 +1220,7 @@ const EngraveSearchBlock: React.FC = () => {
         equipList,
         abilityList,
         negativeEngrave,
+        accessoryList: accessoryList.getter,
       })
     );
   }
@@ -993,6 +1232,9 @@ const EngraveSearchBlock: React.FC = () => {
     setEquipList(info.equipList);
     setAbilityList(info.abilityList);
     setNegativeEngrave(info.negativeEngrave);
+    accessoryList.setter.forEach((set, i) => {
+      set(info.accessoryList[i]);
+    });
   }
 
   function searchSetting() {
@@ -1031,9 +1273,27 @@ const EngraveSearchBlock: React.FC = () => {
         : a.sum - b.sum
     );
 
-    const accessory_order_list = findAccessoryOrderList(false, false);
+    // const accessory_order_list = findAccessoryOrderList(true, true);
+    const ear_diff: boolean =
+      accessoryList.getter[1].stat1.type !== accessoryList.getter[2].stat1.type;
+    const ring_diff: boolean =
+      accessoryList.getter[3].stat1.type !== accessoryList.getter[4].stat1.type;
+    const index = (ear_diff ? 2 : 0) + (ring_diff ? 1 : 0);
+    const accessory_order_list = accessoryOrderMap[index];
+
     console.log(answer[0]);
     console.log(accessory_order_list);
+
+    /* 찾아낸 각인 조합을 모든 악세서리의 조합과 합친다.
+    1. 한 악세서리 세트에 적용된 조합을 찾기 위해서는
+       5번의 api request가 필요하다.
+    2. 
+      2-1. 1번 과정을 모든 악세서리 조합에 맞게 반복한다.
+           (120, 60, 60, 30)
+      2-2. 1번 과정이 완료될 때 마다? 가능 조합을 계산
+    3. 쓸모없는 각인이 있는 경우 경우의 수 줄이는 처리해야할듯
+    4. 이전의 가격을 참조해 검색도중 생략하는 것도 좋을듯.
+    */
   }
 
   function pickTwo(
@@ -1221,113 +1481,116 @@ const EngraveSearchBlock: React.FC = () => {
   function findAccessoryOrderList(
     ear_diff: boolean,
     ring_diff: boolean
-  ): string[][] {
-    const order_list: string[][] = [];
-    const order: string[] = ["", "", "", "", ""];
+  ): number[][] {
+    const order_list: number[][] = [];
+    const order: number[] = [0, 0, 0, 0, 0];
 
     for (let necklace = 0; necklace < 5; necklace++) {
-      order[necklace] = "necklace";
+      order[necklace] = 1;
       if (ear_diff) {
         for (let ear1 = 0; ear1 < 5; ear1++) {
           if (order[ear1]) continue;
-          order[ear1] = "ear1";
+          order[ear1] = 2;
           for (let ear2 = 0; ear2 < 5; ear2++) {
             if (order[ear2]) continue;
-            order[ear2] = "ear2";
+            order[ear2] = 3;
 
             if (ring_diff) {
               for (let ring1 = 0; ring1 < 5; ring1++) {
                 if (order[ring1]) continue;
-                order[ring1] = "ring1";
+                order[ring1] = 4;
                 for (let ring2 = 0; ring2 < 5; ring2++) {
                   if (order[ring2]) continue;
-                  order[ring2] = "ring2";
+                  order[ring2] = 5;
                   order_list.push([...order]);
-                  order[ring2] = "";
+                  order[ring2] = 0;
                 }
-                order[ring1] = "";
+                order[ring1] = 0;
               }
             } else {
               for (let ring1 = 0; ring1 < 5; ring1++) {
                 if (order[ring1]) continue;
-                order[ring1] = "ring1";
+                order[ring1] = 4;
                 for (let ring2 = ring1 + 1; ring2 < 5; ring2++) {
                   if (order[ring2]) continue;
-                  order[ring2] = "ring2";
+                  order[ring2] = 5;
                   order_list.push([...order]);
-                  order[ring2] = "";
+                  order[ring2] = 0;
                 }
-                order[ring1] = "";
+                order[ring1] = 0;
               }
             }
 
-            order[ear2] = "";
+            order[ear2] = 0;
           }
-          order[ear1] = "";
+          order[ear1] = 0;
         }
       } else {
         for (let ear1 = 0; ear1 < 5; ear1++) {
           if (order[ear1]) continue;
-          order[ear1] = "ear1";
+          order[ear1] = 2;
           for (let ear2 = ear1 + 1; ear2 < 5; ear2++) {
             if (order[ear2]) continue;
-            order[ear2] = "ear2";
+            order[ear2] = 3;
 
             if (ring_diff) {
               for (let ring1 = 0; ring1 < 5; ring1++) {
                 if (order[ring1]) continue;
-                order[ring1] = "ring1";
+                order[ring1] = 4;
                 for (let ring2 = 0; ring2 < 5; ring2++) {
                   if (order[ring2]) continue;
-                  order[ring2] = "ring2";
+                  order[ring2] = 5;
                   order_list.push([...order]);
-                  order[ring2] = "";
+                  order[ring2] = 0;
                 }
-                order[ring1] = "";
+                order[ring1] = 0;
               }
             } else {
               for (let ring1 = 0; ring1 < 5; ring1++) {
                 if (order[ring1]) continue;
-                order[ring1] = "ring1";
+                order[ring1] = 4;
                 for (let ring2 = ring1 + 1; ring2 < 5; ring2++) {
                   if (order[ring2]) continue;
-                  order[ring2] = "ring2";
+                  order[ring2] = 5;
                   order_list.push([...order]);
-                  order[ring2] = "";
+                  order[ring2] = 0;
                 }
-                order[ring1] = "";
+                order[ring1] = 0;
               }
             }
 
-            order[ear2] = "";
+            order[ear2] = 0;
           }
-          order[ear1] = "";
+          order[ear1] = 0;
         }
       }
-      order[necklace] = "";
+      order[necklace] = 0;
     }
 
     return order_list;
   }
 
-  async function apiSearch() {
-    const res = await EngraveService.getAuctionItems({
-      CategoryCode: 200020,
-      EtcOptions: [
-        {
-          FirstOption: 2,
-          SecondOption: 15,
-          MinValue: 0,
-        },
-      ],
-      ItemGrade: "고대",
-      ItemGradeQuality: 50,
-      ItemTier: 3,
-      PageNo: 1,
-      Sort: 1,
-      SortCondition: 0,
-    });
-    console.log(res);
+  async function apiSearch(
+    CategoryCode: number,
+    EtcOptions: EtcOption[],
+    ItemGradeQuality: number
+  ) {
+    try {
+      const res = await EngraveService.getAuctionItems({
+        CategoryCode,
+        EtcOptions,
+        ItemGrade: "고대",
+        ItemGradeQuality,
+        ItemTier: 3,
+        PageNo: 1,
+        Sort: 1,
+        SortCondition: 0,
+      });
+      return res;
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
   }
 };
 

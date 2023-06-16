@@ -5,6 +5,12 @@ import Triangle from "../icons/Triangle";
 
 const MySelect: React.FC<CustomComponentProps> = ({
   className,
+  width = 100,
+  height = 24,
+  color = "#C33838",
+  backgroundColor = "#020e1e",
+  borderColor = "#092344",
+  hoverBackgroundcolor = "#061831",
   itemClassName,
   title,
   data,
@@ -14,29 +20,48 @@ const MySelect: React.FC<CustomComponentProps> = ({
   offset = 0,
 }) => {
   const [optionVisibility, setOptionVisibility] = useState<boolean>(false);
+  const [selected, setSelected] = useState<number>(-1);
+  const [outline, setOutline] = useState<string>("transparent");
 
   return (
-    <div
+    <button
       tabIndex={0}
       className={`${styles.mySelect} ${className}`}
+      style={{ width: width + 24, height, color, borderColor: outline }}
       onBlur={() => {
-        setOptionVisibility(false);
+        setOptionVisibility((e) => {
+          setOutline("transparent");
+          return false;
+        });
+      }}
+      onClick={() => {
+        setOptionVisibility((e) => {
+          e ? setOutline("transparent") : setOutline(color);
+          return !e;
+        });
       }}
       data-show={optionVisibility}
     >
-      <button
-        onClick={() => {
-          setOptionVisibility(!optionVisibility);
-        }}
-      >
-        {title}
-      </button>
-      <Triangle className={styles.indicator} size={12} />
+      {title}
+      <Triangle
+        className={styles.indicator}
+        color={color}
+        fill={color}
+        size={12}
+      />
       <ul
         className={`${styles.optionList} ${styles[place]}${
-          optionVisibility ? " flex" : " hidden"
+          optionVisibility ? " block" : " hidden"
         }`}
-        style={{ [place]: -offset }}
+        style={{
+          [place]: -offset,
+          width: width + 16,
+          borderColor,
+          backgroundColor,
+        }}
+        onMouseLeave={() => {
+          setSelected(-1);
+        }}
       >
         {data?.map((e: any, i: number) => {
           const res = mapFunction(e, i);
@@ -50,13 +75,21 @@ const MySelect: React.FC<CustomComponentProps> = ({
                 onClickFunction(e, i);
                 setOptionVisibility(false);
               }}
+              onMouseEnter={() => {
+                setSelected(i);
+              }}
+              style={{
+                borderColor,
+                backgroundColor:
+                  selected === i ? hoverBackgroundcolor : backgroundColor,
+              }}
             >
-              <button>{res}</button>
+              {res}
             </li>
           );
         })}
       </ul>
-    </div>
+    </button>
   );
 };
 export default MySelect;
