@@ -31,6 +31,7 @@ import Ring from "@/components/icons/Ring";
 import Ring2 from "@/components/icons/Ring2";
 import Necklace from "@/components/icons/Necklace";
 import Earring from "@/components/icons/Earring";
+import { CATEGORY_CODE, ETC_OPTION_CODE } from "@/types/GlobalType";
 
 const EngraveSearchBlock: React.FC = () => {
   const answer: Combination[] = [];
@@ -1237,7 +1238,13 @@ const EngraveSearchBlock: React.FC = () => {
     });
   }
 
-  function searchSetting() {
+  async function searchSetting() {
+    const negativeCounter = {
+      "공격력 감소": 0,
+      "공격속도 감소": 0,
+      "방어력 감소": 0,
+      "이동속도 감소": 0,
+    };
     const tmp_info: { name: string; point: number }[] = targetList.map(
       (e: EngraveInfo) => {
         return { name: e.name, point: e.level! * 5 };
@@ -1281,8 +1288,10 @@ const EngraveSearchBlock: React.FC = () => {
     const index = (ear_diff ? 2 : 0) + (ring_diff ? 1 : 0);
     const accessory_order_list = accessoryOrderMap[index];
 
-    console.log(answer[0]);
-    console.log(accessory_order_list);
+    // console.log(tmp_info);
+    // console.log(accessoryList);
+    // console.log(answer[0]);
+    // console.log(accessory_order_list);
 
     /* 찾아낸 각인 조합을 모든 악세서리의 조합과 합친다.
     1. 한 악세서리 세트에 적용된 조합을 찾기 위해서는
@@ -1294,6 +1303,110 @@ const EngraveSearchBlock: React.FC = () => {
     3. 쓸모없는 각인이 있는 경우 경우의 수 줄이는 처리해야할듯
     4. 이전의 가격을 참조해 검색도중 생략하는 것도 좋을듯.
     */
+    // 각인 조합 반복문
+    let single_res;
+    // const total_cases = answer.length * accessory_order_list.length * 5;
+    const total_cases = 100;
+    let result_array = [];
+    let current_case = 0;
+    let error_count = 0;
+    while (current_case < total_cases) {
+      // 현재 각인 조합이 몇번째인가?
+      const engrave_combination_index = Math.floor(
+        current_case / (accessory_order_list.length * 5)
+      );
+      answer[engrave_combination_index].data; // 현재 각인 조합
+      // 현재 case는 총 악세서리 조합안의 몇번째 악세서리인가?
+      const tmp_index = current_case % (accessory_order_list.length * 5);
+      const [accessory_combination_index, accessory_element_index] = [
+        Math.floor(tmp_index / 5),
+        tmp_index % 5,
+      ];
+
+      try {
+        single_res = await apiAuctionSearch(
+          CATEGORY_CODE[accessoryList.getter[current_case % 5].type],
+          [
+            ...(accessoryList.getter[current_case % 5].type == 0
+              ? [
+                  {
+                    FirstOption: ETC_OPTION_CODE["전투 특성"],
+                    SecondOption:
+                      ETC_OPTION_CODE[
+                        accessoryList.getter[current_case % 5].stat1.type
+                      ],
+                  },
+                  {
+                    FirstOption: ETC_OPTION_CODE["전투 특성"],
+                    SecondOption:
+                      ETC_OPTION_CODE[
+                        accessoryList.getter[current_case % 5].stat1.type
+                      ],
+                  },
+                ]
+              : [
+                  {
+                    FirstOption: ETC_OPTION_CODE["전투 특성"],
+                    SecondOption:
+                      ETC_OPTION_CODE[
+                        accessoryList.getter[current_case % 5].stat1.type
+                      ],
+                  },
+                ]),
+            {
+              FirstOption: ETC_OPTION_CODE["각인 효과"],
+              SecondOption:
+                ETC_OPTION_CODE[
+                  tmp_info[
+                    answer[engrave_combination_index].data[
+                      accessory_order_list[accessory_combination_index][
+                        accessory_element_index
+                      ]
+                    ][0]
+                  ].name
+                ],
+              MinValue:
+                answer[engrave_combination_index].data[
+                  accessory_order_list[accessory_combination_index][
+                    accessory_element_index
+                  ]
+                ][1],
+            },
+            {
+              FirstOption: ETC_OPTION_CODE["각인 효과"],
+              SecondOption:
+                ETC_OPTION_CODE[
+                  tmp_info[
+                    answer[engrave_combination_index].data[
+                      accessory_order_list[accessory_combination_index][
+                        accessory_element_index
+                      ]
+                    ][2]
+                  ].name
+                ],
+              MinValue:
+                answer[engrave_combination_index].data[
+                  accessory_order_list[accessory_combination_index][
+                    accessory_element_index
+                  ]
+                ][3],
+            },
+          ],
+          accessoryList.getter[current_case % 5].quality
+        );
+        result_array.push(single_res);
+        current_case++;
+        error_count = 0;
+      } catch (error) {
+        console.log(error);
+        // 같은 구간 3번 이상 오류 발생하면 다음 악세조합으로 넘어간다.
+        if (++error_count >= 3) {
+          error_count = 0;
+          current_case = (Math.floor(current_case / 5) + 1) * 5;
+        }
+      }
+    }
+    console.log(result_array);
   }
 
   function pickTwo(
@@ -1570,27 +1683,29 @@ const EngraveSearchBlock: React.FC = () => {
     return order_list;
   }
 
-  async function apiSearch(
+  /**
+   *
+   * @param CategoryCode 검색 물품의 코드(apirequset_auction.json파일 참조)
+   * @param EtcOptions 검색 물품의 세부옵션(각인, 특성과 그 수치)
+   * @param ItemGradeQuality 검색 물품의 품질
+   * @returns
+   */
+  async function apiAuctionSearch(
     CategoryCode: number,
     EtcOptions: EtcOption[],
     ItemGradeQuality: number
   ) {
-    try {
-      const res = await EngraveService.getAuctionItems({
-        CategoryCode,
-        EtcOptions,
-        ItemGrade: "고대",
-        ItemGradeQuality,
-        ItemTier: 3,
-        PageNo: 1,
-        Sort: 1,
-        SortCondition: 0,
-      });
-      return res;
-    } catch (err) {
-      console.log(err);
-      return [];
-    }
+    const res = await EngraveService.getAuctionItems({
+      CategoryCode,
+      EtcOptions,
+      ItemGrade: "고대",
+      ItemGradeQuality,
+      ItemTier: 3,
+      PageNo: 1,
+      Sort: "BUY_PRICE",
+      SortCondition: 0,
+    });
+    return res;
   }
 };
 
