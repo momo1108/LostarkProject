@@ -99,13 +99,6 @@ export const NEGATIVE_ENGRAVES = [
   },
 ];
 
-export const NEGATIVE_ENGRAVES_POINT: { [key: string]: number } = {
-  "공격력 감소": 0,
-  "공격속도 감소": 0,
-  "방어력 감소": 0,
-  "이동속도 감소": 0,
-};
-
 export type AuctionItemSearchReq = {
   CategoryCode: number;
   EtcOptions: EtcOption[];
@@ -130,7 +123,7 @@ export type AuctionItemSearchResult = {
   Items: AuctionItem[];
 };
 
-type AuctionItem = {
+export type AuctionItem = {
   Name: string;
   Grade: string;
   Tier: number;
@@ -159,18 +152,49 @@ type AuctionOption = {
   ClassName: string | null;
 };
 
+export type MarketItemSearchReq = {
+  Sort: Sort;
+  CategoryCode: number;
+  CharacterClass: string;
+  ItemTier: number | null;
+  ItemGrade: string;
+  ItemName: string;
+  PageNo: number;
+  SortCondition: SortCondition;
+};
+
+export type MarketItemSearchResult = {
+  PageNo: number;
+  PageSize: number;
+  TotalCount: number;
+  Items: MarketItem[];
+};
+
+export type MarketItem = {
+  Id: number;
+  Name: string;
+  Grade: string;
+  Icon: string;
+  BundleCount: number;
+  TradeRemainCount: number;
+  YDayAvgPrice: number;
+  RecentPrice: number;
+  CurrentMinPrice: number;
+};
+
 type Sort =
   | "BIDSTART_PRICE"
   | "BUY_PRICE"
   | "EXPIREDATE"
   | "ITEM_GRADE"
   | "ITEM_LEVEL"
-  | "ITEM_QUALITY";
+  | "ITEM_QUALITY"
+  | "GRADE"
+  | "YDAY_AVG_PRICE"
+  | "RECENT_PRICE"
+  | "CURRENT_MIN_PRICE";
 
-enum SortCondition {
-  ASC,
-  DESC,
-}
+type SortCondition = "ASC" | "DESC";
 
 export const engraveLevelColorMap: { [key: number]: string } = {
   0: "uncommon",

@@ -5,6 +5,8 @@ import { useState, useMemo, useRef } from "react";
 import {
   AbilityInputMode,
   AccessoryInfo,
+  AuctionItem,
+  AuctionItemSearchResult,
   CASES,
   CheckMode,
   Combination,
@@ -13,7 +15,6 @@ import {
   EngraveInfo,
   EtcOption,
   NEGATIVE_ENGRAVES,
-  NEGATIVE_ENGRAVES_POINT,
   accessoryOrderMap,
   engraveLevelColorMap,
 } from "@/types/EngraveType";
@@ -31,11 +32,18 @@ import Ring from "@/components/icons/Ring";
 import Ring2 from "@/components/icons/Ring2";
 import Necklace from "@/components/icons/Necklace";
 import Earring from "@/components/icons/Earring";
-import { CATEGORY_CODE, ETC_OPTION_CODE } from "@/types/GlobalType";
+import {
+  CATEGORY_CODE,
+  ETC_OPTION_CODE,
+  apiEngravePriority,
+  engravePriority,
+} from "@/types/GlobalType";
 
 const EngraveSearchBlock: React.FC = () => {
   const answer: Combination[] = [];
   const tmp: number[][] = [];
+  const [totalCases, setTotalCases] = useState<number>(0);
+  const [apiCallCount, setApiCallCount] = useState<number>(0);
   const [targetList, setTargetList] = useState<EngraveInfo[]>([]);
   const [equipList, setEquipList] = useState<EngraveInfo[]>([]);
   const [abilityList, setAbilityList] = useState<EngraveInfo[]>([]);
@@ -1074,6 +1082,17 @@ const EngraveSearchBlock: React.FC = () => {
           <Search color="#ccc" size={20} />
           <span>검색</span>
         </button>
+        <p>
+          {apiCallCount} / {totalCases}
+        </p>
+        <button
+          onClick={async () => {
+            const ttt = await apiEngravePriority();
+            console.log(ttt);
+          }}
+        >
+          test
+        </button>
       </div>
     </div>
   );
@@ -1239,12 +1258,8 @@ const EngraveSearchBlock: React.FC = () => {
   }
 
   async function searchSetting() {
-    const negativeCounter = {
-      "공격력 감소": 0,
-      "공격속도 감소": 0,
-      "방어력 감소": 0,
-      "이동속도 감소": 0,
-    };
+    setApiCallCount(1);
+    let inFunctionApiCallCount = 1; // 함수 while문 안에서 state 체크가 제대로 안되네?
     const tmp_info: { name: string; point: number }[] = targetList.map(
       (e: EngraveInfo) => {
         return { name: e.name, point: e.level! * 5 };
@@ -1273,12 +1288,26 @@ const EngraveSearchBlock: React.FC = () => {
     pickTwo(tmp_info, 0, total_point, tmp_info.length);
 
     answer.sort((a, b) =>
-      a.sum === b.sum
-        ? a.max === b.max
-          ? b.useless_count - a.useless_count
-          : a.max - b.max
-        : a.sum - b.sum
+      a.useless_count === b.useless_count
+        ? a.sum === b.sum
+          ? a.max - b.max
+          : a.sum - b.sum
+        : b.useless_count - a.useless_count
     );
+    for (let i = 0; i < answer.length; i++) {
+      answer[i].data.sort((a, b) => {
+        // [각인1, 수치1, 각인2, 수치2]
+        const a1Priority =
+          a[0] === -1 ? 0 : engravePriority[tmp_info[a[0]].name] * (a[1] - 2);
+        const a2Priority =
+          a[2] === -1 ? 0 : engravePriority[tmp_info[a[2]].name] * (a[3] - 2);
+        const b1Priority =
+          b[0] === -1 ? 0 : engravePriority[tmp_info[b[0]].name] * (b[1] - 2);
+        const b2Priority =
+          b[2] === -1 ? 0 : engravePriority[tmp_info[b[2]].name] * (b[3] - 2);
+        return a1Priority + a2Priority - (b1Priority + b2Priority);
+      });
+    }
 
     // const accessory_order_list = findAccessoryOrderList(true, true);
     const ear_diff: boolean =
@@ -1288,9 +1317,9 @@ const EngraveSearchBlock: React.FC = () => {
     const index = (ear_diff ? 2 : 0) + (ring_diff ? 1 : 0);
     const accessory_order_list = accessoryOrderMap[index];
 
-    // console.log(tmp_info);
+    console.log(tmp_info);
     // console.log(accessoryList);
-    // console.log(answer[0]);
+    console.log(answer);
     // console.log(accessory_order_list);
 
     /* 찾아낸 각인 조합을 모든 악세서리의 조합과 합친다.
@@ -1305,12 +1334,22 @@ const EngraveSearchBlock: React.FC = () => {
     */
     // 각인 조합 반복문
     let single_res;
-    // const total_cases = answer.length * accessory_order_list.length * 5;
-    const total_cases = 100;
-    let result_array = [];
+    setTotalCases(answer.length * accessory_order_list.length * 5);
+    // const inFunctionTotalCases =
+    //   answer.length * accessory_order_list.length * 5;
+    const inFunctionTotalCases = 5;
+    let resultArray = [];
     let current_case = 0;
     let error_count = 0;
-    while (current_case < total_cases) {
+    while (current_case < inFunctionTotalCases) {
+      if (inFunctionApiCallCount > 0 && inFunctionApiCallCount % 100 === 0) {
+        await new Promise((res) => {
+          setTimeout(() => {
+            res("next call");
+          }, 65000);
+        });
+      }
+
       // 현재 각인 조합이 몇번째인가?
       const engrave_combination_index = Math.floor(
         current_case / (accessory_order_list.length * 5)
@@ -1327,7 +1366,7 @@ const EngraveSearchBlock: React.FC = () => {
         single_res = await apiAuctionSearch(
           CATEGORY_CODE[accessoryList.getter[current_case % 5].type],
           [
-            ...(accessoryList.getter[current_case % 5].type == 0
+            ...(accessoryList.getter[current_case % 5].type === 0
               ? [
                   {
                     FirstOption: ETC_OPTION_CODE["전투 특성"],
@@ -1340,7 +1379,7 @@ const EngraveSearchBlock: React.FC = () => {
                     FirstOption: ETC_OPTION_CODE["전투 특성"],
                     SecondOption:
                       ETC_OPTION_CODE[
-                        accessoryList.getter[current_case % 5].stat1.type
+                        accessoryList.getter[current_case % 5].stat2.type
                       ],
                   },
                 ]
@@ -1363,7 +1402,7 @@ const EngraveSearchBlock: React.FC = () => {
                         accessory_element_index
                       ]
                     ][0]
-                  ].name
+                  ]?.name || "ANY"
                 ],
               MinValue:
                 answer[engrave_combination_index].data[
@@ -1382,7 +1421,7 @@ const EngraveSearchBlock: React.FC = () => {
                         accessory_element_index
                       ]
                     ][2]
-                  ].name
+                  ]?.name || "ANY"
                 ],
               MinValue:
                 answer[engrave_combination_index].data[
@@ -1394,7 +1433,7 @@ const EngraveSearchBlock: React.FC = () => {
           ],
           accessoryList.getter[current_case % 5].quality
         );
-        result_array.push(single_res);
+        resultArray.push(single_res);
         current_case++;
         error_count = 0;
       } catch (error) {
@@ -1404,9 +1443,127 @@ const EngraveSearchBlock: React.FC = () => {
           error_count = 0;
           current_case = (Math.floor(current_case / 5) + 1) * 5;
         }
+      } finally {
+        inFunctionApiCallCount++;
+        setApiCallCount((state) => {
+          return state + 1;
+        });
       }
     }
-    console.log(result_array);
+    console.log(resultArray);
+
+    const negativeCounter: { [key: string]: number } = {
+      "공격력 감소": 0,
+      "공격속도 감소": 0,
+      "방어력 감소": 0,
+      "이동속도 감소": 0,
+    };
+    negativeCounter[negativeEngrave.name] += negativeEngrave.point || 0;
+    let availableArray: AuctionItem[][] = [];
+    findAvailableAccessoryCombination(
+      0,
+      resultArray,
+      [],
+      availableArray,
+      negativeCounter
+    );
+
+    availableArray.sort((a, b) => {
+      return (
+        a.reduce((prev, cur) => prev + cur.AuctionInfo.BuyPrice, 0) -
+        b.reduce((prev, cur) => prev + cur.AuctionInfo.BuyPrice, 0)
+      );
+    });
+
+    console.log(availableArray);
+
+    /*
+    현재 결과를 보니, 가격대를 최소화 하기 위한 알고리즘이 필요하다.
+    answer에 모든 각인 조합이 저장이 되어있지만, 이걸 정렬한 후에
+    앞쪽만 짤라서 사용해야 할 것 같다.
+    전체 각인 조합을 저장한 answer의 정렬 기준은 그대로 두고,
+    각 각인 조합의 정렬의 기준은 자유각인 개수를 기준으로 내림차순, 
+    각인의 포인트와 각인의 희소도(전각 가격으로 책정)를 기준으로 오름차순 정렬을 하자.
+    그리고 첫번째 각인은 목걸이에 고정해놓고, 
+    나머지를 이전과 같이 악세 조합을 찾는 방식으로 진행한다.
+    이러면 아이스펭보다 검색 속도 자체는 훨씬 빠를 것이다.
+
+    수정 결과 각인의 우선순위를 정하는게 생각보다 많이 복잡하다. 
+    answer 를 정렬한 상태에서, 상위 3개 조합에 대해서(총 15개 각인)
+    가능한 가장 싼 조합을 찾는 방법을 써야할 듯 하다.
+    이게 악세서리 순서조합까지 미리 짜놓고 
+    api를 사용하기에는 req limit이 너무 모자라다.
+    악세서리 조합을 짜기보다 각각의 각인 조합에 대해서만
+    각 각인에 5개 악세서리를 검색해보고 결과를 조합하는게 낫겠다.
+    이 경우 1개 각인 조합에 대해 req가 25개 발생한다.
+    (각인 5개 * 악세 부위 5개)
+    상위 4개 각인 조합에 대해서 검색하면 될 것 같다.
+
+    위의 수정도 이전과 크게 다를 게 없을 것 같다.
+    장착한 각인을 제외하고 남은 각인 중 검색할 각인 조합을
+    찾아내는 함수를 만들어야 할 것 같다.
+    3, 3 각인 부터 시작해서(가능한 경우) 재귀형식으로 타고
+    들어가 가능한 각인 조합을 찾아낸다. 이 때, 남은 악세 부위로
+    가능한 각인 수치를 넘어서면 return한다.
+    이런식으로 재귀가 끝나면 가능한 모든 조합이 나오고, 이를 사용한다.
+
+    icepeng의 경우, 전체 목표 각인을 위해 필요한 각인 조합들을 모두 생성해놓고, 
+    이를 각 악세서리 부위에 대해서 모두 검색을 진행한다.
+    각인의 수(N) * 악세서리 부위 수(5)
+    모든 각인의 조합을 어떻게 만드는건지는 모르겠다..
+     */
+  }
+
+  /**
+   * 현재 searchSetting 함수에서 찾아낸 resultArray 안의
+   * 악세서리 데이터들을 조합해서 페널티 각인 없이 가능한 조합을
+   * 찾아내는 함수.
+   * 목표 각인들의 조합은 부위별로 이미 완성되어 있으므로,
+   * 페널티 각인들만 확인해주는 함수이다.
+   * @param order 현재 악세서리 부위(0 : 목, 1~2: 귀, 3~4: 반)
+   * @param infoArray 검색된 정보를 가진 array(resultArray)
+   * @param singleArray 현재 조합정보를 저장할 배열
+   * @param resultArray 완성된 모든 조합정보를 저장할 배열
+   * @param negativeCounter 페널티 각인 카운트를 저장할 객체
+   */
+  function findAvailableAccessoryCombination(
+    order: number,
+    infoArray: AuctionItemSearchResult[],
+    singleArray: AuctionItem[],
+    availableArray: AuctionItem[][],
+    negativeCounter: { [key: string]: number }
+  ) {
+    if (order >= 5) {
+      availableArray.push(JSON.parse(JSON.stringify(singleArray)));
+      return;
+    }
+    const accessoryArray = infoArray[order].Items;
+    for (let i = 0; i < accessoryArray.length; i++) {
+      // 악세서리 옵션 중 Type: "ABILITY_ENGRAVE",
+      // IsPenalty: true 만 골라서 체크
+      let currentOption;
+      for (let j = 0; j < accessoryArray[i].Options.length; j++) {
+        currentOption = accessoryArray[i].Options[j];
+        if (
+          currentOption.Type === "ABILITY_ENGRAVE" &&
+          currentOption.IsPenalty === true
+        ) {
+          negativeCounter[currentOption.OptionName] += currentOption.Value;
+          if (negativeCounter[currentOption.OptionName] < 5) {
+            singleArray.push(accessoryArray[i]);
+            findAvailableAccessoryCombination(
+              order + 1,
+              infoArray,
+              singleArray,
+              availableArray,
+              negativeCounter
+            );
+            singleArray.pop();
+          }
+          negativeCounter[currentOption.OptionName] -= currentOption.Value;
+        }
+      }
+    }
   }
 
   function pickTwo(
@@ -1703,7 +1860,7 @@ const EngraveSearchBlock: React.FC = () => {
       ItemTier: 3,
       PageNo: 1,
       Sort: "BUY_PRICE",
-      SortCondition: 0,
+      SortCondition: "ASC",
     });
     return res;
   }

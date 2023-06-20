@@ -1,6 +1,8 @@
 import {
   AuctionItemSearchReq,
   AuctionItemSearchResult,
+  MarketItemSearchReq,
+  MarketItemSearchResult,
 } from "@/types/EngraveType";
 import axios from "axios";
 
@@ -15,6 +17,25 @@ export default class EngraveService {
   ): Promise<AuctionItemSearchResult> => {
     try {
       const res = await axios.post(`${this.url}auctions/items`, req, {
+        headers: {
+          Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
+          Accept: "application/json",
+        },
+      });
+      return res.data;
+    } catch (error) {
+      throw new Error("검색 실패!");
+    }
+  };
+
+  /**
+   * market api를 이용해 검색합니다.
+   */
+  public static getMarketItems = async (
+    req: MarketItemSearchReq
+  ): Promise<MarketItemSearchResult> => {
+    try {
+      const res = await axios.post(`${this.url}markets/items`, req, {
         headers: {
           Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
           Accept: "application/json",

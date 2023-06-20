@@ -1,4 +1,6 @@
 import localFont from "next/font/local";
+import { MarketItem } from "./EngraveType";
+import EngraveService from "@/service/EngraveService";
 
 export type PageProps = {
   children?: (JSX.Element | string)[] | (JSX.Element | string);
@@ -125,9 +127,11 @@ export const CATEGORY_CODE: { [key: string | number]: number } = {
   "어빌리티 스톤": 30000,
   아뮬렛: 170300,
   보석: 210000,
+  각인서: 40000,
 };
 
-export const ETC_OPTION_CODE: { [key: string]: number } = {
+export const ETC_OPTION_CODE: { [key: string]: number | null } = {
+  ANY: null,
   // 전투 특성
   "전투 특성": 2,
   치명: 15,
@@ -267,3 +271,143 @@ export const ETC_OPTION_CODE: { [key: string]: number } = {
   "고정 효과 수량": 1,
   "부여 효과 수량": 2,
 };
+
+export const engravePriority: { [key: string]: number } = {
+  "에테르 포식자": 0,
+  "위기 모면": 1,
+  "마나 효율 증가": 2,
+  "실드 관통": 3,
+  "분쇄의 주먹": 4,
+  "폭발물 전문가": 5,
+  "탈출의 명수": 6,
+  "여신의 가호": 7,
+  "굳은 의지": 8,
+  "마나의 흐름": 9,
+  "부러진 뼈": 10,
+  "강화 방패": 11,
+  "약자 무시": 12,
+  "번개의 분노": 13,
+  "시선 집중": 14,
+  불굴: 15,
+  강령술: 16,
+  "달인의 저력": 17,
+  긴급구조: 18,
+  "안정된 상태": 19,
+  구슬동자: 20,
+  "최대 마나 증가": 21,
+  추진력: 22,
+  승부사: 23,
+  "강화 무기": 24,
+  "광전사의 비기": 25,
+  "완벽한 억제": 26,
+  바리케이드: 27,
+  "화력 강화": 28,
+  "진실된 용맹": 29,
+  심판자: 30,
+  "정밀 단도": 31,
+  "넘치는 교감": 32,
+  "결투의 대가": 33,
+  세맥타통: 34,
+  "오의 강화": 35,
+  "전투 태세": 36,
+  광기: 37,
+  "아르데타인의 기술": 38,
+  "충격 단련": 39,
+  "급소 타격": 40,
+  "포격 강화": 41,
+  초심: 42,
+  "중갑 착용": 43,
+  "달의 소리": 44,
+  회귀: 45,
+  절제: 46,
+  "두 번째 동료": 47,
+  "황제의 칙령": 48,
+  "황후의 은총": 49,
+  "중력 수련": 50,
+  "슈퍼 차지": 51,
+  "진화의 유산": 52,
+  역천지체: 53,
+  "사냥의 시간": 54,
+  "죽음의 습격": 55,
+  "정기 흡수": 56,
+  선수필승: 57,
+  환류: 58,
+  갈증: 59,
+  "극의: 체술": 60,
+  속전속결: 61,
+  일격필살: 62,
+  "고독한 기사": 63,
+  "잔재된 기운": 64,
+  각성: 65,
+  전문의: 66,
+  "분노의 망치": 67,
+  핸드거너: 68,
+  "상급 소환사": 69,
+  "질량 증가": 70,
+  피스메이커: 71,
+  "멈출 수 없는 충동": 72,
+  "축복의 오라": 73,
+  버스트: 74,
+  "기습의 대가": 75,
+  절정: 76,
+  오의난무: 77,
+  "저주받은 인형": 78,
+  "절실한 구원": 79,
+  이슬비: 80,
+  "타격의 대가": 81,
+  돌격대장: 82,
+  점화: 83,
+  "예리한 둔기": 84,
+  처단자: 85,
+  아드레날린: 86,
+  포식자: 87,
+  만개: 88,
+  질풍노도: 89,
+  원한: 90,
+};
+
+export async function apiEngravePriority() {
+  let resultArray: MarketItem[] = [];
+  try {
+    const firstPage = await EngraveService.getMarketItems({
+      Sort: "YDAY_AVG_PRICE",
+      CategoryCode: 40000,
+      CharacterClass: "",
+      ItemTier: null,
+      ItemGrade: "전설",
+      ItemName: "",
+      SortCondition: "ASC",
+      PageNo: 1,
+    });
+    resultArray = [...firstPage.Items];
+
+    const totalPages = Math.ceil(firstPage.TotalCount / 10);
+    let iPage;
+    for (let i = 2; i <= totalPages; i++) {
+      iPage = await EngraveService.getMarketItems({
+        Sort: "YDAY_AVG_PRICE",
+        CategoryCode: 40000,
+        CharacterClass: "",
+        ItemTier: null,
+        ItemGrade: "전설",
+        ItemName: "",
+        SortCondition: "ASC",
+        PageNo: i,
+      });
+      resultArray = resultArray.concat(iPage.Items);
+    }
+
+    console.log(resultArray);
+
+    const priority = resultArray.reduce((prev, cur, index) => {
+      return {
+        ...prev,
+        [cur.Name.replace(/(\[[\u3131-\uD79D]+\]|각인서)/g, "").trim()]: index,
+      };
+    }, {});
+
+    return priority;
+  } catch (error) {
+    console.log(error);
+  }
+}
