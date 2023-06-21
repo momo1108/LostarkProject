@@ -1,13 +1,12 @@
 import styles from "@/styles/engrave/Body.module.scss";
 import { engravingIconMap } from "@/types/TEGCType";
 import MenuIcons from "@/components/icons/MenuIcons";
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo, useRef } from "react";
 import {
   AbilityInputMode,
   AccessoryInfo,
   AuctionItem,
   AuctionItemSearchResult,
-  AuctionOption,
   CASES,
   CheckMode,
   Combination,
@@ -39,23 +38,12 @@ import {
   apiEngravePriority,
   engravePriority,
 } from "@/types/GlobalType";
-import { AxiosError } from "axios";
 
 const EngraveSearchBlock: React.FC = () => {
   const answer: Combination[] = [];
   const tmp: number[][] = [];
-  const [myTimer, setMyTimer] = useState<number>(0);
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setMyTimer((e) => e - 1);
-    }, 1000);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
   const [totalCases, setTotalCases] = useState<number>(0);
-  const [currentCase, setCurrentCase] = useState<number>(0);
+  const [apiCallCount, setApiCallCount] = useState<number>(0);
   const [targetList, setTargetList] = useState<EngraveInfo[]>([]);
   const [equipList, setEquipList] = useState<EngraveInfo[]>([]);
   const [abilityList, setAbilityList] = useState<EngraveInfo[]>([]);
@@ -1095,9 +1083,8 @@ const EngraveSearchBlock: React.FC = () => {
           <span>검색</span>
         </button>
         <p>
-          {currentCase} / {totalCases}
+          {apiCallCount} / {totalCases}
         </p>
-        <p>{myTimer > 0 ? myTimer : 0}s</p>
         <button
           onClick={async () => {
             const ttt = await apiEngravePriority();
@@ -1271,7 +1258,7 @@ const EngraveSearchBlock: React.FC = () => {
   }
 
   async function searchSetting() {
-    setCurrentCase(0);
+    setApiCallCount(1);
     let inFunctionApiCallCount = 1; // 함수 while문 안에서 state 체크가 제대로 안되네?
     const tmp_info: { name: string; point: number }[] = targetList.map(
       (e: EngraveInfo) => {
@@ -1300,272 +1287,287 @@ const EngraveSearchBlock: React.FC = () => {
 
     pickTwo(tmp_info, 0, total_point, tmp_info.length);
 
+    answer.sort((a, b) =>
+      a.useless_count === b.useless_count
+        ? a.sum === b.sum
+          ? a.max - b.max
+          : a.sum - b.sum
+        : b.useless_count - a.useless_count
+    );
+    for (let i = 0; i < answer.length; i++) {
+      answer[i].data.sort((a, b) => {
+        // [각인1, 수치1, 각인2, 수치2]
+        const a1Priority =
+          a[0] === -1 ? 0 : engravePriority[tmp_info[a[0]].name] * (a[1] - 2);
+        const a2Priority =
+          a[2] === -1 ? 0 : engravePriority[tmp_info[a[2]].name] * (a[3] - 2);
+        const b1Priority =
+          b[0] === -1 ? 0 : engravePriority[tmp_info[b[0]].name] * (b[1] - 2);
+        const b2Priority =
+          b[2] === -1 ? 0 : engravePriority[tmp_info[b[2]].name] * (b[3] - 2);
+        return a1Priority + a2Priority - (b1Priority + b2Priority);
+      });
+    }
+
+    // const accessory_order_list = findAccessoryOrderList(true, true);
     const ear_diff: boolean =
       accessoryList.getter[1].stat1.type !== accessoryList.getter[2].stat1.type;
     const ring_diff: boolean =
       accessoryList.getter[3].stat1.type !== accessoryList.getter[4].stat1.type;
+    const index = (ear_diff ? 2 : 0) + (ring_diff ? 1 : 0);
+    const accessory_order_list = accessoryOrderMap[index];
 
-    // console.log(tmp_info);
+    console.log(tmp_info);
     // console.log(accessoryList);
-    // console.log(answer);
-
-    // 가능한 각인 조합의 중복을 제거할 Set
-    const mySet = new Set<string>();
-    answer.forEach((e) => {
-      e.data.forEach((e2) => {
+    console.log(answer);
+    const mySet = new Set();
+    answer.map((e) => {
+      return e.data.map((e2) => {
         mySet.add(e2.join(""));
       });
     });
+    console.log(mySet);
+    // console.log(accessory_order_list);
 
-    // 유니크한 각인값정보를 배열에 저장한다.
-    const uniqueEngrave: [string, number, string, number][] = [];
-    let tmpSplit: number[];
-    mySet.forEach((e) => {
-      tmpSplit = e.split("").map((e2) => parseInt(e2));
-      uniqueEngrave.push([
-        tmpSplit[0] === 9 ? "ANY" : tmp_info[tmpSplit[0]].name,
-        tmpSplit[1],
-        tmpSplit[2] === 9 ? "ANY" : tmp_info[tmpSplit[2]].name,
-        tmpSplit[3],
-      ]);
-    });
-    console.log(uniqueEngrave);
-    if (!uniqueEngrave.length) {
-      alert("불가능한 목표 각인입니다.");
-      return;
-    }
-
-    /* 
-    유니크 각인 정보들을 악세서리 각 부위에 적용해 검색한다.
-    따라서 총 api request는 각인 정보 수 * 악세서리부위 만큼이다.
-    단, 여기서 귀걸이와 반지는 2개씩 검색하지만, 
-    귀걸이 쌍 혹은 반지 쌍의 전투 특성이 같은 경우 하나로 취급해 검색한다.
-    따라서 귀걸이 쌍의 특성이 같으면 부위수는 4
-    반지 쌍의 특성이 같으면 부위수는 4
-    귀걸이와 반지 쌍의 특성이 같으면 부위수는 3으로 취급한다.
+    /* 찾아낸 각인 조합을 모든 악세서리의 조합과 합친다.
+    1. 한 악세서리 세트에 적용된 조합을 찾기 위해서는
+       5번의 api request가 필요하다.
+    2. 
+      2-1. 1번 과정을 모든 악세서리 조합에 맞게 반복한다.
+           (120, 60, 60, 30)
+      2-2. 1번 과정이 완료될 때 마다? 가능 조합을 계산
+    3. 쓸모없는 각인이 있는 경우 경우의 수 줄이는 처리해야할듯
+    4. 이전의 가격을 참조해 검색도중 생략하는 것도 좋을듯.
     */
     // 각인 조합 반복문
-    let single_res;
-    setTotalCases(uniqueEngrave.length * (ear_diff ? (ring_diff ? 5 : 4) : 3));
-    // const inFunctionTotalCases =
-    //   answer.length * accessory_order_list.length * 5;
-    const inFunctionTotalCases =
-      uniqueEngrave.length * (ear_diff ? (ring_diff ? 3 : 4) : 5);
-    let resultObject: { [key: number]: AuctionItem[] } = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-    };
-    let errorArray = [];
+    // let single_res;
+    // setTotalCases(answer.length * accessory_order_list.length * 5);
+    // // const inFunctionTotalCases =
+    // //   answer.length * accessory_order_list.length * 5;
+    // const inFunctionTotalCases = 5;
+    // let resultArray = [];
+    // let current_case = 0;
+    // let error_count = 0;
+    // while (current_case < inFunctionTotalCases) {
+    //   if (inFunctionApiCallCount > 0 && inFunctionApiCallCount % 100 === 0) {
+    //     await new Promise((res) => {
+    //       setTimeout(() => {
+    //         res("next call");
+    //       }, 65000);
+    //     });
+    //   }
 
-    // 고유 각인 반복
-    for (let u = 0; u < uniqueEngrave.length; u++) {
-      // 악세서리 부위(accessory part) 반복
-      for (let ap = 0; ap < 5; ap++) {
-        if ((ap === 2 && !ear_diff) || (ap === 4 && !ring_diff)) continue;
-        while (true) {
-          try {
-            single_res = await EngraveService.getAuctionItems({
-              CategoryCode: CATEGORY_CODE[accessoryList.getter[ap].type],
-              EtcOptions: [
-                ...(accessoryList.getter[ap].type === 0
-                  ? [
-                      {
-                        FirstOption: ETC_OPTION_CODE["전투 특성"],
-                        SecondOption:
-                          ETC_OPTION_CODE[accessoryList.getter[ap].stat1.type],
-                      },
-                      {
-                        FirstOption: ETC_OPTION_CODE["전투 특성"],
-                        SecondOption:
-                          ETC_OPTION_CODE[accessoryList.getter[ap].stat2.type],
-                      },
-                    ]
-                  : [
-                      {
-                        FirstOption: ETC_OPTION_CODE["전투 특성"],
-                        SecondOption:
-                          ETC_OPTION_CODE[accessoryList.getter[ap].stat1.type],
-                      },
-                    ]),
-                {
-                  FirstOption: ETC_OPTION_CODE["각인 효과"],
-                  SecondOption: ETC_OPTION_CODE[uniqueEngrave[u][0]],
-                  MinValue: uniqueEngrave[u][1],
-                },
-                {
-                  FirstOption: ETC_OPTION_CODE["각인 효과"],
-                  SecondOption: ETC_OPTION_CODE[uniqueEngrave[u][2]],
-                  MinValue: uniqueEngrave[u][3],
-                },
-              ],
-              ItemGrade: "고대",
-              ItemGradeQuality: accessoryList.getter[ap].quality,
-              ItemTier: 3,
-              PageNo: 1,
-              Sort: "BUY_PRICE",
-              SortCondition: "ASC",
-            });
-            // 해당 악세가 없으면 Items 가 null 로 반환됨
-            if (single_res.data.Items)
-              resultObject[ap].push(...single_res.data.Items);
-            setCurrentCase((e) => e + 1);
-            break;
-          } catch (error: any) {
-            if (error.response?.status === 429) {
-              alert("검색 횟수를 초과하여 1분간 기다립니다.");
-              setMyTimer(62);
-              await new Promise((res) => {
-                setTimeout(() => {
-                  res("done");
-                }, 62000);
-              });
-            } else {
-              errorArray.push(error);
-              if (errorArray.length >= 3) {
-                console.dir(errorArray);
-                alert("로스트아크 서버 상태가 좋지 않아 검색이 취소됩니다.");
-                return;
-              }
-            }
-          }
-        }
-      }
-    }
-    console.log(resultObject);
+    //   // 현재 각인 조합이 몇번째인가?
+    //   const engrave_combination_index = Math.floor(
+    //     current_case / (accessory_order_list.length * 5)
+    //   );
+    //   answer[engrave_combination_index].data; // 현재 각인 조합
+    //   // 현재 case는 총 악세서리 조합안의 몇번째 악세서리인가?
+    //   const tmp_index = current_case % (accessory_order_list.length * 5);
+    //   const [accessory_combination_index, accessory_element_index] = [
+    //     Math.floor(tmp_index / 5),
+    //     tmp_index % 5,
+    //   ];
 
-    const positiveCounter: { [key: string]: number } = tmp_info.reduce(
-      (prev, cur) => ({ ...prev, [cur.name]: cur.point }),
-      {}
-    );
-    const negativeCounter: { [key: string]: number } = {
-      "공격력 감소": 0,
-      "공격속도 감소": 0,
-      "방어력 감소": 0,
-      "이동속도 감소": 0,
-    };
-    negativeCounter[negativeEngrave.name] += negativeEngrave.point || 0;
-    let availableArray: AuctionItem[][] = [];
-    findAvailableAccessoryCombination(
-      0,
-      resultObject,
-      [],
-      availableArray,
-      negativeCounter,
-      positiveCounter
-    );
+    //   try {
+    //     single_res = await apiAuctionSearch(
+    //       CATEGORY_CODE[accessoryList.getter[current_case % 5].type],
+    //       [
+    //         ...(accessoryList.getter[current_case % 5].type === 0
+    //           ? [
+    //               {
+    //                 FirstOption: ETC_OPTION_CODE["전투 특성"],
+    //                 SecondOption:
+    //                   ETC_OPTION_CODE[
+    //                     accessoryList.getter[current_case % 5].stat1.type
+    //                   ],
+    //               },
+    //               {
+    //                 FirstOption: ETC_OPTION_CODE["전투 특성"],
+    //                 SecondOption:
+    //                   ETC_OPTION_CODE[
+    //                     accessoryList.getter[current_case % 5].stat2.type
+    //                   ],
+    //               },
+    //             ]
+    //           : [
+    //               {
+    //                 FirstOption: ETC_OPTION_CODE["전투 특성"],
+    //                 SecondOption:
+    //                   ETC_OPTION_CODE[
+    //                     accessoryList.getter[current_case % 5].stat1.type
+    //                   ],
+    //               },
+    //             ]),
+    //         {
+    //           FirstOption: ETC_OPTION_CODE["각인 효과"],
+    //           SecondOption:
+    //             ETC_OPTION_CODE[
+    //               tmp_info[
+    //                 answer[engrave_combination_index].data[
+    //                   accessory_order_list[accessory_combination_index][
+    //                     accessory_element_index
+    //                   ]
+    //                 ][0]
+    //               ]?.name || "ANY"
+    //             ],
+    //           MinValue:
+    //             answer[engrave_combination_index].data[
+    //               accessory_order_list[accessory_combination_index][
+    //                 accessory_element_index
+    //               ]
+    //             ][1],
+    //         },
+    //         {
+    //           FirstOption: ETC_OPTION_CODE["각인 효과"],
+    //           SecondOption:
+    //             ETC_OPTION_CODE[
+    //               tmp_info[
+    //                 answer[engrave_combination_index].data[
+    //                   accessory_order_list[accessory_combination_index][
+    //                     accessory_element_index
+    //                   ]
+    //                 ][2]
+    //               ]?.name || "ANY"
+    //             ],
+    //           MinValue:
+    //             answer[engrave_combination_index].data[
+    //               accessory_order_list[accessory_combination_index][
+    //                 accessory_element_index
+    //               ]
+    //             ][3],
+    //         },
+    //       ],
+    //       accessoryList.getter[current_case % 5].quality
+    //     );
+    //     resultArray.push(single_res);
+    //     current_case++;
+    //     error_count = 0;
+    //   } catch (error) {
+    //     console.log(error);
+    //     // 같은 구간 3번 이상 오류 발생하면 다음 악세조합으로 넘어간다.
+    //     if (++error_count >= 3) {
+    //       error_count = 0;
+    //       current_case = (Math.floor(current_case / 5) + 1) * 5;
+    //     }
+    //   } finally {
+    //     inFunctionApiCallCount++;
+    //     setApiCallCount((state) => {
+    //       return state + 1;
+    //     });
+    //   }
+    // }
+    // console.log(resultArray);
 
-    availableArray.sort((a, b) => {
-      return (
-        a.reduce((prev, cur) => prev + cur.AuctionInfo.BuyPrice, 0) -
-        b.reduce((prev, cur) => prev + cur.AuctionInfo.BuyPrice, 0)
-      );
-    });
+    // const negativeCounter: { [key: string]: number } = {
+    //   "공격력 감소": 0,
+    //   "공격속도 감소": 0,
+    //   "방어력 감소": 0,
+    //   "이동속도 감소": 0,
+    // };
+    // negativeCounter[negativeEngrave.name] += negativeEngrave.point || 0;
+    // let availableArray: AuctionItem[][] = [];
+    // findAvailableAccessoryCombination(
+    //   0,
+    //   resultArray,
+    //   [],
+    //   availableArray,
+    //   negativeCounter
+    // );
 
-    console.log(availableArray);
+    // availableArray.sort((a, b) => {
+    //   return (
+    //     a.reduce((prev, cur) => prev + cur.AuctionInfo.BuyPrice, 0) -
+    //     b.reduce((prev, cur) => prev + cur.AuctionInfo.BuyPrice, 0)
+    //   );
+    // });
+
+    // console.log(availableArray);
+
+    /*
+    현재 결과를 보니, 가격대를 최소화 하기 위한 알고리즘이 필요하다.
+    answer에 모든 각인 조합이 저장이 되어있지만, 이걸 정렬한 후에
+    앞쪽만 짤라서 사용해야 할 것 같다.
+    전체 각인 조합을 저장한 answer의 정렬 기준은 그대로 두고,
+    각 각인 조합의 정렬의 기준은 자유각인 개수를 기준으로 내림차순, 
+    각인의 포인트와 각인의 희소도(전각 가격으로 책정)를 기준으로 오름차순 정렬을 하자.
+    그리고 첫번째 각인은 목걸이에 고정해놓고, 
+    나머지를 이전과 같이 악세 조합을 찾는 방식으로 진행한다.
+    이러면 아이스펭보다 검색 속도 자체는 훨씬 빠를 것이다.
+
+    수정 결과 각인의 우선순위를 정하는게 생각보다 많이 복잡하다. 
+    answer 를 정렬한 상태에서, 상위 3개 조합에 대해서(총 15개 각인)
+    가능한 가장 싼 조합을 찾는 방법을 써야할 듯 하다.
+    이게 악세서리 순서조합까지 미리 짜놓고 
+    api를 사용하기에는 req limit이 너무 모자라다.
+    악세서리 조합을 짜기보다 각각의 각인 조합에 대해서만
+    각 각인에 5개 악세서리를 검색해보고 결과를 조합하는게 낫겠다.
+    이 경우 1개 각인 조합에 대해 req가 25개 발생한다.
+    (각인 5개 * 악세 부위 5개)
+    상위 4개 각인 조합에 대해서 검색하면 될 것 같다.
+
+    위의 수정도 이전과 크게 다를 게 없을 것 같다.
+    장착한 각인을 제외하고 남은 각인 중 검색할 각인 조합을
+    찾아내는 함수를 만들어야 할 것 같다.
+    3, 3 각인 부터 시작해서(가능한 경우) 재귀형식으로 타고
+    들어가 가능한 각인 조합을 찾아낸다. 이 때, 남은 악세 부위로
+    가능한 각인 수치를 넘어서면 return한다.
+    이런식으로 재귀가 끝나면 가능한 모든 조합이 나오고, 이를 사용한다.
+
+    icepeng의 경우, 전체 목표 각인을 위해 필요한 각인 조합들을 모두 생성해놓고, 
+    이를 각 악세서리 부위에 대해서 모두 검색을 진행한다.
+    각인의 수(N) * 악세서리 부위 수(5)
+    모든 각인의 조합을 어떻게 만드는건지는 모르겠다..
+     */
   }
 
   /**
-   * 현재 searchSetting 함수에서 찾아낸 resultObject 안의
+   * 현재 searchSetting 함수에서 찾아낸 resultArray 안의
    * 악세서리 데이터들을 조합해서 페널티 각인 없이 가능한 조합을
    * 찾아내는 함수.
-   * @param type 현재 악세서리 부위(0 : 목, 1~2: 귀, 3~4: 반)
-   * @param infoObject 검색된 정보를 가진 array(resultObject)
+   * 목표 각인들의 조합은 부위별로 이미 완성되어 있으므로,
+   * 페널티 각인들만 확인해주는 함수이다.
+   * @param order 현재 악세서리 부위(0 : 목, 1~2: 귀, 3~4: 반)
+   * @param infoArray 검색된 정보를 가진 array(resultArray)
    * @param singleArray 현재 조합정보를 저장할 배열
-   * @param availableArray 완성된 모든 조합정보를 저장할 배열
+   * @param resultArray 완성된 모든 조합정보를 저장할 배열
    * @param negativeCounter 페널티 각인 카운트를 저장할 객체
    */
   function findAvailableAccessoryCombination(
-    type: number,
-    infoObject: { [key: number]: AuctionItem[] },
+    order: number,
+    infoArray: AuctionItemSearchResult[],
     singleArray: AuctionItem[],
     availableArray: AuctionItem[][],
-    positiveCounter: { [key: string]: number },
     negativeCounter: { [key: string]: number }
   ) {
-    /* 
-    가지치기
-    1. 남은 부위 수 * 9 보다 많이 남으면 skip
-    2. penalty 각인이 생기면 skip
-    */
-
-    // 가지치기 1
-    if (
-      Object.values(positiveCounter).reduce(
-        (prev, cur) => (cur > 0 ? prev + cur : prev),
-        0
-      ) >
-      (5 - type) * 9
-    ) {
-      console.log(type, "컷");
-      return;
-    }
-
-    if (type === 5) {
+    if (order >= 5) {
       availableArray.push(JSON.parse(JSON.stringify(singleArray)));
       return;
     }
-
-    let _acc: AuctionItem,
-      option: AuctionOption,
-      available: boolean = true;
-
-    for (let accIndex = 0; accIndex < infoObject[type].length; accIndex++) {
-      if (type < 3) console.log(type, accIndex);
-      _acc = infoObject[type][accIndex];
-      available = true;
-
-      for (
-        let optionIndex = 0;
-        optionIndex < _acc.Options.length;
-        optionIndex++
-      ) {
-        option = _acc.Options[optionIndex];
-        // 페널티 각인의 경우
-        if (option.Type === "ABILITY_ENGRAVE" && option.IsPenalty) {
-          // 가지치기 2
-          // 페널티가 발동된 경우 available = false;
-          // 아니면 페널티 각인 수치 적용
-          negativeCounter[option.OptionName] += option.Value;
-          if (negativeCounter[option.OptionName] > 4) available = false;
-        }
-        // 정상 각인의 경우
-        if (option.Type === "ABILITY_ENGRAVE" && !option.IsPenalty) {
-          if (positiveCounter[option.OptionName])
-            positiveCounter[option.OptionName] -= option.Value;
-        }
-      }
-
-      if (available) {
-        singleArray.push(_acc);
-        findAvailableAccessoryCombination(
-          type + 1,
-          infoObject,
-          singleArray,
-          availableArray,
-          positiveCounter,
-          negativeCounter
-        );
-        singleArray.pop();
-      } else {
-        console.log("어빌", type, "컷");
-      }
-
-      // 악세서리 각인 적용 전으로 롤백
-      for (
-        let optionIndex = 0;
-        optionIndex < _acc.Options.length;
-        optionIndex++
-      ) {
-        option = _acc.Options[optionIndex];
-        if (option.Type === "ABILITY_ENGRAVE" && option.IsPenalty) {
-          negativeCounter[option.OptionName] -= option.Value;
-        }
-        if (option.Type === "ABILITY_ENGRAVE" && !option.IsPenalty) {
-          if (positiveCounter[option.OptionName])
-            positiveCounter[option.OptionName] += option.Value;
+    const accessoryArray = infoArray[order].Items;
+    for (let i = 0; i < accessoryArray.length; i++) {
+      // 악세서리 옵션 중 Type: "ABILITY_ENGRAVE",
+      // IsPenalty: true 만 골라서 체크
+      let currentOption;
+      for (let j = 0; j < accessoryArray[i].Options.length; j++) {
+        currentOption = accessoryArray[i].Options[j];
+        if (
+          currentOption.Type === "ABILITY_ENGRAVE" &&
+          currentOption.IsPenalty === true
+        ) {
+          negativeCounter[currentOption.OptionName] += currentOption.Value;
+          if (negativeCounter[currentOption.OptionName] < 5) {
+            singleArray.push(accessoryArray[i]);
+            findAvailableAccessoryCombination(
+              order + 1,
+              infoArray,
+              singleArray,
+              availableArray,
+              negativeCounter
+            );
+            singleArray.pop();
+          }
+          negativeCounter[currentOption.OptionName] -= currentOption.Value;
         }
       }
     }
@@ -1586,7 +1588,7 @@ const EngraveSearchBlock: React.FC = () => {
           (cur: number[], el: number[]) => [
             cur[0] + el[1] + el[3],
             Math.max(cur[1], el[1], el[3]),
-            cur[2] + (el[0] === 9 ? 1 : 0) + (el[2] === 9 ? 1 : 0),
+            cur[2] + (el[0] === -1 ? 1 : 0) + (el[2] === -1 ? 1 : 0),
           ],
           [0, 0, 0]
         );
@@ -1601,13 +1603,13 @@ const EngraveSearchBlock: React.FC = () => {
         const tmp_copy = JSON.parse(JSON.stringify(tmp));
         const data = [
           ...tmp_copy,
-          ...Array(5 - tmp_copy.length).fill([9, 3, 9, 3]),
+          ...Array(5 - tmp_copy.length).fill([-1, 3, -1, 3]),
         ];
         const [sum, max, useless_count]: number[] = data.reduce(
           (cur: number[], el: number[]) => [
             cur[0] + el[1] + el[3],
             Math.max(cur[1], el[1], el[3]),
-            cur[2] + (el[0] === 9 ? 1 : 0) + (el[2] === 9 ? 1 : 0),
+            cur[2] + (el[0] === -1 ? 1 : 0) + (el[2] === -1 ? 1 : 0),
           ],
           [0, 0, 0]
         );
@@ -1642,14 +1644,14 @@ const EngraveSearchBlock: React.FC = () => {
       uselessJ = false;
 
     for (let i = 0; i < input.length; i++) {
-      // 3번 가지치기 - 1
+      // 3번 가지치기 -1
       if (input[i].point <= 0 && need_count >= 2) continue;
 
       // 필요없는 각인의 경우 표기
       if (input[i].point <= 0) uselessI = true;
 
       for (let j = i + 1; j < input.length; j++) {
-        // 3번 가지치기 - 2
+        // 3번 가지치기 -2
         if (input[j].point <= 0) {
           if (need_count >= 2) continue;
           else if (need_count >= 1 && input[i].point <= 0) continue;
@@ -1664,7 +1666,7 @@ const EngraveSearchBlock: React.FC = () => {
           const minJ = Math.min(input[j].point, case1);
           input[i].point -= minI;
           input[j].point -= minJ;
-          tmp.push([uselessI ? 9 : i, case0, uselessJ ? 9 : j, case1]);
+          tmp.push([uselessI ? -1 : i, case0, uselessJ ? -1 : j, case1]);
           pickTwo(
             input,
             count + 1,
@@ -1683,6 +1685,166 @@ const EngraveSearchBlock: React.FC = () => {
       }
       uselessI = false;
     }
+  }
+
+  function oldSearchSetting() {
+    let count = 5;
+    let option_list = [];
+    const tmp_info: { name: string; point: number }[] = targetList.map(
+      (e: EngraveInfo) => {
+        return { name: e.name, point: e.level! * 5 };
+      }
+    );
+
+    equipList.map((e: EngraveInfo) => {
+      const index = tmp_info.findIndex((e2) => e2.name === e.name);
+      if (index >= 0) {
+        tmp_info[index].point -= e.level! * 3 + 3;
+        if (tmp_info[index].point <= 0) tmp_info.splice(index, 1);
+      }
+    });
+    abilityList.map((e: EngraveInfo) => {
+      const index = tmp_info.findIndex((e2) => e2.name === e.name);
+      if (index >= 0) {
+        tmp_info[index].point -= e.point!;
+        if (tmp_info[index].point <= 0) tmp_info.splice(index, 1);
+      }
+    });
+
+    while (count-- > 0) {
+      tmp_info.sort((a, b) => b.point - a.point);
+      const tmp_element = { max: ["", 0], min: ["", 0] };
+      if (tmp_info.length > 1) {
+        if (tmp_info[0].point <= 6) {
+          tmp_element.max = [tmp_info[0].name, tmp_info[0].point];
+          tmp_info.splice(0, 1);
+        } else {
+          tmp_element.max = [tmp_info[0].name, 6];
+          tmp_info[0].point -= 6;
+        }
+
+        tmp_element.min = [tmp_info[tmp_info.length - 1].name, 3];
+        if (tmp_info[tmp_info.length - 1].point <= 3) {
+          tmp_info.splice(tmp_info.length - 1, 1);
+        } else {
+          tmp_info[tmp_info.length - 1].point -= 3;
+        }
+      } else if (tmp_info.length > 0) {
+        if (tmp_info[0].point <= 6) {
+          tmp_element.max = [tmp_info[0].name, tmp_info[0].point];
+          tmp_info.splice(0, 1);
+        } else {
+          tmp_element.max = [tmp_info[0].name, 6];
+          tmp_info[0].point -= 6;
+        }
+      }
+      option_list.push(tmp_element);
+    }
+    console.log(option_list);
+  }
+
+  /**
+   * 완성된 각인 조합으로 모든 검색 조합 찾기
+   * - 경우의 수
+   * 1. 각 귀걸이 쌍과 반지 쌍의 특성이 다른경우
+   *   5! = 120
+   * 2. 귀걸이 쌍만 특성이 다른 경우
+   *   5 * 12(=4P2) * 1(=2C2) = 60
+   * 3. 반지 쌍만 특성이 다른 경우
+   *   5 * 6(=4C2) * 2(=2P2) = 60
+   * 3. 귀걸이 쌍과 반지 쌍의 특성이 같은 경우
+   *   5 * 6(=4C2) * 1(=2C2) = 30
+   */
+  function findAccessoryOrderList(
+    ear_diff: boolean,
+    ring_diff: boolean
+  ): number[][] {
+    const order_list: number[][] = [];
+    const order: number[] = [0, 0, 0, 0, 0];
+
+    for (let necklace = 0; necklace < 5; necklace++) {
+      order[necklace] = 1;
+      if (ear_diff) {
+        for (let ear1 = 0; ear1 < 5; ear1++) {
+          if (order[ear1]) continue;
+          order[ear1] = 2;
+          for (let ear2 = 0; ear2 < 5; ear2++) {
+            if (order[ear2]) continue;
+            order[ear2] = 3;
+
+            if (ring_diff) {
+              for (let ring1 = 0; ring1 < 5; ring1++) {
+                if (order[ring1]) continue;
+                order[ring1] = 4;
+                for (let ring2 = 0; ring2 < 5; ring2++) {
+                  if (order[ring2]) continue;
+                  order[ring2] = 5;
+                  order_list.push([...order]);
+                  order[ring2] = 0;
+                }
+                order[ring1] = 0;
+              }
+            } else {
+              for (let ring1 = 0; ring1 < 5; ring1++) {
+                if (order[ring1]) continue;
+                order[ring1] = 4;
+                for (let ring2 = ring1 + 1; ring2 < 5; ring2++) {
+                  if (order[ring2]) continue;
+                  order[ring2] = 5;
+                  order_list.push([...order]);
+                  order[ring2] = 0;
+                }
+                order[ring1] = 0;
+              }
+            }
+
+            order[ear2] = 0;
+          }
+          order[ear1] = 0;
+        }
+      } else {
+        for (let ear1 = 0; ear1 < 5; ear1++) {
+          if (order[ear1]) continue;
+          order[ear1] = 2;
+          for (let ear2 = ear1 + 1; ear2 < 5; ear2++) {
+            if (order[ear2]) continue;
+            order[ear2] = 3;
+
+            if (ring_diff) {
+              for (let ring1 = 0; ring1 < 5; ring1++) {
+                if (order[ring1]) continue;
+                order[ring1] = 4;
+                for (let ring2 = 0; ring2 < 5; ring2++) {
+                  if (order[ring2]) continue;
+                  order[ring2] = 5;
+                  order_list.push([...order]);
+                  order[ring2] = 0;
+                }
+                order[ring1] = 0;
+              }
+            } else {
+              for (let ring1 = 0; ring1 < 5; ring1++) {
+                if (order[ring1]) continue;
+                order[ring1] = 4;
+                for (let ring2 = ring1 + 1; ring2 < 5; ring2++) {
+                  if (order[ring2]) continue;
+                  order[ring2] = 5;
+                  order_list.push([...order]);
+                  order[ring2] = 0;
+                }
+                order[ring1] = 0;
+              }
+            }
+
+            order[ear2] = 0;
+          }
+          order[ear1] = 0;
+        }
+      }
+      order[necklace] = 0;
+    }
+
+    return order_list;
   }
 
   /**

@@ -4,7 +4,7 @@ import {
   MarketItemSearchReq,
   MarketItemSearchResult,
 } from "@/types/EngraveType";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 export default class EngraveService {
   private static _url: string = "https://developer-lostark.game.onstove.com/";
@@ -14,18 +14,13 @@ export default class EngraveService {
    */
   public static getAuctionItems = async (
     req: AuctionItemSearchReq
-  ): Promise<AuctionItemSearchResult> => {
-    try {
-      const res = await axios.post(`${this.url}auctions/items`, req, {
-        headers: {
-          Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
-          Accept: "application/json",
-        },
-      });
-      return res.data;
-    } catch (error) {
-      throw new Error("검색 실패!");
-    }
+  ): Promise<AxiosResponse> => {
+    return await axios.post(`${this.url}auctions/items`, req, {
+      headers: {
+        Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
+        Accept: "application/json",
+      },
+    });
   };
 
   /**

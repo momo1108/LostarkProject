@@ -143,7 +143,7 @@ export type AuctionItem = {
   Options: AuctionOption[];
 };
 
-type AuctionOption = {
+export type AuctionOption = {
   Type: string;
   OptionName: string;
   OptionNameTripod: string;
