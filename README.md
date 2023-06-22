@@ -1233,3 +1233,12 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 #### React Hook 실수들
 
 - https://www.youtube.com/watch?v=GGo3MVBFr1A
+
+#### Todo
+
+- 각인 CSS
+- 각인 검색 보유악세
+- 각인 검색 유물등급
+- 각인 검색 같은 특성
+- 각인 검색 진행중 표시(왜 멈출까? 싱글 스레드라서. web-worker 사용해보자.)(참조 - https://www.youtube.com/watch?v=Gcp7triXFjg)
+- 결과 필터링

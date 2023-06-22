@@ -4,7 +4,7 @@ $myBlue: #4691f6;
 $myLightBlue: #76b1ff;
 
 .body {
-  @apply flex-auto xl:px-48 lg:px-32 md:px-16 sm:px-8 px-4 pt-2;
+  @apply flex-auto xl:px-32 lg:px-24 md:px-16 sm:px-8 px-4 pt-2;
   color: $basicFontColor;
 
   .searchContainer {
@@ -401,6 +401,87 @@ $myLightBlue: #76b1ff;
         @apply transition-all duration-100;
         stroke: $myBlue;
       }
+    }
+  }
+
+  .resultContainer {
+    @apply flex flex-col gap-3 py-8;
+    .resultHeader {
+      @apply text-2xl font-bold;
+    }
+    .resultBody {
+      @apply flex flex-col gap-3;
+      .combinationDiv {
+        @apply flex gap-1 flex-wrap;
+        .combinationHeader {
+          @apply flex flex-wrap gap-x-4 w-full font-bold text-lg items-center;
+          .totalCostDiv {
+            @apply flex items-center gap-1;
+            .totalCost {
+              @apply text-[#ffffbc];
+            }
+          }
+          .totalStatDiv {
+            @apply flex gap-2;
+            .totalStat {
+              @apply flex items-center;
+              .statEmoji {
+                @apply text-xs;
+              }
+            }
+          }
+        }
+        .combinationItemDiv {
+          @apply w-[220px] flex flex-wrap gap-1;
+          .titleDiv {
+            @apply flex gap-2 items-center;
+            .titleInfoDiv {
+              @apply flex flex-col justify-center text-sm;
+              .qualityP {
+                @apply text-xs;
+              }
+              .qualityBarDiv {
+                @apply w-[110px];
+                background-color: #fff2;
+              }
+              .tradeP {
+                @apply text-xs mt-[2px];
+                .countSpan {
+                  @apply font-bold;
+                  color: #9244f7;
+                }
+              }
+            }
+          }
+          .optionDiv {
+            @apply text-xs w-full flex gap-2;
+            .engraveDiv {
+              @apply max-w-[60%];
+              .negativeP {
+                @apply font-bold text-[#d33];
+              }
+            }
+            .statDiv {
+              @apply max-w-[40%];
+            }
+          }
+          .costDiv {
+            @apply flex flex-col text-xs;
+            .costP {
+              @apply flex items-center gap-1;
+              .costSpan {
+                @apply font-bold text-[#ffffbc];
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .emptyResultBody {
+      @apply flex justify-center items-center text-lg min-h-[300px];
+
+      box-shadow: 0px 0px 10px -5px #fff;
     }
   }
 }
