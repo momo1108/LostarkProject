@@ -407,18 +407,41 @@ $myLightBlue: #76b1ff;
   .resultContainer {
     @apply flex flex-col gap-3 py-8;
     .resultHeader {
-      @apply text-2xl font-bold;
+      @apply text-2xl font-bold flex items-end;
+      .resultPageDiv {
+        @apply text-lg flex items-center;
+        .resultPageP {
+          @apply min-w-[150px];
+        }
+        .pageButtonIcon {
+          @apply fill-[#fff] hover:fill-[#4691f6];
+          transition: fill 0.2s ease-in-out;
+        }
+      }
     }
     .resultBody {
-      @apply flex flex-col gap-3;
+      @apply flex flex-col gap-3 items-start;
       .combinationDiv {
-        @apply flex gap-1 flex-wrap;
+        @apply inline-flex flex-col gap-1 flex-wrap;
+        background: linear-gradient(
+          0.125turn,
+          rgb(20, 20, 20),
+          rgb(20, 20, 20),
+          rgb(39, 39, 39),
+          rgb(20, 20, 20),
+          rgb(39, 39, 39),
+          rgb(20, 20, 20),
+          rgb(20, 20, 20)
+        );
         .combinationHeader {
-          @apply flex flex-wrap gap-x-4 w-full font-bold text-lg items-center;
+          @apply flex flex-col gap-x-4 font-bold text-lg;
           .totalCostDiv {
-            @apply flex items-center gap-1;
-            .totalCost {
-              @apply text-[#ffffbc];
+            @apply flex items-center gap-3;
+            .totalCostInfoDiv {
+              @apply flex items-center gap-1;
+              .totalCost {
+                @apply text-[#ffffbc];
+              }
             }
           }
           .totalStatDiv {
@@ -431,46 +454,51 @@ $myLightBlue: #76b1ff;
             }
           }
         }
-        .combinationItemDiv {
-          @apply w-[220px] flex flex-wrap gap-1;
-          .titleDiv {
-            @apply flex gap-2 items-center;
-            .titleInfoDiv {
-              @apply flex flex-col justify-center text-sm;
-              .qualityP {
-                @apply text-xs;
-              }
-              .qualityBarDiv {
-                @apply w-[110px];
-                background-color: #fff2;
-              }
-              .tradeP {
-                @apply text-xs mt-[2px];
-                .countSpan {
-                  @apply font-bold;
-                  color: #9244f7;
+        .combinationBody {
+          @apply flex gap-1;
+          .combinationItemDiv {
+            @apply w-[230px] flex flex-wrap gap-1 py-1 px-2;
+            border: 2px solid #333;
+            border-radius: 5px;
+            .titleDiv {
+              @apply flex gap-2 items-center;
+              .titleInfoDiv {
+                @apply flex flex-col justify-center text-sm;
+                .qualityP {
+                  @apply text-xs;
+                }
+                .qualityBarDiv {
+                  @apply w-[110px];
+                  background-color: #fff2;
+                }
+                .tradeP {
+                  @apply text-xs mt-[2px];
+                  .countSpan {
+                    @apply font-bold;
+                    color: #9244f7;
+                  }
                 }
               }
             }
-          }
-          .optionDiv {
-            @apply text-xs w-full flex gap-2;
-            .engraveDiv {
-              @apply max-w-[60%];
-              .negativeP {
-                @apply font-bold text-[#d33];
+            .optionDiv {
+              @apply text-xs w-full flex gap-2;
+              .engraveDiv {
+                @apply max-w-[60%];
+                .negativeP {
+                  @apply font-bold text-[#d33];
+                }
+              }
+              .statDiv {
+                @apply max-w-[40%];
               }
             }
-            .statDiv {
-              @apply max-w-[40%];
-            }
-          }
-          .costDiv {
-            @apply flex flex-col text-xs;
-            .costP {
-              @apply flex items-center gap-1;
-              .costSpan {
-                @apply font-bold text-[#ffffbc];
+            .costDiv {
+              @apply flex flex-col text-xs;
+              .costP {
+                @apply flex items-center gap-1;
+                .costSpan {
+                  @apply font-bold text-[#ffffbc];
+                }
               }
             }
           }

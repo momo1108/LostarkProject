@@ -6,6 +6,7 @@ const Triangle: React.FC<IconProps> = ({
   fill = "#000000",
   width = 3,
   className,
+  rotate,
 }) => (
   <svg
     className={className}
@@ -18,6 +19,7 @@ const Triangle: React.FC<IconProps> = ({
     strokeWidth={width}
     strokeLinecap="round"
     strokeLinejoin="round"
+    transform={`rotate(${rotate ? rotate : 0})`}
   >
     <path d="M3 20h18L12 4z" />
   </svg>

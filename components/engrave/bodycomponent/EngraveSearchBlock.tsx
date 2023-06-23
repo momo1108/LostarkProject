@@ -55,13 +55,18 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
 }) => {
   const answer: Combination[] = [];
   const tmp: number[][] = [];
+  const [myWorker, setMyWorker] = useState<Worker>();
   const [myTimer, setMyTimer] = useState<number>(0);
   useEffect(() => {
     const timer = setInterval(() => {
       setMyTimer((e) => e - 1);
     }, 1000);
+    setMyWorker(
+      new Worker(new URL("@/web_workers/worker.ts", import.meta.url))
+    );
 
     return () => {
+      myWorker?.terminate();
       clearInterval(timer);
     };
   }, []);
@@ -990,6 +995,9 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
                               max={100}
                               min={0}
                               value={e.quality}
+                              onFocus={(event) => {
+                                event.target.select();
+                              }}
                               onChange={(event) => {
                                 let quality_tmp = parseInt(event.target.value);
                                 quality_tmp = quality_tmp
@@ -1118,7 +1126,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
         >
           test
         </button>
-        <p>{progress * 100}</p>
+        <p>{Math.round(progress * 1000) / 10}</p>
       </div>
     </div>
   );
@@ -1342,7 +1350,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
         tmpSplit[3],
       ]);
     });
-    console.log(uniqueEngrave);
+    // console.log(uniqueEngrave);
     if (!uniqueEngrave.length) {
       alert("불가능한 목표 각인입니다.");
       return;
@@ -1362,8 +1370,6 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     setTotalCases(uniqueEngrave.length * (ear_diff ? (ring_diff ? 5 : 4) : 3));
     // const inFunctionTotalCases =
     //   answer.length * accessory_order_list.length * 5;
-    const inFunctionTotalCases =
-      uniqueEngrave.length * (ear_diff ? (ring_diff ? 3 : 4) : 5);
     let resultObject: { [key: number]: AuctionItem[] } = {
       0: [],
       1: [],
@@ -1380,7 +1386,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
         if ((ap === 2 && !ear_diff) || (ap === 4 && !ring_diff)) continue;
         while (true) {
           try {
-            console.log(u, ap);
+            // console.log(u, ap);
             single_res = await EngraveService.getAuctionItems({
               CategoryCode: CATEGORY_CODE[accessoryList.getter[ap].type],
               EtcOptions: [
@@ -1449,8 +1455,41 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
         }
       }
     }
-    console.log(resultObject);
     // let resultObject: { [key: number]: AuctionItem[] } = testResult;
+
+    /* 
+     resultObject에서 중복을 제가해줘야 한다.
+     최소값 이상의 악세서리를 검색하는 방식이므로,
+     3/5 검색과 3/6 검색에서 겹치는 결과가 있을 수 있다.
+     다른 수치들도 마찬가지이다.
+    */
+    const uniqueAccessoryInfo: { [key: number]: Set<string> } = {
+      0: new Set(),
+      1: new Set(),
+      2: new Set(),
+      3: new Set(),
+      4: new Set(),
+    };
+
+    [0, 1, 2, 3, 4].map((i) => {
+      resultObject[i] = resultObject[i].filter(
+        (accessory) => accessory.AuctionInfo.BuyPrice
+      );
+      resultObject[i].map((accessory) =>
+        uniqueAccessoryInfo[i].add(
+          `${accessory.Name}_${accessory.GradeQuality}_${accessory.AuctionInfo.EndDate}`
+        )
+      );
+    });
+
+    [0, 1, 2, 3, 4].map((i) => {
+      resultObject[i] = resultObject[i].filter((accessory) =>
+        uniqueAccessoryInfo[i].delete(
+          `${accessory.Name}_${accessory.GradeQuality}_${accessory.AuctionInfo.EndDate}`
+        )
+      );
+    });
+    console.log(resultObject);
 
     const positiveCounter: { [key: string]: number } = tmp_info.reduce(
       (prev, cur) => ({ ...prev, [cur.name]: cur.point }),
@@ -1463,250 +1502,44 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       "이동속도 감소": 0,
     };
     negativeCounter[negativeEngrave.name] += negativeEngrave.point || 0;
-    let availableArray: number[][] = [];
-    findAvailableAccessoryCombination(
-      resultObject,
-      availableArray,
-      negativeCounter,
-      positiveCounter
-    );
+    let availableArray: number[][][] = [];
 
-    availableArray.sort((a, b) => {
-      return (
-        a.reduce(
-          (prev, cur, index) =>
-            prev + resultObject[index][cur].AuctionInfo.BuyPrice,
-          0
-        ) -
-        b.reduce(
-          (prev, cur, index) =>
-            prev + resultObject[index][cur].AuctionInfo.BuyPrice,
-          0
-        )
-      );
-    });
-
-    setCombinationList(
-      availableArray.slice(0, 50).map((e) => {
-        return e.map((e2, i2) => resultObject[i2][e2]);
-      })
-    );
-  }
-
-  /**
-   * 현재 searchSetting 함수에서 찾아낸 resultObject 안의
-   * 악세서리 데이터들을 조합해서 페널티 각인 없이 가능한 조합을
-   * 찾아내는 함수.
-   * @param type 현재 악세서리 부위(0 : 목, 1~2: 귀, 3~4: 반)
-   * @param infoObject 검색된 정보를 가진 array(resultObject)
-   * @param singleArray 현재 조합정보를 저장할 배열
-   * @param availableArray 완성된 모든 조합정보를 저장할 배열
-   * @param negativeCounter 페널티 각인 카운트를 저장할 객체
-   */
-  function findAvailableAccessoryCombination(
-    infoObject: { [key: number]: AuctionItem[] },
-    availableArray: number[][],
-    negativeCounter: { [key: string]: number },
-    positiveCounter: { [key: string]: number }
-  ) {
-    /* 
-    가지치기
-    1. 남은 부위 수 * 9 보다 많이 남으면 skip
-    2. penalty 각인이 생기면 skip
-    */
-
-    let _neck: AuctionItem,
-      _ear1: AuctionItem,
-      _ear2: AuctionItem,
-      _ring1: AuctionItem,
-      _ring2: AuctionItem,
-      tmpPositive: number[];
-
-    for (let neckIndex = 0; neckIndex < infoObject[0].length; neckIndex++) {
-      setProgress((1 / infoObject[0].length) * neckIndex);
-      _neck = infoObject[0][neckIndex];
-      applyAccessoryEngrave(positiveCounter, negativeCounter, _neck, false);
-      tmpPositive = Object.values(positiveCounter);
-      // 목표각인 불가능한 경우
-      if (
-        checkNegative(negativeCounter, _neck.Options) ||
-        checkPositive(tmpPositive, 0)
-      ) {
-        applyAccessoryEngrave(positiveCounter, negativeCounter, _neck, true);
-        continue;
-      }
-      for (let ear1Index = 0; ear1Index < infoObject[1].length; ear1Index++) {
-        setProgress(
-          (e) =>
-            e + (1 / infoObject[0].length / infoObject[1].length) * ear1Index
-        );
-        _ear1 = infoObject[1][ear1Index];
-        applyAccessoryEngrave(positiveCounter, negativeCounter, _ear1, false);
-        tmpPositive = Object.values(positiveCounter);
-        // 목표각인 불가능한 경우
-        if (
-          checkNegative(negativeCounter, _ear1.Options) ||
-          checkPositive(tmpPositive, 1)
-        ) {
-          applyAccessoryEngrave(positiveCounter, negativeCounter, _ear1, true);
-          continue;
-        }
-        for (let ear2Index = 0; ear2Index < infoObject[2].length; ear2Index++) {
-          _ear2 = infoObject[2][ear2Index];
-          applyAccessoryEngrave(positiveCounter, negativeCounter, _ear2, false);
-          tmpPositive = Object.values(positiveCounter);
-          // 목표각인 불가능한 경우
-          if (
-            checkNegative(negativeCounter, _ear2.Options) ||
-            checkPositive(tmpPositive, 2)
-          ) {
-            applyAccessoryEngrave(
-              positiveCounter,
-              negativeCounter,
-              _ear2,
-              true
-            );
-            continue;
-          }
-          for (
-            let ring1Index = 0;
-            ring1Index < infoObject[3].length;
-            ring1Index++
-          ) {
-            _ring1 = infoObject[3][ring1Index];
-            applyAccessoryEngrave(
-              positiveCounter,
-              negativeCounter,
-              _ring1,
-              false
-            );
-            tmpPositive = Object.values(positiveCounter);
-            // 목표각인 불가능한 경우
-            if (
-              checkNegative(negativeCounter, _ring1.Options) ||
-              checkPositive(tmpPositive, 3)
-            ) {
-              applyAccessoryEngrave(
-                positiveCounter,
-                negativeCounter,
-                _ring1,
-                true
-              );
-              continue;
-            }
-            for (
-              let ring2Index = 0;
-              ring2Index < infoObject[4].length;
-              ring2Index++
-            ) {
-              _ring2 = infoObject[4][ring2Index];
-              applyAccessoryEngrave(
-                positiveCounter,
-                negativeCounter,
-                _ring2,
-                false
-              );
-              tmpPositive = Object.values(positiveCounter);
-              // 목표각인 불가능한 경우
-              if (
-                checkNegative(negativeCounter, _ring2.Options) ||
-                checkPositive(tmpPositive, 4)
-              ) {
-                applyAccessoryEngrave(
-                  positiveCounter,
-                  negativeCounter,
-                  _ring2,
-                  true
-                );
-                continue;
-              }
-              availableArray.push([
-                neckIndex,
-                ear1Index,
-                ear2Index,
-                ring1Index,
-                ring2Index,
-              ]);
-              // console.log(availableArray);
-
-              applyAccessoryEngrave(
-                positiveCounter,
-                negativeCounter,
-                _ring2,
-                true
-              );
-            }
-            applyAccessoryEngrave(
-              positiveCounter,
-              negativeCounter,
-              _ring1,
-              true
-            );
-          }
-          applyAccessoryEngrave(positiveCounter, negativeCounter, _ear2, true);
-        }
-        applyAccessoryEngrave(positiveCounter, negativeCounter, _ear1, true);
-      }
-      applyAccessoryEngrave(positiveCounter, negativeCounter, _neck, true);
-    }
-    setProgress(1);
-  }
-
-  function applyAccessoryEngrave(
-    positiveCounter: { [key: string]: number },
-    negativeCounter: { [key: string]: number },
-    _acc: AuctionItem,
-    rollback: boolean
-  ) {
-    rollback
-      ? _acc.Options.forEach((e) => {
-          if (e.Type === "ABILITY_ENGRAVE") {
-            if (e.IsPenalty) negativeCounter[e.OptionName] -= e.Value;
-            else positiveCounter[e.OptionName] += e.Value;
-          }
+    myWorker?.postMessage(
+      JSON.parse(
+        JSON.stringify({
+          infoObject: resultObject,
+          negativeCounter,
+          positiveCounter,
         })
-      : _acc.Options.forEach((e) => {
-          if (e.Type === "ABILITY_ENGRAVE") {
-            if (e.IsPenalty) negativeCounter[e.OptionName] += e.Value;
-            else positiveCounter[e.OptionName] -= e.Value;
-          }
-        });
-  }
-
-  /**
-   * 목표 각인 체크 함수
-   * @param positiveValues 목표 각인 남은 포인트 배열
-   * @param type 현재 적용된 악세서리
-   * @returns true : 목표 미달성, false : 목표 달성
-   */
-  function checkPositive(positiveValues: number[], type: number) {
-    for (let i = 0; i < 4 - type; i++) {
-      positiveValues = positiveValues
-        .filter((e) => e > 0)
-        .sort((a, b) => b - a);
-      if (positiveValues.length > 1) {
-        positiveValues[0] -= 6;
-        positiveValues[positiveValues.length - 1] -= 3;
-      } else if (positiveValues.length > 0) positiveValues[0] -= 6;
-      else break;
-    }
-    return !!positiveValues.find((e) => e > 0);
-  }
-
-  /**
-   * 감소 각인 체크 함수
-   * @param negativeCounter 감소정보
-   * @param options 악세서리 옵션정보
-   * @returns true : 감소 효과 발동, false : 감소 효과 미발동
-   */
-  function checkNegative(
-    negativeCounter: { [key: string]: number },
-    options: AuctionOption[]
-  ): boolean {
-    const nI = options.findIndex(
-      (e) => e.IsPenalty && e.Type === "ABILITY_ENGRAVE"
+      )
     );
-    return negativeCounter[options[nI].OptionName] + options[nI].Value > 4;
+
+    myWorker!.onmessage = (e) => {
+      if (e.data.type === 0) setProgress(e.data.data);
+      else {
+        availableArray = e.data.data;
+        availableArray.sort((a, b) => {
+          return (
+            a.reduce(
+              (prev, cur) =>
+                prev + resultObject[cur[1]][cur[0]].AuctionInfo.BuyPrice,
+              0
+            ) -
+            b.reduce(
+              (prev, cur) =>
+                prev + resultObject[cur[1]][cur[0]].AuctionInfo.BuyPrice,
+              0
+            )
+          );
+        });
+
+        setCombinationList(
+          availableArray.map((e) => {
+            return e.map((e2) => resultObject[e2[1]][e2[0]]);
+          })
+        );
+      }
+    };
   }
 
   function pickTwo(
@@ -1771,6 +1604,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       - point_i가 1 이상
         - point_j가 0 이하 & 필요각인 2개 이상 -> continue j
       - 단, 5개 이전에 이미 만족된 경우도 고려해야한다.
+    4. 남은 각인 포인트가 3보다 크고 포인트 차감 시 남은 포인트가 3보다 작아지면 안된다.
     */
 
     // 2번 가지치기
@@ -1798,6 +1632,9 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
           // 1번 가지치기
           if (case0 > input[i].point && case0 > 3) continue;
           if (case1 > input[j].point && case1 > 3) continue;
+          // 4번 가지치기
+          // if (3 > input[i].point - case0 && case0 > 3) continue;
+          // if (3 > input[j].point - case1 && case1 > 3) continue;
           const minI = Math.min(input[i].point, case0);
           const minJ = Math.min(input[j].point, case1);
           input[i].point -= minI;
