@@ -413,9 +413,13 @@ $myLightBlue: #76b1ff;
         .resultPageP {
           @apply min-w-[150px];
         }
-        .pageButtonIcon {
-          @apply fill-[#fff] hover:fill-[#4691f6];
-          transition: fill 0.2s ease-in-out;
+        .nextButtonIcon {
+          @apply fill-[#fff] stroke-[#fff] hover:fill-[#4691f6] hover:stroke-[#4691f6];
+          transition: fill 0.2s ease-in-out, stroke 0.2s ease-in-out;
+        }
+        .skipButtonIcon {
+          @apply fill-[#fff] stroke-[#fff] hover:fill-[#4691f6] hover:stroke-[#4691f6];
+          transition: fill 0.2s ease-in-out, stroke 0.2s ease-in-out;
         }
       }
     }

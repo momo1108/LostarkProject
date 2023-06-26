@@ -1,5 +1,7 @@
 import { AuctionItem, AuctionOption } from "@/types/EngraveType";
-import { Dispatch, SetStateAction } from "react";
+
+let sum = 0,
+  min = 9999999999;
 
 /**
  * 현재 searchSetting 함수에서 찾아낸 resultObject 안의
@@ -29,6 +31,7 @@ onmessage = (e: {
     _ring1: AuctionItem,
     _ring2: AuctionItem,
     tmpPositive: number[];
+  (sum = 0), (min = 9999999999);
 
   console.log(infoObject[2].length, infoObject[4].length);
 
@@ -43,8 +46,9 @@ onmessage = (e: {
       tmpPositive = Object.values(positiveCounter);
       // 목표각인 불가능한 경우
       if (
-        checkNegative(negativeCounter, _neck.Options) ||
-        checkPositive(tmpPositive, 0)
+        checkNegative(negativeCounter) ||
+        checkPositive(tmpPositive, 0) ||
+        (availableArray.length === 100 && sum >= min)
       ) {
         applyAccessoryEngrave(positiveCounter, negativeCounter, _neck, true);
         continue;
@@ -61,8 +65,9 @@ onmessage = (e: {
         tmpPositive = Object.values(positiveCounter);
         // 목표각인 불가능한 경우
         if (
-          checkNegative(negativeCounter, _ear1.Options) ||
-          checkPositive(tmpPositive, 1)
+          checkNegative(negativeCounter) ||
+          checkPositive(tmpPositive, 1) ||
+          (availableArray.length === 100 && sum >= min)
         ) {
           applyAccessoryEngrave(positiveCounter, negativeCounter, _ear1, true);
           continue;
@@ -73,8 +78,9 @@ onmessage = (e: {
           tmpPositive = Object.values(positiveCounter);
           // 목표각인 불가능한 경우
           if (
-            checkNegative(negativeCounter, _ear2.Options) ||
-            checkPositive(tmpPositive, 2)
+            checkNegative(negativeCounter) ||
+            checkPositive(tmpPositive, 2) ||
+            (availableArray.length === 100 && sum >= min)
           ) {
             applyAccessoryEngrave(
               positiveCounter,
@@ -99,8 +105,9 @@ onmessage = (e: {
             tmpPositive = Object.values(positiveCounter);
             // 목표각인 불가능한 경우
             if (
-              checkNegative(negativeCounter, _ring1.Options) ||
-              checkPositive(tmpPositive, 3)
+              checkNegative(negativeCounter) ||
+              checkPositive(tmpPositive, 3) ||
+              (availableArray.length === 100 && sum >= min)
             ) {
               applyAccessoryEngrave(
                 positiveCounter,
@@ -125,8 +132,9 @@ onmessage = (e: {
               tmpPositive = Object.values(positiveCounter);
               // 목표각인 불가능한 경우
               if (
-                checkNegative(negativeCounter, _ring2.Options) ||
-                checkPositive(tmpPositive, 4)
+                checkNegative(negativeCounter) ||
+                checkPositive(tmpPositive, 4) ||
+                (availableArray.length === 100 && sum >= min)
               ) {
                 applyAccessoryEngrave(
                   positiveCounter,
@@ -136,13 +144,20 @@ onmessage = (e: {
                 );
                 continue;
               }
+
               availableArray.push([
                 [neckIndex, 0],
                 [ear1Index, 1],
                 [ear2Index, 2],
                 [ring1Index, 3],
                 [ring2Index, 4],
+                [sum],
               ]);
+              availableArray.sort((a, b) => a[5][0] - b[5][0]);
+              if (availableArray.length > 100) {
+                availableArray.pop();
+                min = availableArray[99][5][0];
+              }
               // console.log(availableArray);
 
               applyAccessoryEngrave(
@@ -176,8 +191,9 @@ onmessage = (e: {
       tmpPositive = Object.values(positiveCounter);
       // 목표각인 불가능한 경우
       if (
-        checkNegative(negativeCounter, _neck.Options) ||
-        checkPositive(tmpPositive, 0)
+        checkNegative(negativeCounter) ||
+        checkPositive(tmpPositive, 0) ||
+        (availableArray.length === 100 && sum >= min)
       ) {
         applyAccessoryEngrave(positiveCounter, negativeCounter, _neck, true);
         continue;
@@ -194,8 +210,9 @@ onmessage = (e: {
         tmpPositive = Object.values(positiveCounter);
         // 목표각인 불가능한 경우
         if (
-          checkNegative(negativeCounter, _ear1.Options) ||
-          checkPositive(tmpPositive, 1)
+          checkNegative(negativeCounter) ||
+          checkPositive(tmpPositive, 1) ||
+          (availableArray.length === 100 && sum >= min)
         ) {
           applyAccessoryEngrave(positiveCounter, negativeCounter, _ear1, true);
           continue;
@@ -206,8 +223,9 @@ onmessage = (e: {
           tmpPositive = Object.values(positiveCounter);
           // 목표각인 불가능한 경우
           if (
-            checkNegative(negativeCounter, _ear2.Options) ||
-            checkPositive(tmpPositive, 2)
+            checkNegative(negativeCounter) ||
+            checkPositive(tmpPositive, 2) ||
+            (availableArray.length === 100 && sum >= min)
           ) {
             applyAccessoryEngrave(
               positiveCounter,
@@ -232,8 +250,9 @@ onmessage = (e: {
             tmpPositive = Object.values(positiveCounter);
             // 목표각인 불가능한 경우
             if (
-              checkNegative(negativeCounter, _ring1.Options) ||
-              checkPositive(tmpPositive, 3)
+              checkNegative(negativeCounter) ||
+              checkPositive(tmpPositive, 3) ||
+              (availableArray.length === 100 && sum >= min)
             ) {
               applyAccessoryEngrave(
                 positiveCounter,
@@ -258,8 +277,9 @@ onmessage = (e: {
               tmpPositive = Object.values(positiveCounter);
               // 목표각인 불가능한 경우
               if (
-                checkNegative(negativeCounter, _ring2.Options) ||
-                checkPositive(tmpPositive, 4)
+                checkNegative(negativeCounter) ||
+                checkPositive(tmpPositive, 4) ||
+                (availableArray.length === 100 && sum >= min)
               ) {
                 applyAccessoryEngrave(
                   positiveCounter,
@@ -269,14 +289,20 @@ onmessage = (e: {
                 );
                 continue;
               }
+
               availableArray.push([
                 [neckIndex, 0],
                 [ear1Index, 1],
                 [ear2Index, 2],
                 [ring1Index, 3],
                 [ring2Index, 3],
+                [sum],
               ]);
-              // console.log(availableArray);
+              availableArray.sort((a, b) => a[5][0] - b[5][0]);
+              if (availableArray.length > 100) {
+                availableArray.pop();
+                min = availableArray[99][5][0];
+              }
 
               applyAccessoryEngrave(
                 positiveCounter,
@@ -309,8 +335,9 @@ onmessage = (e: {
       tmpPositive = Object.values(positiveCounter);
       // 목표각인 불가능한 경우
       if (
-        checkNegative(negativeCounter, _neck.Options) ||
-        checkPositive(tmpPositive, 0)
+        checkNegative(negativeCounter) ||
+        checkPositive(tmpPositive, 0) ||
+        (availableArray.length === 100 && sum >= min)
       ) {
         applyAccessoryEngrave(positiveCounter, negativeCounter, _neck, true);
         continue;
@@ -327,8 +354,9 @@ onmessage = (e: {
         tmpPositive = Object.values(positiveCounter);
         // 목표각인 불가능한 경우
         if (
-          checkNegative(negativeCounter, _ear1.Options) ||
-          checkPositive(tmpPositive, 1)
+          checkNegative(negativeCounter) ||
+          checkPositive(tmpPositive, 1) ||
+          (availableArray.length === 100 && sum >= min)
         ) {
           applyAccessoryEngrave(positiveCounter, negativeCounter, _ear1, true);
           continue;
@@ -343,8 +371,9 @@ onmessage = (e: {
           tmpPositive = Object.values(positiveCounter);
           // 목표각인 불가능한 경우
           if (
-            checkNegative(negativeCounter, _ear2.Options) ||
-            checkPositive(tmpPositive, 2)
+            checkNegative(negativeCounter) ||
+            checkPositive(tmpPositive, 2) ||
+            (availableArray.length === 100 && sum >= min)
           ) {
             applyAccessoryEngrave(
               positiveCounter,
@@ -369,8 +398,9 @@ onmessage = (e: {
             tmpPositive = Object.values(positiveCounter);
             // 목표각인 불가능한 경우
             if (
-              checkNegative(negativeCounter, _ring1.Options) ||
-              checkPositive(tmpPositive, 3)
+              checkNegative(negativeCounter) ||
+              checkPositive(tmpPositive, 3) ||
+              (availableArray.length === 100 && sum >= min)
             ) {
               applyAccessoryEngrave(
                 positiveCounter,
@@ -395,8 +425,9 @@ onmessage = (e: {
               tmpPositive = Object.values(positiveCounter);
               // 목표각인 불가능한 경우
               if (
-                checkNegative(negativeCounter, _ring2.Options) ||
-                checkPositive(tmpPositive, 4)
+                checkNegative(negativeCounter) ||
+                checkPositive(tmpPositive, 4) ||
+                (availableArray.length === 100 && sum >= min)
               ) {
                 applyAccessoryEngrave(
                   positiveCounter,
@@ -406,14 +437,20 @@ onmessage = (e: {
                 );
                 continue;
               }
+
               availableArray.push([
                 [neckIndex, 0],
                 [ear1Index, 1],
                 [ear2Index, 1],
                 [ring1Index, 3],
                 [ring2Index, 4],
+                [sum],
               ]);
-              // console.log(availableArray);
+              availableArray.sort((a, b) => a[5][0] - b[5][0]);
+              if (availableArray.length > 100) {
+                availableArray.pop();
+                min = availableArray[99][5][0];
+              }
 
               applyAccessoryEngrave(
                 positiveCounter,
@@ -447,8 +484,9 @@ onmessage = (e: {
       tmpPositive = Object.values(positiveCounter);
       // 목표각인 불가능한 경우
       if (
-        checkNegative(negativeCounter, _neck.Options) ||
-        checkPositive(tmpPositive, 0)
+        checkNegative(negativeCounter) ||
+        checkPositive(tmpPositive, 0) ||
+        (availableArray.length === 100 && sum >= min)
       ) {
         applyAccessoryEngrave(positiveCounter, negativeCounter, _neck, true);
         continue;
@@ -465,8 +503,9 @@ onmessage = (e: {
         tmpPositive = Object.values(positiveCounter);
         // 목표각인 불가능한 경우
         if (
-          checkNegative(negativeCounter, _ear1.Options) ||
-          checkPositive(tmpPositive, 1)
+          checkNegative(negativeCounter) ||
+          checkPositive(tmpPositive, 1) ||
+          (availableArray.length === 100 && sum >= min)
         ) {
           applyAccessoryEngrave(positiveCounter, negativeCounter, _ear1, true);
           continue;
@@ -481,8 +520,9 @@ onmessage = (e: {
           tmpPositive = Object.values(positiveCounter);
           // 목표각인 불가능한 경우
           if (
-            checkNegative(negativeCounter, _ear2.Options) ||
-            checkPositive(tmpPositive, 2)
+            checkNegative(negativeCounter) ||
+            checkPositive(tmpPositive, 2) ||
+            (availableArray.length === 100 && sum >= min)
           ) {
             applyAccessoryEngrave(
               positiveCounter,
@@ -507,8 +547,9 @@ onmessage = (e: {
             tmpPositive = Object.values(positiveCounter);
             // 목표각인 불가능한 경우
             if (
-              checkNegative(negativeCounter, _ring1.Options) ||
-              checkPositive(tmpPositive, 3)
+              checkNegative(negativeCounter) ||
+              checkPositive(tmpPositive, 3) ||
+              (availableArray.length === 100 && sum >= min)
             ) {
               applyAccessoryEngrave(
                 positiveCounter,
@@ -533,8 +574,9 @@ onmessage = (e: {
               tmpPositive = Object.values(positiveCounter);
               // 목표각인 불가능한 경우
               if (
-                checkNegative(negativeCounter, _ring2.Options) ||
-                checkPositive(tmpPositive, 4)
+                checkNegative(negativeCounter) ||
+                checkPositive(tmpPositive, 4) ||
+                (availableArray.length === 100 && sum >= min)
               ) {
                 applyAccessoryEngrave(
                   positiveCounter,
@@ -544,14 +586,20 @@ onmessage = (e: {
                 );
                 continue;
               }
+
               availableArray.push([
                 [neckIndex, 0],
                 [ear1Index, 1],
                 [ear2Index, 1],
                 [ring1Index, 3],
                 [ring2Index, 3],
+                [sum],
               ]);
-              // console.log(availableArray);
+              availableArray.sort((a, b) => a[5][0] - b[5][0]);
+              if (availableArray.length > 100) {
+                availableArray.pop();
+                min = availableArray[99][5][0];
+              }
 
               applyAccessoryEngrave(
                 positiveCounter,
@@ -578,25 +626,36 @@ onmessage = (e: {
   postMessage({ type: 1, data: availableArray });
 };
 
+/**
+ * 각인 적용 함수
+ * @param positiveCounter 목표 각인 정보
+ * @param negativeCounter 감소 각인 정보
+ * @param _acc 현재 적용할 악세서리 정보
+ * @param rollback true: 되돌리기 작업, false: 적용 작업
+ */
 function applyAccessoryEngrave(
   positiveCounter: { [key: string]: number },
   negativeCounter: { [key: string]: number },
   _acc: AuctionItem,
   rollback: boolean
 ) {
-  rollback
-    ? _acc.Options.forEach((e) => {
-        if (e.Type === "ABILITY_ENGRAVE") {
-          if (e.IsPenalty) negativeCounter[e.OptionName] -= e.Value;
-          else positiveCounter[e.OptionName] += e.Value;
-        }
-      })
-    : _acc.Options.forEach((e) => {
-        if (e.Type === "ABILITY_ENGRAVE") {
-          if (e.IsPenalty) negativeCounter[e.OptionName] += e.Value;
-          else positiveCounter[e.OptionName] -= e.Value;
-        }
-      });
+  if (rollback) {
+    sum -= _acc.AuctionInfo.BuyPrice;
+    _acc.Options.forEach((e) => {
+      if (e.Type === "ABILITY_ENGRAVE") {
+        if (e.IsPenalty) negativeCounter[e.OptionName] -= e.Value;
+        else positiveCounter[e.OptionName] += e.Value;
+      }
+    });
+  } else {
+    sum += _acc.AuctionInfo.BuyPrice;
+    _acc.Options.forEach((e) => {
+      if (e.Type === "ABILITY_ENGRAVE") {
+        if (e.IsPenalty) negativeCounter[e.OptionName] += e.Value;
+        else positiveCounter[e.OptionName] -= e.Value;
+      }
+    });
+  }
 }
 
 /**
@@ -623,12 +682,9 @@ function checkPositive(positiveValues: number[], type: number) {
  * @param options 악세서리 옵션정보
  * @returns true : 감소 효과 발동, false : 감소 효과 미발동
  */
-function checkNegative(
-  negativeCounter: { [key: string]: number },
-  options: AuctionOption[]
-): boolean {
-  const nI = options.findIndex(
-    (e) => e.IsPenalty && e.Type === "ABILITY_ENGRAVE"
-  );
-  return negativeCounter[options[nI].OptionName] + options[nI].Value > 4;
+function checkNegative(negativeCounter: { [key: string]: number }): boolean {
+  for (const negative in negativeCounter) {
+    if (negativeCounter[negative] > 4) return true;
+  }
+  return false;
 }

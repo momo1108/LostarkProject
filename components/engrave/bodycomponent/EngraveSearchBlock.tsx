@@ -1462,6 +1462,11 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
      최소값 이상의 악세서리를 검색하는 방식이므로,
      3/5 검색과 3/6 검색에서 겹치는 결과가 있을 수 있다.
      다른 수치들도 마찬가지이다.
+     api에서 악세서리 경매 id값을 주면 참 좋을텐데.... 
+     그런게 없기때문에, 임시방편으로라도 걸러주자.
+     Set 자료구조를 활용해 unique 악세정보를 넣고,
+     원본 데이터에서 filter와 Set.delete(element) 를 
+     사용해 체크해준다.
     */
     const uniqueAccessoryInfo: { [key: number]: Set<string> } = {
       0: new Set(),
@@ -1472,9 +1477,9 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     };
 
     [0, 1, 2, 3, 4].map((i) => {
-      resultObject[i] = resultObject[i].filter(
-        (accessory) => accessory.AuctionInfo.BuyPrice
-      );
+      resultObject[i] = resultObject[i]
+        .filter((accessory) => accessory.AuctionInfo.BuyPrice)
+        .sort((a, b) => a.AuctionInfo.BuyPrice - b.AuctionInfo.BuyPrice);
       resultObject[i].map((accessory) =>
         uniqueAccessoryInfo[i].add(
           `${accessory.Name}_${accessory.GradeQuality}_${accessory.AuctionInfo.EndDate}`
@@ -1518,26 +1523,28 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       if (e.data.type === 0) setProgress(e.data.data);
       else {
         availableArray = e.data.data;
-        availableArray.sort((a, b) => {
-          return (
-            a.reduce(
-              (prev, cur) =>
-                prev + resultObject[cur[1]][cur[0]].AuctionInfo.BuyPrice,
-              0
-            ) -
-            b.reduce(
-              (prev, cur) =>
-                prev + resultObject[cur[1]][cur[0]].AuctionInfo.BuyPrice,
-              0
-            )
-          );
-        });
+        // availableArray.sort((a, b) => {
+        //   return (
+        //     a.reduce(
+        //       (prev, cur) =>
+        //         prev + resultObject[cur[1]][cur[0]].AuctionInfo.BuyPrice,
+        //       0
+        //     ) -
+        //     b.reduce(
+        //       (prev, cur) =>
+        //         prev + resultObject[cur[1]][cur[0]].AuctionInfo.BuyPrice,
+        //       0
+        //     )
+        //   );
+        // });
 
-        setCombinationList(
-          availableArray.map((e) => {
-            return e.map((e2) => resultObject[e2[1]][e2[0]]);
-          })
-        );
+        setCombinationList((eee) => {
+          const t = availableArray.map((e) => {
+            return e.slice(0, 5).map((e2) => resultObject[e2[1]][e2[0]]);
+          });
+          console.log(t);
+          return t;
+        });
       }
     };
   }

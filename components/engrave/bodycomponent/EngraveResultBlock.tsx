@@ -1,3 +1,4 @@
+import Skip from "@/components/icons/Skip";
 import Triangle from "@/components/icons/Triangle";
 import useCssHook from "@/hooks/useBgClassMaker";
 import styles from "@/styles/engrave/Body.module.scss";
@@ -23,12 +24,6 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
   const [resultPage, setResultPage] = useState<number>(0);
   const [pageSize, setPageSize] = useState<number>(5);
   const combinationInfo = useMemo(() => {
-    // console.log(
-    //   new Date(),
-    //   combinationList
-    // );
-    setResultPage(0);
-    // [{cost:~, stat:~}, ...] 의 형태
     return combinationList.map((combination) => {
       return combination.reduce(
         (prev: { cost: number; stat: { [key: string]: number } }, cur) => {
@@ -58,12 +53,20 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
             </p>
             <button
               onClick={() => {
+                setResultPage(0);
+              }}
+            >
+              <Skip size={30} className={styles.skipButtonIcon} rotate={180} />
+            </button>
+            <button
+              onClick={() => {
                 setResultPage((e) => (e > 0 ? e - 1 : e));
               }}
             >
               <Triangle
+                width={1}
                 size={30}
-                className={styles.pageButtonIcon}
+                className={styles.nextButtonIcon}
                 rotate={-90}
               />
             </button>
@@ -77,10 +80,20 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
               }}
             >
               <Triangle
+                width={1}
                 size={30}
-                className={styles.pageButtonIcon}
+                className={styles.nextButtonIcon}
                 rotate={90}
               />
+            </button>
+            <button
+              onClick={() => {
+                setResultPage(
+                  Math.floor(combinationList.length / pageSize) - 1
+                );
+              }}
+            >
+              <Skip size={30} className={styles.skipButtonIcon} />
             </button>
           </div>
         ) : (
