@@ -405,7 +405,7 @@ $myLightBlue: #76b1ff;
   }
 
   .resultContainer {
-    @apply flex flex-col gap-3 py-8;
+    @apply flex flex-col gap-3 py-8 relative;
     .resultHeader {
       @apply text-2xl font-bold flex items-end;
       .resultPageDiv {
@@ -424,7 +424,7 @@ $myLightBlue: #76b1ff;
       }
     }
     .resultBody {
-      @apply flex flex-col gap-3 items-start;
+      @apply flex flex-col gap-3 items-start max-h-[660px] overflow-y-auto;
       .combinationDiv {
         @apply inline-flex flex-col gap-1 flex-wrap;
         background: linear-gradient(
@@ -459,7 +459,7 @@ $myLightBlue: #76b1ff;
           }
         }
         .combinationBody {
-          @apply flex gap-1;
+          @apply flex flex-wrap gap-1;
           .combinationItemDiv {
             @apply w-[230px] flex flex-wrap gap-1 py-1 px-2;
             border: 2px solid #333;
@@ -511,9 +511,25 @@ $myLightBlue: #76b1ff;
     }
 
     .emptyResultBody {
-      @apply flex justify-center items-center text-lg min-h-[300px];
+      @apply flex justify-center items-center text-lg h-[660px];
 
       box-shadow: 0px 0px 10px -5px #fff;
+    }
+
+    .resultLoader {
+      @apply flex justify-center items-center flex-col;
+      .presentationSection {
+        .apiSearch {
+          @apply relative;
+          .magnifyingGlass {
+            @apply absolute top-1/2 left-1/2;
+            transform: translate(-50%, -50%);
+          }
+          .floatingRound {
+            animation: diagonalRotate 2s linear infinite;
+          }
+        }
+      }
     }
   }
 }
@@ -533,5 +549,26 @@ $myLightBlue: #76b1ff;
   }
   100% {
     transform: skew(-23deg) rotateY(360deg);
+  }
+}
+
+@keyframes diagonalRotate {
+  0% {
+    transform: translate(-50%, -50%) rotate3d(1, 1, 0, 0deg);
+  }
+  15% {
+    transform: translate(-50%, -51.5%) rotate3d(1, 1, 0, -270deg);
+  }
+  25% {
+    transform: translate(-50%, -52.5%);
+  }
+  30% {
+    transform: translate(-50%, -52%) rotate3d(1, 1, 0, 0deg);
+  }
+  50% {
+    transform: translate(-50%, -50%);
+  }
+  75% {
+    transform: translate(-50%, -47.5%);
   }
 }

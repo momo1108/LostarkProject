@@ -1,5 +1,6 @@
-import Skip from "@/components/icons/Skip";
-import Triangle from "@/components/icons/Triangle";
+import MyLoader from "@/components/custom/MyLoader";
+import { Skip, Spinner, Triangle } from "@/components/icons/Index";
+import MagnifyingGlass from "@/components/icons/MagnifyingGlass";
 import useCssHook from "@/hooks/useBgClassMaker";
 import styles from "@/styles/engrave/Body.module.scss";
 import { AuctionItem } from "@/types/EngraveType";
@@ -8,9 +9,19 @@ import { useMemo, useState } from "react";
 
 type EngraveResultBlockProps = {
   combinationList: AuctionItem[][];
+  pageStatus: number;
+  progress: number;
+  totalCases: number;
+  currentCase: number;
+  myTimer: number;
 };
 const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
   combinationList,
+  pageStatus,
+  progress,
+  totalCases,
+  currentCase,
+  myTimer,
 }) => {
   const { bgClassMaker } = useCssHook();
   const initialStat = {
@@ -101,7 +112,7 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
         )}
       </h3>
       {combinationList.length ? (
-        <div className={styles.resultBody}>
+        <div className={`hideScroll ${styles.resultBody}`}>
           {combinationList
             .slice(resultPage * pageSize, (resultPage + 1) * pageSize)
             .map((e, i) => (
@@ -241,6 +252,44 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
           검색이 완료되면 결과가 출력됩니다.
         </div>
       )}
+
+      <MyLoader
+        backgroundColor="#000e"
+        hide={pageStatus < 2}
+        className={styles.resultLoader}
+      >
+        <div className={styles.presentationSection}>
+          <div className={styles.apiSearch}>
+            <Spinner
+              size={400}
+              width={6}
+              progress={currentCase / totalCases}
+              color="#4691f6"
+            />
+            <MagnifyingGlass
+              className={`${styles.magnifyingGlass} ${
+                pageStatus === 2 ? styles.floatingRound : ""
+              }`}
+              size={180}
+              color="none"
+              fill={pageStatus >= 2 ? "#4691f6" : "#666"}
+            />
+          </div>
+          <div className={styles.dots}></div>
+          <div className={styles.findCombination}></div>
+        </div>
+        <div className={styles.descriptionSection}>
+          {pageStatus === 2 ? (
+            <div className={styles.searchDiv}>
+              악세서리 매물을 검색중입니다.
+            </div>
+          ) : (
+            <div className={styles.findDiv}>
+              최저가 악세서리 조합을 찾고있습니다.
+            </div>
+          )}
+        </div>
+      </MyLoader>
     </div>
   );
 };

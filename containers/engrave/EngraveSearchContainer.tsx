@@ -5,11 +5,32 @@ import { Dispatch, SetStateAction } from "react";
 
 type EngraveSearchContainerProps = {
   setCombinationList: Dispatch<SetStateAction<AuctionItem[][]>>;
+  setPageStatus: Dispatch<SetStateAction<number>>;
+  setProgress: Dispatch<SetStateAction<number>>;
+  setTotalCases: Dispatch<SetStateAction<number>>;
+  setCurrentCase: Dispatch<SetStateAction<number>>;
+  setMyTimer: Dispatch<SetStateAction<number>>;
 };
 const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
   setCombinationList,
+  setPageStatus,
+  setProgress,
+  setTotalCases,
+  setCurrentCase,
+  setMyTimer,
 }) => {
-  return <EngraveSearchBlock setCombinationList={setCombinationList} />;
+  return (
+    <EngraveSearchBlock
+      {...{
+        setPageStatus,
+        setCombinationList,
+        setProgress,
+        setTotalCases,
+        setCurrentCase,
+        setMyTimer,
+      }}
+    />
+  );
 };
 
 export default EngraveSearchContainer;

@@ -3,6 +3,10 @@ export interface PairIconProps extends IconProps {
   fill2?: string;
 }
 
+export interface SpinnerIconProps extends IconProps {
+  progress: number;
+}
+
 export interface IconProps {
   size?: number;
   color?: string;
@@ -14,7 +18,7 @@ export interface IconProps {
   onClick?: React.MouseEventHandler<SVGSVGElement>;
 }
 
-export type CustomComponentProps = {
+export type CustomSelectProps = {
   className?: string;
   width?: number;
   height?: number;
@@ -29,4 +33,12 @@ export type CustomComponentProps = {
   onClickFunction: (arg1: any, arg2?: number) => void;
   place?: string;
   offset?: number;
+};
+
+export type CustomLoaderProps = {
+  className?: string;
+  opacity?: number;
+  backgroundColor?: string;
+  hide?: boolean;
+  children?: (JSX.Element | string)[] | (JSX.Element | string);
 };

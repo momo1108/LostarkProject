@@ -1,6 +1,4 @@
-import Delete from "@/components/icons/Delete";
-import Empty from "@/components/icons/Empty";
-import Favorite from "@/components/icons/Favorite";
+import { Delete, Empty, Favorite } from "@/components/icons/Index";
 import styles from "@/styles/character/Body.module.scss";
 import { CharRecentBlockProps } from "@/types/CharacterType";
 import Image from "next/image";

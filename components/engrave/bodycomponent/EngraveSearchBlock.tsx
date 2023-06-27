@@ -1,6 +1,5 @@
 import styles from "@/styles/engrave/Body.module.scss";
 import { engravingIconMap } from "@/types/TEGCType";
-import MenuIcons from "@/components/icons/MenuIcons";
 import {
   useState,
   useMemo,
@@ -13,8 +12,6 @@ import {
   AbilityInputMode,
   AccessoryInfo,
   AuctionItem,
-  AuctionItemSearchResult,
-  AuctionOption,
   CASES,
   CheckMode,
   Combination,
@@ -23,40 +20,50 @@ import {
   EngraveInfo,
   EtcOption,
   NEGATIVE_ENGRAVES,
-  accessoryOrderMap,
   engraveLevelColorMap,
 } from "@/types/EngraveType";
-import Delete from "@/components/icons/Delete";
-import Edit from "@/components/icons/Edit";
-import Check from "@/components/icons/Check";
 import MySelect from "@/components/custom/MySelect";
-import Close from "@/components/icons/Close";
-import Save from "@/components/icons/Save";
-import Load from "@/components/icons/Load";
-import Search from "@/components/icons/Search";
 import EngraveService from "@/service/EngraveService";
-import Target from "@/components/icons/Target";
-import Ring from "@/components/icons/Ring";
-import Ring2 from "@/components/icons/Ring2";
-import Necklace from "@/components/icons/Necklace";
-import Earring from "@/components/icons/Earring";
+import {
+  MenuIcons,
+  Delete,
+  Edit,
+  Check,
+  Close,
+  Save,
+  Load,
+  Search,
+  Target,
+  Ring,
+  Ring2,
+  Necklace,
+  Earring,
+} from "@/components/icons/Index";
 import {
   CATEGORY_CODE,
   ETC_OPTION_CODE,
   apiEngravePriority,
-  testResult,
 } from "@/types/GlobalType";
 
 type EngraveSearchBlockProps = {
   setCombinationList: Dispatch<SetStateAction<AuctionItem[][]>>;
+  setPageStatus: Dispatch<SetStateAction<number>>;
+  setProgress: Dispatch<SetStateAction<number>>;
+  setTotalCases: Dispatch<SetStateAction<number>>;
+  setCurrentCase: Dispatch<SetStateAction<number>>;
+  setMyTimer: Dispatch<SetStateAction<number>>;
 };
 const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
   setCombinationList,
+  setPageStatus,
+  setProgress,
+  setTotalCases,
+  setCurrentCase,
+  setMyTimer,
 }) => {
   const answer: Combination[] = [];
   const tmp: number[][] = [];
   const [myWorker, setMyWorker] = useState<Worker>();
-  const [myTimer, setMyTimer] = useState<number>(0);
   useEffect(() => {
     const timer = setInterval(() => {
       setMyTimer((e) => e - 1);
@@ -70,9 +77,6 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       clearInterval(timer);
     };
   }, []);
-  const [progress, setProgress] = useState<number>(0);
-  const [totalCases, setTotalCases] = useState<number>(0);
-  const [currentCase, setCurrentCase] = useState<number>(0);
   const [targetList, setTargetList] = useState<EngraveInfo[]>([]);
   const [equipList, setEquipList] = useState<EngraveInfo[]>([]);
   const [abilityList, setAbilityList] = useState<EngraveInfo[]>([]);
@@ -262,7 +266,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
                           className={styles.dropdownListItem}
                           onClick={() => {
                             check(e, 0);
-                            targetEngraveRef.current?.focus();
+                            targetEngraveRef.current?.select();
                           }}
                           key={`all_engrave_${e}`}
                         >
@@ -1114,19 +1118,6 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
           <Search color="#ccc" size={20} />
           <span>검색</span>
         </button>
-        <p>
-          {currentCase} / {totalCases}
-        </p>
-        <p>{myTimer > 0 ? myTimer : 0}s</p>
-        <button
-          onClick={async () => {
-            const ttt = await apiEngravePriority();
-            console.log(ttt);
-          }}
-        >
-          test
-        </button>
-        <p>{Math.round(progress * 1000) / 10}</p>
       </div>
     </div>
   );
@@ -1292,8 +1283,8 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
   }
 
   async function searchSetting() {
+    setPageStatus(2);
     setCurrentCase(0);
-    let inFunctionApiCallCount = 1; // 함수 while문 안에서 state 체크가 제대로 안되네?
     const tmp_info: { name: string; point: number }[] = targetList.map(
       (e: EngraveInfo) => {
         return { name: e.name, point: e.level! * 5 };
@@ -1509,6 +1500,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     negativeCounter[negativeEngrave.name] += negativeEngrave.point || 0;
     let availableArray: number[][][] = [];
 
+    setPageStatus(3);
     myWorker?.postMessage(
       JSON.parse(
         JSON.stringify({
@@ -1523,28 +1515,13 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       if (e.data.type === 0) setProgress(e.data.data);
       else {
         availableArray = e.data.data;
-        // availableArray.sort((a, b) => {
-        //   return (
-        //     a.reduce(
-        //       (prev, cur) =>
-        //         prev + resultObject[cur[1]][cur[0]].AuctionInfo.BuyPrice,
-        //       0
-        //     ) -
-        //     b.reduce(
-        //       (prev, cur) =>
-        //         prev + resultObject[cur[1]][cur[0]].AuctionInfo.BuyPrice,
-        //       0
-        //     )
-        //   );
-        // });
 
-        setCombinationList((eee) => {
-          const t = availableArray.map((e) => {
+        setCombinationList(
+          availableArray.map((e) => {
             return e.slice(0, 5).map((e2) => resultObject[e2[1]][e2[0]]);
-          });
-          console.log(t);
-          return t;
-        });
+          })
+        );
+        setPageStatus(1);
       }
     };
   }
@@ -1665,31 +1642,6 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       }
       uselessI = false;
     }
-  }
-
-  /**
-   *
-   * @param CategoryCode 검색 물품의 코드(apirequset_auction.json파일 참조)
-   * @param EtcOptions 검색 물품의 세부옵션(각인, 특성과 그 수치)
-   * @param ItemGradeQuality 검색 물품의 품질
-   * @returns
-   */
-  async function apiAuctionSearch(
-    CategoryCode: number,
-    EtcOptions: EtcOption[],
-    ItemGradeQuality: number
-  ) {
-    const res = await EngraveService.getAuctionItems({
-      CategoryCode,
-      EtcOptions,
-      ItemGrade: "고대",
-      ItemGradeQuality,
-      ItemTier: 3,
-      PageNo: 1,
-      Sort: "BUY_PRICE",
-      SortCondition: "ASC",
-    });
-    return res;
   }
 };
 

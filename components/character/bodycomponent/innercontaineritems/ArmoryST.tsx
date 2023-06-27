@@ -11,7 +11,7 @@ import { gradeClassMap, gradeTextColorMap } from "@/types/GlobalType";
 import { Tooltip } from "react-tooltip";
 import RuneTooltip from "../tooltips/RuneTooltip";
 import SkillTooltip from "../tooltips/SkillTooltip";
-import AlertOctagon from "@/components/icons/AlertOctagon";
+import { AlertOctagon } from "@/components/icons/Index";
 import { GemData } from "@/types/TEGCType";
 
 const ArmoryST: React.FC<ArmorySTProps> = ({ className, data }) => {

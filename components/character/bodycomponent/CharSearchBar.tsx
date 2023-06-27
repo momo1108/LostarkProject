@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "@/styles/character/Body.module.scss";
 import { CharSearchBarProps } from "@/types/CharacterType";
-import Favorite from "@/components/icons/Favorite";
-import Delete from "@/components/icons/Delete";
+import { Delete, Favorite } from "@/components/icons/Index";
 
 const CharSearchBar: React.FC<CharSearchBarProps> = ({
   search,

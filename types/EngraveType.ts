@@ -1,3 +1,4 @@
+import { Dispatch, RefObject, SetStateAction } from "react";
 import { engravingIconMap } from "./TEGCType";
 
 export type EngraveInfo = {
@@ -484,3 +485,41 @@ export const accessoryOrderMap: { [key: number]: number[][] } = {
     [4, 3, 2, 1, 0],
   ],
 };
+
+// export type EngraveSearchBlockProps = {
+//   setCombinationList: Dispatch<SetStateAction<AuctionItem[][]>>;
+//   setPageStatus: Dispatch<SetStateAction<number>>;
+//   dropdownMode: DropdownMode;
+//   setDropdownMode: Dispatch<SetStateAction<DropdownMode>>;
+//   saveSetting: () => void;
+//   loadSetting: () => void;
+//   preventBlur: boolean;
+//   setPreventBlur: Dispatch<SetStateAction<boolean>>;
+//   targetEngraveRef: RefObject<HTMLInputElement>;
+//   searchValue: string;
+//   setSearchValue: Dispatch<SetStateAction<string>>;
+//   engraveSearchList: string[];
+//   targetList: EngraveInfo[];
+//   setTargetList: Dispatch<SetStateAction<EngraveInfo[]>>;
+//   equipList: EngraveInfo[];
+//   setEquipList: Dispatch<SetStateAction<EngraveInfo[]>>;
+//   abilityList: EngraveInfo[];
+//   setAbilityList: Dispatch<SetStateAction<EngraveInfo[]>>;
+//   setTargetEngraveLevel: (i: number, level: number) => void;
+//   setEquipEngraveLevel: (i: number, level: number) => void;
+//   setAbilityEngravePoint: (i: number, point: number) => void;
+//   setAbilityInput: (i: number, mode: AbilityInputMode) => void;
+//   negativeEngrave: EngraveInfo;
+//   setNegativeEngrave: Dispatch<SetStateAction<EngraveInfo>>;
+//   setNegativeAbilityInput: (mode: AbilityInputMode) => void;
+//   accessoryList: {
+//     getter: AccessoryInfo[];
+//     setter: Dispatch<SetStateAction<AccessoryInfo>>[];
+//   };
+//   searchSetting: () => Promise<void>;
+//   currentCase: number;
+//   totalCases: number;
+//   myTimer: number;
+//   progress: number;
+//   check: (name: string, mode: CheckMode) => void;
+// };

@@ -1,4 +1,4 @@
-import AlertOctagon from "@/components/icons/AlertOctagon";
+import { AlertOctagon } from "@/components/icons/Index";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import styles from "@/styles/character/Body.module.scss";
 import { gradeClassMap, gradeTextColorMap } from "@/types/GlobalType";

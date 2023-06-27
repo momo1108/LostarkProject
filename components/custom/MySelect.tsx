@@ -1,9 +1,9 @@
-import { CustomComponentProps } from "@/types/CustomType";
+import { CustomSelectProps } from "@/types/CustomType";
 import styles from "@/styles/Custom.module.scss";
 import { useState, useMemo } from "react";
 import Triangle from "../icons/Triangle";
 
-const MySelect: React.FC<CustomComponentProps> = ({
+const MySelect: React.FC<CustomSelectProps> = ({
   className,
   width = 100,
   height = 24,

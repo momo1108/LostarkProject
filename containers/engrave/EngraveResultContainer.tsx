@@ -4,11 +4,32 @@ import { AuctionItem } from "@/types/EngraveType";
 
 type EngraveResultContainerProps = {
   combinationList: AuctionItem[][];
+  pageStatus: number;
+  progress: number;
+  totalCases: number;
+  currentCase: number;
+  myTimer: number;
 };
 const EngraveResultContainer: React.FC<EngraveResultContainerProps> = ({
   combinationList,
+  pageStatus,
+  progress,
+  totalCases,
+  currentCase,
+  myTimer,
 }) => {
-  return <EngraveResultBlock combinationList={combinationList} />;
+  return (
+    <EngraveResultBlock
+      {...{
+        combinationList,
+        pageStatus,
+        progress,
+        totalCases,
+        currentCase,
+        myTimer,
+      }}
+    />
+  );
 };
 
 export default EngraveResultContainer;
