@@ -27,7 +27,8 @@ html {
   border: 1px solid $basicFontColor;
   margin: 1px;
   border-radius: 7px;
-  &:hover {
+  &:hover,
+  &.focus {
     @apply font-bold;
     background: $myDarkBlue;
     border-color: $myDarkBlue;

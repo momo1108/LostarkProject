@@ -149,13 +149,14 @@ $myLightBlue: #76b1ff;
     .infoContainerItemDiv {
       @apply relative min-h-[600px];
       box-shadow: 0px 0px 3px 1px #333;
-      background-image: url("/images/charbg.png");
 
       &:first-child {
-        @apply flex flex-col items-center w-[550px] pt-2 pb-8;
+        @apply flex flex-col items-center w-[550px] pt-2 pb-8 bg-[#14181d];
+        box-shadow: 0px 0px 4px 3px #333;
       }
       &:nth-child(2) {
         @apply relative flex flex-col min-w-[640px] max-w-[780px];
+        background-image: url("/images/charbg.png");
       }
       hr {
         border-color: #282828;

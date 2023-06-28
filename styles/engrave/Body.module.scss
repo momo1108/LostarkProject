@@ -301,7 +301,25 @@ $myLightBlue: #76b1ff;
     }
 
     .searchFooter {
-      @apply flex w-full gap-4 items-center h-10;
+      @apply flex flex-col gap-3;
+      .searchButtons {
+        @apply flex w-full gap-4 items-center h-10;
+      }
+      .searchFilter {
+        @apply flex-wrap gap-1;
+        .filterDiv {
+          @apply w-28 flex flex-col;
+          input {
+            @apply relative w-20 text-right outline-none focus:border-[#4691f6];
+            background: transparent;
+            &::after {
+              @apply absolute left-0 bottom-0 w-16;
+              content: "";
+              border-bottom: 10px solid #fff;
+            }
+          }
+        }
+      }
     }
 
     .dropdownWrapper {
@@ -423,102 +441,111 @@ $myLightBlue: #76b1ff;
         }
       }
     }
-    .resultBody {
-      @apply flex flex-col gap-3 items-start max-h-[660px] overflow-y-auto;
-      .combinationDiv {
-        @apply inline-flex flex-col gap-1 flex-wrap;
-        background: linear-gradient(
-          0.125turn,
-          rgb(20, 20, 20),
-          rgb(20, 20, 20),
-          rgb(39, 39, 39),
-          rgb(20, 20, 20),
-          rgb(39, 39, 39),
-          rgb(20, 20, 20),
-          rgb(20, 20, 20)
-        );
-        .combinationHeader {
-          @apply flex flex-col gap-x-4 font-bold text-lg;
-          .totalCostDiv {
-            @apply flex items-center gap-3;
-            .totalCostInfoDiv {
-              @apply flex items-center gap-1;
-              .totalCost {
-                @apply text-[#ffffbc];
+    .resultBodyWrapper {
+      @apply flex flex-col gap-3 relative;
+      .resultBody {
+        @apply flex flex-col gap-3 items-start max-h-[660px] overflow-y-auto;
+        .combinationDiv {
+          @apply inline-flex flex-col gap-1 flex-wrap;
+          background: linear-gradient(
+            0.125turn,
+            rgb(20, 20, 20),
+            rgb(20, 20, 20),
+            rgb(39, 39, 39),
+            rgb(20, 20, 20),
+            rgb(39, 39, 39),
+            rgb(20, 20, 20),
+            rgb(20, 20, 20)
+          );
+          .combinationHeader {
+            @apply flex flex-col gap-x-4 font-bold text-lg;
+            .totalCostDiv {
+              @apply flex items-center gap-3;
+              .totalCostInfoDiv {
+                @apply flex items-center gap-1;
+                .totalCost {
+                  @apply text-[#ffffbc];
+                }
               }
             }
-          }
-          .totalStatDiv {
-            @apply flex gap-2;
-            .totalStat {
-              @apply flex items-center;
-              .statEmoji {
-                @apply text-xs;
-              }
-            }
-          }
-        }
-        .combinationBody {
-          @apply flex flex-wrap gap-1;
-          .combinationItemDiv {
-            @apply w-[230px] flex flex-wrap gap-1 py-1 px-2;
-            border: 2px solid #333;
-            border-radius: 5px;
-            .titleDiv {
-              @apply flex gap-2 items-center;
-              .titleInfoDiv {
-                @apply flex flex-col justify-center text-sm;
-                .qualityP {
+            .totalStatDiv {
+              @apply flex gap-2;
+              .totalStat {
+                @apply flex items-center;
+                .statEmoji {
                   @apply text-xs;
                 }
-                .qualityBarDiv {
-                  @apply w-[110px];
-                  background-color: #fff2;
-                }
-                .tradeP {
-                  @apply text-xs mt-[2px];
-                  .countSpan {
-                    @apply font-bold;
-                    color: #9244f7;
+              }
+            }
+          }
+          .combinationBody {
+            @apply flex flex-wrap gap-1;
+            .combinationItemDiv {
+              @apply w-[230px] flex flex-wrap gap-1 py-1 px-2;
+              border: 2px solid #333;
+              border-radius: 5px;
+              .titleDiv {
+                @apply flex gap-2 items-center;
+                .titleInfoDiv {
+                  @apply flex flex-col justify-center text-sm;
+                  .qualityP {
+                    @apply text-xs;
+                  }
+                  .qualityBarDiv {
+                    @apply w-[110px];
+                    background-color: #fff2;
+                  }
+                  .tradeP {
+                    @apply text-xs mt-[2px];
+                    .countSpan {
+                      @apply font-bold;
+                      color: #9244f7;
+                    }
                   }
                 }
               }
-            }
-            .optionDiv {
-              @apply text-xs w-full flex gap-2;
-              .engraveDiv {
-                @apply max-w-[60%];
-                .negativeP {
-                  @apply font-bold text-[#d33];
+              .optionDiv {
+                @apply text-xs w-full flex gap-2;
+                .engraveDiv {
+                  @apply max-w-[60%];
+                  .negativeP {
+                    @apply font-bold text-[#d33];
+                  }
+                }
+                .statDiv {
+                  @apply max-w-[40%];
                 }
               }
-              .statDiv {
-                @apply max-w-[40%];
-              }
-            }
-            .costDiv {
-              @apply flex flex-col text-xs;
-              .costP {
-                @apply flex items-center gap-1;
-                .costSpan {
-                  @apply font-bold text-[#ffffbc];
+              .costDiv {
+                @apply flex flex-col text-xs;
+                .costP {
+                  @apply flex items-center gap-1;
+                  .costSpan {
+                    @apply font-bold text-[#ffffbc];
+                  }
                 }
               }
             }
           }
         }
       }
-    }
 
-    .emptyResultBody {
-      @apply flex justify-center items-center text-lg h-[660px];
-
-      box-shadow: 0px 0px 10px -5px #fff;
+      .emptyResultBody {
+        @apply flex flex-col justify-center items-center font-bold text-2xl h-[660px];
+        box-shadow: 0px 0px 10px -5px #fff;
+        .iconWrapper {
+          @apply flex items-center justify-center h-64;
+          .mgIcon {
+            animation: shake 6s linear infinite;
+          }
+        }
+      }
     }
 
     .resultLoader {
-      @apply flex justify-center items-center flex-col;
+      @apply flex justify-center items-center flex-col gap-4;
       .presentationSection {
+        @apply flex items-center gap-4;
         .apiSearch {
           @apply relative;
           .magnifyingGlass {
@@ -526,11 +553,101 @@ $myLightBlue: #76b1ff;
             transform: translate(-50%, -50%);
           }
           .floatingRound {
-            animation: diagonalRotate 2s linear infinite;
+            animation: diagonalRotate 6s linear infinite;
+          }
+        }
+        .dotsWrapper {
+          @apply w-[150px] overflow-hidden;
+          .dots {
+            animation: descreteMove 4s steps(1, jump-both) infinite;
+          }
+        }
+        .findCombination {
+          @apply relative;
+          .emptyBox {
+            @apply absolute top-1/2 left-1/2;
+            transform: translate(-50%, -45%);
+          }
+          .ring,
+          .necklace,
+          .earring {
+            @apply absolute;
+            transform: translate(-50%, -50%);
+          }
+          .ring {
+            animation: throwIn 2s 0s linear infinite;
+            top: 25%;
+            left: 35%;
+          }
+          .necklace {
+            animation: throwIn 2s 0.5s linear infinite;
+            top: 20%;
+            left: 50%;
+          }
+          .earring {
+            animation: throwIn 2s 1s linear infinite;
+            top: 25%;
+            left: 65%;
+          }
+          .gearLargeWrapper {
+            @apply absolute flex justify-center items-center;
+            top: 61%;
+            left: 47%;
+            .gearLarge {
+              transform: translate(-50%, -50%);
+            }
+            .gearAnimate {
+              animation: gearSpin 5s linear infinite;
+            }
+          }
+          .gearSmallWrapper {
+            @apply absolute flex justify-center items-center;
+            top: 70%;
+            left: 53%;
+            .gearSmall {
+              transform: translate(-50%, -50%);
+            }
+            .gearAnimate {
+              animation: gearSpin 5s linear infinite reverse;
+            }
+          }
+        }
+      }
+      .descriptionSection {
+        @apply text-2xl font-bold;
+        .searchDiv,
+        .findDiv {
+          @apply flex flex-col items-center justify-center;
+        }
+        .searchDiv {
+          .timeoutDiv {
+            @apply text-lg text-center text-[#a77];
+            .timerP {
+              @apply text-xl;
+              color: $myBlue;
+            }
           }
         }
       }
     }
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  1% {
+    transform: rotate(4deg);
+  }
+  2% {
+    transform: rotate(0deg);
+  }
+  3% {
+    transform: rotate(-4deg);
+  }
+  4% {
+    transform: rotate(0deg);
   }
 }
 
@@ -556,19 +673,93 @@ $myLightBlue: #76b1ff;
   0% {
     transform: translate(-50%, -50%) rotate3d(1, 1, 0, 0deg);
   }
-  15% {
+  7.5% {
     transform: translate(-50%, -51.5%) rotate3d(1, 1, 0, -270deg);
   }
-  25% {
-    transform: translate(-50%, -52.5%);
+  12.5% {
+    transform: translate(-50%, -52.5%) rotate3d(1, 1, 0, -90deg);
   }
-  30% {
+  15% {
     transform: translate(-50%, -52%) rotate3d(1, 1, 0, 0deg);
+  }
+  25% {
+    transform: translate(-50%, -50%);
+  }
+  37.5% {
+    transform: translate(-50%, -47.5%);
   }
   50% {
     transform: translate(-50%, -50%);
   }
+  62.5% {
+    transform: translate(-50%, -52.5%);
+  }
   75% {
+    transform: translate(-50%, -50%);
+  }
+  87.5% {
     transform: translate(-50%, -47.5%);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes descreteMove {
+  0% {
+    transform: translateX(-420px);
+  }
+  2.5% {
+    transform: translateX(-390px);
+  }
+  5% {
+    transform: translateX(-360px);
+  }
+  7.5% {
+    transform: translateX(-330px);
+  }
+  10% {
+    transform: translateX(-300px);
+  }
+  12.5% {
+    transform: translateX(-270px);
+  }
+  15% {
+    transform: translateX(-240px);
+  }
+  17.5% {
+    transform: translateX(-210px);
+  }
+  20% {
+    transform: translateX(-180px);
+  }
+  22.5% {
+    transform: translateX(-150px);
+  }
+  100% {
+    transform: translateX(-120px);
+  }
+}
+
+@keyframes gearSpin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes throwIn {
+  30% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    top: 50%;
+    left: 50%;
+    opacity: 0;
   }
 }

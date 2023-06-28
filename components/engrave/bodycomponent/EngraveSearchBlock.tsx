@@ -38,11 +38,13 @@ import {
   Ring2,
   Necklace,
   Earring,
+  Filter,
 } from "@/components/icons/Index";
 import {
   CATEGORY_CODE,
   ETC_OPTION_CODE,
   apiEngravePriority,
+  testResult,
 } from "@/types/GlobalType";
 
 type EngraveSearchBlockProps = {
@@ -163,6 +165,15 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     ],
   };
 
+  const [filterValue, setFilterValue] = useState<{ [key: string]: number }>({
+    치명: 0,
+    특화: 0,
+    신속: 0,
+    제압: 0,
+    인내: 0,
+    숙련: 0,
+  });
+  const [enableFilter, setEnableFilter] = useState<boolean>(false);
   const [dropdownMode, setDropdownMode] = useState<DropdownMode>(3);
   const [searchValue, setSearchValue] = useState<string>("");
   // 자꾸 자식요소(각인) 클릭 시 blur이벤트때문에 dropdown이 사라졌다가 다시나옴.
@@ -1095,12 +1106,12 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
                         <></>
                       )}
                     </td>
-                    <td className={styles.accessoryTableCol5}>
+                    {/* <td className={styles.accessoryTableCol5}>
                       <div className={styles.colBlock}>
                         <h5>보유중</h5>
                         <p>미구현</p>
                       </div>
-                    </td>
+                    </td> */}
                   </tr>
                 );
               })}
@@ -1109,15 +1120,63 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
         </div>
       </div>
       <div className={styles.searchFooter}>
-        <button
-          className="myButtons"
-          onClick={() => {
-            searchSetting();
-          }}
+        <div className={styles.searchButtons}>
+          <button
+            className="myButtons"
+            onClick={() => {
+              searchSetting();
+            }}
+          >
+            <Search color="#ccc" size={20} />
+            <span>검색</span>
+          </button>
+
+          <button
+            className={enableFilter ? "myButtons focus" : "myButtons"}
+            onClick={() => {
+              setEnableFilter((e) => !e);
+            }}
+          >
+            <Filter color="#ccc" size={24} />
+            <span>결과 필터링</span>
+          </button>
+        </div>
+        <div
+          className={`${styles.searchFilter} ${
+            enableFilter ? "flex" : "hidden"
+          }`}
         >
-          <Search color="#ccc" size={20} />
-          <span>검색</span>
-        </button>
+          {Object.keys(filterValue).map((e) => {
+            return (
+              <div className={styles.filterDiv} key={`filter_${e}`}>
+                <p>{e}</p>
+                <input
+                  type="number"
+                  value={filterValue[e]}
+                  max={1500}
+                  min={0}
+                  onFocus={(event) => {
+                    event.target.select();
+                  }}
+                  onChange={(event) => {
+                    let stat_tmp = parseInt(event.target.value);
+                    stat_tmp = stat_tmp
+                      ? stat_tmp > 1500
+                        ? 1500
+                        : stat_tmp < 0
+                        ? 0
+                        : stat_tmp
+                      : 0;
+                    setFilterValue({
+                      ...filterValue,
+                      [e]: stat_tmp,
+                    });
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -1283,8 +1342,9 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
   }
 
   async function searchSetting() {
-    setPageStatus(2);
+    setProgress(0);
     setCurrentCase(0);
+    setPageStatus(2);
     const tmp_info: { name: string; point: number }[] = targetList.map(
       (e: EngraveInfo) => {
         return { name: e.name, point: e.level! * 5 };
@@ -1359,8 +1419,8 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     // 각인 조합 반복문
     let single_res;
     setTotalCases(uniqueEngrave.length * (ear_diff ? (ring_diff ? 5 : 4) : 3));
-    // const inFunctionTotalCases =
-    //   answer.length * accessory_order_list.length * 5;
+
+    // let resultObject: { [key: number]: AuctionItem[] } = testResult;
     let resultObject: { [key: number]: AuctionItem[] } = {
       0: [],
       1: [],
@@ -1434,9 +1494,16 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
                   res("done");
                 }, 62000);
               });
+            } else if (error.response?.status === 503) {
+              setPageStatus(1);
+              alert(
+                "로스트아크 서버의 검색 서비스가 일시적으로 비활성화 됐습니다.\n서버 점검 시간이 아니라면, 잠시 후에 다시 검색해주세요."
+              );
+              return;
             } else {
               errorArray.push(error);
               if (errorArray.length >= 3) {
+                setPageStatus(1);
                 console.dir(errorArray);
                 alert("로스트아크 서버 상태가 좋지 않아 검색이 취소됩니다.");
                 return;
@@ -1446,7 +1513,6 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
         }
       }
     }
-    // let resultObject: { [key: number]: AuctionItem[] } = testResult;
 
     /* 
      resultObject에서 중복을 제가해줘야 한다.
@@ -1485,6 +1551,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
         )
       );
     });
+
     console.log(resultObject);
 
     const positiveCounter: { [key: string]: number } = tmp_info.reduce(
@@ -1521,7 +1588,9 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
             return e.slice(0, 5).map((e2) => resultObject[e2[1]][e2[0]]);
           })
         );
-        setPageStatus(1);
+        setTimeout(() => {
+          setPageStatus(1);
+        }, 1000);
       }
     };
   }

@@ -18,6 +18,9 @@ import Skip from "./Skip";
 import Target from "./Target";
 import Triangle from "./Triangle";
 import Spinner from "./Spinner";
+import Box from "./Box";
+import Gear from "./Gear";
+import Filter from "./Filter";
 
 export {
   AlertOctagon,
@@ -40,4 +43,7 @@ export {
   Target,
   Triangle,
   Spinner,
+  Box,
+  Gear,
+  Filter,
 };

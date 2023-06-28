@@ -33,7 +33,7 @@ onmessage = (e: {
     tmpPositive: number[];
   (sum = 0), (min = 9999999999);
 
-  console.log(infoObject[2].length, infoObject[4].length);
+  // console.log(infoObject[2].length, infoObject[4].length);
 
   if (infoObject[2].length && infoObject[4].length) {
     for (
@@ -48,7 +48,7 @@ onmessage = (e: {
       if (
         checkNegative(negativeCounter) ||
         checkPositive(tmpPositive, 0) ||
-        (availableArray.length === 100 && sum >= min)
+        (availableArray.length === 300 && sum >= min)
       ) {
         applyAccessoryEngrave(positiveCounter, negativeCounter, _neck, true);
         continue;
@@ -67,7 +67,7 @@ onmessage = (e: {
         if (
           checkNegative(negativeCounter) ||
           checkPositive(tmpPositive, 1) ||
-          (availableArray.length === 100 && sum >= min)
+          (availableArray.length === 300 && sum >= min)
         ) {
           applyAccessoryEngrave(positiveCounter, negativeCounter, _ear1, true);
           continue;
@@ -80,7 +80,7 @@ onmessage = (e: {
           if (
             checkNegative(negativeCounter) ||
             checkPositive(tmpPositive, 2) ||
-            (availableArray.length === 100 && sum >= min)
+            (availableArray.length === 300 && sum >= min)
           ) {
             applyAccessoryEngrave(
               positiveCounter,
@@ -107,7 +107,7 @@ onmessage = (e: {
             if (
               checkNegative(negativeCounter) ||
               checkPositive(tmpPositive, 3) ||
-              (availableArray.length === 100 && sum >= min)
+              (availableArray.length === 300 && sum >= min)
             ) {
               applyAccessoryEngrave(
                 positiveCounter,
@@ -134,7 +134,7 @@ onmessage = (e: {
               if (
                 checkNegative(negativeCounter) ||
                 checkPositive(tmpPositive, 4) ||
-                (availableArray.length === 100 && sum >= min)
+                (availableArray.length === 300 && sum >= min)
               ) {
                 applyAccessoryEngrave(
                   positiveCounter,
@@ -154,9 +154,9 @@ onmessage = (e: {
                 [sum],
               ]);
               availableArray.sort((a, b) => a[5][0] - b[5][0]);
-              if (availableArray.length > 100) {
+              if (availableArray.length > 300) {
                 availableArray.pop();
-                min = availableArray[99][5][0];
+                min = availableArray[299][5][0];
               }
               // console.log(availableArray);
 
@@ -193,7 +193,7 @@ onmessage = (e: {
       if (
         checkNegative(negativeCounter) ||
         checkPositive(tmpPositive, 0) ||
-        (availableArray.length === 100 && sum >= min)
+        (availableArray.length === 300 && sum >= min)
       ) {
         applyAccessoryEngrave(positiveCounter, negativeCounter, _neck, true);
         continue;
@@ -212,7 +212,7 @@ onmessage = (e: {
         if (
           checkNegative(negativeCounter) ||
           checkPositive(tmpPositive, 1) ||
-          (availableArray.length === 100 && sum >= min)
+          (availableArray.length === 300 && sum >= min)
         ) {
           applyAccessoryEngrave(positiveCounter, negativeCounter, _ear1, true);
           continue;
@@ -225,7 +225,7 @@ onmessage = (e: {
           if (
             checkNegative(negativeCounter) ||
             checkPositive(tmpPositive, 2) ||
-            (availableArray.length === 100 && sum >= min)
+            (availableArray.length === 300 && sum >= min)
           ) {
             applyAccessoryEngrave(
               positiveCounter,
@@ -252,7 +252,7 @@ onmessage = (e: {
             if (
               checkNegative(negativeCounter) ||
               checkPositive(tmpPositive, 3) ||
-              (availableArray.length === 100 && sum >= min)
+              (availableArray.length === 300 && sum >= min)
             ) {
               applyAccessoryEngrave(
                 positiveCounter,
@@ -279,7 +279,7 @@ onmessage = (e: {
               if (
                 checkNegative(negativeCounter) ||
                 checkPositive(tmpPositive, 4) ||
-                (availableArray.length === 100 && sum >= min)
+                (availableArray.length === 300 && sum >= min)
               ) {
                 applyAccessoryEngrave(
                   positiveCounter,
@@ -299,9 +299,9 @@ onmessage = (e: {
                 [sum],
               ]);
               availableArray.sort((a, b) => a[5][0] - b[5][0]);
-              if (availableArray.length > 100) {
+              if (availableArray.length > 300) {
                 availableArray.pop();
-                min = availableArray[99][5][0];
+                min = availableArray[299][5][0];
               }
 
               applyAccessoryEngrave(
@@ -337,7 +337,7 @@ onmessage = (e: {
       if (
         checkNegative(negativeCounter) ||
         checkPositive(tmpPositive, 0) ||
-        (availableArray.length === 100 && sum >= min)
+        (availableArray.length === 300 && sum >= min)
       ) {
         applyAccessoryEngrave(positiveCounter, negativeCounter, _neck, true);
         continue;
@@ -356,7 +356,7 @@ onmessage = (e: {
         if (
           checkNegative(negativeCounter) ||
           checkPositive(tmpPositive, 1) ||
-          (availableArray.length === 100 && sum >= min)
+          (availableArray.length === 300 && sum >= min)
         ) {
           applyAccessoryEngrave(positiveCounter, negativeCounter, _ear1, true);
           continue;
@@ -373,7 +373,7 @@ onmessage = (e: {
           if (
             checkNegative(negativeCounter) ||
             checkPositive(tmpPositive, 2) ||
-            (availableArray.length === 100 && sum >= min)
+            (availableArray.length === 300 && sum >= min)
           ) {
             applyAccessoryEngrave(
               positiveCounter,
@@ -400,7 +400,7 @@ onmessage = (e: {
             if (
               checkNegative(negativeCounter) ||
               checkPositive(tmpPositive, 3) ||
-              (availableArray.length === 100 && sum >= min)
+              (availableArray.length === 300 && sum >= min)
             ) {
               applyAccessoryEngrave(
                 positiveCounter,
@@ -427,7 +427,7 @@ onmessage = (e: {
               if (
                 checkNegative(negativeCounter) ||
                 checkPositive(tmpPositive, 4) ||
-                (availableArray.length === 100 && sum >= min)
+                (availableArray.length === 300 && sum >= min)
               ) {
                 applyAccessoryEngrave(
                   positiveCounter,
@@ -447,9 +447,9 @@ onmessage = (e: {
                 [sum],
               ]);
               availableArray.sort((a, b) => a[5][0] - b[5][0]);
-              if (availableArray.length > 100) {
+              if (availableArray.length > 300) {
                 availableArray.pop();
-                min = availableArray[99][5][0];
+                min = availableArray[299][5][0];
               }
 
               applyAccessoryEngrave(
@@ -486,7 +486,7 @@ onmessage = (e: {
       if (
         checkNegative(negativeCounter) ||
         checkPositive(tmpPositive, 0) ||
-        (availableArray.length === 100 && sum >= min)
+        (availableArray.length === 300 && sum >= min)
       ) {
         applyAccessoryEngrave(positiveCounter, negativeCounter, _neck, true);
         continue;
@@ -505,7 +505,7 @@ onmessage = (e: {
         if (
           checkNegative(negativeCounter) ||
           checkPositive(tmpPositive, 1) ||
-          (availableArray.length === 100 && sum >= min)
+          (availableArray.length === 300 && sum >= min)
         ) {
           applyAccessoryEngrave(positiveCounter, negativeCounter, _ear1, true);
           continue;
@@ -522,7 +522,7 @@ onmessage = (e: {
           if (
             checkNegative(negativeCounter) ||
             checkPositive(tmpPositive, 2) ||
-            (availableArray.length === 100 && sum >= min)
+            (availableArray.length === 300 && sum >= min)
           ) {
             applyAccessoryEngrave(
               positiveCounter,
@@ -549,7 +549,7 @@ onmessage = (e: {
             if (
               checkNegative(negativeCounter) ||
               checkPositive(tmpPositive, 3) ||
-              (availableArray.length === 100 && sum >= min)
+              (availableArray.length === 300 && sum >= min)
             ) {
               applyAccessoryEngrave(
                 positiveCounter,
@@ -576,7 +576,7 @@ onmessage = (e: {
               if (
                 checkNegative(negativeCounter) ||
                 checkPositive(tmpPositive, 4) ||
-                (availableArray.length === 100 && sum >= min)
+                (availableArray.length === 300 && sum >= min)
               ) {
                 applyAccessoryEngrave(
                   positiveCounter,
@@ -596,9 +596,9 @@ onmessage = (e: {
                 [sum],
               ]);
               availableArray.sort((a, b) => a[5][0] - b[5][0]);
-              if (availableArray.length > 100) {
+              if (availableArray.length > 300) {
                 availableArray.pop();
-                min = availableArray[99][5][0];
+                min = availableArray[299][5][0];
               }
 
               applyAccessoryEngrave(
