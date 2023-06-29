@@ -1464,6 +1464,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     });
     // console.log(uniqueEngrave);
     if (!uniqueEngrave.length) {
+      setPageStatus(1);
       alert("불가능한 목표 각인입니다.");
       return;
     }
