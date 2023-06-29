@@ -19,6 +19,7 @@ $myLightBlue: #76b1ff;
 
       .bodyBoxShadow {
         border-radius: 10px;
+        border: 1px solid #333;
         box-shadow: 0px 0px 10px -5px #fff;
       }
 
@@ -301,24 +302,74 @@ $myLightBlue: #76b1ff;
     }
 
     .searchFooter {
-      @apply flex flex-col gap-3;
-      .searchButtons {
-        @apply flex w-full gap-4 items-center h-10;
-      }
-      .searchFilter {
-        @apply flex-wrap gap-1;
-        .filterDiv {
-          @apply w-28 flex flex-col;
-          input {
-            @apply relative w-20 text-right outline-none focus:border-[#4691f6];
-            background: transparent;
-            &::after {
-              @apply absolute left-0 bottom-0 w-16;
-              content: "";
-              border-bottom: 10px solid #fff;
+      @apply flex flex-col gap-3 items-start;
+      .filterWrapper {
+        @apply inline-flex grow-0 flex-col gap-3 p-4 pt-2;
+        border-radius: 5px;
+        border: 1px solid #333;
+        box-shadow: 0px 0px 10px -5px #fff;
+
+        .filterHeader {
+          @apply flex text-xl font-bold items-center gap-2;
+        }
+        .filterDescr {
+          @apply text-sm flex flex-col gap-[2px];
+          color: #999;
+        }
+        .searchFilterSetting {
+          @apply flex flex-wrap gap-x-1 gap-y-3;
+          .statFilter {
+            @apply grid gap-y-2 grid-cols-3 xs:flex xs:grid-cols-none;
+            .filterDiv {
+              @apply relative w-16 flex flex-col pt-6;
+              input {
+                @apply w-16 pr-[1px] outline-none focus:border-[#4691f6] focus:font-bold;
+                background: transparent;
+              }
+              .borderDiv {
+                @apply absolute w-12 top-6 cursor-text;
+                content: "";
+                border-bottom: 1px solid #ddd;
+                .filterTitle {
+                  transform: translateY(-24px);
+                }
+              }
+              input:focus ~ .borderDiv {
+                @apply font-bold;
+                color: $myBlue;
+                border-color: $myBlue;
+              }
+            }
+          }
+          .otherFilter {
+            .filterDiv {
+              @apply relative w-40 flex flex-col pt-6;
+              input {
+                @apply w-20 pr-[1px] outline-none focus:border-[#4691f6] focus:font-bold;
+                background: transparent;
+              }
+              .borderDiv {
+                @apply absolute box-content w-16 h-6 top-6 cursor-text;
+                content: "";
+                border-bottom: 1px solid #ddd;
+                .filterTitle {
+                  @apply absolute w-40 top-[-24px] left-0;
+                }
+                .filterSubtitle {
+                  @apply absolute top-1 right-0 text-sm;
+                }
+              }
+              input:focus ~ .borderDiv {
+                @apply font-bold;
+                color: $myBlue;
+                border-color: $myBlue;
+              }
             }
           }
         }
+      }
+      .searchButtons {
+        @apply flex w-full gap-4 items-center h-10;
       }
     }
 

@@ -63,6 +63,13 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
   setCurrentCase,
   setMyTimer,
 }) => {
+  let resultObject: { [key: number]: AuctionItem[] } = {
+    0: [],
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+  };
   const answer: Combination[] = [];
   const tmp: number[][] = [];
   const [myWorker, setMyWorker] = useState<Worker>();
@@ -165,7 +172,9 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     ],
   };
 
-  const [filterValue, setFilterValue] = useState<{ [key: string]: number }>({
+  const [statFilterValue, setStatFilterValue] = useState<{
+    [key: string]: number;
+  }>({
     치명: 0,
     특화: 0,
     신속: 0,
@@ -173,7 +182,11 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     인내: 0,
     숙련: 0,
   });
-  const [enableFilter, setEnableFilter] = useState<boolean>(false);
+  const [otherFilterValue, setOtherFilterValue] = useState<{
+    [key: string]: number;
+  }>({
+    "거래 가능 횟수": 0,
+  });
   const [dropdownMode, setDropdownMode] = useState<DropdownMode>(3);
   const [searchValue, setSearchValue] = useState<string>("");
   // 자꾸 자식요소(각인) 클릭 시 blur이벤트때문에 dropdown이 사라졌다가 다시나옴.
@@ -1120,6 +1133,90 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
         </div>
       </div>
       <div className={styles.searchFooter}>
+        <div className={styles.filterWrapper}>
+          <h4 className={styles.filterHeader}>
+            <Filter color="#ccc" size={24} />
+            <span>필터</span>
+          </h4>
+          <div className={styles.filterDescr}>
+            <p>🔹 "검색" 사용 시 자동 적용됩니다.</p>
+            <p>
+              🔹 "검색 결과 필터링" 버튼을 통해, 검색 후 결과에 따로 적용
+              가능합니다.
+            </p>
+          </div>
+          <div className={styles.searchFilterSetting}>
+            <div className={styles.statFilter}>
+              {Object.keys(statFilterValue).map((e) => {
+                return (
+                  <div className={styles.filterDiv} key={`filter_${e}`}>
+                    <label>
+                      <input
+                        type="number"
+                        value={statFilterValue[e]}
+                        max={1500}
+                        min={0}
+                        onFocus={(event) => {
+                          event.target.select();
+                        }}
+                        onChange={(event) => {
+                          let stat_tmp = parseInt(event.target.value);
+                          stat_tmp = stat_tmp
+                            ? stat_tmp > 1500
+                              ? 1500
+                              : stat_tmp < 0
+                              ? 0
+                              : stat_tmp
+                            : 0;
+                          setStatFilterValue({
+                            ...statFilterValue,
+                            [e]: stat_tmp,
+                          });
+                        }}
+                      />
+                      <div className={styles.borderDiv}>
+                        <p className={styles.filterTitle}>{e}</p>{" "}
+                      </div>
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+            <div className={styles.otherFilter}>
+              <div className={styles.filterDiv}>
+                <label>
+                  <input
+                    type="number"
+                    value={otherFilterValue["거래 가능 횟수"]}
+                    max={2}
+                    min={0}
+                    onFocus={(event) => {
+                      event.target.select();
+                    }}
+                    onChange={(event) => {
+                      let count = parseInt(event.target.value);
+                      count = count
+                        ? count > 2
+                          ? 2
+                          : count < 0
+                          ? 0
+                          : count
+                        : 0;
+                      setOtherFilterValue({
+                        ...otherFilterValue,
+                        "거래 가능 횟수": count,
+                      });
+                    }}
+                  />
+                  <div className={styles.borderDiv}>
+                    <p className={styles.filterTitle}>구매 후 거래 가능 횟수</p>
+                    <p className={styles.filterSubtitle}>회 이상</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className={styles.searchButtons}>
           <button
             className="myButtons"
@@ -1132,50 +1229,14 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
           </button>
 
           <button
-            className={enableFilter ? "myButtons focus" : "myButtons"}
+            className="myButtons"
             onClick={() => {
-              setEnableFilter((e) => !e);
+              // setEnableFilter((e) => !e);
             }}
           >
             <Filter color="#ccc" size={24} />
-            <span>결과 필터링</span>
+            <span>검색 결과 필터링</span>
           </button>
-        </div>
-        <div
-          className={`${styles.searchFilter} ${
-            enableFilter ? "flex" : "hidden"
-          }`}
-        >
-          {Object.keys(filterValue).map((e) => {
-            return (
-              <div className={styles.filterDiv} key={`filter_${e}`}>
-                <p>{e}</p>
-                <input
-                  type="number"
-                  value={filterValue[e]}
-                  max={1500}
-                  min={0}
-                  onFocus={(event) => {
-                    event.target.select();
-                  }}
-                  onChange={(event) => {
-                    let stat_tmp = parseInt(event.target.value);
-                    stat_tmp = stat_tmp
-                      ? stat_tmp > 1500
-                        ? 1500
-                        : stat_tmp < 0
-                        ? 0
-                        : stat_tmp
-                      : 0;
-                    setFilterValue({
-                      ...filterValue,
-                      [e]: stat_tmp,
-                    });
-                  }}
-                />
-              </div>
-            );
-          })}
         </div>
       </div>
     </div>
@@ -1421,13 +1482,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     setTotalCases(uniqueEngrave.length * (ear_diff ? (ring_diff ? 5 : 4) : 3));
 
     // let resultObject: { [key: number]: AuctionItem[] } = testResult;
-    let resultObject: { [key: number]: AuctionItem[] } = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-    };
+
     let errorArray = [];
 
     // 고유 각인 반복
