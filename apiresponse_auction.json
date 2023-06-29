@@ -1,0 +1,607 @@
+{
+  "PageNo": 1,
+  "PageSize": 10,
+  "TotalCount": 10000,
+  "Items": [
+    {
+      "Name": "거룩한 선지자의 목걸이",
+      "Grade": "고대",
+      "Tier": 3,
+      "Level": null,
+      "Icon": "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/efui_iconatlas/acc/acc_204.png",
+      "GradeQuality": 54,
+      "AuctionInfo": {
+        "StartPrice": 1,
+        "BuyPrice": null,
+        "BidPrice": 0,
+        "EndDate": "2023-06-29T16:59:41.65",
+        "BidCount": 0,
+        "BidStartPrice": 1,
+        "IsCompetitive": false,
+        "TradeAllowCount": 2
+      },
+      "Options": [
+        {
+          "Type": "STAT",
+          "OptionName": "신속",
+          "OptionNameTripod": "",
+          "Value": 417,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "STAT",
+          "OptionName": "특화",
+          "OptionNameTripod": "",
+          "Value": 491,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "공격력 감소",
+          "OptionNameTripod": "",
+          "Value": 2,
+          "IsPenalty": true,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "중갑 착용",
+          "OptionNameTripod": "",
+          "Value": 6,
+          "IsPenalty": false,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "정기 흡수",
+          "OptionNameTripod": "",
+          "Value": 3,
+          "IsPenalty": false,
+          "ClassName": ""
+        }
+      ]
+    },
+    {
+      "Name": "공허한 운명의 목걸이",
+      "Grade": "고대",
+      "Tier": 3,
+      "Level": null,
+      "Icon": "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/efui_iconatlas/acc/acc_204.png",
+      "GradeQuality": 80,
+      "AuctionInfo": {
+        "StartPrice": 1,
+        "BuyPrice": null,
+        "BidPrice": 0,
+        "EndDate": "2023-06-29T18:36:32.61",
+        "BidCount": 0,
+        "BidStartPrice": 1,
+        "IsCompetitive": false,
+        "TradeAllowCount": 1
+      },
+      "Options": [
+        {
+          "Type": "STAT",
+          "OptionName": "특화",
+          "OptionNameTripod": "",
+          "Value": 500,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "STAT",
+          "OptionName": "치명",
+          "OptionNameTripod": "",
+          "Value": 461,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "이동속도 감소",
+          "OptionNameTripod": "",
+          "Value": 3,
+          "IsPenalty": true,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "안정된 상태",
+          "OptionNameTripod": "",
+          "Value": 5,
+          "IsPenalty": false,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "아드레날린",
+          "OptionNameTripod": "",
+          "Value": 3,
+          "IsPenalty": false,
+          "ClassName": ""
+        }
+      ]
+    },
+    {
+      "Name": "참혹한 파멸의 목걸이",
+      "Grade": "고대",
+      "Tier": 3,
+      "Level": null,
+      "Icon": "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/efui_iconatlas/acc/acc_213.png",
+      "GradeQuality": 93,
+      "AuctionInfo": {
+        "StartPrice": 1,
+        "BuyPrice": 9999,
+        "BidPrice": 0,
+        "EndDate": "2023-06-29T19:06:51.08",
+        "BidCount": 0,
+        "BidStartPrice": 1,
+        "IsCompetitive": false,
+        "TradeAllowCount": 2
+      },
+      "Options": [
+        {
+          "Type": "STAT",
+          "OptionName": "신속",
+          "OptionNameTripod": "",
+          "Value": 497,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "STAT",
+          "OptionName": "특화",
+          "OptionNameTripod": "",
+          "Value": 490,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "이동속도 감소",
+          "OptionNameTripod": "",
+          "Value": 3,
+          "IsPenalty": true,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "절정",
+          "OptionNameTripod": "",
+          "Value": 3,
+          "IsPenalty": false,
+          "ClassName": "창술사"
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "정밀 단도",
+          "OptionNameTripod": "",
+          "Value": 5,
+          "IsPenalty": false,
+          "ClassName": ""
+        }
+      ]
+    },
+    {
+      "Name": "참혹한 쇠락의 목걸이",
+      "Grade": "고대",
+      "Tier": 3,
+      "Level": null,
+      "Icon": "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/efui_iconatlas/acc/acc_213.png",
+      "GradeQuality": 75,
+      "AuctionInfo": {
+        "StartPrice": 1,
+        "BuyPrice": 444,
+        "BidPrice": 0,
+        "EndDate": "2023-06-29T19:07:40.433",
+        "BidCount": 0,
+        "BidStartPrice": 1,
+        "IsCompetitive": false,
+        "TradeAllowCount": 2
+      },
+      "Options": [
+        {
+          "Type": "STAT",
+          "OptionName": "특화",
+          "OptionNameTripod": "",
+          "Value": 492,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "STAT",
+          "OptionName": "치명",
+          "OptionNameTripod": "",
+          "Value": 459,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "이동속도 감소",
+          "OptionNameTripod": "",
+          "Value": 3,
+          "IsPenalty": true,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "저주받은 인형",
+          "OptionNameTripod": "",
+          "Value": 4,
+          "IsPenalty": false,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "아드레날린",
+          "OptionNameTripod": "",
+          "Value": 3,
+          "IsPenalty": false,
+          "ClassName": ""
+        }
+      ]
+    },
+    {
+      "Name": "참혹한 쇠락의 목걸이",
+      "Grade": "고대",
+      "Tier": 3,
+      "Level": null,
+      "Icon": "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/efui_iconatlas/acc/acc_213.png",
+      "GradeQuality": 82,
+      "AuctionInfo": {
+        "StartPrice": 1,
+        "BuyPrice": 11111,
+        "BidPrice": 0,
+        "EndDate": "2023-06-29T19:30:59.107",
+        "BidCount": 0,
+        "BidStartPrice": 1,
+        "IsCompetitive": false,
+        "TradeAllowCount": 2
+      },
+      "Options": [
+        {
+          "Type": "STAT",
+          "OptionName": "신속",
+          "OptionNameTripod": "",
+          "Value": 481,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "STAT",
+          "OptionName": "특화",
+          "OptionNameTripod": "",
+          "Value": 483,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "공격속도 감소",
+          "OptionNameTripod": "",
+          "Value": 1,
+          "IsPenalty": true,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "각성",
+          "OptionNameTripod": "",
+          "Value": 6,
+          "IsPenalty": false,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "돌격대장",
+          "OptionNameTripod": "",
+          "Value": 3,
+          "IsPenalty": false,
+          "ClassName": ""
+        }
+      ]
+    },
+    {
+      "Name": "참혹한 쇠락의 목걸이",
+      "Grade": "고대",
+      "Tier": 3,
+      "Level": null,
+      "Icon": "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/efui_iconatlas/acc/acc_213.png",
+      "GradeQuality": 97,
+      "AuctionInfo": {
+        "StartPrice": 1,
+        "BuyPrice": null,
+        "BidPrice": 0,
+        "EndDate": "2023-06-29T19:37:00.91",
+        "BidCount": 0,
+        "BidStartPrice": 1,
+        "IsCompetitive": false,
+        "TradeAllowCount": 2
+      },
+      "Options": [
+        {
+          "Type": "STAT",
+          "OptionName": "특화",
+          "OptionNameTripod": "",
+          "Value": 499,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "STAT",
+          "OptionName": "치명",
+          "OptionNameTripod": "",
+          "Value": 495,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "공격력 감소",
+          "OptionNameTripod": "",
+          "Value": 2,
+          "IsPenalty": true,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "저주받은 인형",
+          "OptionNameTripod": "",
+          "Value": 4,
+          "IsPenalty": false,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "결투의 대가",
+          "OptionNameTripod": "",
+          "Value": 3,
+          "IsPenalty": false,
+          "ClassName": ""
+        }
+      ]
+    },
+    {
+      "Name": "참혹한 파멸의 목걸이",
+      "Grade": "고대",
+      "Tier": 3,
+      "Level": null,
+      "Icon": "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/efui_iconatlas/acc/acc_213.png",
+      "GradeQuality": 93,
+      "AuctionInfo": {
+        "StartPrice": 1,
+        "BuyPrice": 50000,
+        "BidPrice": 0,
+        "EndDate": "2023-06-29T19:54:59.437",
+        "BidCount": 0,
+        "BidStartPrice": 1,
+        "IsCompetitive": false,
+        "TradeAllowCount": 2
+      },
+      "Options": [
+        {
+          "Type": "STAT",
+          "OptionName": "인내",
+          "OptionNameTripod": "",
+          "Value": 494,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "STAT",
+          "OptionName": "특화",
+          "OptionNameTripod": "",
+          "Value": 493,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "공격력 감소",
+          "OptionNameTripod": "",
+          "Value": 1,
+          "IsPenalty": true,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "절정",
+          "OptionNameTripod": "",
+          "Value": 3,
+          "IsPenalty": false,
+          "ClassName": "창술사"
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "아드레날린",
+          "OptionNameTripod": "",
+          "Value": 5,
+          "IsPenalty": false,
+          "ClassName": ""
+        }
+      ]
+    },
+    {
+      "Name": "참혹한 파멸의 목걸이",
+      "Grade": "고대",
+      "Tier": 3,
+      "Level": null,
+      "Icon": "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/efui_iconatlas/acc/acc_213.png",
+      "GradeQuality": 96,
+      "AuctionInfo": {
+        "StartPrice": 1,
+        "BuyPrice": null,
+        "BidPrice": 0,
+        "EndDate": "2023-06-29T19:58:41.337",
+        "BidCount": 0,
+        "BidStartPrice": 1,
+        "IsCompetitive": false,
+        "TradeAllowCount": 2
+      },
+      "Options": [
+        {
+          "Type": "STAT",
+          "OptionName": "신속",
+          "OptionNameTripod": "",
+          "Value": 494,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "STAT",
+          "OptionName": "특화",
+          "OptionNameTripod": "",
+          "Value": 499,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "공격력 감소",
+          "OptionNameTripod": "",
+          "Value": 1,
+          "IsPenalty": true,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "고독한 기사",
+          "OptionNameTripod": "",
+          "Value": 6,
+          "IsPenalty": false,
+          "ClassName": "워로드"
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "아드레날린",
+          "OptionNameTripod": "",
+          "Value": 3,
+          "IsPenalty": false,
+          "ClassName": ""
+        }
+      ]
+    },
+    {
+      "Name": "참혹한 쇠락의 목걸이",
+      "Grade": "고대",
+      "Tier": 3,
+      "Level": null,
+      "Icon": "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/efui_iconatlas/acc/acc_213.png",
+      "GradeQuality": 96,
+      "AuctionInfo": {
+        "StartPrice": 1,
+        "BuyPrice": null,
+        "BidPrice": 0,
+        "EndDate": "2023-06-29T20:23:56.127",
+        "BidCount": 0,
+        "BidStartPrice": 1,
+        "IsCompetitive": false,
+        "TradeAllowCount": 2
+      },
+      "Options": [
+        {
+          "Type": "STAT",
+          "OptionName": "제압",
+          "OptionNameTripod": "",
+          "Value": 497,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "STAT",
+          "OptionName": "치명",
+          "OptionNameTripod": "",
+          "Value": 495,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "방어력 감소",
+          "OptionNameTripod": "",
+          "Value": 1,
+          "IsPenalty": true,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "절정",
+          "OptionNameTripod": "",
+          "Value": 3,
+          "IsPenalty": false,
+          "ClassName": "창술사"
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "기습의 대가",
+          "OptionNameTripod": "",
+          "Value": 6,
+          "IsPenalty": false,
+          "ClassName": ""
+        }
+      ]
+    },
+    {
+      "Name": "참혹한 쇠락의 목걸이",
+      "Grade": "고대",
+      "Tier": 3,
+      "Level": null,
+      "Icon": "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/efui_iconatlas/acc/acc_213.png",
+      "GradeQuality": 78,
+      "AuctionInfo": {
+        "StartPrice": 1,
+        "BuyPrice": 3000,
+        "BidPrice": 0,
+        "EndDate": "2023-06-29T20:47:50.123",
+        "BidCount": 0,
+        "BidStartPrice": 1,
+        "IsCompetitive": false,
+        "TradeAllowCount": 2
+      },
+      "Options": [
+        {
+          "Type": "STAT",
+          "OptionName": "신속",
+          "OptionNameTripod": "",
+          "Value": 458,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "STAT",
+          "OptionName": "치명",
+          "OptionNameTripod": "",
+          "Value": 500,
+          "IsPenalty": false,
+          "ClassName": null
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "방어력 감소",
+          "OptionNameTripod": "",
+          "Value": 1,
+          "IsPenalty": true,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "속전속결",
+          "OptionNameTripod": "",
+          "Value": 6,
+          "IsPenalty": false,
+          "ClassName": ""
+        },
+        {
+          "Type": "ABILITY_ENGRAVE",
+          "OptionName": "아드레날린",
+          "OptionNameTripod": "",
+          "Value": 3,
+          "IsPenalty": false,
+          "ClassName": ""
+        }
+      ]
+    }
+  ]
+}

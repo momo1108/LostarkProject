@@ -63,13 +63,6 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
   setCurrentCase,
   setMyTimer,
 }) => {
-  let resultObject: { [key: number]: AuctionItem[] } = {
-    0: [],
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-  };
   const answer: Combination[] = [];
   const tmp: number[][] = [];
   const [myWorker, setMyWorker] = useState<Worker>();
@@ -77,6 +70,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     const timer = setInterval(() => {
       setMyTimer((e) => e - 1);
     }, 1000);
+
     setMyWorker(
       new Worker(new URL("@/web_workers/worker.ts", import.meta.url))
     );
@@ -86,6 +80,27 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       clearInterval(timer);
     };
   }, []);
+  useEffect(() => {
+    if (myWorker)
+      myWorker.onmessage = (e) => {
+        if (e.data.type === 0) setProgress(e.data.data);
+        else {
+          console.log(e.data);
+          const { availableArray, infoObject } = e.data.data;
+
+          setCombinationList(
+            availableArray.map((e: number[][]) => {
+              return e
+                .slice(0, 5)
+                .map((e2: number[]) => infoObject[e2[1]][e2[0]]);
+            })
+          );
+          setTimeout(() => {
+            setPageStatus(1);
+          }, 1000);
+        }
+      };
+  }, [myWorker]);
   const [targetList, setTargetList] = useState<EngraveInfo[]>([]);
   const [equipList, setEquipList] = useState<EngraveInfo[]>([]);
   const [abilityList, setAbilityList] = useState<EngraveInfo[]>([]);
@@ -171,6 +186,15 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       setRingState2,
     ],
   };
+  const [resultObject, setResultObject] = useState<{
+    [key: number]: AuctionItem[];
+  }>({
+    0: [],
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+  });
 
   const [statFilterValue, setStatFilterValue] = useState<{
     [key: string]: number;
@@ -1231,7 +1255,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
           <button
             className="myButtons"
             onClick={() => {
-              // setEnableFilter((e) => !e);
+              applyFilter();
             }}
           >
             <Filter color="#ccc" size={24} />
@@ -1406,6 +1430,14 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     setProgress(0);
     setCurrentCase(0);
     setPageStatus(2);
+    let tmp_resultObject: { [key: number]: AuctionItem[] } = {
+      0: [],
+      1: [],
+      2: [],
+      3: [],
+      4: [],
+    };
+
     const tmp_info: { name: string; point: number }[] = targetList.map(
       (e: EngraveInfo) => {
         return { name: e.name, point: e.level! * 5 };
@@ -1482,7 +1514,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     let single_res;
     setTotalCases(uniqueEngrave.length * (ear_diff ? (ring_diff ? 5 : 4) : 3));
 
-    // let resultObject: { [key: number]: AuctionItem[] } = testResult;
+    // let tmp_resultObject: { [key: number]: AuctionItem[] } = testResult;
 
     let errorArray = [];
 
@@ -1537,7 +1569,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
             });
             // 해당 악세가 없으면 Items 가 null 로 반환됨
             if (single_res.data.Items)
-              resultObject[ap].push(...single_res.data.Items);
+              tmp_resultObject[ap].push(...single_res.data.Items);
             setCurrentCase((e) => e + 1);
             break;
           } catch (error: any) {
@@ -1590,10 +1622,10 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     };
 
     [0, 1, 2, 3, 4].map((i) => {
-      resultObject[i] = resultObject[i]
+      tmp_resultObject[i] = tmp_resultObject[i]
         .filter((accessory) => accessory.AuctionInfo.BuyPrice)
         .sort((a, b) => a.AuctionInfo.BuyPrice - b.AuctionInfo.BuyPrice);
-      resultObject[i].map((accessory) =>
+      tmp_resultObject[i].map((accessory) =>
         uniqueAccessoryInfo[i].add(
           `${accessory.Name}_${accessory.GradeQuality}_${accessory.AuctionInfo.EndDate}`
         )
@@ -1601,14 +1633,12 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     });
 
     [0, 1, 2, 3, 4].map((i) => {
-      resultObject[i] = resultObject[i].filter((accessory) =>
+      tmp_resultObject[i] = tmp_resultObject[i].filter((accessory) =>
         uniqueAccessoryInfo[i].delete(
           `${accessory.Name}_${accessory.GradeQuality}_${accessory.AuctionInfo.EndDate}`
         )
       );
     });
-
-    console.log(resultObject);
 
     const positiveCounter: { [key: string]: number } = tmp_info.reduce(
       (prev, cur) => ({ ...prev, [cur.name]: cur.point }),
@@ -1621,34 +1651,24 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       "이동속도 감소": 0,
     };
     negativeCounter[negativeEngrave.name] += negativeEngrave.point || 0;
-    let availableArray: number[][][] = [];
 
     setPageStatus(3);
-    myWorker?.postMessage(
-      JSON.parse(
+    setResultObject(JSON.parse(JSON.stringify(tmp_resultObject)));
+    myWorker?.postMessage({
+      data: JSON.parse(
         JSON.stringify({
-          infoObject: resultObject,
+          infoObject: tmp_resultObject,
           negativeCounter,
           positiveCounter,
         })
-      )
-    );
-
-    myWorker!.onmessage = (e) => {
-      if (e.data.type === 0) setProgress(e.data.data);
-      else {
-        availableArray = e.data.data;
-
-        setCombinationList(
-          availableArray.map((e) => {
-            return e.slice(0, 5).map((e2) => resultObject[e2[1]][e2[0]]);
-          })
-        );
-        setTimeout(() => {
-          setPageStatus(1);
-        }, 1000);
-      }
-    };
+      ),
+      filter: JSON.parse(
+        JSON.stringify({
+          stat: statFilterValue,
+          others: otherFilterValue,
+        })
+      ),
+    });
   }
 
   function pickTwo(
@@ -1767,6 +1787,74 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       }
       uselessI = false;
     }
+  }
+
+  function applyFilter() {
+    setProgress(0);
+    setCurrentCase(999);
+    setPageStatus(3);
+
+    const tmp_info: { name: string; point: number }[] = targetList.map(
+      (e: EngraveInfo) => {
+        return { name: e.name, point: e.level! * 5 };
+      }
+    );
+    equipList.map((e: EngraveInfo) => {
+      const index = tmp_info.findIndex((e2) => e2.name === e.name);
+      if (index >= 0) {
+        tmp_info[index].point -= e.level! * 3 + 3;
+        if (tmp_info[index].point <= 0) tmp_info.splice(index, 1);
+      }
+    });
+    abilityList.map((e: EngraveInfo) => {
+      const index = tmp_info.findIndex((e2) => e2.name === e.name);
+      if (index >= 0) {
+        tmp_info[index].point -= e.point!;
+        if (tmp_info[index].point <= 0) tmp_info.splice(index, 1);
+      }
+    });
+
+    const ear_diff: boolean =
+      accessoryList.getter[1].stat1.type !== accessoryList.getter[2].stat1.type;
+    const ring_diff: boolean =
+      accessoryList.getter[3].stat1.type !== accessoryList.getter[4].stat1.type;
+
+    // 가능한 각인 조합의 중복을 제거할 Set
+    const mySet = new Set<string>();
+    answer.forEach((e) => {
+      e.data.forEach((e2) => {
+        mySet.add(e2.join(""));
+      });
+    });
+
+    const positiveCounter: { [key: string]: number } = tmp_info.reduce(
+      (prev, cur) => ({ ...prev, [cur.name]: cur.point }),
+      {}
+    );
+
+    const negativeCounter: { [key: string]: number } = {
+      "공격력 감소": 0,
+      "공격속도 감소": 0,
+      "방어력 감소": 0,
+      "이동속도 감소": 0,
+    };
+    negativeCounter[negativeEngrave.name] += negativeEngrave.point || 0;
+
+    myWorker?.postMessage({
+      data: JSON.parse(
+        JSON.stringify({
+          infoObject: resultObject,
+          negativeCounter,
+          positiveCounter,
+        })
+      ),
+      filter: JSON.parse(
+        JSON.stringify({
+          stat: statFilterValue,
+          others: otherFilterValue,
+        })
+      ),
+    });
   }
 };
 
