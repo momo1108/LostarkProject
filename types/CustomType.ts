@@ -13,6 +13,7 @@ export interface IconProps {
   width?: number;
   fill?: string;
   rotate?: number;
+  dataTooltipId?: string;
   className?: string;
   type?: number;
   onClick?: React.MouseEventHandler<SVGSVGElement>;

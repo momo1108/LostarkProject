@@ -45,6 +45,7 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
   const [resultPage, setResultPage] = useState<number>(0);
   const [pageSize, setPageSize] = useState<number>(5);
   const combinationInfo = useMemo(() => {
+    setResultPage(0);
     return combinationList.map((combination) => {
       return combination.reduce(
         (prev: { cost: number; stat: { [key: string]: number } }, cur) => {
@@ -138,7 +139,9 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
                         <div className={styles.totalCostInfoDiv}>
                           <img src="/images/gold.png" alt="" />
                           <span className={styles.totalCost}>
-                            {combinationInfo[resultPage * pageSize + i].cost}
+                            {new Intl.NumberFormat().format(
+                              combinationInfo[resultPage * pageSize + i].cost
+                            )}
                           </span>
                         </div>
                       </div>
@@ -254,14 +257,18 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
                               <span>최소입찰가</span>{" "}
                               <img width={15} src="/images/gold.png" alt="" />
                               <span className={styles.costSpan}>
-                                {e2.AuctionInfo.BidStartPrice}
+                                {new Intl.NumberFormat().format(
+                                  e2.AuctionInfo.BidStartPrice
+                                )}
                               </span>
                             </p>
                             <p className={styles.costP}>
                               <span>즉시구매가</span>{" "}
                               <img width={15} src="/images/gold.png" alt="" />
                               <span className={styles.costSpan}>
-                                {e2.AuctionInfo.BuyPrice}
+                                {new Intl.NumberFormat().format(
+                                  e2.AuctionInfo.BuyPrice
+                                )}
                               </span>
                             </p>
                           </div>

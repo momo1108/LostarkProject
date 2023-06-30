@@ -39,6 +39,7 @@ import {
   Necklace,
   Earring,
   Filter,
+  Info,
 } from "@/components/icons/Index";
 import {
   CATEGORY_CODE,
@@ -46,6 +47,7 @@ import {
   apiEngravePriority,
   testResult,
 } from "@/types/GlobalType";
+import { Tooltip } from "react-tooltip";
 
 type EngraveSearchBlockProps = {
   setCombinationList: Dispatch<SetStateAction<AuctionItem[][]>>;
@@ -67,6 +69,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
   const tmp: number[][] = [];
   const [myWorker, setMyWorker] = useState<Worker>();
   useEffect(() => {
+    setApiKey(localStorage.getItem("loapleEngraveApiKey") || "");
     const timer = setInterval(() => {
       setMyTimer((e) => e - 1);
     }, 1000);
@@ -101,6 +104,9 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
         }
       };
   }, [myWorker]);
+  const [apiKey, setApiKey] = useState<string>("");
+  const [editApiKey, setEditApiKey] = useState<boolean>(false);
+  const apiKeyRef = useRef<HTMLInputElement>(null);
   const [targetList, setTargetList] = useState<EngraveInfo[]>([]);
   const [equipList, setEquipList] = useState<EngraveInfo[]>([]);
   const [abilityList, setAbilityList] = useState<EngraveInfo[]>([]);
@@ -226,30 +232,112 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
   return (
     <div className={styles.searchContainer}>
       <div className={styles.searchHeader}>
-        <button
-          className="myButtons"
-          onClick={() => {
-            saveSetting();
-          }}
-        >
-          <Save color="#ccc" size={20} />
-          <span>세팅저장</span>
-        </button>
-        <button
-          className="myButtons"
-          onClick={() => {
-            loadSetting();
-          }}
-        >
-          <Load color="#ccc" size={20} />
-          <span>불러오기</span>
-        </button>
+        <div className={editApiKey ? styles.apiDiv : "hidden"}>
+          <label>
+            <input
+              className={styles.apiKeyInput}
+              type="text"
+              spellCheck="false"
+              ref={apiKeyRef}
+              required
+            />
+            <div className={styles.placeholder}>API 키 입력</div>
+          </label>
+          <div className="flex gap-1 items-center">
+            <button
+              className="myButtons"
+              onClick={() => {
+                setApiKey(apiKeyRef!.current!.value);
+                setEditApiKey(false);
+                localStorage.setItem(
+                  "loapleEngraveApiKey",
+                  apiKeyRef!.current!.value
+                );
+              }}
+            >
+              <Check size={16} color="#fff" />
+            </button>
+            <button
+              className="myButtons"
+              onClick={() => {
+                apiKeyRef!.current!.value = apiKey;
+                setEditApiKey(false);
+              }}
+            >
+              <MenuIcons type={3} color="#fff" size={16} />
+            </button>
+          </div>
+        </div>
+        <div className={editApiKey ? "hidden" : styles.apiDiv}>
+          <div
+            className={styles.apiKeyDiv}
+            data-valid={apiKey ? "true" : "false"}
+          >
+            {apiKey ? apiKey : "API Key 가 없습니다."}
+          </div>
+          <div className="flex gap-1">
+            <button
+              className="myButtons"
+              data-px="2"
+              onClick={() => {
+                apiKeyRef!.current!.value = apiKey;
+                setEditApiKey(true);
+              }}
+            >
+              <Edit size={16} />
+              <span>{apiKey ? "재등록" : "등록"}</span>
+            </button>
+            <a
+              data-tooltip-id="apiKeySettingInfo"
+              className="myButtons"
+              target="_blank"
+              href={
+                process.env.NODE_ENV === "development"
+                  ? "http://localhost:3000/info/apikey"
+                  : "http://loaple.com/info/apikey"
+              }
+              rel="noopener noreferrer"
+            >
+              <Info size={16} fill="#eee" />
+              <span>등록방법</span>
+            </a>
+          </div>
+          <p className={styles.apiDescr}>
+            ★ 서비스 사용을 위해서 반드시 API Key를 등록해주세요.
+          </p>
+        </div>
+        <div className={styles.presetDiv}>
+          <button
+            className="myButtons"
+            onClick={() => {
+              saveSetting();
+            }}
+          >
+            <Save color="#ccc" size={20} />
+            <span>세팅저장</span>
+          </button>
+          <button
+            className="myButtons"
+            onClick={() => {
+              loadSetting();
+            }}
+          >
+            <Load color="#ccc" size={20} />
+            <span>불러오기</span>
+          </button>
+        </div>
       </div>
       <div className={styles.searchBody}>
         <div className={`${styles.targetEngraveDiv} ${styles.bodyBoxShadow}`}>
           <h4 className={styles.targetTitle}>
             <Target size={30} />
             목표 각인
+            <Info
+              dataTooltipId="targetInfo"
+              className="cursor-help"
+              size={20}
+              fill="#eee"
+            />
           </h4>
           <div
             className={styles.targetSearchDiv}
@@ -433,7 +521,13 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
               width={30}
               alt="전각이미지"
             />
-            장착 각인서
+            <p>장착 각인서</p>
+            <Info
+              dataTooltipId="engraveBookInfo"
+              className="cursor-help"
+              size={20}
+              fill="#eee"
+            />
           </h4>
           <div
             className={styles.equipSearchDiv}
@@ -508,9 +602,12 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
                           }`}
                         >
                           장착 각인{" "}
-                          {equipList.findIndex(
-                            (e2: EngraveInfo) => e2.name === e.name
-                          ) + 1}
+                          {equipList[0]?.name === e.name &&
+                          equipList[1]?.name === e.name
+                            ? "1 | 2"
+                            : equipList.findIndex(
+                                (e2: EngraveInfo) => e2.name === e.name
+                              ) + 1}
                         </div>
                       </li>
                     );
@@ -622,7 +719,13 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
               width={30}
               alt="전각이미지"
             />
-            어빌리티 스톤
+            <p>어빌리티 스톤</p>
+            <Info
+              dataTooltipId="abilityStoneInfo"
+              className="cursor-help"
+              size={20}
+              fill="#eee"
+            />
           </h4>
           <div
             className={styles.equipSearchDiv}
@@ -995,6 +1098,12 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
           <h4>
             <Ring size={30} />
             악세서리 설정
+            <Info
+              dataTooltipId="targetAccessoryInfo"
+              className="cursor-help"
+              size={20}
+              fill="#eee"
+            />
           </h4>
           <table>
             <tbody>
@@ -1263,6 +1372,66 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
           </button>
         </div>
       </div>
+      <Tooltip
+        id="apiKeySettingInfo"
+        place="bottom"
+        clickable={true}
+        delayHide={10}
+      >
+        <p>🔹 API Key 발급 방법 안내페이지를 새 창에 엽니다.</p>
+      </Tooltip>
+      <Tooltip id="targetInfo" place="bottom" clickable={true} delayHide={10}>
+        <p>🔹 아래 "검색창"을 클릭하면 선택 가능한 각인 목록이 출력됩니다.</p>
+        <p>🔹 "검색창"에 각인명을 입력하여 목록을 필터링 할 수 있습니다.</p>
+        <p>🔹 사용하고 싶은 각인을 클릭하여 등록할 수 있습니다.</p>
+        <p>🔹 4개 이상의 각인을 등록해야 합니다.</p>
+      </Tooltip>
+      <Tooltip
+        id="engraveBookInfo"
+        place="bottom"
+        clickable={true}
+        delayHide={10}
+      >
+        <p>🔹 본인의 캐릭터가 장착중인 각인서 정보를 똑같이 세팅합니다.</p>
+        <p>🔹 아래 "각인 선택"을 클릭하여 목표 각인 중 2개를 등록합니다.</p>
+        <p>🔹 "+" 버튼과 "-" 버튼을 통해 각인서 레벨을 설정 가능합니다.</p>
+        <p className="flex gap-1">
+          <span>🔹</span>
+          <span>
+            동일 각인이 장착 가능하기 때문에,
+            <br />
+            <span className="text-red-300">
+              각인 목록 창에서는 각인 제거가 불가능합니다.
+            </span>
+          </span>
+        </p>
+      </Tooltip>
+      <Tooltip
+        id="abilityStoneInfo"
+        place="bottom"
+        clickable={true}
+        delayHide={10}
+      >
+        <p>
+          🔹 본인의 캐릭터가 장착중인 어빌리티 스톤 정보를 똑같이 세팅합니다.
+        </p>
+        <p>🔹 아래 "각인 선택"을 클릭하여 목표 각인 중 2개를 등록합니다.</p>
+        <p>🔹 "+" 버튼과 "-" 버튼을 통해 각인 수치를 수정 가능합니다.</p>
+        <p>🔹 "+", "-" 버튼의 왼쪽에 위치한 버튼으로 직접 입력도 가능합니다.</p>
+      </Tooltip>
+      <Tooltip
+        id="targetAccessoryInfo"
+        place="bottom"
+        clickable={true}
+        delayHide={10}
+      >
+        <p>🔹 각인 세팅에 사용하고 싶은 악세서리의 정보를 등록합니다.</p>
+        <p>🔹 품질은 직접 0 ~ 100 의 값을 입력할 수 있습니다.</p>
+        <p>🔹 특성(전투특성)의 종류는 클릭하여 선택이 가능합니다.</p>
+        <p>
+          🔹 목걸이의 경우 2개의 특성을 선택해야하고, 중복 특성은 불가능합니다.
+        </p>
+      </Tooltip>
     </div>
   );
 
@@ -1273,10 +1442,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
         setTargetList(targetList.filter((e: EngraveInfo) => e.name !== name));
       else setTargetList([...targetList, { name, level: 3 }]);
     } else if (mode === 1) {
-      const index = equipList.findIndex((e: EngraveInfo) => e.name === name);
-      if (index > -1)
-        setEquipList(equipList.filter((e: EngraveInfo) => e.name !== name));
-      else if (equipList.length >= 2) {
+      if (equipList.length >= 2) {
         setPreventBlur(true);
         alert("장착 각인은 최대 2개까지입니다.");
         return;
@@ -1427,6 +1593,19 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
   }
 
   async function searchSetting() {
+    if (targetList.length < 4) {
+      alert("각인을 4개 이상 설정해주세요.");
+      return;
+    } else if (equipList.length < 2) {
+      alert("장착 각인서를 2개 이상 설정해주세요.");
+      return;
+    } else if (abilityList.length < 2) {
+      alert("어빌리티 스톤의 각인을 2개 이상 설정해주세요.");
+      return;
+    } else if (negativeEngrave.name === "감소 효과 선택") {
+      alert("어빌리티 스톤의 감소 각인을 설정해주세요.");
+      return;
+    }
     setProgress(0);
     setCurrentCase(0);
     setPageStatus(2);

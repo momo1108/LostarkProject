@@ -1237,6 +1237,7 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 #### Todo
 
 - 각인 CSS
+  - 배경찾기
 - 각인 검색 보유악세
 - 각인 검색 유물등급(섞는 경우?)
 - 각인 검색 같은 특성 O
@@ -1248,3 +1249,5 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 - 필터링시 팁 집어넣기
   - 초반에는 모든 조합을 확인하기 때문에 오래걸리고, 후반갈수록 급격히 빨라짐
   - 품질에 비해 특성합을 너무 높게 설정하면, 필터링에 맞는 조합을 찾는데 더욱 오래걸린다.
+- apiKey 발급 안내페이지
+- api검색도 webworker로 분리하기

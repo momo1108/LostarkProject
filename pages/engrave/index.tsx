@@ -6,12 +6,14 @@ import CharBody from "@/components/character/CharBody";
 import { nanumNeo } from "@/types/GlobalType";
 import EngraveBody from "@/components/engrave/EngraveBody";
 import Page from "@/components/Page";
+import EngraveFooter from "@/components/engrave/EngraveFooter";
 
 const Engrave: React.FC<MenuProps> = ({ menu }) => {
   return (
     <Page className={`${styles.container} ${nanumNeo.className}`}>
       <MenuHeader menu={menu} />
       <EngraveBody />
+      <EngraveFooter />
     </Page>
   );
 };

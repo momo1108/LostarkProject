@@ -21,6 +21,7 @@ import Spinner from "./Spinner";
 import Box from "./Box";
 import Gear from "./Gear";
 import Filter from "./Filter";
+import Info from "./Info";
 
 export {
   AlertOctagon,
@@ -46,4 +47,5 @@ export {
   Box,
   Gear,
   Filter,
+  Info,
 };
