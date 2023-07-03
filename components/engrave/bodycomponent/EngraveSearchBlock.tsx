@@ -294,7 +294,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
               href={
                 process.env.NODE_ENV === "development"
                   ? "http://localhost:3000/info/apikey"
-                  : "http://loaple.com/info/apikey"
+                  : "http://loaple.site/info/apikey"
               }
               rel="noopener noreferrer"
             >
@@ -1378,7 +1378,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
         clickable={true}
         delayHide={10}
       >
-        <p>🔹 API Key 발급 방법 안내페이지를 새 창에 엽니다.</p>
+        <p>🔹 API Key 발급 방법 안내페이지를 새 창으로 엽니다.</p>
       </Tooltip>
       <Tooltip id="targetInfo" place="bottom" clickable={true} delayHide={10}>
         <p>🔹 아래 "검색창"을 클릭하면 선택 가능한 각인 목록이 출력됩니다.</p>
@@ -1705,47 +1705,56 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
         while (true) {
           try {
             // console.log(u, ap);
-            single_res = await EngraveService.getAuctionItems({
-              CategoryCode: CATEGORY_CODE[accessoryList.getter[ap].type],
-              EtcOptions: [
-                ...(accessoryList.getter[ap].type === 0
-                  ? [
-                      {
-                        FirstOption: ETC_OPTION_CODE["전투 특성"],
-                        SecondOption:
-                          ETC_OPTION_CODE[accessoryList.getter[ap].stat1.type],
-                      },
-                      {
-                        FirstOption: ETC_OPTION_CODE["전투 특성"],
-                        SecondOption:
-                          ETC_OPTION_CODE[accessoryList.getter[ap].stat2.type],
-                      },
-                    ]
-                  : [
-                      {
-                        FirstOption: ETC_OPTION_CODE["전투 특성"],
-                        SecondOption:
-                          ETC_OPTION_CODE[accessoryList.getter[ap].stat1.type],
-                      },
-                    ]),
-                {
-                  FirstOption: ETC_OPTION_CODE["각인 효과"],
-                  SecondOption: ETC_OPTION_CODE[uniqueEngrave[u][0]],
-                  MinValue: uniqueEngrave[u][1],
-                },
-                {
-                  FirstOption: ETC_OPTION_CODE["각인 효과"],
-                  SecondOption: ETC_OPTION_CODE[uniqueEngrave[u][2]],
-                  MinValue: uniqueEngrave[u][3],
-                },
-              ],
-              ItemGrade: "고대",
-              ItemGradeQuality: accessoryList.getter[ap].quality,
-              ItemTier: 3,
-              PageNo: 1,
-              Sort: "BUY_PRICE",
-              SortCondition: "ASC",
-            });
+            single_res = await EngraveService.getAuctionItems(
+              {
+                CategoryCode: CATEGORY_CODE[accessoryList.getter[ap].type],
+                EtcOptions: [
+                  ...(accessoryList.getter[ap].type === 0
+                    ? [
+                        {
+                          FirstOption: ETC_OPTION_CODE["전투 특성"],
+                          SecondOption:
+                            ETC_OPTION_CODE[
+                              accessoryList.getter[ap].stat1.type
+                            ],
+                        },
+                        {
+                          FirstOption: ETC_OPTION_CODE["전투 특성"],
+                          SecondOption:
+                            ETC_OPTION_CODE[
+                              accessoryList.getter[ap].stat2.type
+                            ],
+                        },
+                      ]
+                    : [
+                        {
+                          FirstOption: ETC_OPTION_CODE["전투 특성"],
+                          SecondOption:
+                            ETC_OPTION_CODE[
+                              accessoryList.getter[ap].stat1.type
+                            ],
+                        },
+                      ]),
+                  {
+                    FirstOption: ETC_OPTION_CODE["각인 효과"],
+                    SecondOption: ETC_OPTION_CODE[uniqueEngrave[u][0]],
+                    MinValue: uniqueEngrave[u][1],
+                  },
+                  {
+                    FirstOption: ETC_OPTION_CODE["각인 효과"],
+                    SecondOption: ETC_OPTION_CODE[uniqueEngrave[u][2]],
+                    MinValue: uniqueEngrave[u][3],
+                  },
+                ],
+                ItemGrade: "고대",
+                ItemGradeQuality: accessoryList.getter[ap].quality,
+                ItemTier: 3,
+                PageNo: 1,
+                Sort: "BUY_PRICE",
+                SortCondition: "ASC",
+              },
+              apiKey
+            );
             // 해당 악세가 없으면 Items 가 null 로 반환됨
             if (single_res.data.Items)
               tmp_resultObject[ap].push(...single_res.data.Items);

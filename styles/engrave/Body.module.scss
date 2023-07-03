@@ -47,7 +47,7 @@ $myLightBlue: #76b1ff;
         }
 
         .apiKeyDiv {
-          @apply w-44 font-bold h-8 leading-8 box-content relative;
+          @apply w-44 font-bold h-8 leading-8 box-content relative overflow-hidden;
           &[data-valid="false"] {
             @apply text-red-800 text-center bg-[#f003] border border-red-900;
           }

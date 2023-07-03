@@ -13,11 +13,12 @@ export default class EngraveService {
    * auction api를 이용해 검색합니다.
    */
   public static getAuctionItems = async (
-    req: AuctionItemSearchReq
+    req: AuctionItemSearchReq,
+    apiKey: string
   ): Promise<AxiosResponse> => {
     return await axios.post(`${this.url}auctions/items`, req, {
       headers: {
-        Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
+        Authorization: `Bearer ${apiKey}`,
         Accept: "application/json",
       },
     });
@@ -27,12 +28,13 @@ export default class EngraveService {
    * market api를 이용해 검색합니다.
    */
   public static getMarketItems = async (
-    req: MarketItemSearchReq
+    req: MarketItemSearchReq,
+    apiKey: string
   ): Promise<MarketItemSearchResult> => {
     try {
       const res = await axios.post(`${this.url}markets/items`, req, {
         headers: {
-          Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
+          Authorization: `Bearer ${apiKey}`,
           Accept: "application/json",
         },
       });
