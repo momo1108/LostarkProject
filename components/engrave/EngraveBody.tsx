@@ -17,6 +17,8 @@ export default function EngraveBody() {
     <div className={`${styles.body} ${nanumNeo.className}`}>
       <EngraveSearchContainer
         {...{
+          pageStatus,
+          combinationList,
           setPageStatus,
           setCombinationList,
           setProgress,

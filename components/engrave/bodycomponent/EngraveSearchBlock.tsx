@@ -50,6 +50,8 @@ import {
 import { Tooltip } from "react-tooltip";
 
 type EngraveSearchBlockProps = {
+  pageStatus: number;
+  combinationList: AuctionItem[][];
   setCombinationList: Dispatch<SetStateAction<AuctionItem[][]>>;
   setPageStatus: Dispatch<SetStateAction<number>>;
   setProgress: Dispatch<SetStateAction<number>>;
@@ -58,6 +60,8 @@ type EngraveSearchBlockProps = {
   setMyTimer: Dispatch<SetStateAction<number>>;
 };
 const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
+  pageStatus,
+  combinationList,
   setCombinationList,
   setPageStatus,
   setProgress,
@@ -1593,6 +1597,10 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
   }
 
   async function searchSetting() {
+    if (pageStatus > 1) {
+      alert("검색 서비스가 진행중입니다.\n완료 후 다시 시도해주세요.");
+      return;
+    }
     if (targetList.length < 4) {
       alert("각인을 4개 이상 설정해주세요.");
       return;
@@ -1604,6 +1612,12 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       return;
     } else if (negativeEngrave.name === "감소 효과 선택") {
       alert("어빌리티 스톤의 감소 각인을 설정해주세요.");
+      return;
+    }
+    if (!apiKey) {
+      alert(
+        "API Key 를 발급받아서 등록해주세요.\n등록 방법은 상단의 등록방법을 참조해주세요."
+      );
       return;
     }
     setProgress(0);
@@ -1774,6 +1788,12 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
               setPageStatus(1);
               alert(
                 "로스트아크 서버의 검색 서비스가 일시적으로 비활성화 됐습니다.\n서버 점검 시간이 아니라면, 잠시 후에 다시 검색해주세요."
+              );
+              return;
+            } else if (error.response?.status === 401) {
+              setPageStatus(1);
+              alert(
+                "잘못된 API key 값이 입력됐습니다. 수정 후 다시 검색해주세요."
               );
               return;
             } else {
@@ -1978,6 +1998,17 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
   }
 
   function applyFilter() {
+    if (pageStatus > 1) {
+      alert("검색 서비스가 진행중입니다.\n완료 후 다시 시도해주세요.");
+      return;
+    } else if (pageStatus === 0) {
+      alert("필터링 전 검색을 먼저 진행해주세요.");
+      return;
+    }
+    if (!combinationList.length) {
+      alert("필터링할 내용이 없습니다.");
+      return;
+    }
     setProgress(0);
     setCurrentCase(999);
     setPageStatus(3);
