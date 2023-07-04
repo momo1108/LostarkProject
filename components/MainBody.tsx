@@ -1,6 +1,6 @@
 import styles from "@/styles/MainBody.module.scss";
-import { MainProps } from "@/types/MainPageType";
-import { Menu } from "@/types/MenuType";
+import { MainProps } from "@/types/GlobalType";
+import { Menu } from "@/types/GlobalType";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useWindowSize from "@/hooks/useWindowSize";

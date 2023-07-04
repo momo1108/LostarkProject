@@ -1,3 +1,169 @@
+$myDarkBlue: #2a5996;
+$myBlue: #4691f6;
+$myLightBlue: #76b1ff;
+
 .container {
-  @apply text-white;
+  @apply text-white flex min-h-screen;
+  .indexWrapper {
+    @apply flex flex-col gap-2 w-full items-center;
+    padding-top: 4%;
+    .indexTitle {
+      @apply text-4xl font-extrabold py-4 px-8;
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+    }
+    .indexTitle2 {
+      @apply text-xl font-extrabold py-4;
+    }
+
+    .indexBody {
+      @apply flex flex-wrap justify-center w-4/5 gap-4 py-8;
+      .infoCard {
+        @apply p-4 w-64 box-content transition-all duration-300;
+        border: 1px solid #555;
+        border-radius: 15px;
+        box-shadow: 0px 0px 10px -5px #fff;
+        opacity: 0;
+        .cardTitle {
+          @apply text-xl font-bold;
+        }
+        hr {
+          @apply my-2 transition-all duration-300;
+          border-color: #555;
+        }
+
+        &:hover {
+          color: $myLightBlue;
+          border-color: $myBlue;
+          box-shadow: 0px 0px 12px -2px $myBlue;
+          hr {
+            border-color: $myBlue;
+          }
+          transform: scale(1.05) !important;
+          background-color: #111;
+        }
+
+        @for $i from 1 through 100 {
+          &:nth-child(#{$i}) {
+            animation: show 0.5s linear 0.2s * $i 1 forwards;
+          }
+        }
+      }
+    }
+  }
+
+  .menuContainer {
+    @apply text-white flex flex-col min-h-full items-center py-2 min-w-[200px] max-w-[232px] font-bold;
+    border-right: 1px solid rgba(97, 97, 97, 0.333);
+
+    .homeDiv {
+      @apply mx-2 flex px-4 py-2;
+      .homeLink {
+        @apply text-2xl;
+        transition: transform ease-in-out 0.5s;
+        transform: perspective(50px) rotateX(10deg);
+      }
+      &:hover .homeLink {
+        transform: perspective(50px) rotateX(370deg);
+      }
+    }
+
+    .infoHeaderTitle {
+      @apply text-xl py-4;
+    }
+
+    .infoLinkDiv {
+      @apply flex flex-col w-full mt-2;
+      .infoLink {
+        @apply py-4 w-full text-center hover:bg-[#111] hover:text-[#4691f6];
+        border-top: 1px solid #333;
+        &:last-child {
+          border-bottom: 1px solid #333;
+        }
+        &[data-selected="true"] {
+          @apply bg-[#111] text-[#4691f6];
+        }
+      }
+    }
+  }
+
+  .infoBody {
+    @apply flex flex-col flex-auto;
+    .infoBodyTitle {
+      @apply text-2xl text-center py-4 font-extrabold;
+    }
+
+    hr {
+      @apply border-[#555];
+    }
+    .infoContent {
+      padding-top: 3%;
+      padding-left: 4%;
+      padding-bottom: 3%;
+      a {
+        @apply border-b border-[#eee] hover:text-[#4691f6] hover:border-[#4691f6];
+      }
+      .p1 {
+        @apply text-xl font-bold mb-2;
+      }
+      .p2 {
+        @apply text-sm pl-2 mt-1 leading-6;
+        &::before {
+          content: "🔹 ";
+        }
+      }
+      .sep {
+        @apply my-12;
+      }
+      .sep2 {
+        @apply my-8;
+      }
+      .infoImage {
+        @apply min-w-[350px] max-w-[800px] w-2/3 ml-2 my-2;
+        border: 1px solid #333;
+        box-shadow: 0px 0px 10px -5px #fff;
+      }
+      .infoButton {
+        @apply bg-[#c24100] font-bold py-1 px-2;
+        border-radius: 3px;
+      }
+      .infoButton2 {
+        @apply bg-[#1cebc7] font-extrabold py-1 px-2 text-[#222];
+        border-radius: 3px;
+      }
+      .infoButton3 {
+        @apply bg-[#696f7d] font-extrabold py-1 px-2 text-[#1cebc7];
+        border-radius: 3px;
+      }
+      .infoButton4 {
+        @apply bg-[#696f7d] font-extrabold py-1 px-2 text-[#000];
+        border-radius: 3px;
+      }
+      .infoButton5 {
+        @apply font-extrabold py-1 px-2;
+        border: 1px solid #eee;
+        border-radius: 3px;
+      }
+      .infoButton6 {
+        @apply font-extrabold py-1 px-1;
+        border: 1px solid #eee;
+        border-radius: 3px;
+      }
+      .infoInputTitle {
+        @apply bg-[#2c2f36] font-bold py-1 px-2;
+        border-radius: 3px;
+      }
+    }
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: translateY(20%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
 }

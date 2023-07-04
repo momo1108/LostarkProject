@@ -1,5 +1,5 @@
-import styles from "@/styles/MenuHeader.module.scss";
-import { MenuProps } from "@/types/MenuType";
+import styles from "@/styles/MenuBar.module.scss";
+import { MenuProps } from "@/types/GlobalType";
 import Link from "next/link";
 import { useContext } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
@@ -11,7 +11,7 @@ import { nanumNeo, roboto } from "@/types/GlobalType";
 
 type scrollVisibilityApiType = React.ContextType<typeof VisibilityContext>;
 
-const MenuHeader: React.FC<MenuProps> = ({ menu }) => {
+const MenuBar: React.FC<MenuProps> = ({ menu }) => {
   const router = useRouter();
 
   const { dragStart, dragStop, dragMove, dragging } = useDrag();
@@ -27,7 +27,7 @@ const MenuHeader: React.FC<MenuProps> = ({ menu }) => {
 
   return (
     <div
-      className={`${styles.headerContainer} ${nanumNeo.className}`}
+      className={`${styles.menuContainer} ${nanumNeo.className}`}
       onMouseEnter={disableScroll}
       onMouseLeave={enableScroll}
     >
@@ -111,4 +111,4 @@ function onWheel(apiObj: scrollVisibilityApiType, ev: React.WheelEvent): void {
   }
 }
 
-export default MenuHeader;
+export default MenuBar;

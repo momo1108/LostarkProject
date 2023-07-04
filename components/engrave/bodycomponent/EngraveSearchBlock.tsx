@@ -41,13 +41,9 @@ import {
   Filter,
   Info,
 } from "@/components/icons/Index";
-import {
-  CATEGORY_CODE,
-  ETC_OPTION_CODE,
-  apiEngravePriority,
-  testResult,
-} from "@/types/GlobalType";
+import { CATEGORY_CODE, ETC_OPTION_CODE, testResult } from "@/types/GlobalType";
 import { Tooltip } from "react-tooltip";
+import Link from "next/link";
 
 type EngraveSearchBlockProps = {
   pageStatus: number;
@@ -291,20 +287,16 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
               <Edit size={16} />
               <span>{apiKey ? "재등록" : "등록"}</span>
             </button>
-            <a
+            <Link
               data-tooltip-id="apiKeySettingInfo"
               className="myButtons"
               target="_blank"
-              href={
-                process.env.NODE_ENV === "development"
-                  ? "http://localhost:3000/info/apikey"
-                  : "http://loaple.site/info/apikey"
-              }
+              href="/info/apikey"
               rel="noopener noreferrer"
             >
               <Info size={16} fill="#eee" />
               <span>등록방법</span>
-            </a>
+            </Link>
           </div>
           <p className={styles.apiDescr}>
             ★ 서비스 사용을 위해서 반드시 API Key를 등록해주세요.

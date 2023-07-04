@@ -1,16 +1,37 @@
 import localFont from "next/font/local";
-import { MarketItem } from "./EngraveType";
-import EngraveService from "@/service/EngraveService";
 
 export type PageProps = {
-  children?: (JSX.Element | string)[] | (JSX.Element | string);
+  children?: React.ReactNode;
   className?: string;
 };
 
 export type ModalProps = {
-  children?: (JSX.Element | string)[] | (JSX.Element | string);
+  children?: React.ReactNode;
   className?: string;
   isOpen?: boolean;
+};
+
+export type MenuProps = {
+  menu: Menu[];
+};
+
+export type Menu = {
+  id: number;
+  title: string;
+  desc: string;
+  url: string;
+  strokeWidth: number;
+};
+
+export type InfoPage = {
+  id: number;
+  title: string;
+  desc: string;
+  url: string;
+};
+
+export type MainProps = {
+  menu: Menu[];
 };
 
 export const roboto = localFont({
@@ -365,52 +386,6 @@ export const engravePriority: { [key: string]: number } = {
   질풍노도: 89,
   원한: 90,
 };
-
-export async function apiEngravePriority() {
-  let resultArray: MarketItem[] = [];
-  try {
-    const firstPage = await EngraveService.getMarketItems({
-      Sort: "YDAY_AVG_PRICE",
-      CategoryCode: 40000,
-      CharacterClass: "",
-      ItemTier: null,
-      ItemGrade: "전설",
-      ItemName: "",
-      SortCondition: "ASC",
-      PageNo: 1,
-    });
-    resultArray = [...firstPage.Items];
-
-    const totalPages = Math.ceil(firstPage.TotalCount / 10);
-    let iPage;
-    for (let i = 2; i <= totalPages; i++) {
-      iPage = await EngraveService.getMarketItems({
-        Sort: "YDAY_AVG_PRICE",
-        CategoryCode: 40000,
-        CharacterClass: "",
-        ItemTier: null,
-        ItemGrade: "전설",
-        ItemName: "",
-        SortCondition: "ASC",
-        PageNo: i,
-      });
-      resultArray = resultArray.concat(iPage.Items);
-    }
-
-    console.log(resultArray);
-
-    const priority = resultArray.reduce((prev, cur, index) => {
-      return {
-        ...prev,
-        [cur.Name.replace(/(\[[\u3131-\uD79D]+\]|각인서)/g, "").trim()]: index,
-      };
-    }, {});
-
-    return priority;
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 export const testResult = {
   0: [

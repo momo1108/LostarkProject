@@ -1,7 +1,7 @@
 import styles from "@/styles/MainPage.module.scss";
 import MainHeader from "@/components/MainHeader";
 import MainBody from "@/components/MainBody";
-import { MainProps } from "@/types/MainPageType";
+import { MainProps } from "@/types/GlobalType";
 import DataService from "@/service/DataService";
 import { roboto } from "@/types/GlobalType";
 import Page from "@/components/Page";

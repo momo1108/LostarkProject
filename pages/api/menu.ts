@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { MainProps } from "@/types/MainPageType";
-import { Menu } from "@/types/MenuType";
+import { MainProps } from "@/types/GlobalType";
+import { Menu } from "@/types/GlobalType";
 import { readFileSync } from "fs";
 import type { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
