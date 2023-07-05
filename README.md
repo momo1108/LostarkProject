@@ -1252,3 +1252,4 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 - apiKey 발급 안내페이지
 - api검색도 webworker로 분리하기
 - api검색 or 필터링 취소?
+- seo - 패키지사용하자.

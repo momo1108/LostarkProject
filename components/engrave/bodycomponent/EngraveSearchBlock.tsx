@@ -67,12 +67,22 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
 }) => {
   const answer: Combination[] = [];
   const tmp: number[][] = [];
+  let tmp_info: { name: string; point: number }[] = [];
   const [myWorker, setMyWorker] = useState<Worker>();
+  /*
+  usingWebWorker -> web worker의 사용정보를 저장하는 state
+  onmessage 함수 내부, postmessage 함수 이전 위치에서 수정되며
+  첫번째요소는 web worker가 사용중으로 인지할 것인지에 사용되는 flag
+  두번째요소는 어떤 과정에 사용되는지에 대한 flag 
+  0~7은 onmessage type과 동일(어떤 상황으로 인해 사용할지/종료되었는지), 
+  999는 검색이나 필터링이 진행중을 알림.
+  */
+  const [usingWebWorker, setUsingWebWorker] = useState<[boolean, number]>([
+    false,
+    0,
+  ]);
   useEffect(() => {
     setApiKey(localStorage.getItem("loapleEngraveApiKey") || "");
-    const timer = setInterval(() => {
-      setMyTimer((e) => e - 1);
-    }, 1000);
 
     setMyWorker(
       new Worker(new URL("@/web_workers/worker.ts", import.meta.url))
@@ -80,30 +90,8 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
 
     return () => {
       myWorker?.terminate();
-      clearInterval(timer);
     };
   }, []);
-  useEffect(() => {
-    if (myWorker)
-      myWorker.onmessage = (e) => {
-        if (e.data.type === 0) setProgress(e.data.data);
-        else {
-          console.log(e.data);
-          const { availableArray, infoObject } = e.data.data;
-
-          setCombinationList(
-            availableArray.map((e: number[][]) => {
-              return e
-                .slice(0, 5)
-                .map((e2: number[]) => infoObject[e2[1]][e2[0]]);
-            })
-          );
-          setTimeout(() => {
-            setPageStatus(1);
-          }, 1000);
-        }
-      };
-  }, [myWorker]);
   const [apiKey, setApiKey] = useState<string>("");
   const [editApiKey, setEditApiKey] = useState<boolean>(false);
   const apiKeyRef = useRef<HTMLInputElement>(null);
@@ -228,6 +216,122 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     });
   }, [searchValue]);
   const targetEngraveRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (myWorker) {
+      myWorker.onmessage = (e) => {
+        // console.log("search컴포넌트단", e);
+        if (e.data.type === 0) setProgress(e.data.data);
+        else if (e.data.type === 1) {
+          setUsingWebWorker([false, 1]);
+          const { availableArray, infoObject } = e.data.data;
+          setCombinationList(
+            availableArray.map((e: number[][]) => {
+              return e
+                .slice(0, 5)
+                .map((e2: number[]) => infoObject[e2[1]][e2[0]]);
+            })
+          );
+          setTimeout(() => {
+            setPageStatus(1);
+          }, 1000);
+        } else if (e.data.type === 2) {
+          setCurrentCase((e) => e + 1);
+        } else if (e.data.type === 3) {
+          console.error("검색 횟수를 초과하여 1분간 기다립니다.");
+          setMyTimer(62);
+          const timer = setInterval(() => {
+            setMyTimer((e) => e - 1);
+          }, 1000);
+          setTimeout(() => {
+            clearInterval(timer);
+          }, 62000);
+        } else if (e.data.type === 4) {
+          setUsingWebWorker([false, 4]);
+          setPageStatus(1);
+          alert(
+            "로스트아크 서버의 검색 서비스가 일시적으로 비활성화 됐습니다.\n서버 점검 시간이 아니라면, 잠시 후에 다시 검색해주세요."
+          );
+        } else if (e.data.type === 5) {
+          setUsingWebWorker([false, 5]);
+          setPageStatus(1);
+          alert("잘못된 API key 값이 입력됐습니다. 수정 후 다시 검색해주세요.");
+        } else if (e.data.type === 6) {
+          setUsingWebWorker([false, 6]);
+          setPageStatus(1);
+          console.dir(e.data.errorArray);
+          alert("로스트아크 서버 상태가 좋지 않아 검색이 취소됩니다.");
+        } else if (e.data.type === 7) {
+          setUsingWebWorker([true, 7]);
+          /* 
+          resultObject에서 중복을 제거해줘야 한다.
+          최소값 이상의 악세서리를 검색하는 방식이므로,
+          3/5 검색과 3/6 검색에서 겹치는 결과가 있을 수 있다.
+          다른 수치들도 마찬가지이다.
+          api에서 악세서리 경매 id값을 주면 참 좋을텐데.... 
+          그런게 없기때문에, 임시방편으로라도 걸러주자.
+          Set 자료구조를 활용해 unique 악세정보를 넣고,
+          원본 데이터에서 filter와 Set.delete(element) 를 
+          사용해 체크해준다.
+          */
+          const uniqueAccessoryInfo: { [key: number]: Set<string> } = {
+            0: new Set(),
+            1: new Set(),
+            2: new Set(),
+            3: new Set(),
+            4: new Set(),
+          };
+
+          [0, 1, 2, 3, 4].map((i) => {
+            e.data.tmp_resultObject[i] = e.data.tmp_resultObject[i]
+              .filter(
+                (accessory: AuctionItem) => accessory.AuctionInfo.BuyPrice
+              )
+              .sort(
+                (a: AuctionItem, b: AuctionItem) =>
+                  a.AuctionInfo.BuyPrice - b.AuctionInfo.BuyPrice
+              );
+            e.data.tmp_resultObject[i].map((accessory: AuctionItem) =>
+              uniqueAccessoryInfo[i].add(
+                `${accessory.Name}_${accessory.GradeQuality}_${accessory.AuctionInfo.EndDate}`
+              )
+            );
+          });
+
+          [0, 1, 2, 3, 4].map((i) => {
+            e.data.tmp_resultObject[i] = e.data.tmp_resultObject[i].filter(
+              (accessory: AuctionItem) =>
+                uniqueAccessoryInfo[i].delete(
+                  `${accessory.Name}_${accessory.GradeQuality}_${accessory.AuctionInfo.EndDate}`
+                )
+            );
+          });
+
+          setResultObject(JSON.parse(JSON.stringify(e.data.tmp_resultObject)));
+
+          /*
+          현 위치(onmessage)에서 state값을 활용한 webworker의 postmessage를 사용하는 경우,
+          나중에 onmessage가 트리거되는 시점에서의 state 값이 아닌, 
+          postmessage의 내용이 등록되는 시점에서의 내용으로 적용되는 것을 확인하였다. 
+          이는 web worker에 데이터를 전달할 때 수행하는 객체의 deep copy 에 사용한 
+          JSON.parse(JSON.stringify(객체)) 뿐 아니라, onmessage를 등록하는 과정에 있어서,
+          미리 등록되는 시점에서의 값으로 listener 함수가 저장이 되버리기 때문에 그런것으로 추측된다.
+
+          따라서, 이 위치에서 직접 실행하는 코드를 작성하는게 아닌, 실행을 담당하는 함수를 따로 작성한다.
+
+          위 방법도 같은 문제가 발생 ㅡ,.ㅡ
+          이번에는 의존성에 filter 내용을 추가해서 직접 실행하도록 다시 수정하자.
+          */
+        }
+      };
+      // console.log(myWorker);
+    }
+  }, [myWorker]);
+  useEffect(() => {
+    if (usingWebWorker[0] && usingWebWorker[1] === 7) {
+      applyFilter();
+    }
+  }, [usingWebWorker]);
 
   return (
     <div className={styles.searchContainer}>
@@ -1352,6 +1456,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
             onClick={() => {
               searchSetting();
             }}
+            disabled={usingWebWorker[0]}
           >
             <Search color="#ccc" size={20} />
             <span>검색</span>
@@ -1362,6 +1467,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
             onClick={() => {
               applyFilter();
             }}
+            disabled={usingWebWorker[0]}
           >
             <Filter color="#ccc" size={24} />
             <span>검색 결과 필터링</span>
@@ -1615,19 +1721,10 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     setProgress(0);
     setCurrentCase(0);
     setPageStatus(2);
-    let tmp_resultObject: { [key: number]: AuctionItem[] } = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-    };
 
-    const tmp_info: { name: string; point: number }[] = targetList.map(
-      (e: EngraveInfo) => {
-        return { name: e.name, point: e.level! * 5 };
-      }
-    );
+    tmp_info = targetList.map((e: EngraveInfo) => {
+      return { name: e.name, point: e.level! * 5 };
+    });
     equipList.map((e: EngraveInfo) => {
       const index = tmp_info.findIndex((e2) => e2.name === e.name);
       if (index >= 0) {
@@ -1696,176 +1793,33 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     귀걸이와 반지 쌍의 특성이 같으면 부위수는 3으로 취급한다.
     */
     // 각인 조합 반복문
-    let single_res;
-    setTotalCases(uniqueEngrave.length * (ear_diff ? (ring_diff ? 5 : 4) : 3));
 
+    setTotalCases(uniqueEngrave.length * (ear_diff ? (ring_diff ? 5 : 4) : 3));
     // let tmp_resultObject: { [key: number]: AuctionItem[] } = testResult;
 
-    let errorArray = [];
+    // console.log("postmessage", {
+    //   type: 0,
+    //   data: JSON.parse(
+    //     JSON.stringify({
+    //       uniqueEngrave,
+    //       ear_diff,
+    //       ring_diff,
+    //       accessoryList,
+    //       apiKey,
+    //     })
+    //   ),
+    // });
 
-    // 고유 각인 반복
-    for (let u = 0; u < uniqueEngrave.length; u++) {
-      // 악세서리 부위(accessory part) 반복
-      for (let ap = 0; ap < 5; ap++) {
-        if ((ap === 2 && !ear_diff) || (ap === 4 && !ring_diff)) continue;
-        while (true) {
-          try {
-            // console.log(u, ap);
-            single_res = await EngraveService.getAuctionItems(
-              {
-                CategoryCode: CATEGORY_CODE[accessoryList.getter[ap].type],
-                EtcOptions: [
-                  ...(accessoryList.getter[ap].type === 0
-                    ? [
-                        {
-                          FirstOption: ETC_OPTION_CODE["전투 특성"],
-                          SecondOption:
-                            ETC_OPTION_CODE[
-                              accessoryList.getter[ap].stat1.type
-                            ],
-                        },
-                        {
-                          FirstOption: ETC_OPTION_CODE["전투 특성"],
-                          SecondOption:
-                            ETC_OPTION_CODE[
-                              accessoryList.getter[ap].stat2.type
-                            ],
-                        },
-                      ]
-                    : [
-                        {
-                          FirstOption: ETC_OPTION_CODE["전투 특성"],
-                          SecondOption:
-                            ETC_OPTION_CODE[
-                              accessoryList.getter[ap].stat1.type
-                            ],
-                        },
-                      ]),
-                  {
-                    FirstOption: ETC_OPTION_CODE["각인 효과"],
-                    SecondOption: ETC_OPTION_CODE[uniqueEngrave[u][0]],
-                    MinValue: uniqueEngrave[u][1],
-                  },
-                  {
-                    FirstOption: ETC_OPTION_CODE["각인 효과"],
-                    SecondOption: ETC_OPTION_CODE[uniqueEngrave[u][2]],
-                    MinValue: uniqueEngrave[u][3],
-                  },
-                ],
-                ItemGrade: "고대",
-                ItemGradeQuality: accessoryList.getter[ap].quality,
-                ItemTier: 3,
-                PageNo: 1,
-                Sort: "BUY_PRICE",
-                SortCondition: "ASC",
-              },
-              apiKey
-            );
-            // 해당 악세가 없으면 Items 가 null 로 반환됨
-            if (single_res.data.Items)
-              tmp_resultObject[ap].push(...single_res.data.Items);
-            setCurrentCase((e) => e + 1);
-            break;
-          } catch (error: any) {
-            console.dir(error);
-            if (error.response?.status === 429) {
-              console.error("검색 횟수를 초과하여 1분간 기다립니다.");
-              setMyTimer(62);
-              await new Promise((res) => {
-                setTimeout(() => {
-                  res("done");
-                }, 62000);
-              });
-            } else if (error.response?.status === 503) {
-              setPageStatus(1);
-              alert(
-                "로스트아크 서버의 검색 서비스가 일시적으로 비활성화 됐습니다.\n서버 점검 시간이 아니라면, 잠시 후에 다시 검색해주세요."
-              );
-              return;
-            } else if (error.response?.status === 401) {
-              setPageStatus(1);
-              alert(
-                "잘못된 API key 값이 입력됐습니다. 수정 후 다시 검색해주세요."
-              );
-              return;
-            } else {
-              errorArray.push(error);
-              if (errorArray.length >= 3) {
-                setPageStatus(1);
-                console.dir(errorArray);
-                alert("로스트아크 서버 상태가 좋지 않아 검색이 취소됩니다.");
-                return;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    /* 
-     resultObject에서 중복을 제가해줘야 한다.
-     최소값 이상의 악세서리를 검색하는 방식이므로,
-     3/5 검색과 3/6 검색에서 겹치는 결과가 있을 수 있다.
-     다른 수치들도 마찬가지이다.
-     api에서 악세서리 경매 id값을 주면 참 좋을텐데.... 
-     그런게 없기때문에, 임시방편으로라도 걸러주자.
-     Set 자료구조를 활용해 unique 악세정보를 넣고,
-     원본 데이터에서 filter와 Set.delete(element) 를 
-     사용해 체크해준다.
-    */
-    const uniqueAccessoryInfo: { [key: number]: Set<string> } = {
-      0: new Set(),
-      1: new Set(),
-      2: new Set(),
-      3: new Set(),
-      4: new Set(),
-    };
-
-    [0, 1, 2, 3, 4].map((i) => {
-      tmp_resultObject[i] = tmp_resultObject[i]
-        .filter((accessory) => accessory.AuctionInfo.BuyPrice)
-        .sort((a, b) => a.AuctionInfo.BuyPrice - b.AuctionInfo.BuyPrice);
-      tmp_resultObject[i].map((accessory) =>
-        uniqueAccessoryInfo[i].add(
-          `${accessory.Name}_${accessory.GradeQuality}_${accessory.AuctionInfo.EndDate}`
-        )
-      );
-    });
-
-    [0, 1, 2, 3, 4].map((i) => {
-      tmp_resultObject[i] = tmp_resultObject[i].filter((accessory) =>
-        uniqueAccessoryInfo[i].delete(
-          `${accessory.Name}_${accessory.GradeQuality}_${accessory.AuctionInfo.EndDate}`
-        )
-      );
-    });
-
-    const positiveCounter: { [key: string]: number } = tmp_info.reduce(
-      (prev, cur) => ({ ...prev, [cur.name]: cur.point }),
-      {}
-    );
-    const negativeCounter: { [key: string]: number } = {
-      "공격력 감소": 0,
-      "공격속도 감소": 0,
-      "방어력 감소": 0,
-      "이동속도 감소": 0,
-    };
-    negativeCounter[negativeEngrave.name] += negativeEngrave.point || 0;
-
-    setPageStatus(3);
-    setResultObject(JSON.parse(JSON.stringify(tmp_resultObject)));
+    setUsingWebWorker([true, 999]);
     myWorker?.postMessage({
+      type: 0,
       data: JSON.parse(
         JSON.stringify({
-          infoObject: tmp_resultObject,
-          negativeCounter,
-          positiveCounter,
-        })
-      ),
-      filter: JSON.parse(
-        JSON.stringify({
-          stat: statFilterValue,
-          others: otherFilterValue,
+          uniqueEngrave,
+          ear_diff,
+          ring_diff,
+          accessoryList,
+          apiKey,
         })
       ),
     });
@@ -1990,21 +1944,53 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
   }
 
   function applyFilter() {
-    if (pageStatus > 1) {
+    /*
+    0. 검색 시작도 안한 상태에서 필터링(문제없음)
+    0->함수
+
+    1. 이미 검색한 결과에서 필터링(문제없음)
+    1->함수
+
+    2. 검색진행 직후에 필터링(문제발생)
+    2->함수
+    검색이 진행된 후에 실행되는 것인지 진행중에 실행되는 것인지.
+
+    3. 필터링 중에 다시 필터링실행(web worker에서 어떻게 동작할까? 단순히 밀려서 진행되는 거라면? flag를 사용해 진행중일 때는 return시킬까?)
+    3->함수
+
+    위 0~3 상태 내에서 처리하는게 best. 그 외에는 presentational layer 까지 영향을 미친다.
+     */
+    if (pageStatus === 2 && usingWebWorker[0] && usingWebWorker[1] === 999) {
       alert("검색 서비스가 진행중입니다.\n완료 후 다시 시도해주세요.");
+      return;
+    } else if (
+      pageStatus === 3 &&
+      usingWebWorker[0] &&
+      usingWebWorker[1] === 999
+    ) {
+      alert("필터링 서비스가 이미 진행중입니다.\n완료 후 다시 시도해주세요.");
       return;
     } else if (pageStatus === 0) {
       alert("필터링 전 검색을 먼저 진행해주세요.");
       return;
     }
-    if (!combinationList.length) {
+    /*
+    1. 처음 검색한 뒤에 필터링이 진행되기 때문에 combinationList가 비어있는 경우
+    2. 검색을 완료하고 나서 해당 결과가 없기 때문에 combinationList가 비어있는 경우
+    2번의 경우는 return 정상적으로 처리되지만, 1번의 경우 return 되면 안된다.
+    1번의 경우는 검색 -> 필터링이 연달아 진행되므로 검색 후에는 
+    usingWebWorker[0]를 true로 유지하고 필터링 후에만 false로 변환해서 차이점을 flag로 사용하자.
+    (onmessage의 type === 7 이 검색, type === 1 이 필터링)
+    */
+    if (!combinationList.length && !usingWebWorker[0]) {
       alert("필터링할 내용이 없습니다.");
       return;
     }
     setProgress(0);
-    setCurrentCase(999);
     setPageStatus(3);
+    setCurrentCase(999);
 
+    // filtering에 사용할 각인 정보를 설정합니다.
     const tmp_info: { name: string; point: number }[] = targetList.map(
       (e: EngraveInfo) => {
         return { name: e.name, point: e.level! * 5 };
@@ -2025,19 +2011,6 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       }
     });
 
-    const ear_diff: boolean =
-      accessoryList.getter[1].stat1.type !== accessoryList.getter[2].stat1.type;
-    const ring_diff: boolean =
-      accessoryList.getter[3].stat1.type !== accessoryList.getter[4].stat1.type;
-
-    // 가능한 각인 조합의 중복을 제거할 Set
-    const mySet = new Set<string>();
-    answer.forEach((e) => {
-      e.data.forEach((e2) => {
-        mySet.add(e2.join(""));
-      });
-    });
-
     const positiveCounter: { [key: string]: number } = tmp_info.reduce(
       (prev, cur) => ({ ...prev, [cur.name]: cur.point }),
       {}
@@ -2051,7 +2024,9 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     };
     negativeCounter[negativeEngrave.name] += negativeEngrave.point || 0;
 
+    setUsingWebWorker([true, 999]);
     myWorker?.postMessage({
+      type: 1,
       data: JSON.parse(
         JSON.stringify({
           infoObject: resultObject,
