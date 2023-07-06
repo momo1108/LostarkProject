@@ -87,7 +87,7 @@ const ApiPage: React.FC<{ pages: InfoPage[]; pageInfo: InfoPage }> = ({
           <div className={styles.sep2} />
           <img className={styles.infoImage} src="/images/info_1_5.png" alt="" />
           <p className={styles.p2}>
-            5-2. 복사된 API Key 값을 기존 로아플 페이지 상단의{" "}
+            5-2. 기존 로아플 페이지로 돌아와서, 상단의{" "}
             <span className={styles.infoButton5}>
               {" "}
               <Edit className="inline" size={16} /> 등록

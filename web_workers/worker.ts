@@ -202,23 +202,30 @@ onmessage = (e: {
   };
 }) => {
   if (e.data.type === 0) {
-    apiSearching(e.data.data);
+    apiSearching(e.data.data, e.data.filter);
   } else if (e.data.type === 1) {
     resultFiltering(e.data.data, e.data.filter);
   }
 };
 
-async function apiSearching(data: {
-  uniqueEngrave: [string, number, string, number][];
-  ear_diff: boolean;
-  ring_diff: boolean;
-  accessoryList: {
-    getter: AccessoryInfo[];
-    setter: Dispatch<SetStateAction<AccessoryInfo>>[];
-  };
-  apiKey: string;
-}) {
+async function apiSearching(
+  data: {
+    uniqueEngrave: [string, number, string, number][];
+    ear_diff: boolean;
+    ring_diff: boolean;
+    accessoryList: {
+      getter: AccessoryInfo[];
+      setter: Dispatch<SetStateAction<AccessoryInfo>>[];
+    };
+    apiKey: string;
+  },
+  filter: {
+    stat: { [key: string]: number };
+    others: { [key: string]: number };
+  }
+) {
   const { uniqueEngrave, ear_diff, ring_diff, accessoryList, apiKey } = data;
+  const ItemGrade = ["고대", "유물", ""][filter.others["악세서리 등급"]];
   let single_res;
   let errorArray = [];
   let tmp_resultObject: { [key: number]: AuctionItem[] } = {
@@ -272,7 +279,7 @@ async function apiSearching(data: {
                   MinValue: uniqueEngrave[u][3],
                 },
               ],
-              ItemGrade: "고대",
+              ItemGrade,
               ItemGradeQuality: accessoryList.getter[ap].quality,
               ItemTier: 3,
               PageNo: 1,
@@ -339,6 +346,7 @@ function resultFiltering(
     2. penalty 각인이 생기면 skip
   */
   const { infoObject, positiveCounter, negativeCounter } = data;
+  console.log(infoObject);
 
   const availableArray: number[][][] = [];
   let _neck: AuctionItem,
@@ -1038,7 +1046,7 @@ function checkNegative(negativeCounter: { [key: string]: number }): boolean {
 
 /**
  * 필터링 조건을 적용해서 불가능한 조합인지 체크해주는 함수
- * @param type 0 : 거래 회수 체크, 1 : 특성합 체크
+ * @param type 0 : 거래 회수 체크, 1 : 특성합 체크, 고대악세개수 체크
  * @param acc 악세서리 부위별 정보: [목, 귀1, 귀2, 반1, 반2]
  * @param count 남은 구매 후 거래 가능 횟수
  * @return false : 사용 가능, true : 사용 불가능
@@ -1055,6 +1063,18 @@ function filtering(
   if (type === 0) {
     return count < filter.others["거래 가능 횟수"];
   } else {
+    // 고대+유물 조합에 고대유물 개수가 충족되지 않는 경우.
+    if (
+      filter.others["악세서리 등급"] === 2 &&
+      filter.others["고대등급 악세서리 개수"] >
+        acc.reduce(
+          (prev: number, cur: AuctionItem) =>
+            cur.Grade === "고대" ? prev + 1 : prev,
+          0
+        )
+    ) {
+      return true;
+    }
     filteringResult = false;
     Object.keys(currentStat).forEach((e: string) => (currentStat[e] = 0));
     acc.forEach((e) => {

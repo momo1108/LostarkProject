@@ -16,15 +16,36 @@ export type Combination = {
   useless_count: number;
 };
 
-export const CASES: number[][] = [
+export const CASES_RELIC: number[][] = [
+  [5, 3],
+  [4, 3],
+  [3, 3],
+];
+
+export const CASES_ANCIENT: number[][] = [
   [6, 3],
   [5, 3],
   [4, 3],
-  [3, 6],
-  [3, 5],
-  [3, 4],
   [3, 3],
 ];
+
+// export const CASES_RELIC: number[][] = [
+//   [5, 3],
+//   [4, 3],
+//   [3, 5],
+//   [3, 4],
+//   [3, 3],
+// ];
+
+// export const CASES_ANCIENT: number[][] = [
+//   [6, 3],
+//   [5, 3],
+//   [4, 3],
+//   [3, 6],
+//   [3, 5],
+//   [3, 4],
+//   [3, 3],
+// ];
 
 export type AccessoryInfo = {
   type: AccessoryType;

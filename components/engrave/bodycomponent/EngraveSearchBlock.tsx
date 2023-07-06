@@ -12,7 +12,8 @@ import {
   AbilityInputMode,
   AccessoryInfo,
   AuctionItem,
-  CASES,
+  CASES_RELIC,
+  CASES_ANCIENT,
   CheckMode,
   Combination,
   DropdownMode,
@@ -204,6 +205,8 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     [key: string]: number;
   }>({
     "거래 가능 횟수": 0,
+    "악세서리 등급": 0, // 0 : 고대, 1 : 유물, 2 : 고대 + 유물
+    "고대등급 악세서리 개수": 1, // 악세서리 등급 : 2 인 경우 활성화
   });
   const [dropdownMode, setDropdownMode] = useState<DropdownMode>(3);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -1416,7 +1419,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
               })}
             </div>
             <div className={styles.otherFilter}>
-              <div className={styles.filterDiv}>
+              <div className={styles.filterDivInputNumber}>
                 <label>
                   <input
                     type="number"
@@ -1444,6 +1447,70 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
                   <div className={styles.borderDiv}>
                     <p className={styles.filterTitle}>구매 후 거래 가능 횟수</p>
                     <p className={styles.filterSubtitle}>회 이상</p>
+                  </div>
+                </label>
+              </div>
+              <div className={styles.filterDivInputRadio}>
+                <p>악세서리 등급</p>
+                <div className={styles.radioWrapper}>
+                  {["고대", "유물", "고대+유물"].map((e, i) => {
+                    return (
+                      <label
+                        key={`accessory_grade_radio_${i}`}
+                        className={styles.radioLabel}
+                        data-checked={i === otherFilterValue["악세서리 등급"]}
+                      >
+                        <input
+                          className="hidden"
+                          type="radio"
+                          value={i}
+                          name="accessoryGradeRadio"
+                          checked={i === otherFilterValue["악세서리 등급"]}
+                          onChange={(event) => {
+                            setOtherFilterValue({
+                              ...otherFilterValue,
+                              "악세서리 등급": parseInt(event.target.value),
+                            });
+                          }}
+                        />
+                        <span className={styles.radioLabelSpan}>{e}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+              <div
+                className={styles.filterDivInputNumber}
+                data-disabled={otherFilterValue["악세서리 등급"] !== 2}
+              >
+                <label>
+                  <input
+                    type="number"
+                    value={otherFilterValue["고대등급 악세서리 개수"]}
+                    max={5}
+                    min={0}
+                    onFocus={(event) => {
+                      event.target.select();
+                    }}
+                    onChange={(event) => {
+                      let count = parseInt(event.target.value);
+                      count = count
+                        ? count > 5
+                          ? 5
+                          : count < 1
+                          ? 1
+                          : count
+                        : 1;
+                      setOtherFilterValue({
+                        ...otherFilterValue,
+                        "고대등급 악세서리 개수": count,
+                      });
+                    }}
+                    disabled={otherFilterValue["악세서리 등급"] !== 2}
+                  />
+                  <div className={styles.borderDiv}>
+                    <p className={styles.filterTitle}>고대등급 악세서리 개수</p>
+                    <p className={styles.filterSubtitle}>개 이상</p>
                   </div>
                 </label>
               </div>
@@ -1822,6 +1889,12 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
           apiKey,
         })
       ),
+      filter: JSON.parse(
+        JSON.stringify({
+          stat: statFilterValue,
+          others: otherFilterValue,
+        })
+      ),
     });
   }
 
@@ -1887,7 +1960,14 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       - point_i가 1 이상
         - point_j가 0 이하 & 필요각인 2개 이상 -> continue j
       - 단, 5개 이전에 이미 만족된 경우도 고려해야한다.
-    4. 남은 각인 포인트가 3보다 크고 포인트 차감 시 남은 포인트가 3보다 작아지면 안된다.
+    4. 악세서리의 각인 중 포인트가 큰 쪽의 경우 해당 목표 각인의 포인트가 3보다 크고,
+     포인트 차감 시 남은 포인트가 3보다 작아지면 중복검색에 해당되므로 제외한다.
+      - 고대악세의 경우 7~8 포인트의 경우 적용 각인이 큰쪽(ex. 6,3의 6)인 경우, 남은 포인트가 3 이상이 아닌 경우를 제외한다.
+        - 7 포인트 : 3, 4 만 사용
+        - 8 포인트 : 3, 4, 5 만 사용
+      - 유물악세의 경우 6~7 포인트의 경우 적용 각인이 큰쪽(ex. 5,3의 5)인 경우, 남은 포인트가 3 이상이 아닌 경우를 제외한다.
+        - 6 포인트 : 3 만 사용
+        - 7 포인트 : 3, 4 만 사용
     */
 
     // 2번 가지치기
@@ -1896,6 +1976,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     let uselessI = false,
       uselessJ = false;
 
+    // i - 목표 각인 정보 중 첫번째 각인 index, j - 목표 각인 정보 중 두번째 각인 index
     for (let i = 0; i < input.length; i++) {
       // 3번 가지치기 - 1
       if (input[i].point <= 0 && need_count >= 2) continue;
@@ -1903,7 +1984,8 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       // 필요없는 각인의 경우 표기
       if (input[i].point <= 0) uselessI = true;
 
-      for (let j = i + 1; j < input.length; j++) {
+      for (let j = 0; j < input.length; j++) {
+        if (j === i) continue;
         // 3번 가지치기 - 2
         if (input[j].point <= 0) {
           if (need_count >= 2) continue;
@@ -1911,13 +1993,14 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
           uselessJ = true;
         }
 
-        for (const [case0, case1] of CASES) {
+        for (const [case0, case1] of otherFilterValue["악세서리 등급"] === 1
+          ? CASES_RELIC
+          : CASES_ANCIENT) {
           // 1번 가지치기
           if (case0 > input[i].point && case0 > 3) continue;
-          if (case1 > input[j].point && case1 > 3) continue;
           // 4번 가지치기
-          // if (3 > input[i].point - case0 && case0 > 3) continue;
-          // if (3 > input[j].point - case1 && case1 > 3) continue;
+          if (input[i].point === 7 && case0 > 4) continue;
+          if (input[i].point === 8 && case0 > 5) continue;
           const minI = Math.min(input[i].point, case0);
           const minJ = Math.min(input[j].point, case1);
           input[i].point -= minI;
