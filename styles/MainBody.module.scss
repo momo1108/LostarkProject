@@ -24,7 +24,7 @@
         margin-top: -53px;
 
         .menuContent {
-          @apply flex flex-col items-center justify-center relative z-10 font-light transition-all duration-300 ease-out;
+          @apply flex flex-col items-center justify-center relative z-[2] font-light transition-all duration-300 ease-out;
           width: 173.20508075688772px;
           height: 200px;
         }
@@ -39,7 +39,7 @@
           height: 200px;
 
           .innerHexChild {
-            @apply absolute top-[21.4px] left-[41.5px] transition-all ease-out duration-300 z-30;
+            @apply absolute top-[21.4px] left-[41.5px] transition-all ease-out duration-300 z-[4];
             width: 90.76239569296px;
             height: 157.20508075688772px;
             border-top: 4px solid #333;
@@ -60,7 +60,7 @@
           height: 200px;
 
           .outerHexChild {
-            @apply absolute top-[16.4px] left-[38.5px] transition-all duration-300 z-20;
+            @apply absolute top-[16.4px] left-[38.5px] transition-all duration-300 z-[3];
             width: 96.535898384862px;
             height: 167.20508075688772px;
             border-top: 5px solid #111;

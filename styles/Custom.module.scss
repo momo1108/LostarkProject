@@ -18,7 +18,7 @@
 }
 
 .optionList {
-  @apply absolute flex-col z-10;
+  @apply absolute flex-col z-[2];
   border: 2px solid;
   border-radius: 5px;
   .optionItem {

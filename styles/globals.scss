@@ -16,8 +16,18 @@ html {
   background-color: #010101;
 }
 
-.modal-root {
-  @apply absolute top-1 right-1;
+.modalRoot {
+  @apply absolute top-0 left-0 right-0 bottom-0 flex flex-wrap bg-[#0009] items-center justify-center z-[7];
+  color: $basicFontColor;
+  .modalContent {
+    @apply relative min-w-[350px];
+    .modalCloseBtn {
+      @apply absolute right-1 top-1;
+      &:hover svg {
+        stroke: $myBlue;
+      }
+    }
+  }
 }
 
 .myButtons {
@@ -101,16 +111,12 @@ body,
 }
 
 .react-horizontal-scrolling-menu--wrapper {
-  @apply px-4;
-  position: relative;
+  @apply px-4 relative;
 }
 
 .react-horizontal-scrolling-menu--arrow-left,
 .react-horizontal-scrolling-menu--arrow-right {
-  align-items: center;
-  position: absolute;
-  height: 70px;
-  z-index: 3;
+  @apply absolute h-[70px] z-[1] items-center;
 }
 
 .react-horizontal-scrolling-menu--arrow-left {
@@ -254,5 +260,61 @@ body,
   }
   &::-webkit-scrollbar-thumb {
     background-color: #4a4c55;
+  }
+}
+
+.apiDiv {
+  @apply relative flex items-center gap-x-4 gap-y-1 flex-wrap;
+  &[data-editing="true"] {
+    @apply pt-6;
+  }
+  .apiKeyInput {
+    @apply w-44 bg-transparent outline-none h-8 leading-8 text-lg text-[#eee];
+    border-bottom: 1px solid #333;
+    &:focus {
+      border-color: $myBlue;
+      color: $myBlue;
+    }
+  }
+
+  .apiDescr {
+    @apply text-xs text-red-600 w-full;
+  }
+
+  .placeholder {
+    @apply absolute top-8 left-0 text-[#999];
+    transition: color 300ms ease-in-out, top 300ms ease-in-out,
+      left 300ms ease-in-out, font-size 300ms ease-in-out;
+  }
+  .apiKeyInput:valid ~ .placeholder {
+    @apply text-sm top-2 left-0;
+  }
+  .apiKeyInput:focus ~ .placeholder {
+    @apply text-sm top-2 left-0;
+    color: $myBlue;
+  }
+
+  button {
+    @apply inline-flex text-base px-1 gap-1;
+    &[data-px="2"] {
+      @apply px-2;
+    }
+  }
+  a {
+    @apply inline-flex text-base cursor-pointer px-2 gap-1;
+  }
+
+  .apiKeyDiv {
+    @apply w-44 font-bold h-8 leading-8 box-content relative overflow-hidden;
+    &[data-valid="false"] {
+      @apply text-red-800 text-center bg-[#f003] border border-red-900;
+    }
+    &[data-valid="true"]::after {
+      @apply absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center;
+      content: "API KEY 등록완료";
+      color: $myBlue;
+      border: 1px solid $myBlue;
+      background-color: #0c1b2fee;
+    }
   }
 }

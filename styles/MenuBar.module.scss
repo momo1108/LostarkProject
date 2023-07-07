@@ -8,7 +8,7 @@ $myBlue: #4691f6;
 
 .menuContainer {
   @apply text-white h-[70px] flex items-center
-    justify-between px-3 fixed top-0 w-full z-50;
+    justify-between px-3 fixed top-0 w-full z-[6];
   background: #0009;
   backdrop-filter: blur(1px);
   border-bottom: 1px solid rgba(97, 97, 97, 0.333);

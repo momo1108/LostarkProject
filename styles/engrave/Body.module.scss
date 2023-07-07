@@ -4,7 +4,7 @@ $myBlue: #4691f6;
 $myLightBlue: #76b1ff;
 
 .body {
-  @apply flex-auto xl:px-32 lg:px-24 md:px-16 sm:px-8 px-4 pt-2;
+  @apply flex-auto xl:px-32 lg:px-24 md:px-16 sm:px-8 px-2 pt-2;
   color: $basicFontColor;
 
   .searchContainer {
@@ -12,60 +12,8 @@ $myLightBlue: #76b1ff;
 
     .searchHeader {
       @apply flex flex-col gap-4;
-      .apiDiv {
-        @apply relative pt-5 h-16 flex items-center gap-4;
-        .apiKeyInput {
-          @apply w-44 bg-transparent outline-none h-8 leading-8 text-lg text-[#eee];
-          border-bottom: 1px solid #333;
-          &:focus {
-            border-color: $myBlue;
-            color: $myBlue;
-          }
-        }
-
-        .placeholder {
-          @apply absolute top-8 left-0 text-[#999];
-          transition: color 300ms ease-in-out, top 300ms ease-in-out,
-            left 300ms ease-in-out, font-size 300ms ease-in-out;
-        }
-        .apiKeyInput:valid ~ .placeholder {
-          @apply text-sm top-2 left-0;
-        }
-        .apiKeyInput:focus ~ .placeholder {
-          @apply text-sm top-2 left-0;
-          color: $myBlue;
-        }
-
-        button {
-          @apply inline-flex text-base px-1 gap-1;
-          &[data-px="2"] {
-            @apply px-2;
-          }
-        }
-        a {
-          @apply inline-flex text-base cursor-pointer px-2 gap-1;
-        }
-
-        .apiKeyDiv {
-          @apply w-44 font-bold h-8 leading-8 box-content relative overflow-hidden;
-          &[data-valid="false"] {
-            @apply text-red-800 text-center bg-[#f003] border border-red-900;
-          }
-          &[data-valid="true"]::after {
-            @apply absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center;
-            content: "API KEY 등록완료";
-            color: $myBlue;
-            border: 1px solid $myBlue;
-            background-color: #0c1b2fee;
-          }
-        }
-
-        .apiDescr {
-          @apply absolute text-xs top-1 text-red-600;
-        }
-      }
       .presetDiv {
-        @apply flex w-full gap-4 items-center h-10;
+        @apply flex flex-wrap w-full gap-x-4 gap-y-1 items-center;
       }
     }
 
@@ -470,7 +418,7 @@ $myLightBlue: #76b1ff;
     }
 
     .dropdownWrapper {
-      @apply absolute top-11 left-0 w-[638px] overflow-hidden z-10;
+      @apply absolute top-11 left-0 w-[638px] overflow-hidden z-[2];
       &[data-dropdown-order="1"] {
         @apply w-[216px] left-1/2;
         transform: translateX(-50%);
@@ -500,6 +448,17 @@ $myLightBlue: #76b1ff;
           .dropdownListItem {
             @apply relative inline-flex w-[200px] gap-2 items-center py-1 pl-3 pr-4 cursor-pointer font-bold;
             border: 2px solid #494949;
+
+            &[data-selected="true"],
+            &:hover {
+              border: 2px solid $myLightBlue;
+              color: $myLightBlue;
+              .selectedItem {
+                border: 2px solid $myLightBlue;
+                color: $myLightBlue;
+              }
+            }
+
             p {
               @apply flex-auto text-center;
             }

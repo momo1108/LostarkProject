@@ -7,6 +7,7 @@ import {
   useEffect,
   Dispatch,
   SetStateAction,
+  KeyboardEvent,
 } from "react";
 import {
   AbilityInputMode,
@@ -19,12 +20,10 @@ import {
   DropdownMode,
   ENGRAVES,
   EngraveInfo,
-  EtcOption,
   NEGATIVE_ENGRAVES,
   engraveLevelColorMap,
 } from "@/types/EngraveType";
 import MySelect from "@/components/custom/MySelect";
-import EngraveService from "@/service/EngraveService";
 import {
   MenuIcons,
   Delete,
@@ -42,9 +41,9 @@ import {
   Filter,
   Info,
 } from "@/components/icons/Index";
-import { CATEGORY_CODE, ETC_OPTION_CODE, testResult } from "@/types/GlobalType";
 import { Tooltip } from "react-tooltip";
-import Link from "next/link";
+import ApiKeyInput from "@/components/ApiKeyInput";
+import Modal from "@/components/modal/Modal";
 
 type EngraveSearchBlockProps = {
   pageStatus: number;
@@ -83,8 +82,6 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     0,
   ]);
   useEffect(() => {
-    setApiKey(localStorage.getItem("loapleEngraveApiKey") || "");
-
     setMyWorker(
       new Worker(new URL("@/web_workers/worker.ts", import.meta.url))
     );
@@ -93,9 +90,6 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       myWorker?.terminate();
     };
   }, []);
-  const [apiKey, setApiKey] = useState<string>("");
-  const [editApiKey, setEditApiKey] = useState<boolean>(false);
-  const apiKeyRef = useRef<HTMLInputElement>(null);
   const [targetList, setTargetList] = useState<EngraveInfo[]>([]);
   const [equipList, setEquipList] = useState<EngraveInfo[]>([]);
   const [abilityList, setAbilityList] = useState<EngraveInfo[]>([]);
@@ -208,12 +202,16 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     "악세서리 등급": 0, // 0 : 고대, 1 : 유물, 2 : 고대 + 유물
     "고대등급 악세서리 개수": 1, // 악세서리 등급 : 2 인 경우 활성화
   });
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [modalMode, setModalMode] = useState<number>(-1);
   const [dropdownMode, setDropdownMode] = useState<DropdownMode>(3);
+  const [dropdownSelector, setDropdownSelector] = useState<number>(0);
   const [searchValue, setSearchValue] = useState<string>("");
   // 자꾸 자식요소(각인) 클릭 시 blur이벤트때문에 dropdown이 사라졌다가 다시나옴.
   // 방지하기 위해 사용
   const [preventBlur, setPreventBlur] = useState<boolean>(false);
   const engraveSearchList = useMemo(() => {
+    setDropdownSelector(0);
     return ENGRAVES.filter((name: string) => {
       return name.includes(searchValue);
     });
@@ -339,81 +337,32 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
   return (
     <div className={styles.searchContainer}>
       <div className={styles.searchHeader}>
-        <div className={editApiKey ? styles.apiDiv : "hidden"}>
-          <label>
-            <input
-              className={styles.apiKeyInput}
-              type="text"
-              spellCheck="false"
-              ref={apiKeyRef}
-              required
-            />
-            <div className={styles.placeholder}>API 키 입력</div>
-          </label>
-          <div className="flex gap-1 items-center">
-            <button
-              className="myButtons"
-              onClick={() => {
-                setApiKey(apiKeyRef!.current!.value);
-                setEditApiKey(false);
-                localStorage.setItem(
-                  "loapleEngraveApiKey",
-                  apiKeyRef!.current!.value
-                );
-              }}
-            >
-              <Check size={16} color="#fff" />
-            </button>
-            <button
-              className="myButtons"
-              onClick={() => {
-                apiKeyRef!.current!.value = apiKey;
-                setEditApiKey(false);
-              }}
-            >
-              <MenuIcons type={3} color="#fff" size={16} />
-            </button>
-          </div>
-        </div>
-        <div className={editApiKey ? "hidden" : styles.apiDiv}>
-          <div
-            className={styles.apiKeyDiv}
-            data-valid={apiKey ? "true" : "false"}
-          >
-            {apiKey ? apiKey : "API Key 가 없습니다."}
-          </div>
-          <div className="flex gap-1">
-            <button
-              className="myButtons"
-              data-px="2"
-              onClick={() => {
-                apiKeyRef!.current!.value = apiKey;
-                setEditApiKey(true);
-              }}
-            >
-              <Edit size={16} />
-              <span>{apiKey ? "재등록" : "등록"}</span>
-            </button>
-            <Link
-              data-tooltip-id="apiKeySettingInfo"
-              className="myButtons"
-              target="_blank"
-              href="/info/apikey"
-              rel="noopener noreferrer"
-            >
-              <Info size={16} fill="#eee" />
-              <span>등록방법</span>
-            </Link>
-          </div>
-          <p className={styles.apiDescr}>
-            ★ 서비스 사용을 위해서 반드시 API Key를 등록해주세요.
-          </p>
-        </div>
+        <Modal
+          isOpen={modalIsOpen}
+          closeFunc={() => {
+            setModalIsOpen(false);
+            setModalMode(-1);
+          }}
+          data={
+            modalIsOpen
+              ? JSON.stringify({
+                  targetList,
+                  equipList,
+                  abilityList,
+                  negativeEngrave,
+                  accessoryList: accessoryList.getter,
+                })
+              : ""
+          }
+          type={0}
+        />
+        <ApiKeyInput />
         <div className={styles.presetDiv}>
           <button
             className="myButtons"
             onClick={() => {
-              saveSetting();
+              setModalMode(0);
+              setModalIsOpen(true);
             }}
           >
             <Save color="#ccc" size={20} />
@@ -474,8 +423,31 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
               value={searchValue}
               onMouseDown={() => setPreventBlur(true)}
               onMouseUp={() => setPreventBlur(false)}
-              onChange={(e) => {
-                setSearchValue(e.target.value);
+              onChange={(event) => {
+                setSearchValue(event.target.value);
+              }}
+              onKeyDown={(event) => {
+                // console.log(event);
+                const keyValue: { [key: string]: number } = {
+                  ArrowLeft: -1,
+                  ArrowUp: -3,
+                  ArrowRight: 1,
+                  ArrowDown: 3,
+                };
+                if (keyValue[event.key]) {
+                  event.preventDefault();
+                  setDropdownSelector((e) => {
+                    const tmpDropdownSelector = e + keyValue[event.key];
+                    if (tmpDropdownSelector < 0) return 0;
+                    else if (tmpDropdownSelector >= engraveSearchList.length)
+                      return engraveSearchList.length - 1;
+                    else return tmpDropdownSelector;
+                  });
+                } else if (event.key === "Enter") {
+                  check(engraveSearchList[dropdownSelector], 0);
+                } else if (event.key === "Escape") {
+                  event.currentTarget.blur();
+                }
               }}
             />
             <div
@@ -499,7 +471,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
                 </h5>
                 <ul className={`${styles.dropdownList} hideScroll`}>
                   {engraveSearchList.length ? (
-                    engraveSearchList.map((e: string) => {
+                    engraveSearchList.map((e: string, i: number) => {
                       return (
                         <li
                           className={styles.dropdownListItem}
@@ -508,6 +480,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
                             targetEngraveRef.current?.select();
                           }}
                           key={`all_engrave_${e}`}
+                          data-selected={i === dropdownSelector}
                         >
                           <img
                             width={30}
@@ -1738,7 +1711,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
 
   function saveSetting() {
     localStorage.setItem(
-      "engrave_setting_info",
+      "engraveSettingInfo",
       JSON.stringify({
         targetList,
         equipList,
@@ -1749,7 +1722,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
     );
   }
   function loadSetting() {
-    const tmp_info = localStorage.getItem("engrave_setting_info");
+    const tmp_info = localStorage.getItem("engraveSettingInfo");
     if (!tmp_info) return;
     const info = JSON.parse(tmp_info);
     setTargetList(info.targetList);
@@ -1779,6 +1752,7 @@ const EngraveSearchBlock: React.FC<EngraveSearchBlockProps> = ({
       alert("어빌리티 스톤의 감소 각인을 설정해주세요.");
       return;
     }
+    const apiKey = localStorage.getItem("loapleEngraveApiKey");
     if (!apiKey) {
       alert(
         "API Key 를 발급받아서 등록해주세요.\n등록 방법은 상단의 등록방법을 참조해주세요."

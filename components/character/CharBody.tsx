@@ -45,14 +45,14 @@ export default function CharBody() {
   }, []);
 
   useEffect(() => {
-    const initData = localStorage.getItem("recent_search");
+    const initData = localStorage.getItem("recentSearch");
     if (initData) setSearchedDataList(JSON.parse(initData));
     setLoadSDL(true);
   }, []);
 
   useEffect(() => {
     if (loadSDL)
-      localStorage.setItem("recent_search", JSON.stringify(searchedDataList));
+      localStorage.setItem("recentSearch", JSON.stringify(searchedDataList));
   }, [searchedDataList]);
 
   const push = useCallback(
@@ -110,20 +110,20 @@ export default function CharBody() {
   // useEffect(() => {
   //   if (pointer) {
   //     setPointer(false);
-  //     localStorage.setItem("recent_search", JSON.stringify(recentData));
+  //     localStorage.setItem("recentSearch", JSON.stringify(recentData));
   //     while (
-  //       JSON.parse(localStorage.getItem("recent_search")!).length !==
+  //       JSON.parse(localStorage.getItem("recentSearch")!).length !==
   //       recentData.length
   //     ) {
-  //       localStorage.setItem("recent_search", JSON.stringify(recentData));
+  //       localStorage.setItem("recentSearch", JSON.stringify(recentData));
   //     }
   //   }
   // }, [recentData]);
 
   // useEffect(() => {
-  //   const recent_search = localStorage.getItem("recent_search");
-  //   if (recent_search) {
-  //     dispatchWrapper(success, JSON.parse(recent_search));
+  //   const recentSearch = localStorage.getItem("recentSearch");
+  //   if (recentSearch) {
+  //     dispatchWrapper(success, JSON.parse(recentSearch));
   //   }
   // }, [dispatch]);
 

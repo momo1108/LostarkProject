@@ -30,7 +30,7 @@ $myLightBlue: #76b1ff;
         }
       }
       .dropdown {
-        @apply absolute bottom-0 left-0 w-[300px] bg-[#151515] z-40 flex-col max-h-[160px] overflow-auto;
+        @apply absolute bottom-0 left-0 w-[300px] bg-[#151515] z-[5] flex-col max-h-[160px] overflow-auto;
         &::-webkit-scrollbar {
           display: none;
         }
@@ -261,7 +261,7 @@ $myLightBlue: #76b1ff;
         height: 500px;
 
         .profileEquipmentDiv {
-          @apply w-[70px] h-full relative z-10 flex flex-wrap flex-col py-8 justify-between items-center;
+          @apply w-[70px] h-full relative z-[2] flex flex-wrap flex-col py-8 justify-between items-center;
 
           .profileEquipmentSlot {
             @apply w-[40px] h-[40px] p-[7px] flex justify-center items-center relative overflow-hidden;
@@ -280,14 +280,14 @@ $myLightBlue: #76b1ff;
               border-top: 1px solid #0001;
 
               .profileEquipmentQualityValue {
-                @apply absolute top-1/2 left-1/2 font-bold text-white z-20;
+                @apply absolute top-1/2 left-1/2 font-bold text-white z-[3];
                 transform: translate(-50%, -50%);
               }
             }
           }
         }
         .profileAccessoryDiv {
-          @apply w-[70px] h-full relative z-10 flex flex-wrap flex-col py-4 justify-between items-center;
+          @apply w-[70px] h-full relative z-[2] flex flex-wrap flex-col py-4 justify-between items-center;
 
           .profileAccessorySlot {
             @apply w-[46px] h-[46px] p-1 flex justify-center items-center relative overflow-hidden;
@@ -311,14 +311,14 @@ $myLightBlue: #76b1ff;
               border-top: 1px solid #0001;
 
               .profileAccessoryQualityValue {
-                @apply absolute top-1/2 left-1/2 font-bold text-white z-20;
+                @apply absolute top-1/2 left-1/2 font-bold text-white z-[3];
                 transform: translate(-50%, -50%);
               }
             }
           }
         }
         .profileAvatarDiv {
-          @apply w-[140px] h-full px-2 relative z-10 flex flex-wrap flex-col py-8 justify-between items-start;
+          @apply w-[140px] h-full px-2 relative z-[2] flex flex-wrap flex-col py-8 justify-between items-start;
           &:nth-child(2) {
             @apply items-end;
           }
@@ -718,7 +718,7 @@ $myLightBlue: #76b1ff;
     }
 
     .tooltip {
-      @apply w-[340px] bg-[#2A2C35] px-0 z-30 max-h-[450px] overflow-auto;
+      @apply w-[340px] bg-[#2A2C35] px-0 z-[4] max-h-[450px] overflow-auto;
       opacity: 1;
       font-size: 14px;
       border-radius: 0;

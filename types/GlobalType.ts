@@ -8,7 +8,20 @@ export type PageProps = {
 export type ModalProps = {
   children?: React.ReactNode;
   className?: string;
-  isOpen?: boolean;
+  closeTimer?: number;
+  isOpen: boolean;
+  type: number;
+  data: string;
+  closeFunc?: () => void;
+};
+
+export type EngravePreset = {
+  name: string;
+  descr: {
+    engrave: string; // ex."원예저타아피"
+    stat: string; // ex."치특"
+  };
+  data: string;
 };
 
 export type MenuProps = {
