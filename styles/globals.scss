@@ -17,14 +17,42 @@ html {
 }
 
 .modalRoot {
-  @apply absolute top-0 left-0 right-0 bottom-0 flex flex-wrap bg-[#0009] items-center justify-center z-[7];
+  @apply absolute top-0 left-0 right-0 h-screen flex flex-wrap bg-[#0009] items-center justify-center z-[7];
+  transition: opacity 0.5s linear;
   color: $basicFontColor;
+  backdrop-filter: blur(1px);
   .modalContent {
-    @apply relative min-w-[350px];
+    @apply relative w-1/2 min-w-[320px] max-w-[600px] p-2 pl-3 xs:p-3 xs:pl-4 rounded xs:rounded-xl bg-[#111];
+    border: 1px solid #555;
+    box-shadow: 0px 0px 10px -2px #aaa;
     .modalCloseBtn {
-      @apply absolute right-1 top-1;
+      @apply absolute right-2 top-2 xs:right-3 xs:top-3;
       &:hover svg {
-        stroke: $myBlue;
+        stroke: #a33;
+      }
+    }
+    .modalTitle {
+      @apply text-lg font-bold xs:text-2xl xs:font-extrabold;
+    }
+    .modalSubtitle {
+      @apply text-base xs:text-lg font-bold;
+    }
+    .modalEmptyListItem {
+      @apply text-[#bbb];
+    }
+    .modalList {
+      @apply flex flex-wrap gap-x-2 gap-y-1 my-1;
+      .modalListItem {
+        @apply py-1 px-2 border rounded;
+      }
+    }
+    .saveModalContentDiv {
+      @apply flex flex-col gap-2;
+      .saveModalCurrentDiv {
+        @apply flex flex-col gap-1;
+      }
+      .savedPresetList {
+        @apply py-2 xs:py-3;
       }
     }
   }

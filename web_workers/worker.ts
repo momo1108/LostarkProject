@@ -346,7 +346,7 @@ function resultFiltering(
     2. penalty 각인이 생기면 skip
   */
   const { infoObject, positiveCounter, negativeCounter } = data;
-  console.log(infoObject);
+  // console.log(infoObject);
 
   const availableArray: number[][][] = [];
   let _neck: AuctionItem,

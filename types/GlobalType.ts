@@ -18,10 +18,9 @@ export type ModalProps = {
 export type EngravePreset = {
   name: string;
   descr: {
-    engrave: string; // ex."원예저타아피"
-    stat: string; // ex."치특"
+    engrave: [string, number][]; // ex."원예저타아피"
+    stat: string[]; // ex."치특"
   };
-  data: string;
 };
 
 export type MenuProps = {
