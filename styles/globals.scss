@@ -17,14 +17,17 @@ html {
 }
 
 .modalRoot {
-  @apply absolute top-0 left-0 right-0 h-screen flex flex-wrap bg-[#0009] items-center justify-center z-[7];
+  @apply absolute top-0 left-0 right-0 h-screen flex flex-wrap bg-[#0009] items-center justify-center z-[7] overflow-auto;
   transition: opacity 0.5s linear;
   color: $basicFontColor;
   backdrop-filter: blur(1px);
   .modalContent {
-    @apply relative w-1/2 min-w-[320px] max-w-[600px] p-2 pl-3 xs:p-3 xs:pl-4 rounded xs:rounded-xl bg-[#111];
+    @apply relative w-1/2 min-w-[320px] max-w-[650px] p-2 pl-3 xs:p-3 xs:pl-4 rounded xs:rounded-xl bg-[#111];
     border: 1px solid #555;
     box-shadow: 0px 0px 10px -2px #aaa;
+    hr {
+      @apply border-[#444] border-dashed;
+    }
     .modalCloseBtn {
       @apply absolute right-2 top-2 xs:right-3 xs:top-3;
       &:hover svg {
@@ -46,13 +49,125 @@ html {
         @apply py-1 px-2 border rounded;
       }
     }
+    .modalVerticalList {
+      @apply flex flex-col gap-1;
+    }
     .saveModalContentDiv {
       @apply flex flex-col gap-2;
       .saveModalCurrentDiv {
         @apply flex flex-col gap-1;
       }
       .savedPresetList {
-        @apply py-2 xs:py-3;
+        @apply py-2 xs:py-3 flex flex-wrap gap-2;
+        .savedPresetListItem {
+          @apply flex flex-col px-2 py-1 border border-[#eee] rounded;
+          .savedPresetListItemEngraveDiv,
+          .savedPresetListItemStatDiv {
+            @apply px-2 py-1 border border-[#eee] rounded;
+          }
+        }
+      }
+      .saveModalSavingDiv {
+        @apply flex flex-col gap-4;
+        label {
+          @apply flex flex-col;
+          input {
+            @apply mt-2 w-1/2 min-w-[190px] bg-transparent outline-none border-b border-[#333] focus:border-[#4691f6] p-1 text-[#eee] focus:text-[#76b1ff];
+          }
+
+          &[data-valid="false"] input {
+            @apply border-[#c66];
+          }
+        }
+        label[data-valid="true"] {
+          &::after {
+            @apply text-[#76b1ff];
+            content: "사용 가능한 이름입니다.";
+          }
+        }
+        label[data-valid="false"] {
+          &::after {
+            @apply text-[#c66];
+            content: "사용 불가능한 이름입니다.";
+          }
+          input {
+            @apply border-[#c66] text-[#c66];
+          }
+        }
+      }
+    }
+    .loadModalContentDiv {
+      @apply flex flex-col gap-2;
+      .loadModalContentDivHeader {
+        @apply flex gap-2;
+        .loadModalContentViewBtn {
+          @apply inline-flex gap-1 text-[#777];
+          svg {
+            stroke: #777;
+          }
+          &[data-selected="true"] {
+            @apply text-[#eee] font-bold;
+            svg {
+              stroke: #eee;
+            }
+          }
+        }
+      }
+      .loadModalDetailDiv {
+        .loadModalDetailList {
+          @apply flex flex-col gap-4 max-h-[650px] xs:max-h-[800px] overflow-auto;
+          .loadModalDetailListItem {
+            @apply flex flex-col gap-1;
+            .presetName {
+              color: $myBlue;
+            }
+            .accessoryListItem {
+              .accessoryTitle {
+                @apply flex items-center gap-2 font-bold;
+              }
+            }
+
+            .detailListItemButtonDiv {
+              @apply grid grid-cols-2 gap-1 mt-4;
+              .myButtons {
+                @apply justify-center;
+                &:not(:first-child):hover {
+                  @apply bg-[#a22] border-[#a22];
+                }
+              }
+            }
+          }
+
+          hr:last-child {
+            @apply hidden;
+          }
+        }
+      }
+      .loadModalSimpleDiv {
+        .loadModalSimpleList {
+          @apply flex flex-wrap flex-row gap-2 justify-center max-h-[650px] xs:max-h-[800px] overflow-auto;
+          .loadModalSimpleListItem {
+            @apply inline-flex flex-col gap-2 border border-[#555] rounded py-1 px-2;
+            .presetName {
+              @apply text-center;
+              color: $myBlue;
+            }
+            .descrDiv {
+              .descrP {
+                @apply ml-2;
+              }
+            }
+            .simpleListItemButtonDiv {
+              @apply flex flex-col gap-1;
+              .myButtons {
+                @apply justify-center;
+                &:not(:first-child):hover {
+                  @apply bg-[#a22] border-[#a22];
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

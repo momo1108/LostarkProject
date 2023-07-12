@@ -179,8 +179,8 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
     "악세서리 등급": 0, // 0 : 고대, 1 : 유물, 2 : 고대 + 유물
     "고대등급 악세서리 개수": 1, // 악세서리 등급 : 2 인 경우 활성화
   });
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [modalMode, setModalMode] = useState<number>(-1);
+  const [saveModalIsOpen, setSaveModalIsOpen] = useState<boolean>(false);
+  const [loadModalIsOpen, setLoadModalIsOpen] = useState<boolean>(false);
   const [dropdownMode, setDropdownMode] = useState<DropdownMode>(3);
   const [dropdownSelector, setDropdownSelector] = useState<number>(0);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -876,10 +876,10 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
         setStatFilterValue,
         otherFilterValue,
         setOtherFilterValue,
-        modalIsOpen,
-        setModalIsOpen,
-        modalMode,
-        setModalMode,
+        saveModalIsOpen,
+        setSaveModalIsOpen,
+        loadModalIsOpen,
+        setLoadModalIsOpen,
         dropdownMode,
         setDropdownMode,
         dropdownSelector,

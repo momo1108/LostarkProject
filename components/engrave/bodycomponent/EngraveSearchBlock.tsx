@@ -27,8 +27,9 @@ import {
 } from "@/components/icons/Index";
 import { Tooltip } from "react-tooltip";
 import ApiKeyInput from "@/components/ApiKeyInput";
-import Modal from "@/components/modal/Modal";
+import SaveModal from "@/components/modal/SaveModal";
 import EngraveContext from "@/contexts/EngraveContext";
+import LoadModal from "@/components/modal/LoadModal";
 
 const EngraveSearchBlock: React.FC = () => {
   const {
@@ -46,9 +47,10 @@ const EngraveSearchBlock: React.FC = () => {
     setStatFilterValue,
     otherFilterValue,
     setOtherFilterValue,
-    modalIsOpen,
-    setModalIsOpen,
-    setModalMode,
+    saveModalIsOpen,
+    setSaveModalIsOpen,
+    loadModalIsOpen,
+    setLoadModalIsOpen,
     dropdownMode,
     setDropdownMode,
     dropdownSelector,
@@ -73,11 +75,10 @@ const EngraveSearchBlock: React.FC = () => {
   return (
     <div className={styles.searchContainer}>
       <div className={styles.searchHeader}>
-        <Modal
-          isOpen={modalIsOpen}
+        <SaveModal
+          isOpen={saveModalIsOpen}
           closeFunc={() => {
-            setModalIsOpen(false);
-            setModalMode(-1);
+            setSaveModalIsOpen(false);
           }}
           data={JSON.stringify({
             targetList,
@@ -86,15 +87,20 @@ const EngraveSearchBlock: React.FC = () => {
             negativeEngrave,
             accessoryList: accessoryList.getter,
           })}
-          type={0}
+        />
+        <LoadModal
+          isOpen={loadModalIsOpen}
+          closeFunc={() => {
+            setLoadModalIsOpen(false);
+          }}
+          data=""
         />
         <ApiKeyInput />
         <div className={styles.presetDiv}>
           <button
             className="myButtons"
             onClick={() => {
-              setModalMode(0);
-              setModalIsOpen(true);
+              setSaveModalIsOpen(true);
             }}
           >
             <Save color="#ccc" size={20} />
@@ -103,7 +109,7 @@ const EngraveSearchBlock: React.FC = () => {
           <button
             className="myButtons"
             onClick={() => {
-              loadSetting();
+              setLoadModalIsOpen(true);
             }}
           >
             <Load color="#ccc" size={20} />
