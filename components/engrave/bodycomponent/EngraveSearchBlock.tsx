@@ -67,9 +67,9 @@ const EngraveSearchBlock: React.FC = () => {
     setAbilityEngravePoint,
     setAbilityInput,
     setNegativeAbilityInput,
-    loadSetting,
     searchSetting,
     applyFilter,
+    dropdownRef,
   } = useContext(EngraveContext);
 
   return (
@@ -165,21 +165,45 @@ const EngraveSearchBlock: React.FC = () => {
                 setSearchValue(event.target.value);
               }}
               onKeyDown={(event) => {
-                // console.log(event);
+                const updown = Math.floor(
+                  dropdownRef.current.offsetWidth / 200
+                );
                 const keyValue: { [key: string]: number } = {
                   ArrowLeft: -1,
-                  ArrowUp: -3,
+                  ArrowUp: -updown,
                   ArrowRight: 1,
-                  ArrowDown: 3,
+                  ArrowDown: updown,
                 };
                 if (keyValue[event.key]) {
                   event.preventDefault();
+                  // scrollTop, next, updown을 사용해 커버 가능한 영역을 계산해서 벗어나면 옮기기
                   setDropdownSelector((e: number) => {
                     const tmpDropdownSelector = e + keyValue[event.key];
-                    if (tmpDropdownSelector < 0) return 0;
-                    else if (tmpDropdownSelector >= engraveSearchList.length)
-                      return engraveSearchList.length - 1;
-                    else return tmpDropdownSelector;
+                    let next: number;
+                    if (tmpDropdownSelector < 0) {
+                      next = 0;
+                    } else if (
+                      tmpDropdownSelector >= engraveSearchList.length
+                    ) {
+                      next = engraveSearchList.length - 1;
+                    } else {
+                      next = tmpDropdownSelector;
+                    }
+                    if (dropdownRef.current.clientHeight >= 400) {
+                      const line = Math.floor(next / updown);
+                      const startLine = Math.ceil(
+                        dropdownRef.current.scrollTop / 50
+                      );
+                      const lastLine =
+                        Math.floor(dropdownRef.current.scrollTop / 50) + 7;
+                      // console.log(line, startLine, lastLine);
+                      if (line > lastLine || line < startLine) {
+                        if (keyValue[event.key] < 0)
+                          dropdownRef.current.scrollTop = line * 50;
+                        else dropdownRef.current.scrollTop = (line - 7) * 50;
+                      }
+                    }
+                    return next;
                   });
                 } else if (event.key === "Enter") {
                   check(engraveSearchList[dropdownSelector], 0);
@@ -207,7 +231,10 @@ const EngraveSearchBlock: React.FC = () => {
                     }}
                   />
                 </h5>
-                <ul className={`${styles.dropdownList} hideScroll`}>
+                <ul
+                  className={`${styles.dropdownList} hideScroll`}
+                  ref={dropdownRef}
+                >
                   {engraveSearchList.length ? (
                     engraveSearchList.map((e: string, i: number) => {
                       return (
@@ -245,7 +272,7 @@ const EngraveSearchBlock: React.FC = () => {
                     })
                   ) : (
                     <li className={styles.emptyDropdownListItem}>
-                      일치하는 각인이 없습니다.
+                      <p>일치하는 각인이 없습니다.</p>
                     </li>
                   )}
                 </ul>
@@ -438,7 +465,7 @@ const EngraveSearchBlock: React.FC = () => {
                     return (
                       <tr
                         className={styles.equipListItem}
-                        key={`selected_engrave_${e.name}`}
+                        key={`selected_engrave_${e.name}_${i}`}
                       >
                         <td>
                           <div className={styles.engraveImgSlot}>

@@ -32,6 +32,16 @@ type EngraveSearchContainerProps = {
   setCurrentCase: Dispatch<SetStateAction<number>>;
   setMyTimer: Dispatch<SetStateAction<number>>;
 };
+// state 로 사용했다가, 값의 변경에 있어 동기적인 동작이 필요해 변수로 설정.
+let resultObject: {
+  [key: number]: AuctionItem[];
+} = {
+  0: [],
+  1: [],
+  2: [],
+  3: [],
+  4: [],
+};
 const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
   pageStatus,
   combinationList,
@@ -152,15 +162,6 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
       setRingState2,
     ],
   };
-  const [resultObject, setResultObject] = useState<{
-    [key: number]: AuctionItem[];
-  }>({
-    0: [],
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-  });
 
   const [statFilterValue, setStatFilterValue] = useState<{
     [key: string]: number;
@@ -194,6 +195,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
     });
   }, [searchValue]);
   const targetEngraveRef = useRef<HTMLInputElement>(null);
+  const dropdownRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     if (myWorker) {
@@ -240,7 +242,6 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
           console.dir(e.data.errorArray);
           alert("로스트아크 서버 상태가 좋지 않아 검색이 취소됩니다.");
         } else if (e.data.type === 7) {
-          setUsingWebWorker([true, 7]);
           /* 
           resultObject에서 중복을 제거해줘야 한다.
           최소값 이상의 악세서리를 검색하는 방식이므로,
@@ -285,7 +286,8 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
             );
           });
 
-          setResultObject(JSON.parse(JSON.stringify(e.data.tmp_resultObject)));
+          resultObject = JSON.parse(JSON.stringify(e.data.tmp_resultObject));
+          setUsingWebWorker([true, 7]);
 
           /*
           현 위치(onmessage)에서 state값을 활용한 webworker의 postmessage를 사용하는 경우,
@@ -453,18 +455,6 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
         accessoryList: accessoryList.getter,
       })
     );
-  }
-  function loadSetting() {
-    const tmp_info = localStorage.getItem("engraveSettingInfo");
-    if (!tmp_info) return;
-    const info = JSON.parse(tmp_info);
-    setTargetList(info.targetList);
-    setEquipList(info.equipList);
-    setAbilityList(info.abilityList);
-    setNegativeEngrave(info.negativeEngrave);
-    accessoryList.setter.forEach((set, i) => {
-      set(info.accessoryList[i]);
-    });
   }
 
   async function searchSetting() {
@@ -781,7 +771,18 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
     usingWebWorker[0]를 true로 유지하고 필터링 후에만 false로 변환해서 차이점을 flag로 사용하자.
     (onmessage의 type === 7 이 검색, type === 1 이 필터링)
     */
-    if (!combinationList.length && !usingWebWorker[0]) {
+    if (
+      !resultObject[0].length ||
+      !resultObject[1].length ||
+      !resultObject[3].length ||
+      (accessoryList.getter[1].stat1.type !==
+        accessoryList.getter[2].stat1.type &&
+        !resultObject[2].length) ||
+      (accessoryList.getter[3].stat1.type !==
+        accessoryList.getter[4].stat1.type &&
+        !resultObject[4].length &&
+        !usingWebWorker[0])
+    ) {
       alert("필터링할 내용이 없습니다.");
       return;
     }
@@ -871,7 +872,6 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
         setUsingWebWorker,
         accessoryList,
         resultObject,
-        setResultObject,
         statFilterValue,
         setStatFilterValue,
         otherFilterValue,
@@ -897,10 +897,10 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
         setAbilityInput,
         setNegativeAbilityInput,
         saveSetting,
-        loadSetting,
         searchSetting,
         pickTwo,
         applyFilter,
+        dropdownRef,
       }}
     >
       <EngraveSearchBlock />

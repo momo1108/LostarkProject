@@ -418,7 +418,7 @@ $myLightBlue: #76b1ff;
     }
 
     .dropdownWrapper {
-      @apply absolute top-11 left-0 w-[638px] overflow-hidden z-[2];
+      @apply absolute top-11 left-0 w-[238px] sm:w-[438px] md:w-[638px] overflow-hidden z-[2];
       &[data-dropdown-order="1"] {
         @apply w-[216px] left-1/2;
         transform: translateX(-50%);
@@ -480,7 +480,7 @@ $myLightBlue: #76b1ff;
           }
 
           .emptyDropdownListItem {
-            @apply w-full text-xl font-bold text-center;
+            @apply w-full text-base sm:text-xl font-bold text-center;
             height: 41.56px;
             line-height: 41.56px;
           }
@@ -647,7 +647,7 @@ $myLightBlue: #76b1ff;
     .resultLoader {
       @apply flex justify-center items-center flex-col gap-4;
       .presentationSection {
-        @apply flex items-center gap-4;
+        @apply flex items-center gap-4 scale-[0.3] xs:scale-[0.4] sm:scale-[0.57] md:scale-[0.65] lg:scale-[0.8] xl:scale-100;
         .apiSearch {
           @apply relative;
           .magnifyingGlass {

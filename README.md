@@ -1256,3 +1256,5 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 - (나중에) EngraveBody에 있는 state, state setter 들을 context를 사용해 하위 컴포넌트에서 사용하자.
 - (나중에) 각인 선택 시 클릭 말고 키보드로도 가능하게 해보자.(방향키, 엔터) O -> 포인터 위치에따른 자동 스크롤 필요할듯
 - (나중에) localStorage에 각인 프리셋 저장 시 갯수 제한해야할듯? 개당 5KB정도 먹음.
+- 불러오기 목록 비었을 때 추가해야함;; O
+- 각인 검색 목록 비었을 때 추가.

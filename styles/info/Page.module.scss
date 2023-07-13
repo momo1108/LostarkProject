@@ -3,14 +3,17 @@ $myBlue: #4691f6;
 $myLightBlue: #76b1ff;
 
 .container {
-  @apply text-white flex min-h-screen;
+  @apply text-white flex flex-col sm:flex-row min-h-screen;
   .indexWrapper {
     @apply flex flex-col gap-2 w-full items-center;
     padding-top: 4%;
-    .indexTitle {
-      @apply text-4xl font-extrabold py-4 px-8;
+    .indexTitleWrapper {
+      @apply py-2 text-center w-3/4 min-w-[293px];
       border-top: 1px solid gray;
       border-bottom: 1px solid gray;
+      .indexTitle {
+        @apply text-4xl font-extrabold;
+      }
     }
     .indexTitle2 {
       @apply text-xl font-extrabold py-4;
@@ -53,7 +56,7 @@ $myLightBlue: #76b1ff;
   }
 
   .menuContainer {
-    @apply text-white flex flex-col min-h-full items-center py-2 min-w-[200px] max-w-[232px] font-bold;
+    @apply text-white flex flex-col min-h-full items-center py-2 sm:min-w-[200px] sm:max-w-[232px] font-bold;
     border-right: 1px solid rgba(97, 97, 97, 0.333);
 
     .homeDiv {
@@ -69,11 +72,11 @@ $myLightBlue: #76b1ff;
     }
 
     .infoHeaderTitle {
-      @apply text-xl py-4;
+      @apply text-xl py-4 hidden sm:block;
     }
 
     .infoLinkDiv {
-      @apply flex flex-col w-full mt-2;
+      @apply flex-col w-full mt-2 hidden sm:flex;
       .infoLink {
         @apply py-4 w-full text-center hover:bg-[#111] hover:text-[#4691f6];
         border-top: 1px solid #333;

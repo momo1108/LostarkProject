@@ -22,7 +22,7 @@ html {
   color: $basicFontColor;
   backdrop-filter: blur(1px);
   .modalContent {
-    @apply relative w-1/2 min-w-[320px] max-w-[650px] p-2 pl-3 xs:p-3 xs:pl-4 rounded xs:rounded-xl bg-[#111];
+    @apply relative w-1/2 min-w-[320px] max-w-[650px] py-2 xs:py-3 rounded xs:rounded-xl bg-[#111];
     border: 1px solid #555;
     box-shadow: 0px 0px 10px -2px #aaa;
     hr {
@@ -53,17 +53,23 @@ html {
       @apply flex flex-col gap-1;
     }
     .saveModalContentDiv {
-      @apply flex flex-col gap-2;
+      @apply flex flex-col gap-2 pl-3 xs:pl-4 pr-2 xs:pr-3 max-h-[650px] xs:max-h-[800px] overflow-auto;
       .saveModalCurrentDiv {
         @apply flex flex-col gap-1;
+        .modalListItem {
+          @apply border-[#444];
+        }
       }
       .savedPresetList {
         @apply py-2 xs:py-3 flex flex-wrap gap-2;
         .savedPresetListItem {
-          @apply flex flex-col px-2 py-1 border border-[#eee] rounded;
+          @apply flex flex-col px-2 py-1 border border-[#eee] rounded items-start;
           .savedPresetListItemEngraveDiv,
           .savedPresetListItemStatDiv {
             @apply px-2 py-1 border border-[#eee] rounded;
+          }
+          .myButtons {
+            @apply mx-auto text-sm hover:bg-[#a22] hover:border-[#a22];
           }
         }
       }
@@ -97,7 +103,7 @@ html {
       }
     }
     .loadModalContentDiv {
-      @apply flex flex-col gap-2;
+      @apply flex flex-col gap-2 pl-3 xs:pl-4;
       .loadModalContentDivHeader {
         @apply flex gap-2;
         .loadModalContentViewBtn {
@@ -114,8 +120,11 @@ html {
         }
       }
       .loadModalDetailDiv {
+        .modalListItem {
+          @apply border-[#444];
+        }
         .loadModalDetailList {
-          @apply flex flex-col gap-4 max-h-[650px] xs:max-h-[800px] overflow-auto;
+          @apply flex flex-col gap-4 max-h-[650px] xs:max-h-[800px] overflow-auto pr-2 xs:pr-3;
           .loadModalDetailListItem {
             @apply flex flex-col gap-1;
             .presetName {
@@ -145,7 +154,7 @@ html {
       }
       .loadModalSimpleDiv {
         .loadModalSimpleList {
-          @apply flex flex-wrap flex-row gap-2 justify-center max-h-[650px] xs:max-h-[800px] overflow-auto;
+          @apply flex flex-wrap flex-row gap-2 justify-center max-h-[650px] xs:max-h-[800px] overflow-auto pr-2 xs:pr-3;
           .loadModalSimpleListItem {
             @apply inline-flex flex-col gap-2 border border-[#555] rounded py-1 px-2;
             .presetName {
@@ -168,6 +177,9 @@ html {
             }
           }
         }
+      }
+      .loadModalEmptyDiv {
+        @apply flex flex-col items-center text-lg xs:text-xl font-bold text-[#888] py-4 text-center;
       }
     }
   }
@@ -395,7 +407,9 @@ body,
 
 .hideScroll {
   -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  // scrollbar-width: none; /* Firefox */
+  scrollbar-color: #4a4c55 #1a1c25;
+  scrollbar-width: thin;
   &::-webkit-scrollbar {
     width: 4px;
     height: 8px;

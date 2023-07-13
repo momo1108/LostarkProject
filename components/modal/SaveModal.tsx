@@ -52,6 +52,9 @@ const SaveModal: React.FC<ModalProps> = ({
     }
   }, [isOpen]);
   useEffect(() => {
+    setPresetName(`세팅 ${currentPresetList.length + 1}`);
+  }, [currentPresetList]);
+  useEffect(() => {
     const tmpParsedData: ModalData = JSON.parse(data);
     const tmpStatData = {
       치명: 0,
@@ -93,28 +96,39 @@ const SaveModal: React.FC<ModalProps> = ({
           <button className="modalCloseBtn" onClick={closeFunc}>
             <MenuIcons type={3} size={30} />
           </button>
-          <div className="saveModalContentDiv">
+          <div className="saveModalContentDiv hideScroll">
             <div className="saveModalSavedDiv">
               <h2 className="modalTitle">저장된 세팅 목록</h2>
+              <p className="text-[#888] text-sm xs:text-base">
+                - 세팅 저장은 최대 <b className="text-[#bbb]">"10개"</b> 까지
+                가능합니다.
+              </p>
+              <p className="text-[#888] text-sm xs:text-base">
+                - 세팅 이름은 <b className="text-[#bbb]">"중복이 불가능"</b>{" "}
+                합니다.
+              </p>
               <ul className="savedPresetList">
                 {currentPresetList.length ? (
-                  currentPresetList.map((preset: EngravePreset) => {
+                  currentPresetList.map((preset: EngravePreset, i: number) => {
                     return (
                       <li
                         className="savedPresetListItem"
                         key={`preset_${preset.name}`}
                       >
-                        <h3 className="modalSubtitle w-full">
-                          🔹{preset.name}
-                        </h3>
-                        <p>- {preset.descr.engrave}</p>
+                        <h3 className="modalSubtitle">🔹{preset.name}</h3>
+                        <p>- {preset.descr.engrave.trim() || "각인 없음"}</p>
                         <p>- {preset.descr.stat}</p>
-                        {/* <div className="savedPresetListItemEngraveDiv">
-                            <h3 className="font-bold">각인</h3>
-                          </div>
-                          <div className="savedPresetListItemStatDiv">
-                            <h3 className="font-bold">전투 특성</h3>
-                          </div> */}
+                        <button
+                          className="myButtons"
+                          onClick={() => {
+                            if (
+                              confirm(`${preset.name} 세팅을 삭제하시겠습니까?`)
+                            )
+                              deleteSetting(i);
+                          }}
+                        >
+                          세팅 삭제
+                        </button>
                       </li>
                     );
                   })
@@ -232,7 +246,7 @@ const SaveModal: React.FC<ModalProps> = ({
                 className="myButtons justify-center"
                 disabled={!validName}
                 onClick={() => {
-                  savePreset();
+                  saveSetting();
                 }}
               >
                 저장하기
@@ -248,11 +262,29 @@ const SaveModal: React.FC<ModalProps> = ({
     <></>
   );
 
-  function savePreset() {
+  function deleteSetting(index: number) {
+    const tmpDeletedPresetData = currentPresetList.filter(
+      (preset: EngravePreset, i: number) => index !== i
+    );
+    localStorage.setItem(
+      "engraveSettingInfo",
+      JSON.stringify(tmpDeletedPresetData)
+    );
+    setCurrentPresetList(tmpDeletedPresetData);
+    alert("삭제 완료!");
+  }
+
+  function saveSetting() {
+    if (currentPresetList.length >= 10) {
+      alert(
+        "저장가능한 세팅은 최대 10개 까지입니다.\n불필요한 세팅을 삭제 후 진행해주세요."
+      );
+      return;
+    }
     const tmpList = [
       ...currentPresetList,
       {
-        name: presetName,
+        name: presetName.trim(),
         descr: {
           engrave:
             parsedData?.targetList

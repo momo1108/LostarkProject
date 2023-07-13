@@ -7,14 +7,21 @@ import { nanumNeo } from "@/types/GlobalType";
 import EngraveBody from "@/components/engrave/EngraveBody";
 import Page from "@/components/Page";
 import EngraveFooter from "@/components/engrave/EngraveFooter";
+import { NextSeo } from "next-seo";
 
 const Engrave: React.FC<MenuProps> = ({ menu }) => {
   return (
-    <Page className={`${styles.container} ${nanumNeo.className}`}>
-      <MenuBar menu={menu} />
-      <EngraveBody />
-      <EngraveFooter />
-    </Page>
+    <>
+      <NextSeo
+        title="로아플 각인세팅, 악세세팅, 악세서리세팅"
+        description="로아플에서 제공하는 각인과 악세서리 세팅 비용을 찾아주는 페이지입니다."
+      />
+      <Page className={`${styles.container} ${nanumNeo.className}`}>
+        <MenuBar menu={menu} />
+        <EngraveBody />
+        <EngraveFooter />
+      </Page>
+    </>
   );
 };
 
