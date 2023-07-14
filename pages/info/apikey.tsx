@@ -16,7 +16,7 @@ const ApiPage: React.FC<{ pages: InfoPage[]; pageInfo: InfoPage }> = ({
   return (
     <>
       <NextSeo
-        title="로아플 APIKey 안내페이지"
+        title="로아플 로스트아크 APIKey 안내페이지"
         description="로아플에서 사용할 API Key를 발급받는 방법을 안내하는 페이지입니다."
       />
       <Page className={`${styles.container} ${nanumNeo.className}`}>

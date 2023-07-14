@@ -11,7 +11,7 @@ const InfoIndex: React.FC<{ pages: InfoPage[] }> = ({ pages }) => {
   return (
     <>
       <NextSeo
-        title="로아플 안내페이지"
+        title="로아플 로스트아크 안내페이지"
         description="로아플 웹사이트의 기능을 활용하기 위한 안내페이지입니다."
       />
       <Page className={`${styles.container} ${nanumNeo.className}`}>

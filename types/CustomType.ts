@@ -43,3 +43,7 @@ export type CustomLoaderProps = {
   hide?: boolean;
   children?: (JSX.Element | string)[] | (JSX.Element | string);
 };
+
+export type ApiKeyInputProps = {
+  shine: boolean;
+};

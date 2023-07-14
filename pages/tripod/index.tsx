@@ -1,28 +1,27 @@
-import styles from "@/styles/character/Page.module.scss";
+import styles from "@/styles/tripod/Page.module.scss";
 import DataService from "@/service/DataService";
 import MenuBar from "@/components/MenuBar";
 import { MenuProps } from "@/types/GlobalType";
-import CharBody from "@/components/character/CharBody";
 import { nanumNeo } from "@/types/GlobalType";
 import Page from "@/components/Page";
 import { NextSeo } from "next-seo";
 
-const Character: React.FC<MenuProps> = ({ menu }) => {
+const Tripod: React.FC<MenuProps> = ({ menu }) => {
   return (
     <>
       <NextSeo
-        title="로아플 로스트아크 캐릭터검색, 이름검색, 닉네임검색"
-        description="로아플에서 제공하는 로스트아크 캐릭터 이름(닉네임)을 활용한 검색기능입니다. 유저들의 장비, 각인 스킬 등 여러가지 정보를 조회할 수 있습니다."
+        title="로아플 로스트아크 트라이포드 세팅, 트포 세팅"
+        description="로아플에서 제공하는 트라이포드 세팅 비용을 찾아주는 페이지입니다."
       />
       <Page className={`${styles.container} ${nanumNeo.className}`}>
         <MenuBar menu={menu} />
-        <CharBody />
+        트라이포드입니다.
       </Page>
     </>
   );
 };
 
-export default Character;
+export default Tripod;
 
 export async function getStaticProps() {
   try {

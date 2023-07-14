@@ -6,6 +6,11 @@ export type PageProps = {
   className?: string;
 };
 
+export type FooterProps = {
+  children?: React.ReactNode;
+  className?: string;
+};
+
 export type ModalProps = {
   children?: React.ReactNode;
   className?: string;

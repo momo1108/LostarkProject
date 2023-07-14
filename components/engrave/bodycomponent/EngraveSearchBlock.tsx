@@ -70,6 +70,7 @@ const EngraveSearchBlock: React.FC = () => {
     searchSetting,
     applyFilter,
     dropdownRef,
+    apiShine,
   } = useContext(EngraveContext);
 
   return (
@@ -95,7 +96,7 @@ const EngraveSearchBlock: React.FC = () => {
           }}
           data=""
         />
-        <ApiKeyInput />
+        <ApiKeyInput shine={apiShine} />
         <div className={styles.presetDiv}>
           <button
             className="myButtons"
@@ -290,8 +291,7 @@ const EngraveSearchBlock: React.FC = () => {
                     <p className={styles.targetListItemTitle}>
                       {e.name}
                       <br />
-                      Lv.{" "}
-                      <span className="text-2xl font-extrabold">{e.level}</span>
+                      Lv. <span className={styles.levelSpan}>{e.level}</span>
                     </p>
                     <div className={styles.engraveImgSlot}>
                       <div className={styles.engraveImg}>
@@ -807,6 +807,7 @@ const EngraveSearchBlock: React.FC = () => {
                         data={NEGATIVE_ENGRAVES}
                         width={115}
                         height={30}
+                        place="bottom"
                         offset={3}
                         mapFunction={(e, i) => {
                           return e.name;
@@ -1026,7 +1027,7 @@ const EngraveSearchBlock: React.FC = () => {
                           width={70}
                           height={30}
                           title={e.stat1.type}
-                          place="right"
+                          place="bottom"
                           offset={3}
                           color="#ccc"
                           data={[
@@ -1061,7 +1062,7 @@ const EngraveSearchBlock: React.FC = () => {
                             width={70}
                             height={30}
                             title={e.stat2.type}
-                            place="right"
+                            place="bottom"
                             offset={3}
                             color="#ccc"
                             data={[

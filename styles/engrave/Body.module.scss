@@ -11,7 +11,7 @@ $myLightBlue: #76b1ff;
     @apply flex flex-col gap-4;
 
     .searchHeader {
-      @apply flex flex-col gap-4;
+      @apply flex flex-col items-start gap-4;
       .presetDiv {
         @apply flex flex-wrap w-full gap-x-4 gap-y-1 items-center;
       }
@@ -64,10 +64,11 @@ $myLightBlue: #76b1ff;
         .targetList {
           @apply inline-flex flex-col items-start mx-auto min-h-[400px];
           .targetListItem {
-            @apply h-[86px] inline-flex p-2 pr-6 items-center gap-2;
+            @apply h-[86px] inline-flex p-2 pr-6 items-center gap-1 xs:gap-2;
             .targetListItemTitle {
-              @apply min-w-[134px] text-center font-bold text-[#ccc];
-              span {
+              @apply text-xs xs:text-base min-w-[100px] xs:min-w-[134px] text-center font-bold text-[#ccc];
+              .levelSpan {
+                @apply text-lg xs:text-2xl font-extrabold;
                 color: $myBlue;
               }
             }
@@ -87,7 +88,7 @@ $myLightBlue: #76b1ff;
             .engraveLevelList {
               @apply flex gap-1 pl-3;
               li {
-                @apply inline-flex justify-center items-center w-6 h-6 font-bold cursor-pointer text-xs;
+                @apply inline-flex justify-center items-center w-5 h-5 xs:w-6 xs:h-6 font-bold cursor-pointer text-xs;
                 transition: transform 200ms ease-out;
                 border-width: 1px;
 
@@ -633,7 +634,35 @@ $myLightBlue: #76b1ff;
       }
 
       .emptyResultBody {
-        @apply flex flex-col justify-center items-center font-bold text-2xl h-[660px];
+        @apply flex flex-col items-center py-4;
+        box-shadow: 0px 0px 10px -5px #fff;
+        .presentationSection {
+          @apply w-[94%] max-w-[1000px] relative;
+          .padding {
+            @apply pb-[37.5%];
+          }
+          .necklace {
+            animation: necklaceMix 15s linear infinite;
+          }
+          .earring {
+            animation: earringMix 15s linear infinite;
+          }
+          .ring {
+            animation: ringMix 15s linear infinite;
+          }
+
+          svg {
+            @apply absolute w-1/5;
+            transform: translate(-50%, -50%);
+          }
+        }
+        .descriptionSection {
+          @apply text-base xs:text-2xl text-center;
+        }
+      }
+
+      .initialResultBody {
+        @apply flex flex-col justify-center items-center font-bold text-base xs:text-2xl h-[660px];
         box-shadow: 0px 0px 10px -5px #fff;
         .iconWrapper {
           @apply flex items-center justify-center h-64;
@@ -642,91 +671,91 @@ $myLightBlue: #76b1ff;
           }
         }
       }
-    }
 
-    .resultLoader {
-      @apply flex justify-center items-center flex-col gap-4;
-      .presentationSection {
-        @apply flex items-center gap-4 scale-[0.3] xs:scale-[0.4] sm:scale-[0.57] md:scale-[0.65] lg:scale-[0.8] xl:scale-100;
-        .apiSearch {
-          @apply relative;
-          .magnifyingGlass {
-            @apply absolute top-1/2 left-1/2;
-            transform: translate(-50%, -50%);
-          }
-          .floatingRound {
-            animation: diagonalRotate 6s linear infinite;
-          }
-        }
-        .dotsWrapper {
-          @apply w-[150px] overflow-hidden;
-          .dots {
-            animation: descreteMove 4s steps(1, jump-both) infinite;
-          }
-        }
-        .findCombination {
-          @apply relative;
-          .emptyBox {
-            @apply absolute top-1/2 left-1/2;
-            transform: translate(-50%, -45%);
-          }
-          .ring,
-          .necklace,
-          .earring {
-            @apply absolute;
-            transform: translate(-50%, -50%);
-          }
-          .ring {
-            animation: throwIn 2s 0s linear infinite;
-            top: 25%;
-            left: 35%;
-          }
-          .necklace {
-            animation: throwIn 2s 0.5s linear infinite;
-            top: 20%;
-            left: 50%;
-          }
-          .earring {
-            animation: throwIn 2s 1s linear infinite;
-            top: 25%;
-            left: 65%;
-          }
-          .gearLargeWrapper {
-            @apply absolute flex justify-center items-center;
-            top: 61%;
-            left: 47%;
-            .gearLarge {
+      .resultLoader {
+        @apply flex justify-center items-center flex-col gap-4;
+        .presentationSection {
+          @apply flex items-center gap-4 scale-[0.3] xs:scale-[0.4] sm:scale-[0.57] md:scale-[0.65] lg:scale-[0.8] xl:scale-100;
+          .apiSearch {
+            @apply relative;
+            .magnifyingGlass {
+              @apply absolute top-1/2 left-1/2;
               transform: translate(-50%, -50%);
             }
-            .gearAnimate {
-              animation: gearSpin 5s linear infinite;
+            .floatingRound {
+              animation: diagonalRotate 6s linear infinite;
             }
           }
-          .gearSmallWrapper {
-            @apply absolute flex justify-center items-center;
-            top: 70%;
-            left: 53%;
-            .gearSmall {
+          .dotsWrapper {
+            @apply w-[150px] overflow-hidden;
+            .dots {
+              animation: descreteMove 4s steps(1, jump-both) infinite;
+            }
+          }
+          .findCombination {
+            @apply relative;
+            .emptyBox {
+              @apply absolute top-1/2 left-1/2;
+              transform: translate(-50%, -45%);
+            }
+            .ring,
+            .necklace,
+            .earring {
+              @apply absolute;
               transform: translate(-50%, -50%);
             }
-            .gearAnimate {
-              animation: gearSpin 5s linear infinite reverse;
+            .ring {
+              animation: throwIn 2s 0s linear infinite;
+              top: 25%;
+              left: 35%;
+            }
+            .necklace {
+              animation: throwIn 2s 0.5s linear infinite;
+              top: 20%;
+              left: 50%;
+            }
+            .earring {
+              animation: throwIn 2s 1s linear infinite;
+              top: 25%;
+              left: 65%;
+            }
+            .gearLargeWrapper {
+              @apply absolute flex justify-center items-center;
+              top: 61%;
+              left: 47%;
+              .gearLarge {
+                transform: translate(-50%, -50%);
+              }
+              .gearAnimate {
+                animation: gearSpin 5s linear infinite;
+              }
+            }
+            .gearSmallWrapper {
+              @apply absolute flex justify-center items-center;
+              top: 70%;
+              left: 53%;
+              .gearSmall {
+                transform: translate(-50%, -50%);
+              }
+              .gearAnimate {
+                animation: gearSpin 5s linear infinite reverse;
+              }
             }
           }
         }
-      }
-      .descriptionSection {
-        @apply text-2xl font-bold;
-        .searchDiv,
-        .findDiv {
-          @apply flex flex-col items-center justify-center;
-        }
-        .searchDiv {
-          .timeoutDiv {
-            @apply text-lg text-center text-[#a77];
-            .timerP {
-              @apply text-xl;
-              color: $myBlue;
+        .descriptionSection {
+          @apply text-base xs:text-2xl font-bold;
+          .searchDiv,
+          .findDiv {
+            @apply flex flex-col items-center justify-center;
+          }
+          .searchDiv {
+            .timeoutDiv {
+              @apply text-lg text-center text-[#a77];
+              .timerP {
+                @apply text-xl;
+                color: $myBlue;
+              }
             }
           }
         }
@@ -863,5 +892,865 @@ $myLightBlue: #76b1ff;
     top: 50%;
     left: 50%;
     opacity: 0;
+  }
+}
+
+// .necklace {
+//   top: 40%;
+//   left: 50%;
+// }
+// .earring {
+//   top: 50%;
+//   left: 25%;
+// }
+// .ring {
+//   top: 50%;
+//   left: 75%;
+// }
+@keyframes necklaceMix {
+  0% {
+    top: 40%;
+    left: 50%;
+  }
+  1% {
+    top: 37%;
+    left: 59%;
+  }
+  2% {
+    top: 35%;
+    left: 66%;
+  }
+  3% {
+    top: 41%;
+    left: 71%;
+  }
+  4% {
+    top: 50%;
+    left: 75%;
+  }
+  8% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  8.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+  9% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  9.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  10% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  10.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+  11% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  11.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  12% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  16% {
+    top: 50%;
+    left: 75%;
+  }
+  17% {
+    top: 53%;
+    left: 66;
+  }
+  18% {
+    top: 55%;
+    left: 59;
+  }
+  19% {
+    top: 49%;
+    left: 54;
+  }
+  20% {
+    top: 40%;
+    left: 50%;
+  }
+  24% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  24.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+  25% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  25.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  26% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  26.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+  27% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  27.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  28% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  32% {
+    top: 40%;
+    left: 50%;
+  }
+  33% {
+    top: 37%;
+    left: 41%;
+  }
+  34% {
+    top: 35%;
+    left: 34%;
+  }
+  35% {
+    top: 41%;
+    left: 29%;
+  }
+  36% {
+    top: 50%;
+    left: 25%;
+  }
+  40% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  40.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+  41% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  41.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  42% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  42.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+  43% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  43.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  44% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  48% {
+    top: 50%;
+    left: 25%;
+  }
+  49% {
+    top: 53%;
+    left: 34%;
+  }
+  50% {
+    top: 55%;
+    left: 41%;
+  }
+  51% {
+    top: 49%;
+    left: 46%;
+  }
+  52% {
+    top: 40%;
+    left: 50%;
+  }
+  56% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  56.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+  57% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  57.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  58% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  58.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+  59% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  59.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  60% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  64% {
+    top: 40%;
+    left: 50%;
+  }
+  100% {
+    top: 40%;
+    left: 50%;
+  }
+}
+@keyframes ringMix {
+  0% {
+    top: 50%;
+    left: 75%;
+  }
+  1% {
+    top: 53%;
+    left: 66%;
+  }
+  2% {
+    top: 55%;
+    left: 59%;
+  }
+  3% {
+    top: 49%;
+    left: 54%;
+  }
+  4% {
+    top: 40%;
+    left: 50%;
+  }
+  8% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  8.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+  9% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  9.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+  10% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  10.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+  11% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  11.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+  12% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  16% {
+    top: 40%;
+    left: 50%;
+  }
+  17% {
+    top: 37%;
+    left: 59;
+  }
+  18% {
+    top: 35%;
+    left: 66;
+  }
+  19% {
+    top: 41%;
+    left: 71;
+  }
+  20% {
+    top: 50%;
+    left: 75%;
+  }
+  24% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  24.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+  25% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  25.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+  26% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  26.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+  27% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  27.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+  28% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  32% {
+    top: 50%;
+    left: 75%;
+  }
+  36% {
+    top: 50%;
+    left: 75%;
+  }
+  40% {
+    top: 50%;
+    left: 75%;
+  }
+  44% {
+    top: 50%;
+    left: 75%;
+  }
+  48% {
+    top: 50%;
+    left: 75%;
+  }
+  52% {
+    top: 50%;
+    left: 75%;
+  }
+  56% {
+    top: 50%;
+    left: 75%;
+  }
+  60% {
+    top: 50%;
+    left: 75%;
+  }
+  64% {
+    top: 50%;
+    left: 75%;
+  }
+  65% {
+    top: 42%;
+    left: 64%;
+  }
+  66% {
+    top: 37%;
+    left: 50%;
+  }
+  67% {
+    top: 42%;
+    left: 36%;
+  }
+  68% {
+    top: 50%;
+    left: 25%;
+  }
+  72% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  72.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+  73% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  73.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+  74% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  74.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+  75% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  75.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+  76% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  80% {
+    top: 50%;
+    left: 25%;
+  }
+  81% {
+    top: 58%;
+    left: 36%;
+  }
+  82% {
+    top: 63%;
+    left: 50%;
+  }
+  83% {
+    top: 58%;
+    left: 64%;
+  }
+  84% {
+    top: 50%;
+    left: 75%;
+  }
+  88% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  88.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+  89% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  89.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+  90% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  90.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+  91% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  91.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+  92% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  96% {
+    top: 50%;
+    left: 75%;
+  }
+  100% {
+    top: 50%;
+    left: 75%;
+  }
+}
+
+@keyframes earringMix {
+  0% {
+    top: 50%;
+    left: 25%;
+  }
+  32% {
+    top: 50%;
+    left: 25%;
+  }
+  33% {
+    top: 53%;
+    left: 34%;
+  }
+  34% {
+    top: 55%;
+    left: 41%;
+  }
+  35% {
+    top: 49%;
+    left: 46%;
+  }
+  36% {
+    top: 40%;
+    left: 50%;
+  }
+  40% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  40.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+  41% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  41.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+  42% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  42.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+  43% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  43.5% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+  44% {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  48% {
+    top: 40%;
+    left: 50%;
+  }
+  49% {
+    top: 37%;
+    left: 41%;
+  }
+  50% {
+    top: 35%;
+    left: 34%;
+  }
+  51% {
+    top: 41%;
+    left: 29%;
+  }
+  52% {
+    top: 50%;
+    left: 25%;
+  }
+  56% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  56.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+  57% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  57.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+  58% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  58.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+  59% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  59.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+  60% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  64% {
+    top: 50%;
+    left: 25%;
+  }
+  65% {
+    top: 58%;
+    left: 36%;
+  }
+  66% {
+    top: 63%;
+    left: 50%;
+  }
+  67% {
+    top: 58%;
+    left: 64%;
+  }
+  68% {
+    top: 50%;
+    left: 75%;
+  }
+  72% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  72.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+  73% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  73.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  74% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  74.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+  75% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  75.5% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  76% {
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  80% {
+    top: 50%;
+    left: 75%;
+  }
+  81% {
+    top: 42%;
+    left: 64%;
+  }
+  82% {
+    top: 37%;
+    left: 50%;
+  }
+  83% {
+    top: 42%;
+    left: 36%;
+  }
+  84% {
+    top: 50%;
+    left: 25%;
+  }
+  88% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  88.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+  89% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  89.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  90% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  90.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(20deg);
+  }
+  91% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  91.5% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  92% {
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  96% {
+    top: 50%;
+    left: 25%;
+  }
+  100% {
+    top: 50%;
+    left: 25%;
   }
 }

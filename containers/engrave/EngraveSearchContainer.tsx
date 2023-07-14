@@ -42,6 +42,7 @@ let resultObject: {
   3: [],
   4: [],
 };
+
 const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
   pageStatus,
   combinationList,
@@ -52,6 +53,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
   setCurrentCase,
   setMyTimer,
 }) => {
+  const [apiShine, setApiShine] = useState<boolean>(false);
   const [negativeEngrave, setNegativeEngrave] = useState<EngraveInfo>({
     name: "감소 효과 선택",
     point: 0,
@@ -236,6 +238,11 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
           setUsingWebWorker([false, 5]);
           setPageStatus(1);
           alert("잘못된 API key 값이 입력됐습니다. 수정 후 다시 검색해주세요.");
+          window.scrollTo({ top: 0 });
+          setApiShine(true);
+          setTimeout(() => {
+            setApiShine(false);
+          }, 2000);
         } else if (e.data.type === 6) {
           setUsingWebWorker([false, 6]);
           setPageStatus(1);
@@ -480,6 +487,11 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
       alert(
         "API Key 를 발급받아서 등록해주세요.\n등록 방법은 상단의 등록방법을 참조해주세요."
       );
+      window.scrollTo({ top: 0 });
+      setApiShine(true);
+      setTimeout(() => {
+        setApiShine(false);
+      }, 2000);
       return;
     }
 
@@ -783,7 +795,8 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
         !resultObject[4].length &&
         !usingWebWorker[0])
     ) {
-      alert("필터링할 내용이 없습니다.");
+      alert("조건에 맞는 매물이 없습니다.");
+      setPageStatus(1);
       return;
     }
     setProgress(0);
@@ -901,6 +914,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
         pickTwo,
         applyFilter,
         dropdownRef,
+        apiShine,
       }}
     >
       <EngraveSearchBlock />

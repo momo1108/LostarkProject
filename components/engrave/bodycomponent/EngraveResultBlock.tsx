@@ -279,10 +279,21 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
                 ))}
             </div>
           ) : (
-            <div>검색 결과가 없습니다.</div>
+            <div className={styles.emptyResultBody}>
+              <div className={styles.presentationSection}>
+                <div className={styles.padding} />
+                <Necklace className={styles.necklace} fill="#fff" />
+                <Ring2 className={styles.ring} fill="#fff" fill2="#fff" />
+                <Earring className={styles.earring} fill="#fff" fill2="#fff" />
+              </div>
+              <div className={styles.descriptionSection}>
+                <p>조건에 맞는 매물이 없습니다.</p>
+                <p>악세서리 품질이나 필터의 수치를 변경해주세요.</p>
+              </div>
+            </div>
           )
         ) : (
-          <div className={styles.emptyResultBody}>
+          <div className={styles.initialResultBody}>
             <div className={styles.iconWrapper}>
               <MagnifyingGlass
                 className={styles.mgIcon}

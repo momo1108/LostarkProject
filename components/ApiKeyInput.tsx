@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { MenuIcons, Edit, Check, Info } from "@/components/icons/Index";
 import Link from "next/link";
+import { ApiKeyInputProps } from "@/types/CustomType";
 
-const ApiKeyInput: React.FC = () => {
+const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ shine }) => {
   const [apiKey, setApiKey] = useState<string>("");
   const [editApiKey, setEditApiKey] = useState<boolean>(false);
   const apiKeyRef = useRef<HTMLInputElement>(null);
@@ -15,7 +16,12 @@ const ApiKeyInput: React.FC = () => {
 
   return (
     <>
-      <div className={editApiKey ? "apiDiv" : "hidden"} data-editing="true">
+      <div
+        className={`${editApiKey ? "apiDiv" : "hidden"}${
+          shine ? " shinyShadow" : ""
+        }`}
+        data-editing="true"
+      >
         <label>
           <input
             className={"apiKeyInput"}
@@ -51,7 +57,11 @@ const ApiKeyInput: React.FC = () => {
           </button>
         </div>
       </div>
-      <div className={editApiKey ? "hidden" : "apiDiv"}>
+      <div
+        className={`${editApiKey ? "hidden" : "apiDiv"}${
+          shine ? " shinyShadow" : ""
+        }`}
+      >
         <p className={"apiDescr"}>
           ★ 서비스 사용을 위해서 반드시 API Key를 등록해주세요.
         </p>

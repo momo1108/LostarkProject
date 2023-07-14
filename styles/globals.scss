@@ -18,7 +18,6 @@ html {
 
 .modalRoot {
   @apply absolute top-0 left-0 right-0 h-screen flex flex-wrap bg-[#0009] items-center justify-center z-[7] overflow-auto;
-  transition: opacity 0.5s linear;
   color: $basicFontColor;
   backdrop-filter: blur(1px);
   .modalContent {
@@ -421,7 +420,8 @@ body,
 }
 
 .apiDiv {
-  @apply relative flex items-center gap-x-4 gap-y-1 flex-wrap;
+  @apply relative flex items-center gap-x-4 gap-y-1 flex-wrap max-w-[383px];
+  transition: box-shadow;
   &[data-editing="true"] {
     @apply pt-6;
   }
@@ -435,11 +435,11 @@ body,
   }
 
   .apiDescr {
-    @apply text-xs text-red-600 w-full;
+    @apply text-xs text-red-600;
   }
 
   .placeholder {
-    @apply absolute top-8 left-0 text-[#999];
+    @apply absolute top-7 left-0 text-[#999];
     transition: color 300ms ease-in-out, top 300ms ease-in-out,
       left 300ms ease-in-out, font-size 300ms ease-in-out;
   }
@@ -473,5 +473,25 @@ body,
       border: 1px solid $myBlue;
       background-color: #0c1b2fee;
     }
+  }
+}
+
+footer {
+  @apply flex justify-end px-16 text-[#777] text-xs mt-2 text-right;
+}
+
+.shinyShadow {
+  animation: shiny 1s linear infinite;
+}
+
+@keyframes shiny {
+  0% {
+    box-shadow: 0px 0px 0px 3px transparent;
+  }
+  50% {
+    box-shadow: 0px 0px 0px 3px #ffeb50;
+  }
+  100% {
+    box-shadow: 0px 0px 0px 3px transparent;
   }
 }
