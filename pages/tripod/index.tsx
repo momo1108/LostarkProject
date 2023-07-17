@@ -5,6 +5,7 @@ import { MenuProps } from "@/types/GlobalType";
 import { nanumNeo } from "@/types/GlobalType";
 import Page from "@/components/Page";
 import { NextSeo } from "next-seo";
+import TripodBody from "@/components/tripod/TripodBody";
 
 const Tripod: React.FC<MenuProps> = ({ menu }) => {
   return (
@@ -15,7 +16,7 @@ const Tripod: React.FC<MenuProps> = ({ menu }) => {
       />
       <Page className={`${styles.container} ${nanumNeo.className}`}>
         <MenuBar menu={menu} />
-        트라이포드입니다.
+        <TripodBody />
       </Page>
     </>
   );
