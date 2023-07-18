@@ -3,11 +3,9 @@ import CharRecentContainer from "@/containers/character/CharRecentContainer";
 import CharSearchContainer from "@/containers/character/CharSearchContainer";
 import styles from "@/styles/character/Body.module.scss";
 import { nanumNeo } from "@/types/GlobalType";
-import { CharData, RootState, SearchedData } from "@/types/ReducerType";
+import { CharData, SearchedData } from "@/types/ReducerType";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 
 export default function CharBody() {
   const router = useRouter();
@@ -128,9 +126,7 @@ export default function CharBody() {
   // }, [dispatch]);
 
   return (
-    <div
-      className={`${styles.container} ${styles.searched} ${nanumNeo.className}`}
-    >
+    <div className={`${styles.container} ${nanumNeo.className}`}>
       <CharSearchContainer {...{ searchedDataList, like, remove }} />
       {searched ? (
         <CharMainInfoContainer push={push} />

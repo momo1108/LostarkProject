@@ -14,6 +14,7 @@ $myLightBlue: #76b1ff;
 
 html {
   background-color: #010101;
+  color: $basicFontColor;
 }
 
 .modalRoot {
@@ -477,7 +478,36 @@ body,
 }
 
 footer {
-  @apply flex justify-end px-16 text-[#777] text-xs mt-2 text-right;
+  @apply flex flex-col xl:px-32 lg:px-24 md:px-16 sm:px-8 px-2 pt-2 mb-4 gap-2;
+  color: #999;
+  .attribution {
+    @apply flex justify-end mt-2 text-right;
+    font-size: 10px;
+  }
+  .copyright {
+    @apply flex justify-between text-sm font-bold;
+    .descr {
+    }
+    .contact {
+      @apply flex flex-wrap items-center gap-x-2 justify-end;
+      .descr {
+        @apply text-xs;
+      }
+      .email {
+        @apply cursor-pointer transition-all duration-200;
+        &:hover {
+          color: $myLightBlue;
+        }
+      }
+      svg {
+        @apply transition-all duration-200;
+        fill: #999;
+        &:hover {
+          fill: $myLightBlue;
+        }
+      }
+    }
+  }
 }
 
 .shinyShadow {

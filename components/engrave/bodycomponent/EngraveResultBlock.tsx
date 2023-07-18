@@ -1,5 +1,4 @@
 import MyLoader from "@/components/custom/MyLoader";
-import Dots from "@/components/icons/Dots";
 import {
   Box,
   Earring,
@@ -9,8 +8,9 @@ import {
   Skip,
   Spinner,
   Triangle,
+  Dots,
+  MagnifyingGlass,
 } from "@/components/icons/Index";
-import MagnifyingGlass from "@/components/icons/MagnifyingGlass";
 import useCssHook from "@/hooks/useBgClassMaker";
 import styles from "@/styles/engrave/Body.module.scss";
 import { AuctionItem } from "@/types/EngraveType";

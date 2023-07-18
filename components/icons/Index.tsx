@@ -20,20 +20,30 @@ import Triangle from "./Triangle";
 import Spinner from "./Spinner";
 import Box from "./Box";
 import Gear from "./Gear";
+import Github from "./Github";
 import Filter from "./Filter";
 import Info from "./Info";
+import Dots from "./Dots";
+import MagnifyingGlass from "./MagnifyingGlass";
 
 export {
   AlertOctagon,
+  Box,
   Check,
   Close,
   Delete,
+  Dots,
   Earring,
   Edit,
   Empty,
   EmptyProfile,
   Favorite,
+  Filter,
+  Gear,
+  Github,
+  Info,
   Load,
+  MagnifyingGlass,
   MenuIcons,
   Necklace,
   Ring,
@@ -41,11 +51,7 @@ export {
   Save,
   Search,
   Skip,
+  Spinner,
   Target,
   Triangle,
-  Spinner,
-  Box,
-  Gear,
-  Filter,
-  Info,
 };
