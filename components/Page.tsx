@@ -1,13 +1,19 @@
 import { PageProps } from "@/types/GlobalType";
-import { CharState, RootState } from "@/types/ReducerType";
-import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
-const Page: React.FC<PageProps> = ({ children, className }) => {
-  const { error } = useSelector<RootState, CharState>(
-    (state) => state.character
+const Page: React.FC<PageProps> = ({ children, className, onKeyDown }) => {
+  const router = useRouter();
+  console.log(router);
+
+  return (
+    <div
+      className={className}
+      tabIndex={router.asPath === "/" ? 0 : undefined}
+      onKeyDown={onKeyDown}
+    >
+      {children}
+    </div>
   );
-
-  return <div className={className}>{children}</div>;
 };
 
 export default Page;

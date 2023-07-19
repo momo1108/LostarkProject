@@ -13,7 +13,10 @@ $myLightBlue: #76b1ff;
     .settingClassDiv {
       @apply flex flex-col gap-2 lg:gap-0;
       .classWrapper {
-        @apply block lg:flex;
+        @apply block lg:flex lg:border-y lg:border-[#222];
+        &:nth-child(2) {
+          @apply lg:border-t-0;
+        }
         .rootClassSmallTitle,
         .subClassSmallTitle {
           @apply block lg:hidden text-center py-1 text-[#aaa] font-bold;
@@ -26,9 +29,16 @@ $myLightBlue: #76b1ff;
         .rootClassList {
           @apply flex-auto grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 overflow-auto;
           .rootClassItem {
-            @apply flex;
+            @apply flex relative;
+            .rootClassImg {
+              @apply absolute h-3/4 opacity-20 top-1/2 left-1/2;
+              transform: translate(-50%, -50%);
+            }
             .rootClassBtn {
-              @apply px-1 py-2 sm:px-2 sm:py-4 grow;
+              @apply px-1 py-2 sm:px-2 sm:py-4 grow relative;
+              p {
+                @apply relative;
+              }
               &:hover,
               &.selected {
                 @apply font-bold;
@@ -42,8 +52,15 @@ $myLightBlue: #76b1ff;
           @apply flex-auto grid grid-cols-3 sm:grid-cols-4 overflow-auto;
           .subClassItem {
             @apply flex;
+            .subClassImg {
+              @apply absolute h-3/4 opacity-20 top-1/2 left-1/2;
+              transform: translate(-50%, -50%);
+            }
             .subClassBtn {
-              @apply px-1 py-2 sm:px-2 sm:py-4 grow;
+              @apply px-1 py-2 sm:px-2 sm:py-4 grow relative;
+              p {
+                @apply relative;
+              }
               &:hover,
               &.selected {
                 @apply font-bold;

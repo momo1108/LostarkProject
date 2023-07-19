@@ -1,12 +1,15 @@
 import { AlertOctagon } from "@/components/icons/Index";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import styles from "@/styles/character/Body.module.scss";
-import { gradeClassMap, gradeTextColorMap } from "@/types/GlobalType";
+import {
+  gradeClassMap,
+  gradeTextColorMap,
+  engravingIconMap,
+} from "@/types/GlobalType";
 import {
   ArmoryTEGCProps,
   StatData,
   TendencyData,
-  engravingIconMap,
   engravingLevelColorMap,
   gradeCardBackgroundMap,
   tendencyImageMap,

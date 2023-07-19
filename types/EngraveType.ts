@@ -1,5 +1,5 @@
 import { Dispatch, RefObject, SetStateAction } from "react";
-import { engravingIconMap } from "./TEGCType";
+import { engravingIconMap } from "./GlobalType";
 
 export type EngraveInfo = {
   name: string;

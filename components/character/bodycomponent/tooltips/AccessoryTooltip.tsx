@@ -65,10 +65,10 @@ const AccessoryTooltip: React.FC<AccessoryTooltipProps> = ({ data }) => {
         {["목걸이", "귀걸이", "반지"].includes(data.Type) ? (
           <>
             {data.Tooltip.Element_005?.type === "ItemPartBox" ? (
-              <>
+              <div className="my-3">
                 <p>{parse(data.Tooltip.Element_005.value.Element_000)}</p>
                 <p>{parse(data.Tooltip.Element_005.value.Element_001)}</p>
-              </>
+              </div>
             ) : (
               <></>
             )}
@@ -77,8 +77,23 @@ const AccessoryTooltip: React.FC<AccessoryTooltipProps> = ({ data }) => {
                 <p>{parse(data.Tooltip.Element_006.value.Element_000)}</p>
                 <p>{parse(data.Tooltip.Element_006.value.Element_001)}</p>
               </>
+            ) : data.Tooltip.Element_006.type === "IndentStringGroup" ? (
+              <div>
+                {parse(data.Tooltip.Element_006.value.Element_000.topStr)}
+                {Object.values(
+                  data.Tooltip.Element_006.value.Element_000.contentStr
+                ).map((el: any, i1) => {
+                  return (
+                    <p key={`accessoryEngraving${i1}`}>
+                      {parse(el.contentStr)}
+                    </p>
+                  );
+                })}
+              </div>
             ) : (
-              <></>
+              <div className="text-[#4691f6]">
+                이벤트 캐릭터 전용 {data.Type}입니다.
+              </div>
             )}
             {data.Tooltip.Element_007?.type === "ItemPartBox" ? (
               <>
@@ -96,54 +111,50 @@ const AccessoryTooltip: React.FC<AccessoryTooltipProps> = ({ data }) => {
       {data.Type === "어빌리티 스톤" ? (
         <>
           {data.Tooltip.Element_005.type === "ItemPartBox" ? (
-            <div>
-              {Object.values(data.Tooltip.Element_005.value).map(
-                (el: any, i1) => {
+            <>
+              <div>
+                {Object.values(data.Tooltip.Element_005.value).map(
+                  (el: any, i1) => {
+                    return (
+                      <p key={`abilityStoneExtraOption${i1}`}>{parse(el)}</p>
+                    );
+                  }
+                )}
+              </div>
+              <div>
+                {parse(data.Tooltip.Element_006.value.Element_000.topStr)}
+                {Object.values(
+                  data.Tooltip.Element_006.value.Element_000.contentStr
+                ).map((el: any, i1) => {
                   return (
-                    <p key={`abilityStoneExtraOption${i1}`}>{parse(el)}</p>
+                    <p key={`abilityStoneEngraving${i1}`}>
+                      {parse(el.contentStr)}
+                    </p>
                   );
-                }
-              )}
+                })}
+              </div>
+            </>
+          ) : data.Tooltip.Element_005.type === "IndentStringGroup" ? (
+            <div>
+              {parse(data.Tooltip.Element_005.value.Element_000.topStr)}
+              {Object.values(
+                data.Tooltip.Element_005.value.Element_000.contentStr
+              ).map((el: any, i1) => {
+                return (
+                  <p key={`abilityStoneEngraving${i1}`}>
+                    {parse(el.contentStr)}
+                  </p>
+                );
+              })}
             </div>
           ) : (
-            <></>
+            <div>
+              <p className="text-[#4691f6]">
+                이벤트 캐릭터 전용 어빌리티 스톤입니다.
+              </p>
+            </div>
           )}
-          <div>
-            {parse(
-              data.Tooltip[
-                data.Tooltip.Element_005.type === "ItemPartBox"
-                  ? "Element_006"
-                  : "Element_005"
-              ].value.Element_000.topStr
-            )}
-            {Object.values(
-              data.Tooltip[
-                data.Tooltip.Element_005.type === "ItemPartBox"
-                  ? "Element_006"
-                  : "Element_005"
-              ].value.Element_000.contentStr
-            ).map((el: any, i1) => {
-              return (
-                <p key={`abilityStoneEngraving${i1}`}>{parse(el.contentStr)}</p>
-              );
-            })}
-          </div>
         </>
-      ) : data.Type !== "팔찌" ? (
-        data.Tooltip.Element_006.type === "IndentStringGroup" ? (
-          <div>
-            {parse(data.Tooltip.Element_006.value.Element_000.topStr)}
-            {Object.values(
-              data.Tooltip.Element_006.value.Element_000.contentStr
-            ).map((el: any, i1) => {
-              return (
-                <p key={`accessoryEngraving${i1}`}>{parse(el.contentStr)}</p>
-              );
-            })}
-          </div>
-        ) : (
-          <></>
-        )
       ) : (
         <></>
       )}
@@ -177,14 +188,18 @@ export default AccessoryTooltip;
 5 - 추가 효과 치/특/신 - ItemPartBox
 - value
   - Element_000~1 : 텍스트
-6 - 각인 효과
+## 변동
+6 - 각인 효과 - IndentStringGroup
 - value
   - Element_000
     - topStr : 무작위 각인효과 타이틀("<FONT SIZE='12' COLOR='#A9D0F5'>무작위 각인 효과</FONT>")
     - contentStr
       - Element_000~2 - contentStr : 각인효과
-7 - 품질 업그레이드 불가 타이틀
-8 - 획득처
+7 - 품질 업그레이드 불가 타이틀 - SingleTextBox
+8 - 획득처 - SingleTextBox
+
+익스프레스 이벤트 캐릭의 경우 각인 지원기능때문에, 각인이 없는 악세서리가 제공됨.
+따라서 6이 IndentStringGroup인지 체크 -> 이벤트 전용 악세서리 판정.
 
 # 어빌리티 스톤
 ## 고정
@@ -210,4 +225,7 @@ export default AccessoryTooltip;
 아이템 스토리 - SingleTextBox
 판매불가 - SingleTextBox
 획득처 - SingleTextBox
+
+익스프레스 이벤트 캐릭의 경우 각인 지원기능때문에, 세공 단계 보너스와 각인 효과가 생략되는 어빌리티 스톤이 제공됨.
+따라서 5가 ItemPartBox인지 체크 -> IndentStringGroup 인지 체크 -> 이벤트 전용 어빌리티 스톤 판정.
  */

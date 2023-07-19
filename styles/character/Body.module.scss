@@ -778,7 +778,8 @@ $myLightBlue: #76b1ff;
       }
     }
 
-    .equipmentTooltip {
+    .equipmentTooltip,
+    .accessoryTooltip {
       * {
         font-size: 14px !important;
       }

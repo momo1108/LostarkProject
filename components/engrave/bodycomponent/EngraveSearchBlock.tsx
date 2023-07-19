@@ -1,5 +1,5 @@
 import styles from "@/styles/engrave/Body.module.scss";
-import { engravingIconMap } from "@/types/TEGCType";
+import { engravingIconMap } from "@/types/GlobalType";
 import { useContext } from "react";
 import {
   AccessoryInfo,

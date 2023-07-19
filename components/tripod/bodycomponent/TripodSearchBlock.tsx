@@ -1,7 +1,7 @@
 import ApiKeyInput from "@/components/ApiKeyInput";
 import TripodContext from "@/contexts/TripodContext";
 import styles from "@/styles/tripod/Body.module.scss";
-import { classDetailMap } from "@/types/GlobalType";
+import { classDetailMap, classImageMap } from "@/types/GlobalType";
 import { useContext, useEffect } from "react";
 
 const TripodSearchBlock: React.FC = () => {
@@ -17,7 +17,7 @@ const TripodSearchBlock: React.FC = () => {
           <ul className={styles.rootClassList}>
             {rootClassList.map((rc: string) => {
               return (
-                <li className={styles.rootClassItem}>
+                <li key={`rootClass_${rc}`} className={styles.rootClassItem}>
                   <button
                     className={`${styles.rootClassBtn} ${
                       rootClass === rc ? styles.selected : ""
@@ -27,7 +27,12 @@ const TripodSearchBlock: React.FC = () => {
                       setSubClass(classDetailMap[rc][0]);
                     }}
                   >
-                    {rc}
+                    <img
+                      className={styles.rootClassImg}
+                      src={`/images/${classImageMap[rc]}`}
+                      alt=""
+                    />
+                    <p>{rc}</p>
                   </button>
                 </li>
               );
@@ -40,7 +45,7 @@ const TripodSearchBlock: React.FC = () => {
           <ul className={styles.subClassList}>
             {classDetailMap[rootClass].map((sc: string) => {
               return (
-                <li className={styles.subClassItem}>
+                <li key={`subClass_${sc}`} className={styles.subClassItem}>
                   <button
                     className={`${styles.subClassBtn} ${
                       subClass === sc ? styles.selected : ""
@@ -49,7 +54,12 @@ const TripodSearchBlock: React.FC = () => {
                       setSubClass(sc);
                     }}
                   >
-                    {sc}
+                    <img
+                      className={styles.subClassImg}
+                      src={`/images/${classImageMap[sc]}`}
+                      alt=""
+                    />
+                    <p>{sc}</p>
                   </button>
                 </li>
               );

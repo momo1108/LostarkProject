@@ -48,9 +48,9 @@ const MenuBar: React.FC<MenuProps> = ({ menu }) => {
           {menu.map((m) => {
             // dragging 속성을 이용해 드래그중일땐 onclick을 비활성화하자.
             return (
-              <p
+              <Link
                 key={m.id}
-                onClick={dragging ? undefined : () => router.push(m.url)}
+                href={m.url}
                 className={`${styles.menuLink} ${
                   router.route.split("/")[1] === m.url.split("/")[1]
                     ? styles.activeMenuLink
@@ -58,7 +58,7 @@ const MenuBar: React.FC<MenuProps> = ({ menu }) => {
                 }`}
               >
                 {m.title}
-              </p>
+              </Link>
             );
           })}
         </ScrollMenu>
