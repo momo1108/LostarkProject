@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 
 const Page: React.FC<PageProps> = ({ children, className, onKeyDown }) => {
   const router = useRouter();
-  console.log(router);
 
   return (
     <div
