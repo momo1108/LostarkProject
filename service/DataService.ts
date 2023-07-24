@@ -1,4 +1,5 @@
 import { InfoPage, Menu } from "@/types/GlobalType";
+import { tripodDataType } from "@/types/TripodType";
 import path from "path";
 
 const { readFileSync } = require("fs");
@@ -23,6 +24,18 @@ export default class DataService {
     const dataDirectory = path.join(process.cwd(), "data");
     const infoPageStr: string = await readFileSync(
       `${dataDirectory}/info.json`
+    ).toString();
+
+    return JSON.parse(infoPageStr);
+  };
+
+  /**
+   * @/data/infoPage.json 에서 page 데이터를 불러옵니다.
+   */
+  public static getTripodInfo = async (): Promise<tripodDataType> => {
+    const dataDirectory = path.join(process.cwd(), "data");
+    const infoPageStr: string = await readFileSync(
+      `${dataDirectory}/classSkillsetData.json`
     ).toString();
 
     return JSON.parse(infoPageStr);

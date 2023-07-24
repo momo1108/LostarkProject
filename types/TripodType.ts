@@ -52,6 +52,34 @@ export type TripodType = {
   Upgradable?: boolean;
 };
 
+export type tripodDataType = {
+  버서커: FilteredSkillType;
+  워로드: FilteredSkillType;
+  디스트로이어: FilteredSkillType;
+  홀리나이트: FilteredSkillType;
+  슬레이어: FilteredSkillType;
+  기공사: FilteredSkillType;
+  배틀마스터: FilteredSkillType;
+  인파이터: FilteredSkillType;
+  창술사: FilteredSkillType;
+  스트라이커: FilteredSkillType;
+  데빌헌터: FilteredSkillType;
+  블래스터: FilteredSkillType;
+  스카우터: FilteredSkillType;
+  호크아이: FilteredSkillType;
+  건슬링어: FilteredSkillType;
+  바드: FilteredSkillType;
+  서머너: FilteredSkillType;
+  소서리스: FilteredSkillType;
+  아르카나: FilteredSkillType;
+  데모닉: FilteredSkillType;
+  리퍼: FilteredSkillType;
+  블레이드: FilteredSkillType;
+  소울이터: FilteredSkillType;
+  기상술사: FilteredSkillType;
+  도화가: FilteredSkillType;
+};
+
 export const userList: { [key: string]: string[] } = {
   버서커: ["빈세로이", "버서커", "마스터Asia", "목연타"],
   워로드: ["한국", "국뽕박살러", "숯불바베큐치킨", "카아안"],

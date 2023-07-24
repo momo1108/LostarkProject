@@ -23,7 +23,7 @@ const Home: React.FC<MainProps> = ({ menu }) => {
         onKeyDown={(event) => {
           adminKey += event.key;
           if (adminKey === process.env.NEXT_PUBLIC_ADMIN_KEY)
-            router.push("/admin");
+            router.push("/rhksflwk");
         }}
       >
         <MainHeader />
