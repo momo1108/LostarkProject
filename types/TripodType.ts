@@ -1,0 +1,81 @@
+import { Menu } from "./GlobalType";
+
+export type TripodPageProps = {
+  menu: Menu[];
+  classSkillsetData: FilteredSkillType[];
+};
+
+export type FilteredSkillType = {
+  Icon: string;
+  Name: string;
+  Tripods: FilteredTripodType[];
+  Tooltip: string;
+};
+
+export type FilteredTripodType = {
+  Tier: number;
+  Slot: number;
+  Name: string;
+  Icon: string;
+  IsSelected: boolean;
+  Tooltip: string;
+  Upgradable: boolean;
+};
+
+export type SkillType = {
+  Icon: string;
+  IsAwakening: boolean;
+  Level: number;
+  Name: string;
+  Rune: RuneType | null;
+  Tripods: TripodType[];
+  Tooltip: string;
+  UsedTripods?: any[];
+  Gems?: any[];
+};
+
+export type RuneType = {
+  Grade: string;
+  Icon: string;
+  Name: string;
+  Tooltip: string;
+};
+
+export type TripodType = {
+  Tier: number;
+  Slot: number;
+  Name: string;
+  Icon: string;
+  Level: number;
+  IsSelected: boolean;
+  Tooltip: string;
+  Upgradable?: boolean;
+};
+
+export const userList: { [key: string]: string[] } = {
+  버서커: ["빈세로이", "버서커", "마스터Asia", "목연타"],
+  워로드: ["한국", "국뽕박살러", "숯불바베큐치킨", "카아안"],
+  디스트로이어: ["머리파괴장인", "살크업", "간즈"],
+  홀리나이트: ["눕클", "근돼남", "인성터진범고래"],
+  슬레이어: ["ZealSlayer", "마왕체나", "주노현디", "슬지우띠"],
+  기공사: ["체나", "옴니머스", "격수", "초상"],
+  배틀마스터: ["ZealsTwitch", "노돌리", "양지니", "필례"],
+  인파이터: ["부먹펩시파인애플피자지코", "오구ZERO", "제로키나", "송희"],
+  창술사: ["편지", "짹키창", "희네1", "하루노이"],
+  스트라이커: ["항상그놈", "보라냥이집사8", "범군단장", "스커송형"],
+  데빌헌터: ["괴물쥐", "교외오빠", "똘Ol", "화수"],
+  블래스터: ["HBpencil", "상큼코끼리", "옛날딱지", "벵교수"],
+  스카우터: ["추스", "오르티안", "엎어3호기", "애교머리장사장"],
+  호크아이: ["이승건", "공룡", "꼬구마", "잼토"],
+  건슬링어: ["티키케이", "에스더규팡맨", "뉴비", "레땅땅"],
+  바드: ["성왕용", "응애애긔바드바드세요", "주다영", "아르데리나"],
+  서머너: ["꺼억콩", "이거다내끄얏", "요정", "희히s0ng"],
+  소서리스: ["원소술녀", "인사", "방울토마토라면", "땃쥐"],
+  아르카나: ["킹쌈녀", "대머리의기초유전학", "toronge", "Rose아르"],
+  데모닉: ["잔바스", "킴z", "림챌", "기술찡"],
+  리퍼: ["설화희빈", "후탈", "펭또링", "포롱악마"],
+  블레이드: ["그린대표", "쌍검", "에스더김우로", "휘린"],
+  소울이터: ["금빛선짱", "죠니낫브", "낫뚜루휘뚜루마뚜루", "채상랑티브이"],
+  기상술사: ["황득칠", "꽃비엘라", "뽀s0ng", "우비소녀체나"],
+  도화가: ["도도", "도넛임당", "프레이Meyer", "베베초"],
+};

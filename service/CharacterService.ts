@@ -1,4 +1,5 @@
 import { CharData } from "@/types/ReducerType";
+import { SkillType } from "@/types/TripodType";
 import axios from "axios";
 import { parse } from "node-html-parser";
 
@@ -34,6 +35,29 @@ export default class CharacterService {
         Accept: "application/json",
       },
     });
+    if (res.data) return res.data;
+    else {
+      throw new Error("존재하지 않는 닉네임 입니다!");
+    }
+  };
+
+  /**
+   * GET
+   * /armories/characters/{characterName}
+   * Returns a summary of profile information by a character name.
+   */
+  public static getCharacterSkills = async (
+    name: string
+  ): Promise<SkillType[]> => {
+    const res = await axios.get(
+      `${this.url}armories/characters/${name}/combat-skills`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
+          Accept: "application/json",
+        },
+      }
+    );
     if (res.data) return res.data;
     else {
       throw new Error("존재하지 않는 닉네임 입니다!");

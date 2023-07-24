@@ -1,5 +1,6 @@
 import ApiKeyInput from "@/components/ApiKeyInput";
 import TripodContext from "@/contexts/TripodContext";
+import useSkillParser from "@/hooks/useSkillParser";
 import styles from "@/styles/tripod/Body.module.scss";
 import { classDetailMap, classImageMap } from "@/types/GlobalType";
 import { useContext, useEffect } from "react";
@@ -7,6 +8,12 @@ import { useContext, useEffect } from "react";
 const TripodSearchBlock: React.FC = () => {
   const { rootClassList, rootClass, setRootClass, subClass, setSubClass } =
     useContext(TripodContext);
+  const { allClassSave, classList } = useSkillParser();
+
+  useEffect(() => {
+    console.log(classList);
+  }, [classList]);
+
   return (
     <div className={styles.searchContainer}>
       <ApiKeyInput shine={false} />
@@ -67,7 +74,19 @@ const TripodSearchBlock: React.FC = () => {
           </ul>
         </div>
       </div>
-      <div className={styles.settingTripodDiv}></div>
+      <div className={styles.settingTripodDiv}>
+        <button
+          onClick={async () => {
+            try {
+              await allClassSave();
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+        >
+          faf
+        </button>
+      </div>
     </div>
   );
 };

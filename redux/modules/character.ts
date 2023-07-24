@@ -23,6 +23,7 @@ const reducer = handleActions<CharState, CharData>(
   {
     PENDING: (state, action) => ({
       ...state,
+      data: { data: {} },
       loading: true,
       error: null,
     }),
