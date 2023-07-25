@@ -12,6 +12,10 @@ const nextConfig = {
         destination:
           "https://lostark.game.onstove.com/Profile/Character/:name*",
       },
+      {
+        source: "/gd/:api*",
+        destination: "https://drive.google.com/:api*",
+      },
     ];
   },
   images: {
