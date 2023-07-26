@@ -266,7 +266,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
       </div>
       <Tooltip
         id="equipmentTooltip"
-        className={`${styles.tooltip} ${styles.equipmentTooltip}`}
+        className="tooltip equipmentTooltip"
         place="right"
         clickable={true}
       >
@@ -278,7 +278,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
       </Tooltip>
       <Tooltip
         id="accessoryTooltip"
-        className={`${styles.tooltip} ${styles.accessoryTooltip}`}
+        className="tooltip accessoryTooltip"
         place="right"
         clickable={true}
         delayHide={10}
@@ -291,7 +291,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
       </Tooltip>
       <Tooltip
         id="avatarTooltip"
-        className={`${styles.tooltip} ${styles.avatarTooltip}`}
+        className="tooltip avatarTooltip"
         place="right"
         clickable={true}
         offset={16}

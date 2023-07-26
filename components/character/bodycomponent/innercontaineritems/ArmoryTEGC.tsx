@@ -391,7 +391,7 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
       </div>
       <Tooltip
         id="engravingTooltip"
-        className={`${styles.tooltip} ${styles.engravingTooltip}`}
+        className="tooltip engravingTooltip"
         place="left"
         clickable={true}
         offset={12}
@@ -401,7 +401,7 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
       </Tooltip>
       <Tooltip
         id="gemTooltip"
-        className={`${styles.tooltip} ${styles.gemTooltip}`}
+        className="tooltip gemTooltip"
         place="top"
         clickable={true}
         offset={12}
@@ -415,7 +415,7 @@ const ArmoryTEGC: React.FC<ArmoryTEGCProps> = ({ data, className }) => {
       </Tooltip>
       <Tooltip
         id="statsTooltip"
-        className={`${styles.tooltip} ${styles.statsTooltip}`}
+        className="tooltip statsTooltip"
         place="right"
         clickable={true}
         delayHide={1}

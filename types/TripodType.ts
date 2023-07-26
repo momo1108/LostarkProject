@@ -2,7 +2,6 @@ import { Menu } from "./GlobalType";
 
 export type TripodPageProps = {
   menu: Menu[];
-  classSkillsetData: FilteredSkillType[];
 };
 
 export type FilteredSkillType = {

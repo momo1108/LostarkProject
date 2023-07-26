@@ -24,7 +24,7 @@ $myLightBlue: #76b1ff;
         }
         .rootClassLargeTitle,
         .subClassLargeTitle {
-          @apply hidden lg:flex w-24 shrink-0 justify-center items-center py-1 text-[#999];
+          @apply hidden font-extrabold lg:flex w-24 shrink-0 justify-center items-center py-1 text-[#999];
         }
         .rootClassList {
           @apply flex-auto grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 overflow-auto;
@@ -72,5 +72,68 @@ $myLightBlue: #76b1ff;
         }
       }
     }
+
+    .settingTripodDiv {
+      @apply flex flex-col items-center;
+      .loadingTripodDiv {
+        @apply flex flex-col gap-2 items-center justify-center;
+        .loadingSvg {
+          @apply inline-block;
+          polygon {
+            stroke-dasharray: 17;
+            animation: 2.5s cubic-bezier(0.35, 0.04, 0.63, 0.95) 0s infinite
+              normal none running spinning;
+          }
+        }
+        .loadingP {
+          @apply font-extrabold text-lg;
+          animation: colorChange 8s linear infinite;
+        }
+      }
+      .skillsDiv {
+        @apply grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-11 2xl:grid-cols-13 3xl:grid-cols-16 gap-1 md:gap-2 mx-auto;
+        .skillsDivHeader {
+          @apply col-span-full;
+          .classSpan {
+            @apply font-extrabold;
+            color: $myBlue;
+          }
+        }
+        .skillBtn {
+          @apply flex flex-col justify-center items-center border border-[#333] p-1 w-[77px] h-[81px] text-xs md:w-[88px] md:h-[88px] md:text-sm hover:border-[#4691f6] hover:text-[#4691f6] hover:bg-[#151515];
+          .iconDiv {
+            @apply w-[45px] h-[45px] md:w-[50px] md:h-[50px] flex justify-center items-center;
+            background-image: url("/images/skill_slot.png");
+            background-size: 100%;
+            img {
+              @apply w-[40px] md:w-[45px];
+            }
+          }
+          .nameP {
+            @apply break-keep flex leading-[13px] md:leading-[15px] h-[26px] md:h-[30px] items-center;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes spinning {
+  100% {
+    stroke-dashoffset: 136;
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    color: $myDarkBlue;
+  }
+
+  50% {
+    color: rgb(8, 75, 32);
+  }
+
+  100% {
+    color: $myDarkBlue;
   }
 }

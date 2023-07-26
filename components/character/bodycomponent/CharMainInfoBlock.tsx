@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import ArmoryTEGC from "./innercontaineritems/ArmoryTEGC";
 import ArmoryEAA from "./innercontaineritems/ArmoryEAA";
 import ArmoryST from "./innercontaineritems/ArmoryST";
+import { TriangleSpinner } from "@/components/icons/Index";
 
 const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
   loading,
@@ -82,21 +83,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
   return loading ? (
     <div className={styles.loadingContainer}>
       <p className={styles.loadingMessage}>검색을 진행중입니다.</p>
-      <svg
-        id="triangle"
-        width="180"
-        height="180"
-        viewBox="-3 -4 39 39"
-        data-testid="triangle-svg"
-        className={styles.loadingSvg}
-      >
-        <polygon
-          fill="transparent"
-          stroke="#55f4"
-          strokeWidth="2"
-          points="16,0 32,32 0,32"
-        ></polygon>
-      </svg>
+      <TriangleSpinner className={styles.loadingSvg} />
     </div>
   ) : render ? (
     <div className={styles.infoContainer}>

@@ -1,4 +1,3 @@
-import styles from "@/styles/character/Body.module.scss";
 import { gradeClassMap } from "@/types/GlobalType";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import { EquipmentTooltipProps } from "@/types/EAAType";
@@ -10,23 +9,23 @@ const AvatarTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
     <>
       <div>{parse(data.Tooltip.Element_000.value)}</div>
       <hr />
-      <div className={styles.tooltipGradeDiv}>
+      <div className="tooltipGradeDiv">
         <img className={gradeClassMap[data.Grade]} src={data.Icon} alt="" />
-        <div className={styles.tooltipGradeInfo}>
+        <div className="tooltipGradeInfo">
           <p>{parse(data.Tooltip.Element_001.value.leftStr0)}</p>
         </div>
       </div>
       <hr />
       <div>
         {data.Tooltip.Element_003.type === "MultiTextBox" ? (
-          <p className={styles.tooltipTradeParagraph}>
+          <p className="tooltipTradeParagraph">
             {parse(data.Tooltip.Element_002.value)}
             <span>{parse(data.Tooltip.Element_003.value)}</span>
           </p>
         ) : (
           <>
             <p>{parse(data.Tooltip.Element_002.value)}</p>
-            <p className={styles.tooltipTradeParagraph}>
+            <p className="tooltipTradeParagraph">
               {parse(data.Tooltip.Element_003.value)}{" "}
               {parse(data.Tooltip.Element_004.value)}
             </p>

@@ -1,4 +1,3 @@
-import styles from "@/styles/character/Body.module.scss";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import { SkillTooltipProps } from "@/types/STType";
 
@@ -9,24 +8,24 @@ const SkillTooltip: React.FC<SkillTooltipProps> = ({ data }) => {
   return (
     <>
       <div>
-        <p className={styles.skillTitle}>{data.Element_000.value}</p>
+        <p className="skillTitle">{data.Element_000.value}</p>
       </div>
       <hr />
-      <div className={styles.skillEl1}>
+      <div className="skillEl1">
         <img width={50} src={data.Element_001.value.slotData.iconPath} alt="" />
-        <div className={styles.skillType}>
-          <p className={styles.skillTypeDetail}>
+        <div className="skillType">
+          <p className="skillTypeDetail">
             {parse(data.Element_001.value.name)}
             {parse(data.Element_001.value.level)}
           </p>
-          <p className={styles.skillCooltime}>
+          <p className="skillCooltime">
             {parse(data.Element_001.value.leftText)}
           </p>
         </div>
       </div>
       <hr />
-      <div className={styles.skillDescr}>
-        <p className={styles.skillLevel}>{data.Element_003.value}</p>
+      <div className="skillDescr">
+        <p className="skillLevel">{data.Element_003.value}</p>
         {data.Element_004.type === "MultiTextBox" ? (
           <>
             <p>{data.Element_004.value.replace("|", "")}</p>

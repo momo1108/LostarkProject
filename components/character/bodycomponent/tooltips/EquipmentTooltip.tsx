@@ -1,4 +1,3 @@
-import styles from "@/styles/character/Body.module.scss";
 import { gradeClassMap } from "@/types/GlobalType";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import useCssHook from "@/hooks/useBgClassMaker";
@@ -24,12 +23,12 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
     <>
       <div>{parse(data.Tooltip.Element_000.value)}</div>
       <hr />
-      <div className={styles.tooltipGradeDiv}>
+      <div className="tooltipGradeDiv">
         <img className={gradeClassMap[data.Grade]} src={data.Icon} alt="" />
-        <div className={styles.tooltipGradeInfo}>
+        <div className="tooltipGradeInfo">
           <p>{parse(data.Tooltip.Element_001.value.leftStr0)}</p>
           {data.Tooltip.Element_001.value.qualityValue >= 0 ? (
-            <div className={styles.qualityDiv}>
+            <div className="qualityDiv">
               {parse(data.Tooltip.Element_001.value.leftStr1)}
               &nbsp;
               <span style={{ fontSize: 14 }}>
@@ -53,7 +52,7 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
         </div>
       </div>
       <hr />
-      <div className={styles.tooltipOptionDiv}>
+      <div className="tooltipOptionDiv">
         {data.Tooltip.Element_005?.type === "ItemPartBox" ? (
           <>
             <p>{parse(data.Tooltip.Element_005.value.Element_000)}</p>
@@ -84,10 +83,7 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
         else {
           if (data.Tooltip[`Element${e}`].type === "IndentStringGroup") {
             return (
-              <div
-                className={styles.tooltipOuterDiv}
-                key={`EquipTooltipDiv${e}`}
-              >
+              <div className="tooltipOuterDiv" key={`EquipTooltipDiv${e}`}>
                 {Object.values(data.Tooltip[`Element${e}`].value).map(
                   (el: any, i1) => {
                     return (
@@ -108,10 +104,7 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
             );
           } else if (data.Tooltip[`Element${e}`].type === "ItemPartBox") {
             return (
-              <div
-                className={styles.tooltipOuterDiv}
-                key={`EquipTooltipDiv${e}`}
-              >
+              <div className="tooltipOuterDiv" key={`EquipTooltipDiv${e}`}>
                 {Object.values(data.Tooltip[`Element${e}`].value).map(
                   (el: any, i1) => {
                     return (

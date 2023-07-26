@@ -1,18 +1,21 @@
 import ApiKeyInput from "@/components/ApiKeyInput";
+import { TriangleSpinner } from "@/components/icons/Index";
 import TripodContext from "@/contexts/TripodContext";
-import useSkillParser from "@/hooks/useSkillParser";
 import styles from "@/styles/tripod/Body.module.scss";
 import { classDetailMap, classImageMap } from "@/types/GlobalType";
-import { useContext, useEffect } from "react";
+import { FilteredSkillType } from "@/types/TripodType";
+import { useContext } from "react";
 
 const TripodSearchBlock: React.FC = () => {
-  const { rootClassList, rootClass, setRootClass, subClass, setSubClass } =
-    useContext(TripodContext);
-  const { allClassSave, classList } = useSkillParser();
-
-  useEffect(() => {
-    console.log(classList);
-  }, [classList]);
+  const {
+    rootClassList,
+    rootClass,
+    setRootClass,
+    subClass,
+    setSubClass,
+    tripodData,
+    loadingTripod,
+  } = useContext(TripodContext);
 
   return (
     <div className={styles.searchContainer}>
@@ -30,6 +33,12 @@ const TripodSearchBlock: React.FC = () => {
                       rootClass === rc ? styles.selected : ""
                     }`}
                     onClick={() => {
+                      if (loadingTripod) {
+                        alert(
+                          "이미 다른 클래스의 정보를 검색 중입니다.\n검색이 완료된 후 다시 시도해주세요."
+                        );
+                        return;
+                      }
                       setRootClass(rc);
                       setSubClass(classDetailMap[rc][0]);
                     }}
@@ -58,6 +67,12 @@ const TripodSearchBlock: React.FC = () => {
                       subClass === sc ? styles.selected : ""
                     }`}
                     onClick={() => {
+                      if (loadingTripod) {
+                        alert(
+                          "이미 다른 클래스의 정보를 검색 중입니다.\n검색이 완료된 후 다시 시도해주세요."
+                        );
+                        return;
+                      }
                       setSubClass(sc);
                     }}
                   >
@@ -75,17 +90,32 @@ const TripodSearchBlock: React.FC = () => {
         </div>
       </div>
       <div className={styles.settingTripodDiv}>
-        <button
-          onClick={async () => {
-            try {
-              await allClassSave();
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-        >
-          faf
-        </button>
+        {loadingTripod ? (
+          <div className={styles.loadingTripodDiv}>
+            <TriangleSpinner className={styles.loadingSvg} />
+            <p className={styles.loadingP}>트라이포드 정보를 로딩중입니다.</p>
+          </div>
+        ) : (
+          <div className={styles.skillsDiv}>
+            <h3 className={styles.skillsDivHeader}>
+              <span className={styles.classSpan}>클래스({subClass})</span> -
+              스킬 선택
+            </h3>
+            {tripodData.map((data: FilteredSkillType) => {
+              return (
+                <button
+                  className={styles.skillBtn}
+                  key={`${subClass}_skill_${data.Name}`}
+                >
+                  <div className={styles.iconDiv}>
+                    <img src={data.Icon} alt="" />
+                  </div>
+                  <p className={styles.nameP}>{data.Name}</p>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -7,9 +7,8 @@ import { NextSeo } from "next-seo";
 import TripodBody from "@/components/tripod/TripodBody";
 import Footer from "@/components/Footer";
 import { TripodPageProps } from "@/types/TripodType";
-import { readFile } from "fs/promises";
 
-const Tripod: React.FC<TripodPageProps> = ({ menu, classSkillsetData }) => {
+const Tripod: React.FC<TripodPageProps> = ({ menu }) => {
   return (
     <>
       <NextSeo
@@ -18,7 +17,7 @@ const Tripod: React.FC<TripodPageProps> = ({ menu, classSkillsetData }) => {
       />
       <Page className={`${styles.container} ${nanumNeo.className}`}>
         <MenuBar menu={menu} />
-        <TripodBody classSkillsetData={classSkillsetData} />
+        <TripodBody />
         <Footer></Footer>
       </Page>
     </>
@@ -30,20 +29,15 @@ export default Tripod;
 export async function getStaticProps() {
   try {
     const menu = await DataService.getMenu();
-    const classSkillsetData = await readFile("data/classSkillsetData.json", {
-      encoding: "utf-8",
-    });
     return {
       props: {
         menu,
-        classSkillsetData,
       },
     };
   } catch (error: any) {
     return {
       props: {
         menu: [],
-        classSkillsetData: {},
       },
     };
   }

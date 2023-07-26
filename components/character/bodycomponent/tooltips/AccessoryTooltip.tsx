@@ -1,4 +1,3 @@
-import styles from "@/styles/character/Body.module.scss";
 import { gradeClassMap } from "@/types/GlobalType";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import useCssHook from "@/hooks/useBgClassMaker";
@@ -24,12 +23,12 @@ const AccessoryTooltip: React.FC<AccessoryTooltipProps> = ({ data }) => {
     <>
       <div>{parse(data.Tooltip.Element_000.value)}</div>
       <hr />
-      <div className={styles.tooltipGradeDiv}>
+      <div className="tooltipGradeDiv">
         <img className={gradeClassMap[data.Grade]} src={data.Icon} alt="" />
-        <div className={styles.tooltipGradeInfo}>
+        <div className="tooltipGradeInfo">
           <p>{parse(data.Tooltip.Element_001.value.leftStr0)}</p>
           {["목걸이", "귀걸이", "반지"].includes(data.Type) ? (
-            <div className={styles.qualityDiv}>
+            <div className="qualityDiv">
               {parse(data.Tooltip.Element_001.value.leftStr1)}
               &nbsp;
               <span style={{ fontSize: 14 }}>
@@ -53,7 +52,7 @@ const AccessoryTooltip: React.FC<AccessoryTooltipProps> = ({ data }) => {
         </div>
       </div>
       <hr />
-      <div className={styles.tooltipOptionDiv}>
+      <div className="tooltipOptionDiv">
         {data.Tooltip.Element_004?.type === "ItemPartBox" ? (
           <>
             <p>{parse(data.Tooltip.Element_004.value.Element_000)}</p>

@@ -17,6 +17,7 @@ import Search from "./Search";
 import Skip from "./Skip";
 import Target from "./Target";
 import Triangle from "./Triangle";
+import TriangleSpinner from "./TriangleSpinner";
 import Spinner from "./Spinner";
 import Box from "./Box";
 import Gear from "./Gear";
@@ -54,4 +55,5 @@ export {
   Spinner,
   Target,
   Triangle,
+  TriangleSpinner,
 };

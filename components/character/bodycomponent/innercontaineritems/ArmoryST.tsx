@@ -173,7 +173,7 @@ const ArmoryST: React.FC<ArmorySTProps> = ({ className, data }) => {
       </div>
       <Tooltip
         id="skillTooltip"
-        className={`${styles.tooltip} ${styles.skillTooltip}`}
+        className="tooltip skillTooltip"
         place="right"
         clickable={true}
         offset={6}
@@ -187,7 +187,7 @@ const ArmoryST: React.FC<ArmorySTProps> = ({ className, data }) => {
       </Tooltip>
       <Tooltip
         id="tripodTooltip"
-        className={`${styles.tooltip} ${styles.tripodTooltip}`}
+        className="tooltip tripodTooltip"
         place="top"
         clickable={true}
         offset={6}
@@ -197,7 +197,7 @@ const ArmoryST: React.FC<ArmorySTProps> = ({ className, data }) => {
       </Tooltip>
       <Tooltip
         id="runeTooltip"
-        className={`${styles.tooltip} ${styles.runeTooltip}`}
+        className="tooltip runeTooltip"
         place="top"
         clickable={true}
         offset={6}

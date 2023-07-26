@@ -1,4 +1,3 @@
-import styles from "@/styles/character/Body.module.scss";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import { RuneTooltipProps } from "@/types/STType";
 

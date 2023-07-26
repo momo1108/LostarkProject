@@ -485,7 +485,7 @@ footer {
     font-size: 10px;
   }
   .copyright {
-    @apply flex justify-between text-sm font-bold;
+    @apply flex md:justify-between md:text-sm md:flex-row flex-col items-center text-xs font-bold;
     .descr {
     }
     .contact {
@@ -506,6 +506,131 @@ footer {
           fill: $myLightBlue;
         }
       }
+    }
+  }
+}
+
+.tooltip {
+  @apply w-[340px] bg-[#2A2C35] px-0 z-[4] max-h-[450px] overflow-auto opacity-100 text-[14px] rounded-none border border-[#000] #{!important};
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 8px;
+    background-color: #4a4c55;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #1a1c25;
+  }
+
+  & > hr {
+    @apply my-1 border-[#000] #{!important};
+  }
+  & > div:first-child {
+    @apply px-4 my-0 #{!important};
+  }
+  & > div {
+    @apply px-4 my-3 #{!important};
+  }
+  .tooltipOuterDiv > div:not(:last-child) {
+    @apply mb-2 #{!important};
+  }
+
+  .tooltipGradeDiv {
+    @apply flex items-center my-2 #{!important};
+    img {
+      @apply mr-2 w-[64px] border border-[#000] box-content #{!important};
+    }
+
+    .tooltipGradeInfo {
+      @apply my-1 flex-auto #{!important};
+      &:nth-child(n) {
+        @apply py-[2px] #{!important};
+      }
+
+      .qualityDiv {
+        @apply flex items-center #{!important};
+
+        & > div {
+          @apply flex-auto mx-1 bg-[#0002] border border-[#fff3] #{!important};
+        }
+      }
+    }
+  }
+
+  .tooltipTradeParagraph {
+    @apply flex justify-between items-center #{!important};
+  }
+}
+
+.equipmentTooltip,
+.accessoryTooltip {
+  * {
+    font-size: 14px !important;
+  }
+}
+.engravingTooltip,
+.tripodTooltip {
+  @apply p-2 #{!important};
+}
+
+.gemTooltip {
+  .gemTooltipBody {
+    @apply flex items-center #{!important};
+    .iconDiv {
+      @apply w-[60px] border border-[#000] #{!important};
+      img {
+        @apply w-full #{!important};
+      }
+    }
+    .descrDiv {
+      @apply px-4 #{!important};
+      & > p:first-child {
+        @apply text-[#facf3a] #{!important};
+      }
+    }
+  }
+}
+
+.runeTooltip {
+  @apply font-bold text-sm #{!important};
+}
+
+.skillTooltip {
+  @apply text-sm #{!important};
+  .skillTitle {
+    @apply font-bold text-center #{!important};
+  }
+  .skillEl1 {
+    @apply flex #{!important};
+    img {
+      @apply mr-2 border border-[#000] #{!important};
+    }
+    .skillType {
+      @apply flex flex-col w-full justify-between font-bold #{!important};
+      .skillTypeDetail {
+        @apply flex justify-between #{!important};
+      }
+    }
+  }
+  .skillDescr {
+    @apply flex flex-col gap-2 font-bold #{!important};
+    * {
+      font-size: 12px !important;
+    }
+  }
+}
+
+.statsTooltip {
+  @apply px-2 flex flex-col gap-2 #{!important};
+  li {
+    @apply pl-4 relative #{!important};
+    &::before {
+      @apply inline-block w-1 h-1 shrink-0 absolute top-2 left-1 #{!important};
+      content: "";
+      border-radius: 50% !important;
+      background-color: rgba($myBlue, 0.7) !important;
     }
   }
 }
