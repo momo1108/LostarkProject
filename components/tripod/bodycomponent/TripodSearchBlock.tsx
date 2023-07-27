@@ -144,7 +144,7 @@ const TripodSearchBlock: React.FC = () => {
               </div>
             ) : (
               <div className={styles.emptySkillDiv}>
-                <Meteor size={250} fill="#422" />
+                <Meteor size={250} fill="#222" />
                 <p>클래스 "{subClass}" 의 스킬정보를 불러오지 못했습니다.</p>
               </div>
             )}

@@ -22,7 +22,8 @@ const TripodSearchContainer: React.FC = () => {
         ? "http://localhost:3000/api/tripod"
         : "http://loaple.site/api/tripod";
     // console.log(url);
-    // console.log(process.env.NEXT_PUBLIC_TRIPOD_API);
+    console.log(process.env.NEXT_PUBLIC_TRIPOD_API);
+    console.log(process.env.NODE_ENV);
     axios
       .get(url, {
         params: {
