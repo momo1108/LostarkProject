@@ -26,6 +26,7 @@ import Filter from "./Filter";
 import Info from "./Info";
 import Dots from "./Dots";
 import MagnifyingGlass from "./MagnifyingGlass";
+import Meteor from "./Meteor";
 
 export {
   AlertOctagon,
@@ -56,4 +57,5 @@ export {
   Target,
   Triangle,
   TriangleSpinner,
+  Meteor,
 };

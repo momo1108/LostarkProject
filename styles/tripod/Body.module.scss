@@ -13,7 +13,7 @@ $myLightBlue: #76b1ff;
     .settingClassDiv {
       @apply flex flex-col gap-2 lg:gap-0;
       .classWrapper {
-        @apply block lg:flex lg:border-y lg:border-[#222];
+        @apply block text-sm md:text-base lg:flex lg:border-y lg:border-[#222];
         &:nth-child(2) {
           @apply lg:border-t-0;
         }
@@ -73,7 +73,7 @@ $myLightBlue: #76b1ff;
       }
     }
 
-    .settingTripodDiv {
+    .settingSkillsetDiv {
       @apply flex flex-col items-center;
       .loadingTripodDiv {
         @apply flex flex-col gap-2 items-center justify-center;
@@ -90,27 +90,93 @@ $myLightBlue: #76b1ff;
           animation: colorChange 8s linear infinite;
         }
       }
-      .skillsDiv {
-        @apply grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-11 2xl:grid-cols-13 3xl:grid-cols-16 gap-1 md:gap-2 mx-auto;
+      .selectingSkillDiv {
+        @apply inline-flex flex-col gap-2 mx-auto;
         .skillsDivHeader {
-          @apply col-span-full;
-          .classSpan {
-            @apply font-extrabold;
-            color: $myBlue;
-          }
-        }
-        .skillBtn {
-          @apply flex flex-col justify-center items-center border border-[#333] p-1 w-[77px] h-[81px] text-xs md:w-[88px] md:h-[88px] md:text-sm hover:border-[#4691f6] hover:text-[#4691f6] hover:bg-[#151515];
-          .iconDiv {
-            @apply w-[45px] h-[45px] md:w-[50px] md:h-[50px] flex justify-center items-center;
-            background-image: url("/images/skill_slot.png");
-            background-size: 100%;
-            img {
-              @apply w-[40px] md:w-[45px];
+          .headerP {
+            @apply text-xs xs:text-sm md:text-base;
+            .classSpan {
+              @apply font-extrabold;
+              color: $myBlue;
             }
           }
-          .nameP {
-            @apply break-keep flex leading-[13px] md:leading-[15px] h-[26px] md:h-[30px] items-center;
+        }
+        .skillsDiv {
+          @apply grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-11 2xl:grid-cols-13 3xl:grid-cols-16
+            gap-1 md:gap-2 max-h-[340px] sm:max-h-[450px] pr-2 overflow-auto;
+          .skillBtn {
+            @apply relative flex flex-col justify-center items-center border md:border-2 border-[#333] p-1 w-[77px] h-[81px] text-xs md:w-[90px] md:h-[90px] md:text-sm;
+            .iconDiv {
+              @apply w-[45px] h-[45px] md:w-[50px] md:h-[50px] flex justify-center items-center;
+              background-image: url("/images/skill_slot.png");
+              background-size: 100%;
+              img {
+                @apply w-[40px] md:w-[45px];
+              }
+            }
+            .nameP {
+              @apply break-keep flex leading-[13px] md:leading-[15px] h-[26px] md:h-[30px] items-center;
+            }
+          }
+          .selected:not(:hover) > .iconDiv::before {
+            @apply md:text-lg absolute top-0 left-0 right-0 bottom-0 bg-[#000a] font-extrabold flex justify-center items-center;
+            backdrop-filter: blur(1px);
+            content: "선택완료";
+          }
+          .selected {
+            @apply border-[#4691f6] hover:border-[#d22];
+            color: $myBlue;
+            &:hover > .iconDiv::after {
+              @apply text-base md:text-lg absolute top-0 left-0 right-0 bottom-0 bg-[#000a] font-extrabold flex justify-center items-center text-[#d22];
+              backdrop-filter: blur(1px);
+              content: "취소";
+            }
+          }
+          .notSelected {
+            @apply hover:border-[#090];
+            &:hover > .iconDiv::after {
+              @apply text-base md:text-lg absolute top-0 left-0 right-0 bottom-0 bg-[#000a] font-extrabold flex justify-center items-center text-[#1b1];
+              backdrop-filter: blur(1px);
+              content: "선택";
+            }
+          }
+        }
+
+        .emptySkillDiv {
+          @apply flex flex-col items-center gap-2;
+        }
+      }
+    }
+
+    .settingTripodDiv {
+      @apply flex;
+      .selectedSkillsDiv {
+        @apply flex flex-col h-[600px] overflow-auto pl-1;
+        direction: rtl;
+        .gridDiv {
+          @apply grid grid-cols-3;
+          direction: ltr;
+          .selectSkillBtn {
+            @apply flex items-center gap-1 w-[226px] pl-2 py-2 bg-[#10141c] hover:bg-[#0d1016] border-b border-[#060409];
+            direction: ltr;
+            .skillIconDiv {
+              @apply flex items-center justify-center w-16 h-16;
+              background-image: url("/images/skill_slot.png");
+              background-size: 100%;
+              .skillIcon {
+                @apply w-14 h-14;
+              }
+            }
+            .skillDescrDiv {
+              @apply flex flex-auto flex-col justify-between items-start pr-2 border-r border-[#060409];
+              .typeP span {
+                @apply font-bold;
+                font-size: 14px !important;
+              }
+              .nameP {
+                @apply font-extrabold;
+              }
+            }
           }
         }
       }

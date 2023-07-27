@@ -1,9 +1,10 @@
 import ApiKeyInput from "@/components/ApiKeyInput";
-import { TriangleSpinner } from "@/components/icons/Index";
+import { Meteor, TriangleSpinner } from "@/components/icons/Index";
 import TripodContext from "@/contexts/TripodContext";
+import useApiTagParser from "@/hooks/useApiTagParser";
 import styles from "@/styles/tripod/Body.module.scss";
 import { classDetailMap, classImageMap } from "@/types/GlobalType";
-import { FilteredSkillType } from "@/types/TripodType";
+import { ParsedFilteredSkillType } from "@/types/TripodType";
 import { useContext } from "react";
 
 const TripodSearchBlock: React.FC = () => {
@@ -14,8 +15,13 @@ const TripodSearchBlock: React.FC = () => {
     subClass,
     setSubClass,
     tripodData,
+    selectedIndex,
+    selectedData,
     loadingTripod,
+    selectingTripod,
+    selectSkill,
   } = useContext(TripodContext);
+  const { parseApiDataToHtmlString: parse } = useApiTagParser();
 
   return (
     <div className={styles.searchContainer}>
@@ -42,6 +48,7 @@ const TripodSearchBlock: React.FC = () => {
                       setRootClass(rc);
                       setSubClass(classDetailMap[rc][0]);
                     }}
+                    disabled={loadingTripod}
                   >
                     <img
                       className={styles.rootClassImg}
@@ -75,6 +82,7 @@ const TripodSearchBlock: React.FC = () => {
                       }
                       setSubClass(sc);
                     }}
+                    disabled={loadingTripod}
                   >
                     <img
                       className={styles.subClassImg}
@@ -89,33 +97,86 @@ const TripodSearchBlock: React.FC = () => {
           </ul>
         </div>
       </div>
-      <div className={styles.settingTripodDiv}>
+      <div className={styles.settingSkillsetDiv}>
         {loadingTripod ? (
           <div className={styles.loadingTripodDiv}>
             <TriangleSpinner className={styles.loadingSvg} />
             <p className={styles.loadingP}>트라이포드 정보를 로딩중입니다.</p>
           </div>
         ) : (
-          <div className={styles.skillsDiv}>
+          <div className={`${styles.selectingSkillDiv} hideScroll`}>
             <h3 className={styles.skillsDivHeader}>
-              <span className={styles.classSpan}>클래스({subClass})</span> -
-              스킬 선택
+              <p className={styles.headerP}>
+                <span className={styles.classSpan}>클래스({subClass})</span> -
+                스킬 선택 ({" "}
+                {selectedIndex.reduce(
+                  (prev: number, cur: boolean) => prev + (cur ? 1 : 0),
+                  0
+                )}{" "}
+                / {tripodData.length} )
+              </p>
             </h3>
-            {tripodData.map((data: FilteredSkillType) => {
+            {tripodData.length ? (
+              <div className={`${styles.skillsDiv} hideScroll`}>
+                {tripodData.map(
+                  (data: ParsedFilteredSkillType, index: number) => {
+                    return (
+                      <button
+                        className={`${styles.skillBtn} ${
+                          selectedIndex[index]
+                            ? styles.selected
+                            : styles.notSelected
+                        }`}
+                        key={`${subClass}_skill_${data.Name}`}
+                        onClick={() => {
+                          selectSkill(index);
+                        }}
+                        disabled={selectingTripod}
+                      >
+                        <div className={styles.iconDiv}>
+                          <img src={data.Icon} alt="" />
+                        </div>
+                        <p className={styles.nameP}>{data.Name}</p>
+                      </button>
+                    );
+                  }
+                )}
+              </div>
+            ) : (
+              <div className={styles.emptySkillDiv}>
+                <Meteor size={250} fill="#422" />
+                <p>클래스 "{subClass}" 의 스킬정보를 불러오지 못했습니다.</p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      <div className={styles.settingTripodDiv}>
+        <div className={`${styles.selectedSkillsDiv} hideScroll`}>
+          <div className={styles.gridDiv}>
+            {selectedData.map((e: ParsedFilteredSkillType) => {
               return (
                 <button
-                  className={styles.skillBtn}
-                  key={`${subClass}_skill_${data.Name}`}
+                  className={styles.selectSkillBtn}
+                  key={`selectedSkill_${e.Name}`}
                 >
-                  <div className={styles.iconDiv}>
-                    <img src={data.Icon} alt="" />
+                  <div className={styles.skillIconDiv}>
+                    <img className={styles.skillIcon} src={e.Icon} alt="스킬" />
                   </div>
-                  <p className={styles.nameP}>{data.Name}</p>
+                  <div className={styles.skillDescrDiv}>
+                    <p className={styles.typeP}>
+                      {parse(e.Tooltip.Element_001.value.name)}
+                    </p>
+                    <p className={styles.nameP}>{e.Name}</p>
+                  </div>
                 </button>
               );
             })}
           </div>
-        )}
+        </div>
+        <div className={styles.selectedSkillTripodDiv}>
+          {/* img에 filter: grayscale(1.0) 으로 흑백전환 */}
+        </div>
       </div>
     </div>
   );

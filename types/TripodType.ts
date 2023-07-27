@@ -11,6 +11,13 @@ export type FilteredSkillType = {
   Tooltip: string;
 };
 
+export type ParsedFilteredSkillType = {
+  Icon: string;
+  Name: string;
+  Tripods: FilteredTripodType[];
+  Tooltip: any;
+};
+
 export type FilteredTripodType = {
   Tier: number;
   Slot: number;
