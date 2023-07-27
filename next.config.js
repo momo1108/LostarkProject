@@ -18,7 +18,7 @@ const nextConfig = {
       },
       {
         source: "/loaple/:api*",
-        destination: "http://loaple.site/:api*",
+        destination: "http://loaple.site/api/:api*",
       },
     ];
   },

@@ -19,7 +19,7 @@ const TripodSearchContainer: React.FC = () => {
     const url =
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000/api/tripod"
-        : "http://loaple.site/api/tripod";
+        : "/loaple/tripod";
     console.log(url);
     console.log(process.env.NEXT_PUBLIC_TRIPOD_API);
     console.log(process.env.NODE_ENV);
