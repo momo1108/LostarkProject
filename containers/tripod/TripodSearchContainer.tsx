@@ -17,11 +17,10 @@ const TripodSearchContainer: React.FC = () => {
   useEffect(() => {
     setLoadingTripod(true);
     const url =
-      process.env.NEXT_PUBLIC_TRIPOD_API ||
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000/api/tripod"
         : "http://loaple.site/api/tripod";
-    // console.log(url);
+    console.log(url);
     console.log(process.env.NEXT_PUBLIC_TRIPOD_API);
     console.log(process.env.NODE_ENV);
     axios
@@ -29,6 +28,7 @@ const TripodSearchContainer: React.FC = () => {
         params: {
           class: subClass,
         },
+        timeout: 10000,
       })
       .then((res) => {
         // console.log(res.data);
