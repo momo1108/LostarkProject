@@ -16,6 +16,10 @@ const nextConfig = {
         source: "/gd/:api*",
         destination: "https://drive.google.com/:api*",
       },
+      {
+        source: "/loaple/:api*",
+        destination: "http://loaple.site/:api*",
+      },
     ];
   },
   images: {
