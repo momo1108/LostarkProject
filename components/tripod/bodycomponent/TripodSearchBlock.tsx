@@ -4,8 +4,12 @@ import TripodContext from "@/contexts/TripodContext";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import styles from "@/styles/tripod/Body.module.scss";
 import { classDetailMap, classImageMap } from "@/types/GlobalType";
-import { ParsedFilteredSkillType } from "@/types/TripodType";
-import { useContext } from "react";
+import {
+  FilteredTripodType,
+  ParsedFilteredSkillType,
+} from "@/types/TripodType";
+import Image from "next/image";
+import { Fragment, useContext } from "react";
 
 const TripodSearchBlock: React.FC = () => {
   const {
@@ -15,11 +19,13 @@ const TripodSearchBlock: React.FC = () => {
     subClass,
     setSubClass,
     tripodData,
-    selectedIndex,
+    selectedSkills,
     selectedData,
     loadingTripod,
     selectingTripod,
     selectSkill,
+    selectedSkillIndex,
+    setSelectedSkillIndex,
   } = useContext(TripodContext);
   const { parseApiDataToHtmlString: parse } = useApiTagParser();
 
@@ -109,7 +115,7 @@ const TripodSearchBlock: React.FC = () => {
               <p className={styles.headerP}>
                 <span className={styles.classSpan}>클래스({subClass})</span> -
                 스킬 선택 ({" "}
-                {selectedIndex.reduce(
+                {selectedSkills.reduce(
                   (prev: number, cur: boolean) => prev + (cur ? 1 : 0),
                   0
                 )}{" "}
@@ -123,7 +129,7 @@ const TripodSearchBlock: React.FC = () => {
                     return (
                       <button
                         className={`${styles.skillBtn} ${
-                          selectedIndex[index]
+                          selectedSkills[index]
                             ? styles.selected
                             : styles.notSelected
                         }`}
@@ -152,30 +158,92 @@ const TripodSearchBlock: React.FC = () => {
         )}
       </div>
       <div className={styles.settingTripodDiv}>
-        <div className={`${styles.selectedSkillsDiv} hideScroll`}>
-          <div className={styles.gridDiv}>
-            {selectedData.map((e: ParsedFilteredSkillType) => {
-              return (
-                <button
-                  className={styles.selectSkillBtn}
-                  key={`selectedSkill_${e.Name}`}
-                >
-                  <div className={styles.skillIconDiv}>
-                    <img className={styles.skillIcon} src={e.Icon} alt="스킬" />
-                  </div>
-                  <div className={styles.skillDescrDiv}>
-                    <p className={styles.typeP}>
-                      {parse(e.Tooltip.Element_001.value.name)}
-                    </p>
-                    <p className={styles.nameP}>{e.Name}</p>
-                  </div>
-                </button>
-              );
-            })}
+        <div className={styles.settingWrapper}>
+          <div className={styles.settingHeader}>
+            <p>트라이포드 세팅</p>
+            <p>
+              설정한 스킬 <span className={styles.numSpan}>1</span> /{" "}
+              <span className={styles.numSpan}>{selectedData.length}</span>
+            </p>
           </div>
-        </div>
-        <div className={styles.selectedSkillTripodDiv}>
-          {/* img에 filter: grayscale(1.0) 으로 흑백전환 */}
+          <div className={styles.settingBody}>
+            <div className={`${styles.selectedSkillsDiv} hideScroll`}>
+              <div className={styles.gridDiv}>
+                {selectedData.map(
+                  (e: ParsedFilteredSkillType, index: number) => {
+                    return (
+                      <button
+                        className={styles.selectSkillBtn}
+                        key={`selectedSkill_${e.Name}`}
+                        onClick={() => {
+                          setSelectedSkillIndex(index);
+                        }}
+                      >
+                        <div className={styles.skillIconDiv}>
+                          <img
+                            className={styles.skillIcon}
+                            src={e.Icon}
+                            alt="스킬"
+                          />
+                        </div>
+                        <div className={styles.skillDescrDiv}>
+                          <p className={styles.typeP}>
+                            {parse(e.Tooltip.Element_001.value.name)}
+                          </p>
+                          <p className={styles.nameP}>{e.Name}</p>
+                        </div>
+                      </button>
+                    );
+                  }
+                )}
+              </div>
+            </div>
+            <div className={styles.selectedSkillTripodDiv}>
+              {/* img에 filter: grayscale(1.0) 으로 흑백전환 */}
+              {selectedData.length ? (
+                <div className={styles.tripodContentDiv}>
+                  <p className={styles.tripodHeader}>
+                    {selectedData[selectedSkillIndex].Name}
+                  </p>
+                  {[0, 1, 2].map((tier) => (
+                    <Fragment key={`tripod_tier${tier}`}>
+                      <div className={styles.headerLine} data-tier={tier}>
+                        <hr />
+                        <hr />
+                      </div>
+                      <div className={styles.tripodTierContentDiv}>
+                        {selectedData[selectedSkillIndex].Tripods.filter(
+                          (tp: FilteredTripodType) => tp.Tier === tier
+                        ).map((tp: FilteredTripodType, index: number) => {
+                          return (
+                            <div
+                              className={styles.singleTripodDiv}
+                              key={`tripod_tier${tier}_${index}`}
+                            >
+                              <div className={styles.iconDiv}>
+                                <Image
+                                  width={0}
+                                  height={0}
+                                  src={tp.Icon}
+                                  alt=""
+                                  placeholder="blur"
+                                  blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8awwAAfMBEp+j3nwAAAAASUVORK5CYII="
+                                  unoptimized
+                                />
+                              </div>
+                              <p>{tp.Name}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </Fragment>
+                  ))}
+                </div>
+              ) : (
+                <div>스킬을 선택해주세요.</div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>

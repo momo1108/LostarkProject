@@ -10,16 +10,19 @@ const TripodSearchContainer: React.FC = () => {
   const [rootClass, setRootClass] = useState<string>("전사(남)");
   const [subClass, setSubClass] = useState<string>("버서커");
   const [tripodData, setTripodData] = useState<ParsedFilteredSkillType[]>([]);
-  const [selectedIndex, setSelectedIndex] = useState<boolean[]>([]);
+  const [selectedSkills, setSelectedSkills] = useState<boolean[]>([]);
+  const [selectedSkillIndex, setSelectedSkillIndex] = useState<number>(0);
   const [loadingTripod, setLoadingTripod] = useState<boolean>(true);
   const [selectingTripod, setSelectingTripod] = useState<boolean>(true);
 
   useEffect(() => {
     setLoadingTripod(true);
+    setSelectedSkillIndex(0);
     const url =
-      process.env.NODE_ENV === "development"
+      process.env.NEXT_PUBLIC_TRIPOD_API ||
+      (process.env.NODE_ENV === "development"
         ? "http://localhost:3000/api/tripod"
-        : "/loaple/tripod";
+        : "/loaple/tripod");
     console.log(url);
     console.log(process.env.NEXT_PUBLIC_TRIPOD_API);
     console.log(process.env.NODE_ENV);
@@ -45,7 +48,7 @@ const TripodSearchContainer: React.FC = () => {
   }, [subClass]);
 
   useEffect(() => {
-    setSelectedIndex(Array(tripodData.length).fill(false));
+    setSelectedSkills(Array(tripodData.length).fill(false));
     setTimeout(() => {
       setLoadingTripod(false);
     }, 500);
@@ -55,7 +58,7 @@ const TripodSearchContainer: React.FC = () => {
     setTimeout(() => {
       setSelectingTripod(false);
     }, 200);
-  }, [selectedIndex]);
+  }, [selectedSkills]);
 
   const selectSkill = useCallback(
     (i: number) => {
@@ -64,26 +67,26 @@ const TripodSearchContainer: React.FC = () => {
         return;
       }
       setSelectingTripod(true);
-      if (selectedIndex[i])
-        setSelectedIndex((data) => [
+      if (selectedSkills[i])
+        setSelectedSkills((data) => [
           ...data.slice(0, i),
           false,
           ...data.slice(i + 1),
         ]);
       else
-        setSelectedIndex((data) => [
+        setSelectedSkills((data) => [
           ...data.slice(0, i),
           true,
           ...data.slice(i + 1),
         ]);
     },
-    [selectedIndex, selectingTripod]
+    [selectedSkills, selectingTripod]
   );
 
   const selectedData = useMemo(() => {
-    // console.log(tripodData.filter((e, i) => selectedIndex[i]));
-    return tripodData.filter((e, i) => selectedIndex[i]);
-  }, [selectedIndex, tripodData]);
+    // console.log(tripodData.filter((e, i) => selectedSkills[i]));
+    return tripodData.filter((e, i) => selectedSkills[i]);
+  }, [selectedSkills, tripodData]);
 
   return (
     <TripodContext.Provider
@@ -94,7 +97,9 @@ const TripodSearchContainer: React.FC = () => {
         subClass,
         setSubClass,
         tripodData,
-        selectedIndex,
+        selectedSkills,
+        selectedSkillIndex,
+        setSelectedSkillIndex,
         selectedData,
         loadingTripod,
         selectingTripod,

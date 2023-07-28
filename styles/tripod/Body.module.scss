@@ -74,7 +74,7 @@ $myLightBlue: #76b1ff;
     }
 
     .settingSkillsetDiv {
-      @apply flex flex-col items-center;
+      @apply flex flex-col items-center min-h-[240px];
       .loadingTripodDiv {
         @apply flex flex-col gap-2 items-center justify-center;
         .loadingSvg {
@@ -149,32 +149,121 @@ $myLightBlue: #76b1ff;
     }
 
     .settingTripodDiv {
-      @apply flex;
-      .selectedSkillsDiv {
-        @apply flex flex-col h-[600px] overflow-auto pl-1;
-        direction: rtl;
-        .gridDiv {
-          @apply grid grid-cols-3;
-          direction: ltr;
-          .selectSkillBtn {
-            @apply flex items-center gap-1 w-[226px] pl-2 py-2 bg-[#10141c] hover:bg-[#0d1016] border-b border-[#060409];
-            direction: ltr;
-            .skillIconDiv {
-              @apply flex items-center justify-center w-16 h-16;
-              background-image: url("/images/skill_slot.png");
-              background-size: 100%;
-              .skillIcon {
-                @apply w-14 h-14;
+      @apply bg-[#151a23] flex;
+      .settingWrapper {
+        @apply inline-grid grid-cols-1 mx-auto;
+        .settingHeader {
+          @apply flex justify-between items-center pl-2 font-bold px-2 py-1 text-sm text-[#a8acba] bg-[#0d1117] border-b border-[#050505];
+          .numSpan {
+            @apply text-base mx-1;
+            color: $myBlue;
+          }
+        }
+        .settingBody {
+          @apply flex;
+          .selectedSkillsDiv {
+            @apply flex flex-col h-[560px] overflow-auto pl-1 bg-[#0d1117] border-t border-t-[#1d1d1d] border-r border-r-[#050505];
+            direction: rtl;
+            .gridDiv {
+              @apply grid md:grid-cols-[234px] lg:grid-cols-[226px_226px] 1.5xl:grid-cols-[226px_226px_226px];
+
+              direction: ltr;
+              .selectSkillBtn {
+                @apply relative flex items-center gap-1 pl-2 py-2 bg-[#10141c] hover:bg-[#0d1016] border-b border-[#060409];
+                direction: ltr;
+                &::before {
+                  @apply absolute top-0 left-0 right-0 bottom-0 opacity-[0.28];
+                  content: "";
+                  background-image: url("/images/bg_circuit.png");
+                  background-size: cover;
+                }
+                .skillIconDiv {
+                  @apply relative flex items-center justify-center w-16 h-16;
+                  background-image: url("/images/skill_slot.png");
+                  background-size: 100%;
+                  .skillIcon {
+                    @apply w-14 h-14;
+                  }
+                }
+                .skillDescrDiv {
+                  @apply relative flex flex-auto flex-col justify-between items-start pr-2 border-r border-[#060409];
+                  .typeP span {
+                    @apply font-bold;
+                    font-size: 14px !important;
+                  }
+                  .nameP {
+                    @apply font-extrabold;
+                  }
+                }
               }
             }
-            .skillDescrDiv {
-              @apply flex flex-auto flex-col justify-between items-start pr-2 border-r border-[#060409];
-              .typeP span {
-                @apply font-bold;
-                font-size: 14px !important;
+          }
+          .selectedSkillTripodDiv {
+            @apply flex justify-center px-8 py-2 w-[376px] h-[560px] bg-[#0d1117] border-t border-[#1d1d1d];
+            .tripodContentDiv {
+              @apply flex flex-auto flex-col;
+              .tripodHeader {
+                @apply py-1 w-full text-center font-bold;
+                background: linear-gradient(90deg, #121720, #090b09, #121720);
               }
-              .nameP {
-                @apply font-extrabold;
+              .headerLine {
+                @apply relative my-8;
+                &[data-tier="0"] {
+                  box-shadow: 0px 0px 3px 0.5px #4691f622;
+                  &::before {
+                    background: radial-gradient(#4691f617 5%, #0d111700 70%);
+                  }
+                  &::after {
+                    background-image: url("/images/tripod1.png");
+                  }
+                }
+                &[data-tier="1"] {
+                  box-shadow: 0px 0px 3px 0.5px #00ff0022;
+                  &::before {
+                    background: radial-gradient(#00ff0017 5%, #0d111700 70%);
+                  }
+                  &::after {
+                    background-image: url("/images/tripod2.png");
+                  }
+                }
+                &[data-tier="2"] {
+                  box-shadow: 0px 0px 3px 0.5px #ffff0022;
+                  &::before {
+                    background: radial-gradient(#ffff0017 5%, #0d111700 70%);
+                  }
+                  &::after {
+                    background-image: url("/images/tripod3.png");
+                  }
+                }
+                &::before {
+                  @apply absolute w-32 h-32 top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%];
+                  content: "";
+                }
+                &::after {
+                  @apply absolute w-10 h-10 top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%];
+                  content: "";
+                  background-size: cover;
+                }
+                hr:first-child {
+                  @apply border-[#050505];
+                }
+                hr:last-child {
+                  @apply border-[#1d1d1d];
+                }
+              }
+
+              .tripodTierContentDiv {
+                @apply flex justify-between;
+                .singleTripodDiv {
+                  @apply inline-flex flex-col gap-1 justify-center items-center w-[100px] text-sm;
+                  .iconDiv {
+                    @apply w-14 h-14;
+                    img {
+                      @apply w-14 h-14;
+                      border-radius: 50%;
+                    }
+                  }
+                }
               }
             }
           }
