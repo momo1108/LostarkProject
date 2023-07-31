@@ -12,11 +12,11 @@ const TripodSearchContainer: React.FC = () => {
   const [tripodData, setTripodData] = useState<ParsedFilteredSkillType[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<boolean[]>([]);
   const [selectedSkillIndex, setSelectedSkillIndex] = useState<number>(0);
-  const [loadingTripod, setLoadingTripod] = useState<boolean>(true);
+  const [loadingSkillset, setLoadingSkillset] = useState<boolean>(true);
   const [selectingTripod, setSelectingTripod] = useState<boolean>(true);
 
   useEffect(() => {
-    setLoadingTripod(true);
+    setLoadingSkillset(true);
     setSelectedSkillIndex(0);
     const url =
       process.env.NEXT_PUBLIC_TRIPOD_API ||
@@ -50,7 +50,7 @@ const TripodSearchContainer: React.FC = () => {
   useEffect(() => {
     setSelectedSkills(Array(tripodData.length).fill(false));
     setTimeout(() => {
-      setLoadingTripod(false);
+      setLoadingSkillset(false);
     }, 500);
   }, [tripodData]);
 
@@ -67,20 +67,28 @@ const TripodSearchContainer: React.FC = () => {
         return;
       }
       setSelectingTripod(true);
-      if (selectedSkills[i])
+      if (selectedSkills[i]) {
+        const activeCount = selectedSkills.reduce(
+          (prev, cur) => prev + (cur ? 1 : 0),
+          0
+        );
+        console.log(activeCount, selectedSkillIndex);
+        if (selectedSkillIndex >= activeCount - 1)
+          setSelectedSkillIndex((e) => e - 1);
+
         setSelectedSkills((data) => [
           ...data.slice(0, i),
           false,
           ...data.slice(i + 1),
         ]);
-      else
+      } else
         setSelectedSkills((data) => [
           ...data.slice(0, i),
           true,
           ...data.slice(i + 1),
         ]);
     },
-    [selectedSkills, selectingTripod]
+    [selectedSkills, selectingTripod, selectedSkillIndex]
   );
 
   const selectedData = useMemo(() => {
@@ -101,7 +109,7 @@ const TripodSearchContainer: React.FC = () => {
         selectedSkillIndex,
         setSelectedSkillIndex,
         selectedData,
-        loadingTripod,
+        loadingSkillset,
         selectingTripod,
         selectSkill,
       }}

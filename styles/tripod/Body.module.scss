@@ -75,7 +75,7 @@ $myLightBlue: #76b1ff;
 
     .settingSkillsetDiv {
       @apply flex flex-col items-center min-h-[240px];
-      .loadingTripodDiv {
+      .loadingSkillsetDiv {
         @apply flex flex-col gap-2 items-center justify-center;
         .loadingSvg {
           @apply inline-block;

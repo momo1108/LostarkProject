@@ -21,7 +21,7 @@ const TripodSearchBlock: React.FC = () => {
     tripodData,
     selectedSkills,
     selectedData,
-    loadingTripod,
+    loadingSkillset,
     selectingTripod,
     selectSkill,
     selectedSkillIndex,
@@ -45,7 +45,7 @@ const TripodSearchBlock: React.FC = () => {
                       rootClass === rc ? styles.selected : ""
                     }`}
                     onClick={() => {
-                      if (loadingTripod) {
+                      if (loadingSkillset) {
                         alert(
                           "이미 다른 클래스의 정보를 검색 중입니다.\n검색이 완료된 후 다시 시도해주세요."
                         );
@@ -54,7 +54,7 @@ const TripodSearchBlock: React.FC = () => {
                       setRootClass(rc);
                       setSubClass(classDetailMap[rc][0]);
                     }}
-                    disabled={loadingTripod}
+                    disabled={loadingSkillset}
                   >
                     <img
                       className={styles.rootClassImg}
@@ -80,7 +80,7 @@ const TripodSearchBlock: React.FC = () => {
                       subClass === sc ? styles.selected : ""
                     }`}
                     onClick={() => {
-                      if (loadingTripod) {
+                      if (loadingSkillset) {
                         alert(
                           "이미 다른 클래스의 정보를 검색 중입니다.\n검색이 완료된 후 다시 시도해주세요."
                         );
@@ -88,7 +88,7 @@ const TripodSearchBlock: React.FC = () => {
                       }
                       setSubClass(sc);
                     }}
-                    disabled={loadingTripod}
+                    disabled={loadingSkillset}
                   >
                     <img
                       className={styles.subClassImg}
@@ -104,8 +104,8 @@ const TripodSearchBlock: React.FC = () => {
         </div>
       </div>
       <div className={styles.settingSkillsetDiv}>
-        {loadingTripod ? (
-          <div className={styles.loadingTripodDiv}>
+        {loadingSkillset ? (
+          <div className={styles.loadingSkillsetDiv}>
             <TriangleSpinner className={styles.loadingSvg} />
             <p className={styles.loadingP}>트라이포드 정보를 로딩중입니다.</p>
           </div>

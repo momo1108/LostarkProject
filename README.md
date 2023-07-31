@@ -1001,6 +1001,8 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
   - admin 페이지에서 사용할 hook 기능에 갱신 데이터 저장도 필요하다.(DB가 나을라나?)
     - 아마도 Next의 api기능을 활용해서 admin page -> 서버에 요청보내 저장해야 할듯.
   - 선택된 스킬의 인덱스를 사용하니 나중에 스킬 추가했을 때, 그 새로운 배열의 인덱스에 적용이 되서 이상해짐.
+    - 해결하다보니 결국 state 관리에 대한 생각이 듬. state를 지금처럼 true/false로 한가지에 대해서 사용하지 말고,
+      enum타입으로 가정해서 각각의 state에 사용할 내용들을 한번에 useEffect에 정리하는게 좋을듯
 - .env.production 안되나?
 
 #### 주기적인 업데이트
