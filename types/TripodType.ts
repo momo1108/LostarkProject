@@ -26,6 +26,7 @@ export type FilteredTripodType = {
   IsSelected: boolean;
   Tooltip: string;
   Upgradable: boolean;
+  Level: number;
 };
 
 export type SkillType = {
@@ -84,6 +85,26 @@ export type tripodDataType = {
   소울이터: FilteredSkillType;
   기상술사: FilteredSkillType;
   도화가: FilteredSkillType;
+};
+
+export const tripodTierToStyleMap: {
+  [key: string]: { [key: number]: string };
+} = {
+  color: {
+    0: "tier1Color",
+    1: "tier2Color",
+    2: "tier3Color",
+  },
+  border: {
+    0: "tier1Border",
+    1: "tier2Border",
+    2: "tier3Border",
+  },
+  background: {
+    0: "tier1Background",
+    1: "tier2Background",
+    2: "tier3Background",
+  },
 };
 
 export const userList: { [key: string]: string[] } = {

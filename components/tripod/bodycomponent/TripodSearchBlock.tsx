@@ -7,6 +7,7 @@ import { classDetailMap, classImageMap } from "@/types/GlobalType";
 import {
   FilteredTripodType,
   ParsedFilteredSkillType,
+  tripodTierToStyleMap,
 } from "@/types/TripodType";
 import Image from "next/image";
 import { Fragment, useContext } from "react";
@@ -22,10 +23,15 @@ const TripodSearchBlock: React.FC = () => {
     selectedSkills,
     selectedData,
     loadingSkillset,
+    selectingSkill,
     selectingTripod,
-    selectSkill,
     selectedSkillIndex,
     setSelectedSkillIndex,
+    selectSkill,
+    selectTripod,
+    resetSelectedSkills,
+    resetAllTripods,
+    resetSelectedTripod,
   } = useContext(TripodContext);
   const { parseApiDataToHtmlString: parse } = useApiTagParser();
 
@@ -45,16 +51,10 @@ const TripodSearchBlock: React.FC = () => {
                       rootClass === rc ? styles.selected : ""
                     }`}
                     onClick={() => {
-                      if (loadingSkillset) {
-                        alert(
-                          "이미 다른 클래스의 정보를 검색 중입니다.\n검색이 완료된 후 다시 시도해주세요."
-                        );
-                        return;
-                      }
                       setRootClass(rc);
                       setSubClass(classDetailMap[rc][0]);
                     }}
-                    disabled={loadingSkillset}
+                    disabled={loadingSkillset || selectingSkill}
                   >
                     <img
                       className={styles.rootClassImg}
@@ -80,15 +80,9 @@ const TripodSearchBlock: React.FC = () => {
                       subClass === sc ? styles.selected : ""
                     }`}
                     onClick={() => {
-                      if (loadingSkillset) {
-                        alert(
-                          "이미 다른 클래스의 정보를 검색 중입니다.\n검색이 완료된 후 다시 시도해주세요."
-                        );
-                        return;
-                      }
                       setSubClass(sc);
                     }}
-                    disabled={loadingSkillset}
+                    disabled={loadingSkillset || selectingSkill}
                   >
                     <img
                       className={styles.subClassImg}
@@ -113,14 +107,17 @@ const TripodSearchBlock: React.FC = () => {
           <div className={`${styles.selectingSkillDiv} hideScroll`}>
             <h3 className={styles.skillsDivHeader}>
               <p className={styles.headerP}>
-                <span className={styles.classSpan}>클래스({subClass})</span> -
-                스킬 선택 ({" "}
-                {selectedSkills.reduce(
-                  (prev: number, cur: boolean) => prev + (cur ? 1 : 0),
-                  0
-                )}{" "}
-                / {tripodData.length} )
+                <span className={styles.classSpan}>
+                  스킬목록 ( {subClass} )
+                </span>
               </p>
+              <button
+                className={`myButtons ${styles.resetBtn}`}
+                onClick={resetSelectedSkills}
+                disabled={selectingSkill}
+              >
+                선택 초기화
+              </button>
             </h3>
             {tripodData.length ? (
               <div className={`${styles.skillsDiv} hideScroll`}>
@@ -137,7 +134,7 @@ const TripodSearchBlock: React.FC = () => {
                         onClick={() => {
                           selectSkill(index);
                         }}
-                        disabled={selectingTripod}
+                        disabled={selectingSkill}
                       >
                         <div className={styles.iconDiv}>
                           <img src={data.Icon} alt="" />
@@ -160,11 +157,27 @@ const TripodSearchBlock: React.FC = () => {
       <div className={styles.settingTripodDiv}>
         <div className={styles.settingWrapper}>
           <div className={styles.settingHeader}>
-            <p>트라이포드 세팅</p>
             <p>
-              설정한 스킬 <span className={styles.numSpan}>1</span> /{" "}
-              <span className={styles.numSpan}>{selectedData.length}</span>
+              선택한 스킬{" "}
+              <span className={styles.numSpan}>{selectedData.length}</span> /{" "}
+              <span className={styles.numSpan}>{tripodData.length}</span>
             </p>
+            <div className={styles.buttonDiv}>
+              <button
+                className={`myButtons ${styles.resetBtn}`}
+                onClick={resetAllTripods}
+                disabled={selectingSkill || selectingTripod}
+              >
+                전체 스킬 초기화
+              </button>
+              <button
+                className={`myButtons ${styles.resetBtn}`}
+                onClick={resetSelectedTripod}
+                disabled={selectingSkill || selectingTripod}
+              >
+                현재 스킬 초기화
+              </button>
+            </div>
           </div>
           <div className={styles.settingBody}>
             <div className={`${styles.selectedSkillsDiv} hideScroll`}>
@@ -173,7 +186,9 @@ const TripodSearchBlock: React.FC = () => {
                   (e: ParsedFilteredSkillType, index: number) => {
                     return (
                       <button
-                        className={styles.selectSkillBtn}
+                        className={`${styles.selectSkillBtn} ${
+                          index === selectedSkillIndex ? styles.selected : ""
+                        }`}
                         key={`selectedSkill_${e.Name}`}
                         onClick={() => {
                           setSelectedSkillIndex(index);
@@ -216,12 +231,21 @@ const TripodSearchBlock: React.FC = () => {
                           (tp: FilteredTripodType) => tp.Tier === tier
                         ).map((tp: FilteredTripodType, index: number) => {
                           return (
-                            <div
-                              className={styles.singleTripodDiv}
+                            <button
+                              className={styles.singleTripodBtn}
                               key={`tripod_tier${tier}_${index}`}
+                              onClick={() => {
+                                selectTripod(tier, tp.Name, 0);
+                              }}
+                              disabled={selectingTripod}
                             >
-                              <div className={styles.iconDiv}>
+                              <div
+                                className={styles.iconDiv}
+                                data-selected={tp.IsSelected}
+                                data-tier={tier}
+                              >
                                 <Image
+                                  className={styles.tripodIcon}
                                   width={0}
                                   height={0}
                                   src={tp.Icon}
@@ -231,8 +255,66 @@ const TripodSearchBlock: React.FC = () => {
                                   unoptimized
                                 />
                               </div>
-                              <p>{tp.Name}</p>
-                            </div>
+                              <p
+                                className={
+                                  tp.IsSelected
+                                    ? tripodTierToStyleMap.color[tier]
+                                    : ""
+                                }
+                              >
+                                {tp.Name}
+                              </p>
+                              {tp.Upgradable ? (
+                                <div className={styles.upgradableDiv}>
+                                  <div
+                                    tabIndex={0}
+                                    data-active={tp.Level === 4}
+                                    className={`${styles.levelBtn} ${
+                                      tp.IsSelected
+                                        ? `${tripodTierToStyleMap.color[tier]} ${tripodTierToStyleMap.border[tier]}`
+                                        : "border-[#333]"
+                                    } ${
+                                      tp.IsSelected && tp.Level === 4
+                                        ? tripodTierToStyleMap.background[tier]
+                                        : ""
+                                    }`}
+                                    onClick={(e) => {
+                                      if (selectingTripod) return;
+                                      e.stopPropagation();
+                                      selectTripod(tier, tp.Name, 4);
+                                    }}
+                                  >
+                                    Lv. 4
+                                  </div>
+                                  <div
+                                    tabIndex={0}
+                                    data-active={
+                                      tp.IsSelected && tp.Level === 5
+                                    }
+                                    className={`${styles.levelBtn} ${
+                                      tp.IsSelected
+                                        ? `${tripodTierToStyleMap.color[tier]} ${tripodTierToStyleMap.border[tier]}`
+                                        : "border-[#333]"
+                                    } ${
+                                      tp.IsSelected && tp.Level === 5
+                                        ? tripodTierToStyleMap.background[tier]
+                                        : ""
+                                    }`}
+                                    onClick={(e) => {
+                                      if (selectingTripod) return;
+                                      e.stopPropagation();
+                                      selectTripod(tier, tp.Name, 5);
+                                    }}
+                                  >
+                                    Lv. 5
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className={styles.unupgradableDiv}>
+                                  1렙트포
+                                </div>
+                              )}
+                            </button>
                           );
                         })}
                       </div>

@@ -393,6 +393,42 @@ body,
   border-color: #3cf2e6;
 }
 
+.tier1Color {
+  color: #56a1df;
+}
+.tier2Color {
+  color: #81de62;
+}
+.tier3Color {
+  color: #cfcf70;
+}
+
+.tier1Border {
+  border-color: #56a1df;
+}
+.tier2Border {
+  border-color: #81de62;
+}
+.tier3Border {
+  border-color: #cfcf70;
+}
+
+.tier1Background {
+  background: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
+    linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
+    linear-gradient(360deg, #56a1dfcc 10%, #56a1df00 90.71%);
+}
+.tier2Background {
+  background: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
+    linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
+    linear-gradient(360deg, #81de62cc 10%, #81de6200 90.71%);
+}
+.tier3Background {
+  background: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
+    linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
+    linear-gradient(360deg, #cfcf70cc 10%, #cfcf7000 90.71%);
+}
+
 .react-tooltip-arrow {
   display: none;
 }

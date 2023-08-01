@@ -93,12 +93,16 @@ $myLightBlue: #76b1ff;
       .selectingSkillDiv {
         @apply inline-flex flex-col gap-2 mx-auto;
         .skillsDivHeader {
+          @apply flex justify-between;
           .headerP {
             @apply text-xs xs:text-sm md:text-base;
             .classSpan {
               @apply font-extrabold;
               color: $myBlue;
             }
+          }
+          .resetBtn {
+            @apply text-sm px-2 py-[2px];
           }
         }
         .skillsDiv {
@@ -149,28 +153,39 @@ $myLightBlue: #76b1ff;
     }
 
     .settingTripodDiv {
-      @apply bg-[#151a23] flex;
+      @apply flex;
       .settingWrapper {
         @apply inline-grid grid-cols-1 mx-auto;
         .settingHeader {
-          @apply flex justify-between items-center pl-2 font-bold px-2 py-1 text-sm text-[#a8acba] bg-[#0d1117] border-b border-[#050505];
+          @apply flex flex-col gap-1 xs:gap-0 xs:flex-row items-start justify-center xs:items-center xs:justify-between pl-2 font-bold px-2 py-1 text-sm text-[#a8acba] bg-[#0d1117] border-b border-[#050505];
           .numSpan {
             @apply text-base mx-1;
             color: $myBlue;
           }
+          .buttonDiv {
+            @apply flex gap-1;
+            .resetBtn {
+              @apply text-sm px-2 py-[2px] border-[#555] hover:text-[#eee] hover:border-[#2a5996];
+            }
+          }
         }
         .settingBody {
-          @apply flex;
+          @apply flex h-[580px];
           .selectedSkillsDiv {
-            @apply flex flex-col h-[560px] overflow-auto pl-1 bg-[#0d1117] border-t border-t-[#1d1d1d] border-r border-r-[#050505];
+            @apply flex flex-col overflow-auto pl-1 bg-[#0d1117] border-t border-t-[#1d1d1d] border-r border-r-[#050505];
             direction: rtl;
             .gridDiv {
               @apply grid md:grid-cols-[234px] lg:grid-cols-[226px_226px] 1.5xl:grid-cols-[226px_226px_226px];
 
               direction: ltr;
               .selectSkillBtn {
-                @apply relative flex items-center gap-1 pl-2 py-2 bg-[#10141c] hover:bg-[#0d1016] border-b border-[#060409];
+                @apply relative flex items-center gap-1 pl-2 py-2 bg-[#10141c] border-b border-[#060409];
+                transition: box-shadow linear 0.1s;
                 direction: ltr;
+                &:hover,
+                &.selected {
+                  box-shadow: inset 0px 0px 8px -5px #c7caff;
+                }
                 &::before {
                   @apply absolute top-0 left-0 right-0 bottom-0 opacity-[0.28];
                   content: "";
@@ -199,7 +214,7 @@ $myLightBlue: #76b1ff;
             }
           }
           .selectedSkillTripodDiv {
-            @apply flex justify-center px-8 py-2 w-[376px] h-[560px] bg-[#0d1117] border-t border-[#1d1d1d];
+            @apply flex justify-center px-8 py-2 w-[376px] bg-[#0d1117] border-t border-[#1d1d1d];
             .tripodContentDiv {
               @apply flex flex-auto flex-col;
               .tripodHeader {
@@ -253,15 +268,51 @@ $myLightBlue: #76b1ff;
               }
 
               .tripodTierContentDiv {
-                @apply flex justify-between;
-                .singleTripodDiv {
-                  @apply inline-flex flex-col gap-1 justify-center items-center w-[100px] text-sm;
+                @apply flex justify-center gap-[6px];
+                .singleTripodBtn {
+                  @apply relative z-[1] inline-flex flex-col gap-1 justify-center items-center w-[100px] text-sm;
+                  &:hover .iconDiv .tripodIcon,
+                  .iconDiv[data-selected="true"] .tripodIcon {
+                    filter: none;
+                  }
                   .iconDiv {
-                    @apply w-14 h-14;
-                    img {
+                    @apply relative w-14 h-14;
+                    .tripodIcon {
                       @apply w-14 h-14;
+                      filter: grayscale(1);
                       border-radius: 50%;
                     }
+                    &::after {
+                      @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] w-[77px] h-[77px] opacity-0;
+                      content: "";
+                      transition: opacity 0.2s;
+                      background-size: 100%;
+                    }
+                    &[data-selected="true"]::after {
+                      @apply opacity-100;
+                    }
+                    &[data-tier="0"]::after {
+                      background-image: url("/images/tripod_selected1.png");
+                    }
+                    &[data-tier="1"]::after {
+                      background-image: url("/images/tripod_selected2.png");
+                    }
+                    &[data-tier="2"]::after {
+                      background-image: url("/images/tripod_selected3.png");
+                    }
+                  }
+
+                  .upgradableDiv {
+                    @apply grid grid-cols-2 gap-[1px] w-full;
+                    .levelBtn {
+                      @apply border text-xs leading-5;
+                      &[data-active="true"] {
+                        @apply font-extrabold;
+                      }
+                    }
+                  }
+                  .unupgradableDiv {
+                    @apply w-full text-[#bbb];
                   }
                 }
               }

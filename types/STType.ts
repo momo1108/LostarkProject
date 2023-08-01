@@ -21,7 +21,7 @@ export type RuneTooltip = any;
 export type SkillTooltip = any;
 
 export const tripodTierToColorMap: { [key: number]: string } = {
-  0: "#56a1df",
-  1: "#81de62",
-  2: "#cfcf70",
+  0: "tier1Color",
+  1: "tier2Color",
+  2: "tier3Color",
 };

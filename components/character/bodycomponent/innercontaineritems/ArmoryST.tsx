@@ -103,11 +103,10 @@ const ArmoryST: React.FC<ArmorySTProps> = ({ className, data }) => {
                               <img src={t.Icon} alt="" />
                               <p className={styles.tripodSlot}>{t.Slot}</p>
                               <div
-                                className={styles.tripodDescrItem}
+                                className={`${styles.tripodDescrItem} ${
+                                  tripodTierToColorMap[t.Tier]
+                                }`}
                                 key={`${e.Name}_${t.Name}`}
-                                style={{
-                                  color: tripodTierToColorMap[t.Tier],
-                                }}
                               >
                                 <p className={styles.tripodNameP}>{t.Name}</p>
                                 <p>Lv. {t.Level}</p>

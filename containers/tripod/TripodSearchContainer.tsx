@@ -13,7 +13,8 @@ const TripodSearchContainer: React.FC = () => {
   const [selectedSkills, setSelectedSkills] = useState<boolean[]>([]);
   const [selectedSkillIndex, setSelectedSkillIndex] = useState<number>(0);
   const [loadingSkillset, setLoadingSkillset] = useState<boolean>(true);
-  const [selectingTripod, setSelectingTripod] = useState<boolean>(true);
+  const [selectingSkill, setSelectingSkill] = useState<boolean>(true);
+  const [selectingTripod, setSelectingTripod] = useState<boolean>(false);
 
   useEffect(() => {
     setLoadingSkillset(true);
@@ -37,7 +38,15 @@ const TripodSearchContainer: React.FC = () => {
         // console.log(res.data);
         setTripodData(
           res.data.tripod.map((skill: FilteredSkillType) => {
-            return { ...skill, Tooltip: JSON.parse(skill.Tooltip) };
+            return {
+              ...skill,
+              Tooltip: JSON.parse(skill.Tooltip),
+              Tripods: skill.Tripods.map((tripod) => ({
+                ...tripod,
+                IsSelected: false,
+                Level: 5,
+              })),
+            };
           })
         );
       })
@@ -48,53 +57,138 @@ const TripodSearchContainer: React.FC = () => {
   }, [subClass]);
 
   useEffect(() => {
-    setSelectedSkills(Array(tripodData.length).fill(false));
-    setTimeout(() => {
-      setLoadingSkillset(false);
-    }, 500);
+    console.log(tripodData);
+    if (selectingTripod) {
+      setTimeout(() => {
+        setSelectingTripod(false);
+      }, 500);
+    } else {
+      setSelectedSkills(Array(tripodData.length).fill(false));
+      setTimeout(() => {
+        setLoadingSkillset(false);
+      }, 500);
+    }
   }, [tripodData]);
 
   useEffect(() => {
     setTimeout(() => {
-      setSelectingTripod(false);
-    }, 200);
+      setSelectingSkill(false);
+    }, 500);
   }, [selectedSkills]);
+
+  const selectedData = useMemo(() => {
+    // console.log(tripodData.filter((e, i) => selectedSkills[i]));
+    return tripodData.filter((e, i) => selectedSkills[i]);
+  }, [selectedSkills, tripodData]);
 
   const selectSkill = useCallback(
     (i: number) => {
-      if (selectingTripod) {
+      if (selectingSkill) {
         alert("선택 작업을 진행중입니다.");
         return;
       }
-      setSelectingTripod(true);
+      setSelectingSkill(true);
       if (selectedSkills[i]) {
-        const activeCount = selectedSkills.reduce(
-          (prev, cur) => prev + (cur ? 1 : 0),
-          0
+        const delIndex = selectedData.findIndex(
+          (skill) => skill.Name === tripodData[i].Name
         );
-        console.log(activeCount, selectedSkillIndex);
-        if (selectedSkillIndex >= activeCount - 1)
-          setSelectedSkillIndex((e) => e - 1);
+
+        if (selectedSkillIndex > 0) {
+          if (
+            delIndex < selectedSkillIndex ||
+            (delIndex === selectedSkillIndex &&
+              selectedSkillIndex === selectedData.length - 1)
+          )
+            setSelectedSkillIndex((e) => e - 1);
+        }
 
         setSelectedSkills((data) => [
           ...data.slice(0, i),
           false,
           ...data.slice(i + 1),
         ]);
-      } else
+      } else {
+        if (selectedData.length && selectedSkillIndex > 0) {
+          const curIndex = tripodData.findIndex(
+            (skill) => skill.Name === selectedData[selectedSkillIndex].Name
+          );
+          if (i < curIndex) setSelectedSkillIndex((e) => e + 1);
+        }
+
         setSelectedSkills((data) => [
           ...data.slice(0, i),
           true,
           ...data.slice(i + 1),
         ]);
+      }
     },
-    [selectedSkills, selectingTripod, selectedSkillIndex]
+    [selectedSkills, selectingSkill, selectedSkillIndex]
   );
 
-  const selectedData = useMemo(() => {
-    // console.log(tripodData.filter((e, i) => selectedSkills[i]));
-    return tripodData.filter((e, i) => selectedSkills[i]);
-  }, [selectedSkills, tripodData]);
+  const selectTripod = useCallback(
+    (tier: number, name: string, level: number) => {
+      setSelectingTripod(true);
+      const targetSkillIndex = tripodData.findIndex(
+        (e) => e.Name === selectedData[selectedSkillIndex].Name
+      );
+      const result = {
+        ...tripodData[targetSkillIndex],
+        Tripods: tripodData[targetSkillIndex].Tripods.map((e) =>
+          e.Tier === tier
+            ? e.Name === name
+              ? { ...e, IsSelected: true, Level: level >= 4 ? level : e.Level }
+              : { ...e, IsSelected: false }
+            : e
+        ),
+      };
+
+      const tmp_tripodData = JSON.parse(JSON.stringify(tripodData));
+      tmp_tripodData.splice(targetSkillIndex, 1, result);
+      setTripodData(tmp_tripodData);
+    },
+    [tripodData, selectedData, selectedSkillIndex]
+  );
+
+  const resetSelectedSkills = useCallback(() => {
+    setSelectingSkill(true);
+    setSelectedSkillIndex(0);
+    setSelectedSkills(Array(tripodData.length).fill(false));
+  }, [tripodData]);
+
+  const resetAllTripods = useCallback(() => {
+    setSelectingTripod(true);
+    setTripodData((e) =>
+      e.map((skill: FilteredSkillType) => {
+        return {
+          ...skill,
+          Tripods: skill.Tripods.map((tripod) => ({
+            ...tripod,
+            IsSelected: false,
+            Level: 5,
+          })),
+        };
+      })
+    );
+  }, [tripodData]);
+
+  const resetSelectedTripod = useCallback(() => {
+    setSelectingTripod(true);
+    const skillName = selectedData[selectedSkillIndex].Name;
+    setTripodData((e) =>
+      e.map((skill: FilteredSkillType) =>
+        skill.Name === skillName
+          ? {
+              ...skill,
+              Tripods: skill.Tripods.map((tripod) => ({
+                ...tripod,
+                IsSelected: false,
+                Level: 5,
+              })),
+            }
+          : skill
+      )
+    );
+  }, [tripodData, selectedData, selectedSkillIndex]);
 
   return (
     <TripodContext.Provider
@@ -110,8 +204,13 @@ const TripodSearchContainer: React.FC = () => {
         setSelectedSkillIndex,
         selectedData,
         loadingSkillset,
+        selectingSkill,
         selectingTripod,
         selectSkill,
+        selectTripod,
+        resetSelectedSkills,
+        resetAllTripods,
+        resetSelectedTripod,
       }}
     >
       <TripodSearchBlock />

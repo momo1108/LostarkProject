@@ -102,7 +102,7 @@ const LoadModal: React.FC<ModalProps> = ({
             {currentPresetList.length ? (
               viewMode === 0 ? (
                 <div className="loadModalSimpleDiv">
-                  <ul className="modalVerticalList loadModalSimpleList">
+                  <ul className="modalVerticalList loadModalSimpleList hideScroll">
                     {parsedPresetList.map(
                       (e: EngravePresetWithParsedData, i: number) => {
                         return (
@@ -110,7 +110,14 @@ const LoadModal: React.FC<ModalProps> = ({
                             key={`loadedPreset_${e.name}`}
                             className="loadModalSimpleListItem"
                           >
-                            <h3 className="modalTitle presetName">{e.name}</h3>
+                            <h3
+                              className="modalTitle presetName"
+                              title={e.name}
+                            >
+                              {e.name.length >= 7
+                                ? e.name.slice(0, 7) + "..."
+                                : e.name}
+                            </h3>
                             <hr />
                             <div className="descrDiv">
                               <h4 className="modalSubtitle">🔹각인</h4>
