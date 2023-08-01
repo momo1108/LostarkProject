@@ -16,7 +16,7 @@ export default function useSkillParser() {
     (skills: SkillType[]): FilteredSkillType[] => {
       // 한 클래스 스킬데이터 파서
       // 스킬, 트포 정보만 빼내기
-      // 트포의 경우 Upgradable 기본값 true로 설정 후
+      // 트포의 경우 Upgradable 기본값 true, Level 기본값 5 로 설정 후
       // admin 페이지에서 조정기능 구현
       return skills
         .filter((skill) => !skill.IsAwakening || skill.Tripods.length)
@@ -32,6 +32,7 @@ export default function useSkillParser() {
             IsSelected: tripod.IsSelected,
             Tooltip: tripod.Tooltip,
             Upgradable: true,
+            Level: 5,
           })),
         }));
     },
