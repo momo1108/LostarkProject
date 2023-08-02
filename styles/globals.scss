@@ -414,16 +414,26 @@ body,
 }
 
 .tier1Background {
+  background: #1a65a2;
+}
+.tier2Background {
+  background: #379b16;
+}
+.tier3Background {
+  background: #a9a900;
+}
+
+.tier1BackgroundLinear {
   background: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
     linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
     linear-gradient(360deg, #56a1dfcc 10%, #56a1df00 90.71%);
 }
-.tier2Background {
+.tier2BackgroundLinear {
   background: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
     linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
     linear-gradient(360deg, #81de62cc 10%, #81de6200 90.71%);
 }
-.tier3Background {
+.tier3BackgroundLinear {
   background: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
     linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
     linear-gradient(360deg, #cfcf70cc 10%, #cfcf7000 90.71%);
@@ -521,11 +531,11 @@ footer {
     font-size: 10px;
   }
   .copyright {
-    @apply flex md:justify-between md:text-sm md:flex-row flex-col items-center text-xs font-bold;
+    @apply flex gap-1 md:justify-between md:text-sm md:flex-row flex-col items-center text-xs font-bold;
     .descr {
     }
     .contact {
-      @apply flex flex-wrap items-center gap-x-2 justify-end;
+      @apply flex flex-wrap items-center gap-x-2 gap-y-1 justify-center;
       .descr {
         @apply text-xs;
       }

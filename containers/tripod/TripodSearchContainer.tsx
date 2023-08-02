@@ -1,5 +1,5 @@
 import TripodSearchBlock from "@/components/tripod/bodycomponent/TripodSearchBlock";
-import TripodContext from "@/contexts/TripodContext";
+import TripodSearchContext from "@/contexts/TripodSearchContext";
 import { classDetailMap } from "@/types/GlobalType";
 import { FilteredSkillType, ParsedFilteredSkillType } from "@/types/TripodType";
 import axios from "axios";
@@ -24,9 +24,9 @@ const TripodSearchContainer: React.FC = () => {
       (process.env.NODE_ENV === "development"
         ? "http://localhost:3000/api/tripod"
         : "/loaple/tripod");
-    console.log(url);
-    console.log(process.env.NEXT_PUBLIC_TRIPOD_API);
-    console.log(process.env.NODE_ENV);
+    // console.log(url);
+    // console.log(process.env.NEXT_PUBLIC_TRIPOD_API);
+    // console.log(process.env.NODE_ENV);
     axios
       .get(url, {
         params: {
@@ -57,7 +57,7 @@ const TripodSearchContainer: React.FC = () => {
   }, [subClass]);
 
   useEffect(() => {
-    console.log(tripodData);
+    // console.log(tripodData);
     if (selectingTripod) {
       setTimeout(() => {
         setSelectingTripod(false);
@@ -191,7 +191,7 @@ const TripodSearchContainer: React.FC = () => {
   }, [tripodData, selectedData, selectedSkillIndex]);
 
   return (
-    <TripodContext.Provider
+    <TripodSearchContext.Provider
       value={{
         rootClassList,
         rootClass,
@@ -214,7 +214,7 @@ const TripodSearchContainer: React.FC = () => {
       }}
     >
       <TripodSearchBlock />
-    </TripodContext.Provider>
+    </TripodSearchContext.Provider>
   );
 };
 

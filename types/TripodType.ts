@@ -100,6 +100,11 @@ export const tripodTierToStyleMap: {
     1: "tier2Border",
     2: "tier3Border",
   },
+  backgroundLinear: {
+    0: "tier1BackgroundLinear",
+    1: "tier2BackgroundLinear",
+    2: "tier3BackgroundLinear",
+  },
   background: {
     0: "tier1Background",
     1: "tier2Background",

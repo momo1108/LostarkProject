@@ -93,7 +93,7 @@ $myLightBlue: #76b1ff;
       .selectingSkillDiv {
         @apply inline-flex flex-col gap-2 mx-auto;
         .skillsDivHeader {
-          @apply flex justify-between;
+          @apply flex justify-between items-center;
           .headerP {
             @apply text-xs xs:text-sm md:text-base;
             .classSpan {
@@ -102,7 +102,7 @@ $myLightBlue: #76b1ff;
             }
           }
           .resetBtn {
-            @apply text-sm px-2 py-[2px];
+            @apply text-xs sm:text-sm px-2 py-[2px];
           }
         }
         .skillsDiv {
@@ -155,36 +155,50 @@ $myLightBlue: #76b1ff;
     .settingTripodDiv {
       @apply flex;
       .settingWrapper {
-        @apply inline-grid grid-cols-1 mx-auto;
+        @apply inline-grid grid-cols-1 max-xs:min-w-[90%] mx-auto;
         .settingHeader {
-          @apply flex flex-col gap-1 xs:gap-0 xs:flex-row items-start justify-center xs:items-center xs:justify-between pl-2 font-bold px-2 py-1 text-sm text-[#a8acba] bg-[#0d1117] border-b border-[#050505];
+          @apply flex flex-col gap-1 xs:gap-0 xs:flex-row items-start justify-center xs:items-center xs:justify-between
+           pl-2 font-bold px-2 py-1 text-xs sm:text-sm text-[#a8acba] bg-[#0d1117] border-b border-[#050505];
           .numSpan {
-            @apply text-base mx-1;
+            @apply text-sm sm:text-base mx-1;
             color: $myBlue;
           }
           .buttonDiv {
             @apply flex gap-1;
             .resetBtn {
-              @apply text-sm px-2 py-[2px] border-[#555] hover:text-[#eee] hover:border-[#2a5996];
+              @apply text-xs sm:text-sm px-2 py-[2px] border-[#555] hover:text-[#eee] hover:border-[#2a5996];
             }
           }
         }
         .settingBody {
-          @apply flex h-[580px];
+          @apply flex flex-col sm:flex-row sm:h-[580px] bg-[#0d1117];
+
+          .settingTitle {
+            @apply text-sm sm:text-base text-center font-bold sm:hidden py-1 border-y border-[#000];
+            background: linear-gradient(
+              90deg,
+              #0d1117 15%,
+              #19222c 50%,
+              #0d1117 85%
+            );
+          }
+
           .selectedSkillsDiv {
-            @apply flex flex-col overflow-auto pl-1 bg-[#0d1117] border-t border-t-[#1d1d1d] border-r border-r-[#050505];
+            @apply flex flex-col overflow-auto my-2 sm:my-0 pl-1 pr-1 md:pr-0 bg-[#0d1117] sm:border-t border-t-[#1d1d1d] sm:border-r border-r-[#050505];
             direction: rtl;
             .gridDiv {
-              @apply grid md:grid-cols-[234px] lg:grid-cols-[226px_226px] 1.5xl:grid-cols-[226px_226px_226px];
+              @apply mx-auto sm:mx-0 max-w-[390px] sm:max-w-none h-[162px] sm:h-auto 
+              grid grid-cols-[80px_80px_80px] xs:grid-cols-[80px_80px_80px_80px] sm:grid-cols-[80px_80px] 
+              md:grid-cols-[234px] lg:grid-cols-[226px_226px] 1.5xl:grid-cols-[226px_226px_226px];
 
               direction: ltr;
               .selectSkillBtn {
-                @apply relative flex items-center gap-1 pl-2 py-2 bg-[#10141c] border-b border-[#060409];
+                @apply relative flex items-center gap-1 h-20 md:pl-2 md:py-2 bg-[#10141c] border-b border-[#060409];
                 transition: box-shadow linear 0.1s;
                 direction: ltr;
                 &:hover,
                 &.selected {
-                  box-shadow: inset 0px 0px 8px -5px #c7caff;
+                  box-shadow: inset 0px 0px 6px -2px #6f77ff;
                 }
                 &::before {
                   @apply absolute top-0 left-0 right-0 bottom-0 opacity-[0.28];
@@ -193,18 +207,42 @@ $myLightBlue: #76b1ff;
                   background-size: cover;
                 }
                 .skillIconDiv {
-                  @apply relative flex items-center justify-center w-16 h-16;
+                  @apply relative flex items-center justify-center w-[80px] h-[80px] bg-[length:98%_98%] md:w-16 md:h-16 md:bg-[length:100%_100%];
                   background-image: url("/images/skill_slot.png");
-                  background-size: 100%;
+                  background-position: center;
+                  background-repeat: no-repeat;
                   .skillIcon {
-                    @apply w-14 h-14;
+                    @apply w-[70px] h-[70px] grayscale-[85%] md:grayscale-0 md:w-14 md:h-14;
+                  }
+                  .nameP {
+                    @apply absolute md:hidden left-0 right-0 bottom-2 w-[80px] text-[#aaa] break-keep mx-auto text-sm leading-[14px] font-bold;
+                    text-shadow: -1px -1px 0 #000, 0 -1px 0 #000,
+                      1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000,
+                      0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000;
+                  }
+                  &[data-selected="true"] {
+                    .skillIcon {
+                      @apply grayscale-0;
+                    }
+                    .nameP {
+                      @apply text-[#eee];
+                    }
                   }
                 }
                 .skillDescrDiv {
-                  @apply relative flex flex-auto flex-col justify-between items-start pr-2 border-r border-[#060409];
-                  .typeP span {
-                    @apply font-bold;
-                    font-size: 14px !important;
+                  @apply relative hidden md:flex flex-auto flex-col justify-between items-start pr-2 border-r border-[#060409];
+                  .typeDiv {
+                    @apply flex items-center gap-4;
+                    .previewDiv {
+                      @apply grid grid-cols-3 gap-1 text-xs font-extrabold;
+                      .levelSpan {
+                        @apply rounded-[50%] w-4 h-4;
+                      }
+                    }
+                    .typeP span {
+                      @apply font-bold;
+                      font-size: 14px !important;
+                    }
                   }
                   .nameP {
                     @apply font-extrabold;
@@ -214,15 +252,15 @@ $myLightBlue: #76b1ff;
             }
           }
           .selectedSkillTripodDiv {
-            @apply flex justify-center px-8 py-2 w-[376px] bg-[#0d1117] border-t border-[#1d1d1d];
+            @apply flex justify-center px-2 xs:px-8 py-2 bg-[#0d1117] border-t border-[#1d1d1d];
             .tripodContentDiv {
-              @apply flex flex-auto flex-col;
+              @apply flex flex-auto flex-col xs:w-[312px];
               .tripodHeader {
-                @apply py-1 w-full text-center font-bold;
+                @apply text-sm sm:text-base sm:py-1 w-full text-center font-bold;
                 background: linear-gradient(90deg, #121720, #090b09, #121720);
               }
               .headerLine {
-                @apply relative my-8;
+                @apply relative my-8 mx-3 xs:mx-0;
                 &[data-tier="0"] {
                   box-shadow: 0px 0px 3px 0.5px #4691f622;
                   &::before {
@@ -270,7 +308,7 @@ $myLightBlue: #76b1ff;
               .tripodTierContentDiv {
                 @apply flex justify-center gap-[6px];
                 .singleTripodBtn {
-                  @apply relative z-[1] inline-flex flex-col gap-1 justify-center items-center w-[100px] text-sm;
+                  @apply relative z-[1] inline-flex flex-col gap-1 justify-center items-center w-[80px] xs:w-[100px] text-xs xs:text-sm;
                   &:hover .iconDiv .tripodIcon,
                   .iconDiv[data-selected="true"] .tripodIcon {
                     filter: none;
@@ -300,6 +338,10 @@ $myLightBlue: #76b1ff;
                     &[data-tier="2"]::after {
                       background-image: url("/images/tripod_selected3.png");
                     }
+                  }
+
+                  .nameP {
+                    @apply break-keep;
                   }
 
                   .upgradableDiv {

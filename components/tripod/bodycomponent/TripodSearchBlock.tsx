@@ -1,6 +1,6 @@
 import ApiKeyInput from "@/components/ApiKeyInput";
 import { Meteor, TriangleSpinner } from "@/components/icons/Index";
-import TripodContext from "@/contexts/TripodContext";
+import TripodSearchContext from "@/contexts/TripodSearchContext";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import styles from "@/styles/tripod/Body.module.scss";
 import { classDetailMap, classImageMap } from "@/types/GlobalType";
@@ -32,7 +32,7 @@ const TripodSearchBlock: React.FC = () => {
     resetSelectedSkills,
     resetAllTripods,
     resetSelectedTripod,
-  } = useContext(TripodContext);
+  } = useContext(TripodSearchContext);
   const { parseApiDataToHtmlString: parse } = useApiTagParser();
 
   return (
@@ -180,6 +180,7 @@ const TripodSearchBlock: React.FC = () => {
             </div>
           </div>
           <div className={styles.settingBody}>
+            <h4 className={styles.settingTitle}>스킬 선택</h4>
             <div className={`${styles.selectedSkillsDiv} hideScroll`}>
               <div className={styles.gridDiv}>
                 {selectedData.map(
@@ -194,17 +195,36 @@ const TripodSearchBlock: React.FC = () => {
                           setSelectedSkillIndex(index);
                         }}
                       >
-                        <div className={styles.skillIconDiv}>
+                        <div
+                          data-selected={index === selectedSkillIndex}
+                          className={styles.skillIconDiv}
+                        >
                           <img
                             className={styles.skillIcon}
                             src={e.Icon}
                             alt="스킬"
                           />
+                          <p className={styles.nameP}>{e.Name}</p>
                         </div>
                         <div className={styles.skillDescrDiv}>
-                          <p className={styles.typeP}>
-                            {parse(e.Tooltip.Element_001.value.name)}
-                          </p>
+                          <div className={styles.typeDiv}>
+                            <p className={styles.typeP}>
+                              {parse(e.Tooltip.Element_001.value.name)}
+                            </p>
+                            <div className={styles.previewDiv}>
+                              {e.Tripods.filter((tp) => tp.IsSelected).map(
+                                (tp) => (
+                                  <span
+                                    className={`${styles.levelSpan} ${
+                                      tripodTierToStyleMap.background[tp.Tier]
+                                    }`}
+                                  >
+                                    {tp.Upgradable ? tp.Level : 1}
+                                  </span>
+                                )
+                              )}
+                            </div>
+                          </div>
                           <p className={styles.nameP}>{e.Name}</p>
                         </div>
                       </button>
@@ -213,6 +233,7 @@ const TripodSearchBlock: React.FC = () => {
                 )}
               </div>
             </div>
+            <h4 className={styles.settingTitle}>트라이포드 선택</h4>
             <div className={styles.selectedSkillTripodDiv}>
               {/* img에 filter: grayscale(1.0) 으로 흑백전환 */}
               {selectedData.length ? (
@@ -256,11 +277,11 @@ const TripodSearchBlock: React.FC = () => {
                                 />
                               </div>
                               <p
-                                className={
+                                className={`${styles.nameP} ${
                                   tp.IsSelected
                                     ? tripodTierToStyleMap.color[tier]
                                     : ""
-                                }
+                                }`}
                               >
                                 {tp.Name}
                               </p>
@@ -275,7 +296,9 @@ const TripodSearchBlock: React.FC = () => {
                                         : "border-[#333]"
                                     } ${
                                       tp.IsSelected && tp.Level === 4
-                                        ? tripodTierToStyleMap.background[tier]
+                                        ? tripodTierToStyleMap.backgroundLinear[
+                                            tier
+                                          ]
                                         : ""
                                     }`}
                                     onClick={(e) => {
@@ -297,7 +320,9 @@ const TripodSearchBlock: React.FC = () => {
                                         : "border-[#333]"
                                     } ${
                                       tp.IsSelected && tp.Level === 5
-                                        ? tripodTierToStyleMap.background[tier]
+                                        ? tripodTierToStyleMap.backgroundLinear[
+                                            tier
+                                          ]
                                         : ""
                                     }`}
                                     onClick={(e) => {
@@ -311,7 +336,7 @@ const TripodSearchBlock: React.FC = () => {
                                 </div>
                               ) : (
                                 <div className={styles.unupgradableDiv}>
-                                  1렙트포
+                                  Lv. 1
                                 </div>
                               )}
                             </button>
