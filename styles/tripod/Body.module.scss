@@ -359,6 +359,9 @@ $myLightBlue: #76b1ff;
                 }
               }
             }
+            .emptyTripodDiv {
+              @apply xs:w-[312px];
+            }
           }
         }
       }

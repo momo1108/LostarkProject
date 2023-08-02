@@ -347,7 +347,9 @@ const TripodSearchBlock: React.FC = () => {
                   ))}
                 </div>
               ) : (
-                <div>스킬을 선택해주세요.</div>
+                <div className={styles.emptyTripodDiv}>
+                  스킬을 선택해주세요.
+                </div>
               )}
             </div>
           </div>
