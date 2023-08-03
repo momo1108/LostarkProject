@@ -18,6 +18,7 @@ import Skip from "./Skip";
 import Target from "./Target";
 import Triangle from "./Triangle";
 import TriangleSpinner from "./TriangleSpinner";
+import Tripod from "./Tripod";
 import Spinner from "./Spinner";
 import Box from "./Box";
 import Gear from "./Gear";
@@ -57,5 +58,6 @@ export {
   Target,
   Triangle,
   TriangleSpinner,
+  Tripod,
   Meteor,
 };

@@ -1,5 +1,10 @@
 import ApiKeyInput from "@/components/ApiKeyInput";
-import { Meteor, TriangleSpinner } from "@/components/icons/Index";
+import {
+  MenuIcons,
+  Meteor,
+  TriangleSpinner,
+  Tripod,
+} from "@/components/icons/Index";
 import TripodSearchContext from "@/contexts/TripodSearchContext";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import styles from "@/styles/tripod/Body.module.scss";
@@ -32,6 +37,9 @@ const TripodSearchBlock: React.FC = () => {
     resetSelectedSkills,
     resetAllTripods,
     resetSelectedTripod,
+    minimizeSelector,
+    setMinimizeSelector,
+    searchTripod,
   } = useContext(TripodSearchContext);
   const { parseApiDataToHtmlString: parse } = useApiTagParser();
 
@@ -155,7 +163,11 @@ const TripodSearchBlock: React.FC = () => {
         )}
       </div>
       <div className={styles.settingTripodDiv}>
-        <div className={styles.settingWrapper}>
+        <div
+          className={styles.settingWrapper}
+          data-minimize={minimizeSelector}
+          data-selected={selectedData.length >= 1}
+        >
           <div className={styles.settingHeader}>
             <p>
               선택한 스킬{" "}
@@ -177,46 +189,50 @@ const TripodSearchBlock: React.FC = () => {
               >
                 현재 스킬 초기화
               </button>
+              <button
+                className={`myButtons ${styles.minimizeBtn}`}
+                onClick={() => {
+                  setMinimizeSelector((e: boolean) => !e);
+                }}
+              >
+                {minimizeSelector ? "+" : "―"}
+              </button>
             </div>
           </div>
           <div className={styles.settingBody}>
             <h4 className={styles.settingTitle}>스킬 선택</h4>
             <div className={`${styles.selectedSkillsDiv} hideScroll`}>
-              <div className={styles.gridDiv}>
-                {selectedData.map(
-                  (e: ParsedFilteredSkillType, index: number) => {
-                    return (
-                      <button
-                        className={`${styles.selectSkillBtn} ${
-                          index === selectedSkillIndex ? styles.selected : ""
-                        }`}
-                        key={`selectedSkill_${e.Name}`}
-                        onClick={() => {
-                          setSelectedSkillIndex(index);
-                        }}
-                      >
-                        <div
-                          data-selected={index === selectedSkillIndex}
-                          className={styles.skillIconDiv}
+              {selectedData.length ? (
+                <div className={styles.gridDiv}>
+                  {selectedData.map(
+                    (e: ParsedFilteredSkillType, index: number) => {
+                      return (
+                        <button
+                          className={`${styles.selectSkillBtn} ${
+                            index === selectedSkillIndex ? styles.selected : ""
+                          }`}
+                          key={`selectedSkill_${e.Name}`}
+                          onClick={() => {
+                            setSelectedSkillIndex(index);
+                          }}
                         >
-                          <img
-                            className={styles.skillIcon}
-                            src={e.Icon}
-                            alt="스킬"
-                          />
-                          <p className={styles.nameP}>{e.Name}</p>
-                        </div>
-                        <div className={styles.skillDescrDiv}>
-                          <div className={styles.typeDiv}>
-                            <p className={styles.typeP}>
-                              {parse(e.Tooltip.Element_001.value.name)}
-                            </p>
+                          <div
+                            data-selected={index === selectedSkillIndex}
+                            className={styles.skillIconDiv}
+                          >
+                            <img
+                              className={styles.skillIcon}
+                              src={e.Icon}
+                              alt="스킬"
+                            />
+                            <p className={styles.nameP}>{e.Name}</p>
                             <div className={styles.previewDiv}>
+                              <Tripod size={14} />
                               {e.Tripods.filter((tp) => tp.IsSelected).map(
                                 (tp) => (
                                   <span
                                     className={`${styles.levelSpan} ${
-                                      tripodTierToStyleMap.background[tp.Tier]
+                                      tripodTierToStyleMap.color[tp.Tier]
                                     }`}
                                   >
                                     {tp.Upgradable ? tp.Level : 1}
@@ -225,13 +241,39 @@ const TripodSearchBlock: React.FC = () => {
                               )}
                             </div>
                           </div>
-                          <p className={styles.nameP}>{e.Name}</p>
-                        </div>
-                      </button>
-                    );
-                  }
-                )}
-              </div>
+                          <div className={styles.skillDescrDiv}>
+                            <div className={styles.typeDiv}>
+                              <p className={styles.typeP}>
+                                {parse(e.Tooltip.Element_001.value.name)}
+                              </p>
+                              <div className={styles.previewDiv}>
+                                <Tripod size={14} />
+                                {e.Tripods.filter((tp) => tp.IsSelected).map(
+                                  (tp) => (
+                                    <span
+                                      className={`${styles.levelSpan} ${
+                                        tripodTierToStyleMap.color[tp.Tier]
+                                      }`}
+                                    >
+                                      {tp.Upgradable ? tp.Level : 1}
+                                    </span>
+                                  )
+                                )}
+                              </div>
+                            </div>
+                            <p className={styles.nameP}>{e.Name}</p>
+                          </div>
+                        </button>
+                      );
+                    }
+                  )}
+                </div>
+              ) : (
+                <div className={styles.emptySkillDiv}>
+                  <Meteor className={styles.icon} />
+                  <p className={styles.messageP}>스킬을 선택해주세요</p>
+                </div>
+              )}
             </div>
             <h4 className={styles.settingTitle}>트라이포드 선택</h4>
             <div className={styles.selectedSkillTripodDiv}>
@@ -348,11 +390,21 @@ const TripodSearchBlock: React.FC = () => {
                 </div>
               ) : (
                 <div className={styles.emptyTripodDiv}>
-                  스킬을 선택해주세요.
+                  <MenuIcons className={styles.icon} type={2} />
+                  <p className={styles.messageP}>스킬을 선택해주세요</p>
                 </div>
               )}
             </div>
           </div>
+        </div>
+        <div className={styles.searchDiv}>
+          <button
+            className={styles.searchBtn}
+            onClick={searchTripod}
+            disabled={selectingSkill || selectingTripod}
+          >
+            검색
+          </button>
         </div>
       </div>
     </div>

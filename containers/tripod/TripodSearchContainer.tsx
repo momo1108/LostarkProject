@@ -1,7 +1,11 @@
 import TripodSearchBlock from "@/components/tripod/bodycomponent/TripodSearchBlock";
 import TripodSearchContext from "@/contexts/TripodSearchContext";
 import { classDetailMap } from "@/types/GlobalType";
-import { FilteredSkillType, ParsedFilteredSkillType } from "@/types/TripodType";
+import {
+  FilteredSkillType,
+  ParsedFilteredSkillType,
+  TripodReqType,
+} from "@/types/TripodType";
 import axios from "axios";
 import { useState, useEffect, useCallback, useMemo } from "react";
 
@@ -15,6 +19,7 @@ const TripodSearchContainer: React.FC = () => {
   const [loadingSkillset, setLoadingSkillset] = useState<boolean>(true);
   const [selectingSkill, setSelectingSkill] = useState<boolean>(true);
   const [selectingTripod, setSelectingTripod] = useState<boolean>(false);
+  const [minimizeSelector, setMinimizeSelector] = useState<boolean>(false);
 
   useEffect(() => {
     setLoadingSkillset(true);
@@ -190,6 +195,23 @@ const TripodSearchContainer: React.FC = () => {
     );
   }, [tripodData, selectedData, selectedSkillIndex]);
 
+  const searchTripod = useCallback(() => {
+    const reqData = selectedData.reduce(
+      (prev: TripodReqType[], cur) => [
+        ...prev,
+        ...cur.Tripods.filter(
+          (tripod) => tripod.IsSelected && tripod.Upgradable
+        ).map((tripod) => ({
+          FirstOption: cur.Value,
+          SecondOption: tripod.Value,
+          MinValue: tripod.Level,
+        })),
+      ],
+      []
+    );
+    console.log(reqData);
+  }, [subClass, selectedData]);
+
   return (
     <TripodSearchContext.Provider
       value={{
@@ -211,6 +233,9 @@ const TripodSearchContainer: React.FC = () => {
         resetSelectedSkills,
         resetAllTripods,
         resetSelectedTripod,
+        minimizeSelector,
+        setMinimizeSelector,
+        searchTripod,
       }}
     >
       <TripodSearchBlock />

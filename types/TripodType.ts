@@ -4,9 +4,16 @@ export type TripodPageProps = {
   menu: Menu[];
 };
 
+export type TripodReqType = {
+  FirstOption: number;
+  SecondOption: number;
+  MinValue: number;
+};
+
 export type FilteredSkillType = {
   Icon: string;
   Name: string;
+  Value: number;
   Tripods: FilteredTripodType[];
   Tooltip: string;
 };
@@ -14,6 +21,7 @@ export type FilteredSkillType = {
 export type ParsedFilteredSkillType = {
   Icon: string;
   Name: string;
+  Value: number;
   Tripods: FilteredTripodType[];
   Tooltip: any;
 };
@@ -23,6 +31,7 @@ export type FilteredTripodType = {
   Slot: number;
   Name: string;
   Icon: string;
+  Value: number;
   IsSelected: boolean;
   Tooltip: string;
   Upgradable: boolean;

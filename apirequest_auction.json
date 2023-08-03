@@ -473,6 +473,59 @@
       ]
     },
     {
+      "Value": 46240,
+      "Class": "소울이터",
+      "Text": "고스트 스텝",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 1,
+          "Text": "마나 갈취",
+          "IsGem": false
+        },
+        {
+          "Value": 2,
+          "Text": "피해 망상",
+          "IsGem": false
+        },
+        {
+          "Value": 3,
+          "Text": "그림자 강탈",
+          "IsGem": false
+        },
+        {
+          "Value": 4,
+          "Text": "약점 포착",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "발목 절단",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "죽음의 왈츠",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "파멸의 일격",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
       "Value": 30060,
       "Class": "블래스터",
       "Text": "고압열탄",
@@ -1193,6 +1246,49 @@
       ]
     },
     {
+      "Value": 46400,
+      "Class": "소울이터",
+      "Text": "글러트니",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 1,
+          "Text": "영혼 역류",
+          "IsGem": false
+        },
+        {
+          "Value": 4,
+          "Text": "약점 포착",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "빙의",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "검은 달의 기운",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "피학증",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
       "Value": 28130,
       "Class": "호크아이",
       "Text": "급소 베기",
@@ -1390,6 +1486,54 @@
         {
           "Value": 8,
           "Text": "변화된 일격",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
+      "Value": 46520,
+      "Class": "소울이터",
+      "Text": "길로틴 스윙",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 3,
+          "Text": "영혼 수확",
+          "IsGem": false
+        },
+        {
+          "Value": 4,
+          "Text": "약점 포착",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "단두대",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "크로스 스윙",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "페이튼의 붉은 달",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "이계의 지배자",
           "IsGem": false
         },
         {
@@ -3116,6 +3260,160 @@
       ]
     },
     {
+      "Value": 46450,
+      "Class": "소울이터",
+      "Text": "데스 야드",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 2,
+          "Text": "날렵한 움직임",
+          "IsGem": false
+        },
+        {
+          "Value": 3,
+          "Text": "마력 조절",
+          "IsGem": false
+        },
+        {
+          "Value": 4,
+          "Text": "날카로운 망령",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "망자의 울음",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "망자의 분노",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "약점 포착",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "피학증",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
+      "Value": 46410,
+      "Class": "소울이터",
+      "Text": "데스 오더",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 1,
+          "Text": "영혼 역류",
+          "IsGem": false
+        },
+        {
+          "Value": 2,
+          "Text": "예리한 일격",
+          "IsGem": false
+        },
+        {
+          "Value": 3,
+          "Text": "피해 망상",
+          "IsGem": false
+        },
+        {
+          "Value": 4,
+          "Text": "롱 오더",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "약탈의 손길",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "군단",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "약점 포착",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "잿빛 어둠",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
+      "Value": 46510,
+      "Class": "소울이터",
+      "Text": "데스 위핑",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 2,
+          "Text": "뼈 갑옷",
+          "IsGem": false
+        },
+        {
+          "Value": 3,
+          "Text": "영혼의 채찍",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "재빠른 손놀림",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "강화된 공격",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "마지막 일격",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
       "Value": 29090,
       "Class": "데빌헌터",
       "Text": "데스파이어",
@@ -3907,6 +4205,59 @@
       ]
     },
     {
+      "Value": 46220,
+      "Class": "소울이터",
+      "Text": "러스트 네일",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 1,
+          "Text": "재빠른 손놀림",
+          "IsGem": false
+        },
+        {
+          "Value": 2,
+          "Text": "급소 타격",
+          "IsGem": false
+        },
+        {
+          "Value": 3,
+          "Text": "빠른 준비",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "도약 공격",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "지점 강타",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "약점 포착",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "약육강식",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
       "Value": 16120,
       "Class": "버서커",
       "Text": "레드 더스트",
@@ -4094,6 +4445,54 @@
       ]
     },
     {
+      "Value": 46210,
+      "Class": "소울이터",
+      "Text": "루나틱 엣지",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 2,
+          "Text": "예리한 일격",
+          "IsGem": false
+        },
+        {
+          "Value": 4,
+          "Text": "그림자 강탈",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "추가 베기",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "연속 회전",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "사신 출현",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "약육강식",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
       "Value": 21150,
       "Class": "바드",
       "Text": "리듬 벅샷",
@@ -4165,6 +4564,54 @@
         {
           "Value": 8,
           "Text": "약육강식",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
+      "Value": 46250,
+      "Class": "소울이터",
+      "Text": "리탈 스피닝",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 2,
+          "Text": "재빠른 손놀림",
+          "IsGem": false
+        },
+        {
+          "Value": 3,
+          "Text": "예리한 일격",
+          "IsGem": false
+        },
+        {
+          "Value": 4,
+          "Text": "약점 포착",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "약육강식",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "사신 출현",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "라스트 스피닝",
           "IsGem": false
         },
         {
@@ -6878,6 +7325,59 @@
       ]
     },
     {
+      "Value": 46530,
+      "Class": "소울이터",
+      "Text": "베스티지",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 1,
+          "Text": "정신 강화",
+          "IsGem": false
+        },
+        {
+          "Value": 3,
+          "Text": "죽음의 그림자",
+          "IsGem": false
+        },
+        {
+          "Value": 4,
+          "Text": "강력한 일격",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "후폭풍",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "집중 공격",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "두 개의 영혼",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "고립",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
       "Value": 24080,
       "Class": "기공사",
       "Text": "벽력장",
@@ -9422,6 +9922,102 @@
       ]
     },
     {
+      "Value": 46440,
+      "Class": "소울이터",
+      "Text": "소울 드레인",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 1,
+          "Text": "영혼 역류",
+          "IsGem": false
+        },
+        {
+          "Value": 2,
+          "Text": "하드 드레인",
+          "IsGem": false
+        },
+        {
+          "Value": 3,
+          "Text": "정신 강화",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "올가미",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "어스 드레인",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "잿빛 어둠",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "망자의 원한",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
+      "Value": 46500,
+      "Class": "소울이터",
+      "Text": "소울 시너스",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 4,
+          "Text": "응축된 영혼",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "연속 베기",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "약점 포착",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "페이튼의 붉은 달",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "이계의 지배자",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
       "Value": 25110,
       "Class": "블레이드",
       "Text": "소울 앱소버",
@@ -10003,6 +10599,59 @@
       ]
     },
     {
+      "Value": 46230,
+      "Class": "소울이터",
+      "Text": "스레싱",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 2,
+          "Text": "정신 강화",
+          "IsGem": false
+        },
+        {
+          "Value": 3,
+          "Text": "빠른 준비",
+          "IsGem": false
+        },
+        {
+          "Value": 4,
+          "Text": "강화된 일격",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "오버 턴",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "더블 사이드",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "파멸의 일격",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "잿빛 어둠",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
       "Value": 19320,
       "Class": "아르카나",
       "Text": "스크래치 딜러",
@@ -10291,6 +10940,59 @@
         {
           "Value": 8,
           "Text": "후폭풍",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
+      "Value": 46420,
+      "Class": "소울이터",
+      "Text": "스펙트럴 코핀",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 1,
+          "Text": "마력 조절",
+          "IsGem": false
+        },
+        {
+          "Value": 3,
+          "Text": "예리한 일격",
+          "IsGem": false
+        },
+        {
+          "Value": 4,
+          "Text": "언더 테이커",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "넓은 공격",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "고대의 관",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "검은 달의 기운",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "피학증",
           "IsGem": false
         },
         {
@@ -11499,6 +12201,59 @@
         {
           "Value": 8,
           "Text": "결정타",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
+      "Value": 46430,
+      "Class": "소울이터",
+      "Text": "아스타로스",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 2,
+          "Text": "피해 망상",
+          "IsGem": false
+        },
+        {
+          "Value": 3,
+          "Text": "정신 강화",
+          "IsGem": false
+        },
+        {
+          "Value": 4,
+          "Text": "강림",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "빙의",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "약점 포착",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "데런의 족쇄",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "피학증",
           "IsGem": false
         },
         {
@@ -19774,6 +20529,64 @@
       ]
     },
     {
+      "Value": 46200,
+      "Class": "소울이터",
+      "Text": "하베스트",
+      "IsSkillGroup": false,
+      "Tripods": [
+        {
+          "Value": 1,
+          "Text": "마나 갈취",
+          "IsGem": false
+        },
+        {
+          "Value": 2,
+          "Text": "피해 망상",
+          "IsGem": false
+        },
+        {
+          "Value": 3,
+          "Text": "빠른 준비",
+          "IsGem": false
+        },
+        {
+          "Value": 4,
+          "Text": "크로스 오버",
+          "IsGem": false
+        },
+        {
+          "Value": 5,
+          "Text": "더블 크로스",
+          "IsGem": false
+        },
+        {
+          "Value": 6,
+          "Text": "비탄의 날",
+          "IsGem": false
+        },
+        {
+          "Value": 7,
+          "Text": "사신 출현",
+          "IsGem": false
+        },
+        {
+          "Value": 8,
+          "Text": "강력한 일격",
+          "IsGem": false
+        },
+        {
+          "Value": 500,
+          "Text": "스킬 공격력 증가",
+          "IsGem": true
+        },
+        {
+          "Value": 2700,
+          "Text": "스킬 쿨타임 감소",
+          "IsGem": true
+        }
+      ]
+    },
+    {
       "Value": 27170,
       "Class": "데모닉",
       "Text": "하울링",
@@ -21492,6 +22305,16 @@
           "Value": 310,
           "Text": "처단자",
           "Class": "슬레이어"
+        },
+        {
+          "Value": 311,
+          "Text": "만월의 집행자",
+          "Class": "소울이터"
+        },
+        {
+          "Value": 312,
+          "Text": "그믐의 경계",
+          "Class": "소울이터"
         }
       ]
     },
@@ -21771,6 +22594,7 @@
     "블레이드",
     "데모닉",
     "리퍼",
+    "소울이터",
     "호크아이",
     "데빌헌터",
     "블래스터",

@@ -153,11 +153,26 @@ $myLightBlue: #76b1ff;
     }
 
     .settingTripodDiv {
-      @apply flex;
+      @apply grid grid-cols-1 mx-auto;
       .settingWrapper {
-        @apply inline-grid grid-cols-1 max-xs:min-w-[90%] mx-auto;
+        @apply inline-grid grid-cols-1 max-xs:min-w-[90%] overflow-hidden;
+        transition: height 0s;
+        &[data-selected="true"] {
+          @apply h-[833.78px] xs:h-[821.78px] sm:h-[616.667px];
+        }
+        &[data-selected="false"] {
+          @apply h-[493.111px] xs:h-[469.111px] sm:h-[616.667px];
+        }
+        &[data-minimize="true"] {
+          @apply h-14 xs:h-8 sm:h-9;
+          .settingBody {
+            transform: translateY(-100%);
+          }
+          transition: height 0.5s;
+        }
+
         .settingHeader {
-          @apply flex flex-col gap-1 xs:gap-0 xs:flex-row items-start justify-center xs:items-center xs:justify-between
+          @apply relative z-[1] flex flex-col gap-1 xs:gap-0 xs:flex-row items-start justify-center xs:items-center xs:justify-between
            pl-2 font-bold px-2 py-1 text-xs sm:text-sm text-[#a8acba] bg-[#0d1117] border-b border-[#050505];
           .numSpan {
             @apply text-sm sm:text-base mx-1;
@@ -168,10 +183,15 @@ $myLightBlue: #76b1ff;
             .resetBtn {
               @apply text-xs sm:text-sm px-2 py-[2px] border-[#555] hover:text-[#eee] hover:border-[#2a5996];
             }
+            .minimizeBtn {
+              @apply text-xs sm:text-sm p-0 box-content w-5 sm:w-6 flex justify-center items-center border-[#555] hover:text-[#eee] hover:border-[#2a5996];
+            }
           }
         }
+
         .settingBody {
-          @apply flex flex-col sm:flex-row sm:h-[580px] bg-[#0d1117];
+          @apply relative flex flex-col sm:flex-row sm:h-[580px] bg-[#0d1117] border-b border-[#050505];
+          transition: transform 0.5s;
 
           .settingTitle {
             @apply text-sm sm:text-base text-center font-bold sm:hidden py-1 border-y border-[#000];
@@ -186,6 +206,17 @@ $myLightBlue: #76b1ff;
           .selectedSkillsDiv {
             @apply flex flex-col overflow-auto my-2 sm:my-0 pl-1 pr-1 md:pr-0 bg-[#0d1117] sm:border-t border-t-[#1d1d1d] sm:border-r border-r-[#050505];
             direction: rtl;
+            .emptySkillDiv {
+              @apply mx-auto sm:mx-0 flex-auto flex flex-col gap-2 justify-center items-center xs:w-[320px] sm:w-[160px] md:w-[234px] lg:w-[452px] 1.5xl:w-[678px];
+              direction: ltr;
+              .icon {
+                @apply min-w-[130px] min-h-[130px] w-2/5;
+                fill: #1b212b;
+              }
+              .messageP {
+                @apply text-[#303741] sm:text-lg lg:text-2xl font-extrabold px-2 break-keep text-center;
+              }
+            }
             .gridDiv {
               @apply mx-auto sm:mx-0 max-w-[390px] sm:max-w-none h-[162px] sm:h-auto 
               grid grid-cols-[80px_80px_80px] xs:grid-cols-[80px_80px_80px_80px] sm:grid-cols-[80px_80px] 
@@ -215,11 +246,15 @@ $myLightBlue: #76b1ff;
                     @apply w-[70px] h-[70px] grayscale-[85%] md:grayscale-0 md:w-14 md:h-14;
                   }
                   .nameP {
-                    @apply absolute md:hidden left-0 right-0 bottom-2 w-[80px] text-[#aaa] break-keep mx-auto text-sm leading-[14px] font-bold;
+                    @apply absolute md:hidden left-0 right-0 bottom-[6px] w-[80px] text-[#aaa] break-keep mx-auto text-sm leading-[14px] font-bold;
                     text-shadow: -1px -1px 0 #000, 0 -1px 0 #000,
                       1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000,
                       0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000;
                   }
+                  .previewDiv {
+                    @apply absolute md:hidden top-1 left-1 grayscale-[85%] flex gap-[2px] text-xs font-extrabold bg-[#0008] px-1 rounded-md;
+                  }
+
                   &[data-selected="true"] {
                     .skillIcon {
                       @apply grayscale-0;
@@ -227,21 +262,24 @@ $myLightBlue: #76b1ff;
                     .nameP {
                       @apply text-[#eee];
                     }
+                    .previewDiv {
+                      @apply grayscale-0;
+                    }
                   }
                 }
                 .skillDescrDiv {
                   @apply relative hidden md:flex flex-auto flex-col justify-between items-start pr-2 border-r border-[#060409];
                   .typeDiv {
-                    @apply flex items-center gap-4;
+                    @apply flex items-center gap-2;
                     .previewDiv {
-                      @apply grid grid-cols-3 gap-1 text-xs font-extrabold;
-                      .levelSpan {
-                        @apply rounded-[50%] w-4 h-4;
-                      }
+                      @apply flex gap-1 text-xs font-extrabold;
                     }
-                    .typeP span {
-                      @apply font-bold;
-                      font-size: 14px !important;
+                    .typeP {
+                      @apply leading-4;
+                      span {
+                        @apply font-bold;
+                        font-size: 14px !important;
+                      }
                     }
                   }
                   .nameP {
@@ -360,9 +398,24 @@ $myLightBlue: #76b1ff;
               }
             }
             .emptyTripodDiv {
-              @apply xs:w-[312px];
+              @apply xs:w-[312px] flex-auto flex flex-col gap-2 justify-center items-center;
+              direction: ltr;
+              .icon {
+                @apply min-w-[150px] min-h-[150px] w-2/5;
+                fill: #262f3d;
+              }
+              .messageP {
+                @apply text-[#303741] sm:text-lg lg:text-2xl font-extrabold px-2 break-keep text-center;
+              }
             }
           }
+        }
+      }
+
+      .searchDiv {
+        @apply flex border-t border-[#1d1d1d];
+        .searchBtn {
+          @apply py-2 grow font-bold hover:font-extrabold bg-[#0d1117] hover:bg-[#0b0e13];
         }
       }
     }
