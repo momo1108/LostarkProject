@@ -40,7 +40,7 @@ export default CharDetail;
 export async function getStaticProps() {
   try {
     const menu = await DataService.getMenu();
-    // const data: any = await CharacterService.getCharacterSummary(
+    // const data: any = await LostarkService.getCharacterSummary(
     //   params.name[0]
     // );
     // console.log(data);

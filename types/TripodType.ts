@@ -8,6 +8,16 @@ export type TripodReqType = {
   FirstOption: number;
   SecondOption: number;
   MinValue: number;
+  MaxValue: number;
+};
+
+export type TripodResType = {
+  Name: string;
+  Tripods: {
+    Name: string;
+    Tier: number;
+    BuyPrice: number[];
+  }[];
 };
 
 export type FilteredSkillType = {
@@ -38,6 +48,9 @@ export type FilteredTripodType = {
   Level: number;
 };
 
+/**
+ * original skill type from Lostark OpenAPI
+ */
 export type SkillType = {
   Icon: string;
   IsAwakening: boolean;
@@ -50,6 +63,9 @@ export type SkillType = {
   Gems?: any[];
 };
 
+/**
+ * original Rune type from Lostark OpenAPI
+ */
 export type RuneType = {
   Grade: string;
   Icon: string;
@@ -57,6 +73,9 @@ export type RuneType = {
   Tooltip: string;
 };
 
+/**
+ * original Tripod type from Lostark OpenAPI
+ */
 export type TripodType = {
   Tier: number;
   Slot: number;

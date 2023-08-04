@@ -156,7 +156,7 @@ $myLightBlue: #76b1ff;
       @apply grid grid-cols-1 mx-auto;
       .settingWrapper {
         @apply inline-grid grid-cols-1 max-xs:min-w-[90%] overflow-hidden;
-        transition: height 0s;
+        transition: height 0s 0.2s;
         &[data-selected="true"] {
           @apply h-[833.78px] xs:h-[821.78px] sm:h-[616.667px];
         }
@@ -191,7 +191,7 @@ $myLightBlue: #76b1ff;
 
         .settingBody {
           @apply relative flex flex-col sm:flex-row sm:h-[580px] bg-[#0d1117] border-b border-[#050505];
-          transition: transform 0.5s;
+          transition: transform 0.5s 0.1s;
 
           .settingTitle {
             @apply text-sm sm:text-base text-center font-bold sm:hidden py-1 border-y border-[#000];
@@ -413,7 +413,7 @@ $myLightBlue: #76b1ff;
       }
 
       .searchDiv {
-        @apply flex border-t border-[#1d1d1d];
+        @apply flex border-t border-[#1d1d1d] text-[#c8ccda];
         .searchBtn {
           @apply py-2 grow font-bold hover:font-extrabold bg-[#0d1117] hover:bg-[#0b0e13];
         }

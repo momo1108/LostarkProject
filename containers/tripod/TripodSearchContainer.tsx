@@ -1,15 +1,33 @@
 import TripodSearchBlock from "@/components/tripod/bodycomponent/TripodSearchBlock";
+import TripodContext from "@/contexts/TripodResultContext";
 import TripodSearchContext from "@/contexts/TripodSearchContext";
+import LostarkService from "@/service/LostarkService";
+import { AuctionItem } from "@/types/EngraveType";
 import { classDetailMap } from "@/types/GlobalType";
 import {
   FilteredSkillType,
   ParsedFilteredSkillType,
   TripodReqType,
+  TripodResType,
 } from "@/types/TripodType";
 import axios from "axios";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
-const TripodSearchContainer: React.FC = () => {
+type TripodSearchContainerProps = {
+  setResponseData: Dispatch<SetStateAction<TripodResType[]>>;
+};
+const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
+  setResponseData,
+}) => {
+  const [apiShine, setApiShine] = useState<boolean>(false);
   const rootClassList = Object.keys(classDetailMap);
   const [rootClass, setRootClass] = useState<string>("전사(남)");
   const [subClass, setSubClass] = useState<string>("버서커");
@@ -20,6 +38,30 @@ const TripodSearchContainer: React.FC = () => {
   const [selectingSkill, setSelectingSkill] = useState<boolean>(true);
   const [selectingTripod, setSelectingTripod] = useState<boolean>(false);
   const [minimizeSelector, setMinimizeSelector] = useState<boolean>(false);
+  const [myWorker, setMyWorker] = useState<Worker>();
+
+  useEffect(() => {
+    setMyWorker(
+      new Worker(new URL("@/web_workers/TripodWorker.ts", import.meta.url))
+    );
+
+    return () => {
+      myWorker?.terminate();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (myWorker) {
+      myWorker.onmessage = (e) => {
+        const result = JSON.parse(e.data);
+        if (result.status === "SUCCESS") {
+          setResponseData(result.data);
+        } else {
+          console.error(result.data);
+        }
+      };
+    }
+  }, [myWorker]);
 
   useEffect(() => {
     setLoadingSkillset(true);
@@ -195,26 +237,65 @@ const TripodSearchContainer: React.FC = () => {
     );
   }, [tripodData, selectedData, selectedSkillIndex]);
 
-  const searchTripod = useCallback(() => {
+  const searchTripod = useCallback(async () => {
+    const apiKey = localStorage.getItem("loapleEngraveApiKey");
+    if (!apiKey) {
+      alert(
+        "API Key 를 발급받아서 등록해주세요.\n등록 방법은 상단의 등록방법을 참조해주세요."
+      );
+      window.scrollTo({ top: 0 });
+      setApiShine(true);
+      setTimeout(() => {
+        setApiShine(false);
+      }, 2000);
+      return;
+    }
+
+    // console.log(selectedData);
     const reqData = selectedData.reduce(
-      (prev: TripodReqType[], cur) => [
+      (
+        prev: {
+          skill: string;
+          tripod: string;
+          tier: number;
+          data: TripodReqType;
+        }[],
+        cur
+      ) => [
         ...prev,
         ...cur.Tripods.filter(
           (tripod) => tripod.IsSelected && tripod.Upgradable
         ).map((tripod) => ({
-          FirstOption: cur.Value,
-          SecondOption: tripod.Value,
-          MinValue: tripod.Level,
+          skill: cur.Name,
+          tripod: tripod.Name,
+          tier: tripod.Tier,
+          data: {
+            FirstOption: cur.Value,
+            SecondOption: tripod.Value,
+            MinValue: tripod.Level,
+            MaxValue: 5,
+          },
         })),
       ],
       []
     );
-    console.log(reqData);
+    // console.log(reqData);
+
+    myWorker?.postMessage(
+      JSON.parse(
+        JSON.stringify({
+          reqData,
+          apiKey,
+          subClass,
+        })
+      )
+    );
   }, [subClass, selectedData]);
 
   return (
     <TripodSearchContext.Provider
       value={{
+        apiShine,
         rootClassList,
         rootClass,
         setRootClass,

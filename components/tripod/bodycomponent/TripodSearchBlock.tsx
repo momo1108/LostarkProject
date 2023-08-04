@@ -19,6 +19,7 @@ import { Fragment, useContext } from "react";
 
 const TripodSearchBlock: React.FC = () => {
   const {
+    apiShine,
     rootClassList,
     rootClass,
     setRootClass,
@@ -45,7 +46,7 @@ const TripodSearchBlock: React.FC = () => {
 
   return (
     <div className={styles.searchContainer}>
-      <ApiKeyInput shine={false} />
+      <ApiKeyInput shine={apiShine} />
       <div className={styles.settingClassDiv}>
         <div className={styles.classWrapper}>
           <h4 className={styles.rootClassSmallTitle}>상위 클래스</h4>
@@ -234,6 +235,7 @@ const TripodSearchBlock: React.FC = () => {
                                     className={`${styles.levelSpan} ${
                                       tripodTierToStyleMap.color[tp.Tier]
                                     }`}
+                                    key={`preview_${e.Name}_${tp.Name}_small`}
                                   >
                                     {tp.Upgradable ? tp.Level : 1}
                                   </span>
@@ -254,6 +256,7 @@ const TripodSearchBlock: React.FC = () => {
                                       className={`${styles.levelSpan} ${
                                         tripodTierToStyleMap.color[tp.Tier]
                                       }`}
+                                      key={`preview_${e.Name}_${tp.Name}`}
                                     >
                                       {tp.Upgradable ? tp.Level : 1}
                                     </span>

@@ -122,15 +122,23 @@ export const NEGATIVE_ENGRAVES = [
 ];
 
 export type AuctionItemSearchReq = {
-  CategoryCode: number;
-  EtcOptions: EtcOption[];
-  ItemGrade: string;
-  ItemGradeQuality: number;
-  ItemTier: number;
-  PageNo: number;
-  Sort: Sort;
-  SortCondition: SortCondition;
+  CategoryCode?: number;
+  EtcOptions?: EtcOption[];
+  ItemGrade?: string;
+  ItemGradeQuality?: number;
+  ItemTier?: number;
+  PageNo?: number;
+  Sort?: Sort;
+  SortCondition?: SortCondition;
+  SkillOptions?: {
+    FirstOption?: number;
+    SecondOption?: number;
+    MinValue?: number;
+    MaxValue?: number;
+  }[];
+  CharacterClass?: string;
 };
+
 export type EtcOption = {
   FirstOption?: number | null;
   SecondOption?: number | null;

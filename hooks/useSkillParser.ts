@@ -1,4 +1,4 @@
-import CharacterService from "@/service/CharacterService";
+import LostarkService from "@/service/LostarkService";
 import { FilteredSkillType, SkillType, userList } from "@/types/TripodType";
 import { useCallback, useState } from "react";
 
@@ -23,12 +23,14 @@ export default function useSkillParser() {
         .map((skill) => ({
           Name: skill.Name,
           Icon: skill.Icon,
+          Value: -1,
           Tooltip: skill.Tooltip,
           Tripods: skill.Tripods.map((tripod) => ({
             Tier: tripod.Tier,
             Slot: tripod.Slot,
             Name: tripod.Name,
             Icon: tripod.Icon,
+            Value: -1,
             IsSelected: tripod.IsSelected,
             Tooltip: tripod.Tooltip,
             Upgradable: true,
@@ -54,7 +56,7 @@ export default function useSkillParser() {
       for (let user = 0; user < userList[cls].length; user++) {
         try {
           const skillData: SkillType[] =
-            await CharacterService.getCharacterSkills(userList[cls][user]);
+            await LostarkService.getCharacterSkills(userList[cls][user]);
           singleSkillData = singleClassParser(skillData);
           break;
         } catch (err) {

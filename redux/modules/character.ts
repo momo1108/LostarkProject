@@ -1,7 +1,7 @@
 import { Action, createActions, handleActions } from "redux-actions";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { CharData, CharState } from "../../types/ReducerType";
-import CharacterService from "@/service/CharacterService";
+import LostarkService from "@/service/LostarkService";
 
 const initialState: CharState = {
   data: { data: {} },
@@ -53,12 +53,12 @@ function* getCharSaga(action: Action<string>) {
   try {
     yield put(pending());
     const data: { ArmoryProfile: any } = yield call(
-      CharacterService.getCharacterSummary,
+      LostarkService.getCharacterSummary,
       action.payload
     );
     if (!data.ArmoryProfile.CharacterImage) {
       const url: string | undefined = yield call(
-        CharacterService.getCharacterImageUrl,
+        LostarkService.getCharacterImageUrl,
         action.payload
       );
       data.ArmoryProfile.CharacterImage = url ? url : null;

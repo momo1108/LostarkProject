@@ -1,9 +1,14 @@
+import {
+  AuctionItemSearchReq,
+  MarketItemSearchReq,
+  MarketItemSearchResult,
+} from "@/types/EngraveType";
 import { CharData } from "@/types/ReducerType";
 import { SkillType } from "@/types/TripodType";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { parse } from "node-html-parser";
 
-export default class CharacterService {
+export default class LostarkService {
   private static _url: string = "https://developer-lostark.game.onstove.com/";
 
   /**
@@ -61,6 +66,41 @@ export default class CharacterService {
     if (res.data) return res.data;
     else {
       throw new Error("존재하지 않는 닉네임 입니다!");
+    }
+  };
+
+  /**
+   * auction api를 이용해 검색합니다.
+   */
+  public static getAuctionItems = async (
+    req: AuctionItemSearchReq,
+    apiKey: string
+  ): Promise<AxiosResponse> => {
+    return await axios.post(`${this.url}auctions/items`, req, {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        Accept: "application/json",
+      },
+    });
+  };
+
+  /**
+   * market api를 이용해 검색합니다.
+   */
+  public static getMarketItems = async (
+    req: MarketItemSearchReq,
+    apiKey: string
+  ): Promise<MarketItemSearchResult> => {
+    try {
+      const res = await axios.post(`${this.url}markets/items`, req, {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          Accept: "application/json",
+        },
+      });
+      return res.data;
+    } catch (error) {
+      throw new Error("검색 실패!");
     }
   };
 

@@ -1,4 +1,4 @@
-import EngraveService from "@/service/EngraveService";
+import LostarkService from "@/service/LostarkService";
 import { AccessoryInfo, AuctionItem, AuctionOption } from "@/types/EngraveType";
 import { Dispatch, SetStateAction } from "react";
 
@@ -244,7 +244,7 @@ async function apiSearching(
       while (true) {
         try {
           // console.log(u, ap);
-          single_res = await EngraveService.getAuctionItems(
+          single_res = await LostarkService.getAuctionItems(
             {
               CategoryCode: CATEGORY_CODE[accessoryList.getter[ap].type],
               EtcOptions: [
