@@ -7,6 +7,7 @@ import { classDetailMap } from "@/types/GlobalType";
 import {
   FilteredSkillType,
   ParsedFilteredSkillType,
+  TripodPageStatus,
   TripodReqType,
   TripodResType,
 } from "@/types/TripodType";
@@ -23,9 +24,13 @@ import {
 
 type TripodSearchContainerProps = {
   setResponseData: Dispatch<SetStateAction<TripodResType[]>>;
+  pageStatus: TripodPageStatus;
+  setPageStatus: Dispatch<SetStateAction<TripodPageStatus>>;
 };
 const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   setResponseData,
+  pageStatus,
+  setPageStatus,
 }) => {
   const [apiShine, setApiShine] = useState<boolean>(false);
   const rootClassList = Object.keys(classDetailMap);
@@ -34,9 +39,6 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   const [tripodData, setTripodData] = useState<ParsedFilteredSkillType[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<boolean[]>([]);
   const [selectedSkillIndex, setSelectedSkillIndex] = useState<number>(0);
-  const [loadingSkillset, setLoadingSkillset] = useState<boolean>(true);
-  const [selectingSkill, setSelectingSkill] = useState<boolean>(true);
-  const [selectingTripod, setSelectingTripod] = useState<boolean>(false);
   const [minimizeSelector, setMinimizeSelector] = useState<boolean>(false);
   const [myWorker, setMyWorker] = useState<Worker>();
 
@@ -54,17 +56,30 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
     if (myWorker) {
       myWorker.onmessage = (e) => {
         const result = JSON.parse(e.data);
+        console.log(result);
         if (result.status === "SUCCESS") {
           setResponseData(result.data);
         } else {
+          if (result.code === 401) {
+            alert(
+              "잘못된 API key 값이 입력됐습니다. 수정 후 다시 검색해주세요."
+            );
+            window.scrollTo({ top: 0 });
+            setApiShine(true);
+            setTimeout(() => {
+              setApiShine(false);
+            }, 2000);
+          }
           console.error(result.data);
         }
+        setPageStatus("DONE");
       };
     }
   }, [myWorker]);
 
   useEffect(() => {
-    setLoadingSkillset(true);
+    setPageStatus("LOADING_SKILL");
+    // setLoadingSkillset(true);
     setSelectedSkillIndex(0);
     const url =
       process.env.NEXT_PUBLIC_TRIPOD_API ||
@@ -105,21 +120,24 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
 
   useEffect(() => {
     // console.log(tripodData);
-    if (selectingTripod) {
+    if (pageStatus === "SELECTING_TRIPOD") {
       setTimeout(() => {
-        setSelectingTripod(false);
+        setPageStatus("DONE");
+        // setSelectingTripod(false);
       }, 500);
     } else {
       setSelectedSkills(Array(tripodData.length).fill(false));
       setTimeout(() => {
-        setLoadingSkillset(false);
+        setPageStatus("DONE");
+        // setLoadingSkillset(false);
       }, 500);
     }
   }, [tripodData]);
 
   useEffect(() => {
     setTimeout(() => {
-      setSelectingSkill(false);
+      setPageStatus("DONE");
+      // setSelectingSkill(false);
     }, 500);
   }, [selectedSkills]);
 
@@ -130,11 +148,12 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
 
   const selectSkill = useCallback(
     (i: number) => {
-      if (selectingSkill) {
+      if (pageStatus === "SELECTING_SKILL") {
         alert("선택 작업을 진행중입니다.");
         return;
       }
-      setSelectingSkill(true);
+      setPageStatus("SELECTING_SKILL");
+      // setSelectingSkill(true);
       if (selectedSkills[i]) {
         const delIndex = selectedData.findIndex(
           (skill) => skill.Name === tripodData[i].Name
@@ -169,12 +188,13 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
         ]);
       }
     },
-    [selectedSkills, selectingSkill, selectedSkillIndex]
+    [selectedSkills, pageStatus, selectedSkillIndex]
   );
 
   const selectTripod = useCallback(
     (tier: number, name: string, level: number) => {
-      setSelectingTripod(true);
+      setPageStatus("SELECTING_TRIPOD");
+      // setSelectingTripod(true);
       const targetSkillIndex = tripodData.findIndex(
         (e) => e.Name === selectedData[selectedSkillIndex].Name
       );
@@ -197,13 +217,15 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   );
 
   const resetSelectedSkills = useCallback(() => {
-    setSelectingSkill(true);
+    setPageStatus("SELECTING_SKILL");
+    // setSelectingSkill(true);
     setSelectedSkillIndex(0);
     setSelectedSkills(Array(tripodData.length).fill(false));
   }, [tripodData]);
 
   const resetAllTripods = useCallback(() => {
-    setSelectingTripod(true);
+    setPageStatus("SELECTING_TRIPOD");
+    // setSelectingTripod(true);
     setTripodData((e) =>
       e.map((skill: FilteredSkillType) => {
         return {
@@ -219,7 +241,9 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   }, [tripodData]);
 
   const resetSelectedTripod = useCallback(() => {
-    setSelectingTripod(true);
+    if (!selectedData.length) return;
+    setPageStatus("SELECTING_TRIPOD");
+    // setSelectingTripod(true);
     const skillName = selectedData[selectedSkillIndex].Name;
     setTripodData((e) =>
       e.map((skill: FilteredSkillType) =>
@@ -256,7 +280,9 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
       (
         prev: {
           skill: string;
+          skillIcon: string;
           tripod: string;
+          tripodIcon: string;
           tier: number;
           data: TripodReqType;
         }[],
@@ -267,7 +293,9 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
           (tripod) => tripod.IsSelected && tripod.Upgradable
         ).map((tripod) => ({
           skill: cur.Name,
+          skillIcon: cur.Icon,
           tripod: tripod.Name,
+          tripodIcon: tripod.Icon,
           tier: tripod.Tier,
           data: {
             FirstOption: cur.Value,
@@ -280,6 +308,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
       []
     );
     // console.log(reqData);
+    setPageStatus("SEARCHING");
 
     myWorker?.postMessage(
       JSON.parse(
@@ -306,9 +335,6 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
         selectedSkillIndex,
         setSelectedSkillIndex,
         selectedData,
-        loadingSkillset,
-        selectingSkill,
-        selectingTripod,
         selectSkill,
         selectTripod,
         resetSelectedSkills,
@@ -317,6 +343,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
         minimizeSelector,
         setMinimizeSelector,
         searchTripod,
+        pageStatus,
       }}
     >
       <TripodSearchBlock />

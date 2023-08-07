@@ -28,9 +28,6 @@ const TripodSearchBlock: React.FC = () => {
     tripodData,
     selectedSkills,
     selectedData,
-    loadingSkillset,
-    selectingSkill,
-    selectingTripod,
     selectedSkillIndex,
     setSelectedSkillIndex,
     selectSkill,
@@ -41,6 +38,7 @@ const TripodSearchBlock: React.FC = () => {
     minimizeSelector,
     setMinimizeSelector,
     searchTripod,
+    pageStatus,
   } = useContext(TripodSearchContext);
   const { parseApiDataToHtmlString: parse } = useApiTagParser();
 
@@ -63,7 +61,7 @@ const TripodSearchBlock: React.FC = () => {
                       setRootClass(rc);
                       setSubClass(classDetailMap[rc][0]);
                     }}
-                    disabled={loadingSkillset || selectingSkill}
+                    disabled={pageStatus !== "DONE"}
                   >
                     <img
                       className={styles.rootClassImg}
@@ -91,7 +89,7 @@ const TripodSearchBlock: React.FC = () => {
                     onClick={() => {
                       setSubClass(sc);
                     }}
-                    disabled={loadingSkillset || selectingSkill}
+                    disabled={pageStatus !== "DONE"}
                   >
                     <img
                       className={styles.subClassImg}
@@ -107,7 +105,7 @@ const TripodSearchBlock: React.FC = () => {
         </div>
       </div>
       <div className={styles.settingSkillsetDiv}>
-        {loadingSkillset ? (
+        {pageStatus === "LOADING_SKILL" ? (
           <div className={styles.loadingSkillsetDiv}>
             <TriangleSpinner className={styles.loadingSvg} />
             <p className={styles.loadingP}>트라이포드 정보를 로딩중입니다.</p>
@@ -123,7 +121,7 @@ const TripodSearchBlock: React.FC = () => {
               <button
                 className={`myButtons ${styles.resetBtn}`}
                 onClick={resetSelectedSkills}
-                disabled={selectingSkill}
+                disabled={pageStatus !== "DONE"}
               >
                 선택 초기화
               </button>
@@ -143,7 +141,7 @@ const TripodSearchBlock: React.FC = () => {
                         onClick={() => {
                           selectSkill(index);
                         }}
-                        disabled={selectingSkill}
+                        disabled={pageStatus !== "DONE"}
                       >
                         <div className={styles.iconDiv}>
                           <img src={data.Icon} alt="" />
@@ -179,14 +177,14 @@ const TripodSearchBlock: React.FC = () => {
               <button
                 className={`myButtons ${styles.resetBtn}`}
                 onClick={resetAllTripods}
-                disabled={selectingSkill || selectingTripod}
+                disabled={pageStatus !== "DONE"}
               >
                 전체 스킬 초기화
               </button>
               <button
                 className={`myButtons ${styles.resetBtn}`}
                 onClick={resetSelectedTripod}
-                disabled={selectingSkill || selectingTripod}
+                disabled={pageStatus !== "DONE"}
               >
                 현재 스킬 초기화
               </button>
@@ -303,7 +301,7 @@ const TripodSearchBlock: React.FC = () => {
                               onClick={() => {
                                 selectTripod(tier, tp.Name, 0);
                               }}
-                              disabled={selectingTripod}
+                              disabled={pageStatus !== "DONE"}
                             >
                               <div
                                 className={styles.iconDiv}
@@ -347,7 +345,7 @@ const TripodSearchBlock: React.FC = () => {
                                         : ""
                                     }`}
                                     onClick={(e) => {
-                                      if (selectingTripod) return;
+                                      if (pageStatus !== "DONE") return;
                                       e.stopPropagation();
                                       selectTripod(tier, tp.Name, 4);
                                     }}
@@ -371,7 +369,7 @@ const TripodSearchBlock: React.FC = () => {
                                         : ""
                                     }`}
                                     onClick={(e) => {
-                                      if (selectingTripod) return;
+                                      if (pageStatus !== "DONE") return;
                                       e.stopPropagation();
                                       selectTripod(tier, tp.Name, 5);
                                     }}
@@ -404,7 +402,7 @@ const TripodSearchBlock: React.FC = () => {
           <button
             className={styles.searchBtn}
             onClick={searchTripod}
-            disabled={selectingSkill || selectingTripod}
+            disabled={pageStatus !== "DONE"}
           >
             검색
           </button>

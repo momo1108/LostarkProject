@@ -252,7 +252,7 @@ $myLightBlue: #76b1ff;
                       0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000;
                   }
                   .previewDiv {
-                    @apply absolute md:hidden top-1 left-1 grayscale-[85%] flex gap-[2px] text-xs font-extrabold bg-[#0008] px-1 rounded-md;
+                    @apply absolute md:hidden h-4 top-1 left-1 grayscale-[85%] flex gap-[2px] text-xs font-extrabold bg-[#0008] px-1 rounded-md;
                   }
 
                   &[data-selected="true"] {
@@ -272,7 +272,7 @@ $myLightBlue: #76b1ff;
                   .typeDiv {
                     @apply flex items-center gap-2;
                     .previewDiv {
-                      @apply flex gap-1 text-xs font-extrabold;
+                      @apply flex h-4 items-center gap-1 text-xs font-extrabold;
                     }
                     .typeP {
                       @apply leading-4;
@@ -420,6 +420,68 @@ $myLightBlue: #76b1ff;
       }
     }
   }
+
+  .resultContainer {
+    @apply flex flex-col;
+    .resultDiv {
+      .dataDiv {
+        @apply flex flex-col;
+        .skillDiv {
+          @apply flex gap-2 min-h-[84px];
+          .skillDescrDiv {
+            @apply flex flex-col justify-center items-center w-[92px] gap-1;
+            .iconWrapper {
+              @apply flex justify-center items-center w-[50px] h-[50px];
+              background-image: url("/images/skill_slot.png");
+              background-size: 100%;
+              img {
+                @apply w-[44px];
+              }
+            }
+            p {
+              @apply break-keep leading-4 text-sm text-center font-bold;
+            }
+          }
+          .tripodWrapper {
+            @apply grid grid-rows-3 justify-center gap-[2px];
+            .tripodDiv {
+              @apply flex gap-2;
+              .tripodDescrDiv {
+                @apply flex items-center justify-center font-bold gap-1;
+                .emptyIcon {
+                  @apply w-6 h-6 m-[2px];
+                }
+                .tripodIcon {
+                  @apply w-7;
+                }
+                p {
+                  @apply w-[120px];
+                }
+              }
+              .tripodPriceList {
+                @apply flex items-center gap-[10px];
+                .tripodPriceItem {
+                  @apply flex items-center gap-[2px] font-bold min-w-[40px];
+                }
+              }
+            }
+          }
+        }
+      }
+      .emptyDiv {
+        @apply flex flex-col justify-center items-center py-10;
+        .iconWrapper {
+          @apply flex items-center justify-center h-[220px];
+          .mgIcon {
+            animation: shake 6s linear infinite;
+          }
+        }
+      }
+    }
+    .searchingDiv {
+      @apply border border-green-300;
+    }
+  }
 }
 
 @keyframes spinning {
@@ -439,5 +501,23 @@ $myLightBlue: #76b1ff;
 
   100% {
     color: $myDarkBlue;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  1% {
+    transform: rotate(4deg);
+  }
+  2% {
+    transform: rotate(0deg);
+  }
+  3% {
+    transform: rotate(-4deg);
+  }
+  4% {
+    transform: rotate(0deg);
   }
 }

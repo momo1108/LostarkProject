@@ -67,7 +67,6 @@ export default function CharBody() {
         if (e.name === name) e.like < 0 ? (e.like = Date.now()) : (e.like = -1);
         return e;
       });
-      console.log(searchedDataList);
       setSearchedDataList(tmp);
     },
     [searchedDataList]
@@ -131,7 +130,9 @@ export default function CharBody() {
       {searched ? (
         <CharMainInfoContainer push={push} />
       ) : (
-        <CharRecentContainer {...{ searchedDataList, like, remove }} />
+        <CharRecentContainer
+          {...{ searchedDataList, setSearchedDataList, like, remove }}
+        />
       )}
     </div>
   );

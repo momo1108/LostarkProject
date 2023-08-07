@@ -439,6 +439,26 @@ body,
     linear-gradient(360deg, #cfcf70cc 10%, #cfcf7000 90.71%);
 }
 
+.tier1Stroke {
+  stroke: #175b93;
+}
+.tier2Stroke {
+  stroke: #297110;
+}
+.tier3Stroke {
+  stroke: #8c7303;
+}
+
+.tier1Fill {
+  fill: #092740;
+}
+.tier2Fill {
+  fill: #102f06;
+}
+.tier3Fill {
+  fill: #413500;
+}
+
 .react-tooltip-arrow {
   display: none;
 }

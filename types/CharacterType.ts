@@ -5,6 +5,7 @@ export type CharRecentBlockProps = {
   searchedDataList: SearchedData[];
   like: (name: string) => void;
   remove: (name: string) => void;
+  updateSrc: (index: number) => void;
   data?: SearchedData[];
 };
 

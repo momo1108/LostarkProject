@@ -3,6 +3,7 @@ import {
   MarketItemSearchReq,
   MarketItemSearchResult,
 } from "@/types/EngraveType";
+import { ArmoryProfileType } from "@/types/LostarkApiType";
 import { CharData } from "@/types/ReducerType";
 import { SkillType } from "@/types/TripodType";
 import axios, { AxiosResponse } from "axios";
@@ -49,7 +50,30 @@ export default class LostarkService {
   /**
    * GET
    * /armories/characters/{characterName}
-   * Returns a summary of profile information by a character name.
+   * Returns a summary of basic stats by a character name.
+   */
+  public static getCharacterProfile = async (
+    name: string
+  ): Promise<ArmoryProfileType> => {
+    const res = await axios.get(
+      `${this.url}armories/characters/${name}/profiles`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
+          Accept: "application/json",
+        },
+      }
+    );
+    if (res.data) return res.data;
+    else {
+      throw new Error("존재하지 않는 닉네임 입니다!");
+    }
+  };
+
+  /**
+   * GET
+   * /armories/characters/{characterName}/combat-skills
+   * Returns a summary of combat skills by a character name.
    */
   public static getCharacterSkills = async (
     name: string

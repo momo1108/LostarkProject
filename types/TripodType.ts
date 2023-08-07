@@ -4,6 +4,14 @@ export type TripodPageProps = {
   menu: Menu[];
 };
 
+export type TripodPageStatus =
+  | "INIT"
+  | "DONE"
+  | "LOADING_SKILL"
+  | "SELECTING_SKILL"
+  | "SELECTING_TRIPOD"
+  | "SEARCHING";
+
 export type TripodReqType = {
   FirstOption: number;
   SecondOption: number;
@@ -13,11 +21,13 @@ export type TripodReqType = {
 
 export type TripodResType = {
   Name: string;
-  Tripods: {
+  Icon: string;
+  Tripods: ({
     Name: string;
+    Icon: string;
     Tier: number;
     BuyPrice: number[];
-  }[];
+  } | null)[];
 };
 
 export type FilteredSkillType = {
@@ -137,6 +147,16 @@ export const tripodTierToStyleMap: {
     0: "tier1Background",
     1: "tier2Background",
     2: "tier3Background",
+  },
+  stroke: {
+    0: "tier1Stroke",
+    1: "tier2Stroke",
+    2: "tier3Stroke",
+  },
+  fill: {
+    0: "tier1Fill",
+    1: "tier2Fill",
+    2: "tier3Fill",
   },
 };
 
