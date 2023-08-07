@@ -5,6 +5,7 @@ import Image from "next/image";
 
 const CharRecentBlock: React.FC<CharRecentBlockProps> = ({
   searchedDataList,
+  updateSrc,
   search,
   like,
   remove,
@@ -59,6 +60,9 @@ const CharRecentBlock: React.FC<CharRecentBlockProps> = ({
                       alt="캐릭터 이미지"
                       width={270}
                       height={312.5}
+                      onError={() => {
+                        updateSrc(i);
+                      }}
                     />
                   </li>
                 );

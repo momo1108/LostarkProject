@@ -419,7 +419,7 @@ $myLightBlue: #76b1ff;
     }
 
     .dropdownWrapper {
-      @apply absolute top-11 left-0 w-[238px] sm:w-[438px] md:w-[638px] overflow-hidden z-[2];
+      @apply absolute top-11 left-0 w-[238px] sm:w-[438px] md:w-[640px] overflow-hidden z-[2];
       &[data-dropdown-order="1"] {
         @apply w-[216px] left-1/2;
         transform: translateX(-50%);
