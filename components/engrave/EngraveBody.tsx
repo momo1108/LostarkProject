@@ -1,7 +1,7 @@
 import EngraveResultContainer from "@/containers/engrave/EngraveResultContainer";
 import EngraveSearchContainer from "@/containers/engrave/EngraveSearchContainer";
 import styles from "@/styles/engrave/Body.module.scss";
-import { AuctionItem } from "@/types/EngraveType";
+import { AuctionItem } from "@/types/LostarkApiType";
 import { nanumNeo } from "@/types/GlobalType";
 import { useState } from "react";
 

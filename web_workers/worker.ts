@@ -1,5 +1,6 @@
 import LostarkService from "@/service/LostarkService";
-import { AccessoryInfo, AuctionItem, AuctionOption } from "@/types/EngraveType";
+import { AccessoryInfo } from "@/types/EngraveType";
+import { AuctionItem, AuctionOption } from "@/types/LostarkApiType";
 import { Dispatch, SetStateAction } from "react";
 
 // GlobalType import 시 내부의 font 설정 함수가 문제를 발생시켜서, 직접 사용 조치.

@@ -3,7 +3,6 @@ import EngraveContext from "@/contexts/EngraveContext";
 import {
   AbilityInputMode,
   AccessoryInfo,
-  AuctionItem,
   CASES_ANCIENT,
   CASES_RELIC,
   CheckMode,
@@ -12,6 +11,7 @@ import {
   ENGRAVES,
   EngraveInfo,
 } from "@/types/EngraveType";
+import { AuctionItem } from "@/types/LostarkApiType";
 import {
   Dispatch,
   SetStateAction,

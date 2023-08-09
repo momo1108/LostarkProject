@@ -12,6 +12,9 @@ export type TripodPageStatus =
   | "SELECTING_TRIPOD"
   | "SEARCHING";
 
+export type ButtonDivStatus = "AVAILABLE" | "SETTING_USAGE" | "SETTING_COST";
+export type TotalStatus = "IncludeWithCost" | "IncludeWithoutCost" | "Exclude";
+
 export type TripodReqType = {
   FirstOption: number;
   SecondOption: number;
@@ -26,7 +29,18 @@ export type TripodResType = {
     Name: string;
     Icon: string;
     Tier: number;
-    BuyPrice: number[];
+    Possibility: {
+      Before: boolean;
+      After: boolean;
+    };
+    Price: {
+      All: number[];
+      Total: {
+        Exclude: number;
+        IncludeWithCost: number;
+        IncludeWithoutCost: number;
+      };
+    };
   } | null)[];
 };
 

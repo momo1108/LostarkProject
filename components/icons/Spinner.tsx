@@ -26,7 +26,7 @@ const Spinner: React.FC<SpinnerIconProps> = ({
         stroke={color}
         style={{
           transition: "stroke-dasharray 0.05s linear",
-          strokeDasharray: `${300 * progress} 1000`,
+          strokeDasharray: `${290 * progress} 1000`,
           strokeDashoffset: `${progress ? 0 : 10}`,
         }}
       ></circle>

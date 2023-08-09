@@ -2,7 +2,7 @@ import TripodSearchBlock from "@/components/tripod/bodycomponent/TripodSearchBlo
 import TripodContext from "@/contexts/TripodResultContext";
 import TripodSearchContext from "@/contexts/TripodSearchContext";
 import LostarkService from "@/service/LostarkService";
-import { AuctionItem } from "@/types/EngraveType";
+import { AuctionItem } from "@/types/LostarkApiType";
 import { classDetailMap } from "@/types/GlobalType";
 import {
   FilteredSkillType,
@@ -26,11 +26,17 @@ type TripodSearchContainerProps = {
   setResponseData: Dispatch<SetStateAction<TripodResType[]>>;
   pageStatus: TripodPageStatus;
   setPageStatus: Dispatch<SetStateAction<TripodPageStatus>>;
+  setCurrentCase: Dispatch<SetStateAction<number>>;
+  setTotalCases: Dispatch<SetStateAction<number>>;
+  setMyTimer: Dispatch<SetStateAction<number>>;
 };
 const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   setResponseData,
   pageStatus,
   setPageStatus,
+  setCurrentCase,
+  setTotalCases,
+  setMyTimer,
 }) => {
   const [apiShine, setApiShine] = useState<boolean>(false);
   const rootClassList = Object.keys(classDetailMap);
@@ -59,7 +65,11 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
         console.log(result);
         if (result.status === "SUCCESS") {
           setResponseData(result.data);
-        } else {
+          setTimeout(() => {
+            setPageStatus("DONE");
+            setCurrentCase(0);
+          }, 1000);
+        } else if (result.status === "ERROR") {
           if (result.code === 401) {
             alert(
               "잘못된 API key 값이 입력됐습니다. 수정 후 다시 검색해주세요."
@@ -69,10 +79,19 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
             setTimeout(() => {
               setApiShine(false);
             }, 2000);
+            setTimeout(() => {
+              setPageStatus("DONE");
+              setCurrentCase(0);
+            }, 1000);
+          } else if (result.code === 429) {
+            setMyTimer(61);
+          } else {
+            setPageStatus("DONE");
           }
           console.error(result.data);
+        } else if (result.status === "INFORMATION") {
+          setCurrentCase(result.data);
         }
-        setPageStatus("DONE");
       };
     }
   }, [myWorker]);
@@ -301,13 +320,14 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
             FirstOption: cur.Value,
             SecondOption: tripod.Value,
             MinValue: tripod.Level,
-            MaxValue: 5,
+            MaxValue: tripod.Level,
           },
         })),
       ],
       []
     );
     // console.log(reqData);
+    setTotalCases(reqData.length);
     setPageStatus("SEARCHING");
 
     myWorker?.postMessage(

@@ -422,10 +422,14 @@ $myLightBlue: #76b1ff;
   }
 
   .resultContainer {
-    @apply flex flex-col;
+    @apply flex flex-col relative;
+    .resultButtonDiv {
+      @apply flex;
+    }
     .resultDiv {
+      @apply min-h-[450px];
       .dataDiv {
-        @apply flex flex-col;
+        @apply flex flex-col gap-2;
         .skillDiv {
           @apply flex gap-2 min-h-[84px];
           .skillDescrDiv {
@@ -448,6 +452,16 @@ $myLightBlue: #76b1ff;
               @apply flex gap-2;
               .tripodDescrDiv {
                 @apply flex items-center justify-center font-bold gap-1;
+                border-radius: 14px 0px 0px 14px;
+                &[data-tier="0"] {
+                  background: linear-gradient(150deg, #4691f644, #000 80%);
+                }
+                &[data-tier="1"] {
+                  background: linear-gradient(150deg, #81d36144, #000 80%);
+                }
+                &[data-tier="2"] {
+                  background: linear-gradient(150deg, #b3b36044, #000 80%);
+                }
                 .emptyIcon {
                   @apply w-6 h-6 m-[2px];
                 }
@@ -458,10 +472,16 @@ $myLightBlue: #76b1ff;
                   @apply w-[120px];
                 }
               }
+              .totalPriceDiv {
+                @apply flex items-center gap-1;
+                .goldP {
+                  @apply flex items-center;
+                }
+              }
               .tripodPriceList {
                 @apply flex items-center gap-[10px];
                 .tripodPriceItem {
-                  @apply flex items-center gap-[2px] font-bold min-w-[40px];
+                  @apply flex items-center gap-[2px] font-bold min-w-[52px];
                 }
               }
             }
@@ -474,6 +494,21 @@ $myLightBlue: #76b1ff;
           @apply flex items-center justify-center h-[220px];
           .mgIcon {
             animation: shake 6s linear infinite;
+          }
+        }
+      }
+      .resultLoader {
+        @apply relative justify-center items-center;
+        .resultLoaderContent {
+          @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-65%] flex flex-col justify-center items-center
+          text-lg font-bold leading-6;
+        }
+        .timeoutDiv {
+          @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] break-keep text-center
+           w-[400px] text-lg bg-[#000d] p-4 font-bold text-[#a77];
+          .timerP {
+            @apply text-xl;
+            color: $myBlue;
           }
         }
       }

@@ -40,8 +40,8 @@ export type CustomLoaderProps = {
   className?: string;
   opacity?: number;
   backgroundColor?: string;
-  hide?: boolean;
-  children?: (JSX.Element | string)[] | (JSX.Element | string);
+  display?: string;
+  children?: React.ReactNode;
 };
 
 export type ApiKeyInputProps = {

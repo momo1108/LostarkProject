@@ -13,7 +13,7 @@ import {
 } from "@/components/icons/Index";
 import useCssHook from "@/hooks/useBgClassMaker";
 import styles from "@/styles/engrave/Body.module.scss";
-import { AuctionItem } from "@/types/EngraveType";
+import { AuctionItem } from "@/types/LostarkApiType";
 import { gradeClassMap } from "@/types/GlobalType";
 import { useMemo, useState } from "react";
 
@@ -307,7 +307,7 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
         )}
         <MyLoader
           backgroundColor="#000e"
-          hide={pageStatus < 2}
+          display={pageStatus < 2 ? "none" : "flex"}
           className={styles.resultLoader}
         >
           <div className={styles.presentationSection}>

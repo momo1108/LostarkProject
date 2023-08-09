@@ -2,8 +2,8 @@ import {
   AuctionItemSearchReq,
   MarketItemSearchReq,
   MarketItemSearchResult,
-} from "@/types/EngraveType";
-import { ArmoryProfileType } from "@/types/LostarkApiType";
+  ArmoryProfileType,
+} from "@/types/LostarkApiType";
 import { CharData } from "@/types/ReducerType";
 import { SkillType } from "@/types/TripodType";
 import axios, { AxiosResponse } from "axios";
@@ -114,18 +114,13 @@ export default class LostarkService {
   public static getMarketItems = async (
     req: MarketItemSearchReq,
     apiKey: string
-  ): Promise<MarketItemSearchResult> => {
-    try {
-      const res = await axios.post(`${this.url}markets/items`, req, {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          Accept: "application/json",
-        },
-      });
-      return res.data;
-    } catch (error) {
-      throw new Error("검색 실패!");
-    }
+  ): Promise<AxiosResponse> => {
+    return await axios.post(`${this.url}markets/items`, req, {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        Accept: "application/json",
+      },
+    });
   };
 
   static get url(): string {

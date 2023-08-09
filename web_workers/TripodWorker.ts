@@ -1,5 +1,5 @@
 import LostarkService from "@/service/LostarkService";
-import { AuctionItem } from "@/types/EngraveType";
+import { AuctionItem, AuctionItemSearchResult } from "@/types/LostarkApiType";
 import { TripodReqType, TripodResType } from "@/types/TripodType";
 
 /**
@@ -25,20 +25,61 @@ onmessage = async (e: {
   // console.log(e.data);
   // console.log(reqData, apiKey, subClass);
   let result: {
-    status: "SUCCESS" | "ERROR";
+    status: "SUCCESS" | "ERROR" | "INFORMATION";
     code: number;
-    data: TripodResType[] | string;
+    data: TripodResType[] | string | number;
   } = {
     status: "SUCCESS",
     code: 200,
     data: [],
   };
 
+  let powderOfSage = 0;
+  try {
+    const res = await LostarkService.getMarketItems(
+      {
+        Sort: "CURRENT_MIN_PRICE",
+        SortCondition: "ASC",
+        CategoryCode: 50000,
+        ItemName: "현자의 가루",
+        CharacterClass: "",
+        ItemGrade: "",
+        ItemTier: null,
+        PageNo: 0,
+      },
+      apiKey
+    );
+    powderOfSage = res.data.Items[0].CurrentMinPrice;
+  } catch (err: any) {
+    console.error(err);
+    result.status = "ERROR";
+    if (err.response) {
+      result.code = err.response.status;
+      if (result.code === 429) {
+        result.data = `검색 에러 : API 요청 제한 초과. 1분간 대기`;
+        postMessage(JSON.stringify(result));
+        await new Promise((res) => {
+          setTimeout(() => {
+            res("done");
+          }, 61000);
+        });
+      } else {
+        result.data = `검색 에러 : 현자의 가루 가격 검색 중 에러가 발생했습니다.`;
+        postMessage(JSON.stringify(result));
+        return;
+      }
+    } else {
+      result.code = 500;
+      result.data = err.stack;
+      postMessage(JSON.stringify(result));
+      return;
+    }
+  }
+
   const tmpData: TripodResType[] = [];
-  // let errorCount = 0;
-  for (let i = 0; i < reqData.length; i++) {
-    // errorCount = 0;
-    // while (true) {
+  let i = 0;
+
+  while (i < reqData.length) {
     try {
       const res = await LostarkService.getAuctionItems(
         {
@@ -55,13 +96,22 @@ onmessage = async (e: {
       const index = tmpData.findIndex((data) => data.Name === reqData[i].skill);
       if (index < 0) {
         const tripods = new Array(3).fill(null);
+        const [Possibility, Total] = calcPrice(
+          powderOfSage,
+          reqData[i].data.MinValue,
+          res.data
+        );
         tripods[reqData[i].tier] = {
           Name: reqData[i].tripod,
           Icon: reqData[i].tripodIcon,
           Tier: reqData[i].tier,
-          BuyPrice: res.data.Items.map(
-            (item: AuctionItem) => item.AuctionInfo.BuyPrice
-          ),
+          Possibility,
+          Price: {
+            All: res.data.Items.map(
+              (item: AuctionItem) => item.AuctionInfo.BuyPrice
+            ),
+            Total,
+          },
         };
 
         tmpData.push({
@@ -70,35 +120,190 @@ onmessage = async (e: {
           Tripods: tripods,
         });
       } else {
+        const [Possibility, Total] = calcPrice(
+          powderOfSage,
+          reqData[i].data.MinValue,
+          res.data
+        );
         tmpData[index].Tripods[reqData[i].tier] = {
           Name: reqData[i].tripod,
           Icon: reqData[i].tripodIcon,
           Tier: reqData[i].tier,
-          BuyPrice: res.data.Items.map(
-            (item: AuctionItem) => item.AuctionInfo.BuyPrice
-          ),
+          Possibility,
+          Price: {
+            All: res.data.Items.map(
+              (item: AuctionItem) => item.AuctionInfo.BuyPrice
+            ),
+            Total,
+          },
         };
       }
+      postMessage(
+        JSON.stringify({
+          status: "INFORMATION",
+          code: 102,
+          data: ++i,
+        })
+      );
     } catch (err: any) {
       console.error(err);
       result.status = "ERROR";
-      result.code = err.response.status;
-      result.data = `검색 에러 : ${reqData[i].skill} 스킬의 ${reqData[i].tripod} 트라이포드 검색 중 에러가 발생했습니다.`;
-      break;
-      // if (++errorCount >= 3) break;
+      if (err.response) {
+        result.code = err.response.status;
+        if (result.code === 429) {
+          result.data = `검색 에러 : API 요청 제한 초과. 1분간 대기`;
+          postMessage(JSON.stringify(result));
+          await new Promise((res) => {
+            setTimeout(() => {
+              res("done");
+            }, 61000);
+          });
+        } else {
+          result.data = `검색 에러 : ${reqData[i].skill} 스킬의 ${reqData[i].tripod} 트라이포드 검색 중 에러가 발생했습니다.`;
+          postMessage(JSON.stringify(result));
+          break;
+        }
+      } else {
+        result.code = 500;
+        result.data = err.stack;
+        postMessage(JSON.stringify(result));
+        return;
+      }
     }
-    // }
-    // if (errorCount >= 3) {
-    //   result.status = "ERROR";
-    //   result.code = 400;
-    //   result.data = new Error(
-    //     `검색 에러 : ${reqData[i].skill} 스킬의 ${reqData[i].tripod} 트라이포드 검색 중 에러가 발생했습니다.`
-    //   );
-    //   break;
-    // }
   }
-  if (result.status === "SUCCESS") {
-    result.data = tmpData;
-  }
+  result.status = "SUCCESS";
+  result.code = 200;
+  result.data = tmpData;
   postMessage(JSON.stringify(result));
 };
+
+function calcPrice(
+  powderOfSage: number,
+  level: number,
+  data: AuctionItemSearchResult
+): [
+  { Before: boolean; After: boolean },
+  { Exclude: number; IncludeWithCost: number; IncludeWithoutCost: number }
+] {
+  console.log(powderOfSage, level, data);
+  const possibility = {
+    Before: false,
+    After: false,
+  };
+  const total = {
+    Exclude: 0,
+    IncludeWithCost: 0,
+    IncludeWithoutCost: 0,
+  };
+  let maxCount = 0;
+  if (level === 4) {
+    maxCount = 4;
+    if (data.Items.length >= 4) {
+      possibility.Before = true;
+      possibility.After = true;
+      total.Exclude = data.Items.slice(0, maxCount).reduce(
+        (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+        0
+      );
+      total.IncludeWithCost =
+        data.Items.slice(0, maxCount / 2).reduce(
+          (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+          0
+        ) +
+        powderOfSage * (maxCount / 2);
+      total.IncludeWithoutCost = data.Items.slice(0, maxCount / 2).reduce(
+        (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+        0
+      );
+    } else if (data.Items.length >= 2) {
+      possibility.Before = false;
+      possibility.After = true;
+      total.Exclude = data.Items.slice(0, data.Items.length).reduce(
+        (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+        0
+      );
+      total.IncludeWithCost =
+        data.Items.slice(0, maxCount / 2).reduce(
+          (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+          0
+        ) +
+        powderOfSage * (maxCount / 2);
+      total.IncludeWithoutCost = data.Items.slice(0, maxCount / 2).reduce(
+        (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+        0
+      );
+    } else {
+      possibility.Before = false;
+      possibility.After = false;
+      total.Exclude = data.Items.slice(0, data.Items.length).reduce(
+        (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+        0
+      );
+      total.IncludeWithCost =
+        data.Items.slice(0, data.Items.length).reduce(
+          (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+          0
+        ) +
+        powderOfSage * data.Items.length;
+      total.IncludeWithoutCost = data.Items.slice(0, data.Items.length).reduce(
+        (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+        0
+      );
+    }
+  } else if (level === 5) {
+    maxCount = 10;
+    if (data.Items.length >= 10) {
+      possibility.Before = true;
+      possibility.After = true;
+      total.Exclude = data.Items.slice(0, maxCount).reduce(
+        (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+        0
+      );
+      total.IncludeWithCost =
+        data.Items.slice(0, maxCount / 2).reduce(
+          (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+          0
+        ) +
+        powderOfSage * (maxCount / 2);
+      total.IncludeWithoutCost = data.Items.slice(0, maxCount / 2).reduce(
+        (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+        0
+      );
+    } else if (data.Items.length >= 5) {
+      possibility.Before = false;
+      possibility.After = true;
+      total.Exclude = data.Items.slice(0, data.Items.length).reduce(
+        (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+        0
+      );
+      total.IncludeWithCost =
+        data.Items.slice(0, maxCount / 2).reduce(
+          (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+          0
+        ) +
+        powderOfSage * (maxCount / 2);
+      total.IncludeWithoutCost = data.Items.slice(0, maxCount / 2).reduce(
+        (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+        0
+      );
+    } else {
+      possibility.Before = false;
+      possibility.After = false;
+      total.Exclude = data.Items.slice(0, data.Items.length).reduce(
+        (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+        0
+      );
+      total.IncludeWithCost =
+        data.Items.slice(0, data.Items.length).reduce(
+          (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+          0
+        ) +
+        powderOfSage * data.Items.length;
+      total.IncludeWithoutCost = data.Items.slice(0, data.Items.length).reduce(
+        (prev: number, cur) => prev + cur.AuctionInfo.BuyPrice,
+        0
+      );
+    }
+  }
+  return [possibility, total];
+}

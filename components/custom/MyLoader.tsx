@@ -5,7 +5,7 @@ const MyLoader: React.FC<CustomLoaderProps> = ({
   className,
   backgroundColor,
   opacity,
-  hide,
+  display = "none",
 }) => {
   return (
     <div
@@ -18,7 +18,7 @@ const MyLoader: React.FC<CustomLoaderProps> = ({
         bottom: 0,
         backgroundColor: backgroundColor || "transparent",
         opacity: opacity || 1,
-        display: hide ? "none" : "",
+        display,
       }}
     >
       {children}

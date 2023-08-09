@@ -1,6 +1,6 @@
 import EngraveResultBlock from "@/components/engrave/bodycomponent/EngraveResultBlock";
 import styles from "@/styles/engrave/Body.module.scss";
-import { AuctionItem } from "@/types/EngraveType";
+import { AuctionItem } from "@/types/LostarkApiType";
 
 type EngraveResultContainerProps = {
   combinationList: AuctionItem[][];
