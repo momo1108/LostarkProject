@@ -4,7 +4,7 @@ $myBlue: #4691f6;
 $myLightBlue: #76b1ff;
 
 .body {
-  @apply flex-auto xl:px-32 lg:px-24 md:px-16 sm:px-8 px-2 pt-2;
+  @apply flex-auto flex flex-col xl:px-32 lg:px-24 md:px-16 sm:px-8 px-2 pt-2 gap-4;
   color: $basicFontColor;
 
   .searchContainer {
@@ -422,9 +422,15 @@ $myLightBlue: #76b1ff;
   }
 
   .resultContainer {
-    @apply flex flex-col relative;
-    .resultButtonDiv {
-      @apply flex;
+    @apply flex flex-col relative gap-2;
+    .resultHeader {
+      @apply flex justify-between items-center;
+      .resultButtonDiv {
+        @apply flex gap-2;
+        .powderButton {
+          @apply text-sm py-1 px-2;
+        }
+      }
     }
     .resultDiv {
       @apply min-h-[450px];
@@ -454,13 +460,13 @@ $myLightBlue: #76b1ff;
                 @apply flex items-center justify-center font-bold gap-1;
                 border-radius: 14px 0px 0px 14px;
                 &[data-tier="0"] {
-                  background: linear-gradient(150deg, #4691f644, #000 80%);
+                  background: linear-gradient(150deg, #4691f644, #000 70%);
                 }
                 &[data-tier="1"] {
-                  background: linear-gradient(150deg, #81d36144, #000 80%);
+                  background: linear-gradient(150deg, #81d36144, #000 70%);
                 }
                 &[data-tier="2"] {
-                  background: linear-gradient(150deg, #b3b36044, #000 80%);
+                  background: linear-gradient(150deg, #b3b36044, #000 70%);
                 }
                 .emptyIcon {
                   @apply w-6 h-6 m-[2px];
@@ -468,14 +474,14 @@ $myLightBlue: #76b1ff;
                 .tripodIcon {
                   @apply w-7;
                 }
-                p {
-                  @apply w-[120px];
+                .tripodP {
+                  @apply flex gap-1 items-center w-[144px];
                 }
               }
               .totalPriceDiv {
                 @apply flex items-center gap-1;
                 .goldP {
-                  @apply flex items-center;
+                  @apply flex items-center w-[60px];
                 }
               }
               .tripodPriceList {

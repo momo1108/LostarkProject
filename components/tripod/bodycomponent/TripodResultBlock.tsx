@@ -1,5 +1,6 @@
 import MyLoader from "@/components/custom/MyLoader";
 import {
+  AlertOctagon,
   Empty,
   MagnifyingGlass,
   Spinner,
@@ -18,21 +19,40 @@ const TripodResultBlock: React.FC = () => {
     totalCases,
     myTimer,
     buttonDivStatus,
+    setButtonDivStatus,
     totalStatus,
+    totalCost,
   } = useContext(TripodResultContext);
   useEffect(() => {
     console.log(responseData);
   }, [responseData]);
   return (
     <div className={styles.resultContainer}>
-      <div className={styles.resultButtonDiv}>
-        <button disabled={buttonDivStatus !== "AVAILABLE"}>
-          현자의 가루 사용
-        </button>
-        <button disabled={buttonDivStatus !== "AVAILABLE"}>
-          현자의 가루 비용 포함
-        </button>
-        {/* <button>페온 값 포함</button> */}
+      <div className={styles.resultHeader}>
+        <p>총 골드 : {totalCost}</p>
+        <div className={styles.resultButtonDiv}>
+          <button
+            className={`${styles.powderButton} myButtons`}
+            data-active={totalStatus !== "Exclude"}
+            disabled={buttonDivStatus !== "AVAILABLE"}
+            onClick={() => {
+              setButtonDivStatus("SETTING_USAGE");
+            }}
+          >
+            현자의 가루 사용
+          </button>
+          <button
+            className={`${styles.powderButton} myButtons`}
+            data-active={totalStatus === "IncludeWithCost"}
+            disabled={buttonDivStatus !== "AVAILABLE"}
+            onClick={() => {
+              setButtonDivStatus("SETTING_COST");
+            }}
+          >
+            현자의 가루 비용 포함
+          </button>
+          {/* <button>페온 값 포함</button> */}
+        </div>
       </div>
       <div className={styles.resultDiv}>
         {responseData.length ? (
@@ -65,9 +85,22 @@ const TripodResultBlock: React.FC = () => {
                             alt=""
                           />
                           <p
-                            className={tripodTierToStyleMap.color[tripod.Tier]}
+                            className={`${
+                              tripodTierToStyleMap.color[tripod.Tier]
+                            } ${styles.tripodP}`}
                           >
-                            {tripod.Name}
+                            <span>{tripod.Name}</span>
+                            <AlertOctagon
+                              className={
+                                tripod.Possibility[
+                                  totalStatus === "Exclude" ? "Before" : "After"
+                                ]
+                                  ? "hidden"
+                                  : ""
+                              }
+                              size={20}
+                              color="#f44"
+                            />
                           </p>
                         </div>
                         <div className={styles.totalPriceDiv}>

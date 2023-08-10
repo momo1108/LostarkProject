@@ -193,7 +193,8 @@ html {
   margin: 1px;
   border-radius: 7px;
   &:hover,
-  &.focus {
+  &.focus,
+  &[data-active="true"] {
     @apply font-bold;
     background: $myDarkBlue;
     border-color: $myDarkBlue;
@@ -502,7 +503,7 @@ body,
   }
 
   .apiDescr {
-    @apply text-xs text-red-600;
+    @apply text-xs text-red-600 font-bold;
   }
 
   .placeholder {

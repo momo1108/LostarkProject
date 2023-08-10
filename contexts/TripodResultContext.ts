@@ -4,7 +4,7 @@ import {
   TripodPageStatus,
   TripodResType,
 } from "@/types/TripodType";
-import { createContext } from "react";
+import { Dispatch, SetStateAction, createContext } from "react";
 
 type TripodResultContextType = {
   responseData: TripodResType[];
@@ -13,7 +13,9 @@ type TripodResultContextType = {
   totalCases: number;
   myTimer: number;
   buttonDivStatus: ButtonDivStatus;
+  setButtonDivStatus: Dispatch<SetStateAction<ButtonDivStatus>>;
   totalStatus: TotalStatus;
+  totalCost: number;
 };
 const TripodResultContext = createContext<TripodResultContextType>({
   responseData: [],
@@ -22,7 +24,9 @@ const TripodResultContext = createContext<TripodResultContextType>({
   totalCases: 1,
   myTimer: 0,
   buttonDivStatus: "AVAILABLE",
+  setButtonDivStatus: () => {},
   totalStatus: "Exclude",
+  totalCost: 0,
 });
 
 export default TripodResultContext;

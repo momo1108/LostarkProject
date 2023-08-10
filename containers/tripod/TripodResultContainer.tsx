@@ -29,6 +29,7 @@ const TripodResultContainer: React.FC<TripodResultContainerProps> = ({
 
   // onclick event로 state를 setting으로 변경 -> flag를 반대로 setting -> state가 available로 변경
   useEffect(() => {
+    console.log(buttonDivStatus);
     if (buttonDivStatus === "SETTING_USAGE") setUsePowder((e) => !e);
     else if (buttonDivStatus === "SETTING_COST")
       setIncludePowderCost((e) => !e);
@@ -43,6 +44,19 @@ const TripodResultContainer: React.FC<TripodResultContainerProps> = ({
     } else return "Exclude";
   }, [usePowder, includePowderCost]);
 
+  const totalCost: number = useMemo(() => {
+    return responseData.reduce(
+      (skillCost: number, curSkill) =>
+        skillCost +
+        curSkill.Tripods.reduce(
+          (tripodCost: number, curTripod) =>
+            tripodCost + (curTripod ? curTripod.Price.Total[totalStatus] : 0),
+          0
+        ),
+      0
+    );
+  }, [responseData, totalStatus]);
+
   return (
     <TripodResultContext.Provider
       value={{
@@ -52,7 +66,9 @@ const TripodResultContainer: React.FC<TripodResultContainerProps> = ({
         totalCases,
         myTimer,
         buttonDivStatus,
+        setButtonDivStatus,
         totalStatus,
+        totalCost,
       }}
     >
       <TripodResultBlock />
