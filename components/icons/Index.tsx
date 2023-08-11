@@ -28,6 +28,7 @@ import Info from "./Info";
 import Dots from "./Dots";
 import MagnifyingGlass from "./MagnifyingGlass";
 import Meteor from "./Meteor";
+import List from "./List";
 
 export {
   AlertOctagon,
@@ -60,4 +61,5 @@ export {
   TriangleSpinner,
   Tripod,
   Meteor,
+  List,
 };

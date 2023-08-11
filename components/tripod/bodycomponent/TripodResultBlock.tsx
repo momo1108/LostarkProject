@@ -2,6 +2,7 @@ import MyLoader from "@/components/custom/MyLoader";
 import {
   AlertOctagon,
   Empty,
+  List,
   MagnifyingGlass,
   Spinner,
   Tripod,
@@ -10,6 +11,7 @@ import TripodResultContext from "@/contexts/TripodResultContext";
 import styles from "@/styles/tripod/Body.module.scss";
 import { TripodResType, tripodTierToStyleMap } from "@/types/TripodType";
 import { Fragment, useContext, useEffect } from "react";
+import { Tooltip } from "react-tooltip";
 
 const TripodResultBlock: React.FC = () => {
   const {
@@ -22,15 +24,18 @@ const TripodResultBlock: React.FC = () => {
     setButtonDivStatus,
     totalStatus,
     totalCost,
+    currentSkillTripodIndex,
+    setCurrentSkillTripodIndex,
   } = useContext(TripodResultContext);
-  useEffect(() => {
-    console.log(responseData);
-  }, [responseData]);
   return (
     <div className={styles.resultContainer}>
       <div className={styles.resultHeader}>
-        <p>총 골드 : {totalCost}</p>
+        <p className={styles.totalPriceP}>총 골드 : {totalCost}</p>
         <div className={styles.resultButtonDiv}>
+          <p className={styles.powderP}>
+            <img width={30} src="/images/powderofsage.png" alt="" />
+            <span>현자의 가루</span>
+          </p>
           <button
             className={`${styles.powderButton} myButtons`}
             data-active={totalStatus !== "Exclude"}
@@ -39,7 +44,7 @@ const TripodResultBlock: React.FC = () => {
               setButtonDivStatus("SETTING_USAGE");
             }}
           >
-            현자의 가루 사용
+            사용
           </button>
           <button
             className={`${styles.powderButton} myButtons`}
@@ -49,15 +54,33 @@ const TripodResultBlock: React.FC = () => {
               setButtonDivStatus("SETTING_COST");
             }}
           >
-            현자의 가루 비용 포함
+            비용 포함
           </button>
           {/* <button>페온 값 포함</button> */}
         </div>
       </div>
+      <div className={styles.infoDiv}>
+        <AlertOctagon size={16} color="#f44" />
+        <span>매물 부족</span>
+      </div>
       <div className={styles.resultDiv}>
+        <div className={styles.headerDiv}>
+          <div className={styles.firstHeader}>
+            <div className={styles.skillDiv}>스킬</div>
+            <div>트라이포드</div>
+            <div>골드예측</div>
+            <div className={styles.priceListDiv}></div>
+          </div>
+          <div className={styles.secondHeader}>
+            <div className={styles.skillDiv}>스킬</div>
+            <div>트라이포드</div>
+            <div>골드예측</div>
+            <div>매물 가격</div>
+          </div>
+        </div>
         {responseData.length ? (
           <div className={styles.dataDiv}>
-            {responseData.map((skill: TripodResType) => (
+            {responseData.map((skill: TripodResType, skillIndex) => (
               <div
                 className={styles.skillDiv}
                 key={`result_skill_${skill.Name}`}
@@ -89,7 +112,7 @@ const TripodResultBlock: React.FC = () => {
                               tripodTierToStyleMap.color[tripod.Tier]
                             } ${styles.tripodP}`}
                           >
-                            <span>{tripod.Name}</span>
+                            <span title={tripod.Name}>{tripod.Name}</span>
                             <AlertOctagon
                               className={
                                 tripod.Possibility[
@@ -104,22 +127,34 @@ const TripodResultBlock: React.FC = () => {
                           </p>
                         </div>
                         <div className={styles.totalPriceDiv}>
-                          <span>총</span>
+                          <img src="/images/gold.png" width={15} alt="" />
                           <p className={styles.goldP}>
-                            <img src="/images/gold.png" width={15} alt="" />
-                            <span>{tripod.Price.Total[totalStatus]}</span>
+                            {tripod.Price.Total[totalStatus]}
                           </p>
                         </div>
                         <ul className={styles.tripodPriceList}>
                           {tripod.Price.All.map((bp, bpIndex) => (
-                            <div
+                            <li
                               className={styles.tripodPriceItem}
                               key={`result_skill_${skill.Name}_tripod_${tripod.Name}_${bpIndex}`}
                             >
                               <img src="/images/gold.png" width={15} alt="" />
                               <span>{bp}</span>
-                            </div>
+                            </li>
                           ))}
+                          <li
+                            className={styles.tripodPriceViewer}
+                            data-tooltip-id="tripodPriceSummary"
+                            onMouseEnter={() => {
+                              setCurrentSkillTripodIndex([
+                                skillIndex,
+                                tripodIndex,
+                              ]);
+                            }}
+                          >
+                            <List size={20} />
+                            <span>확인</span>
+                          </li>
                         </ul>
                       </div>
                     ) : (
@@ -166,33 +201,62 @@ const TripodResultBlock: React.FC = () => {
           backgroundColor="#000e"
           display={pageStatus === "SEARCHING" ? "flex" : "none"}
         >
-          <Spinner
-            size={400}
-            width={6}
-            progress={currentCase / totalCases}
-            color="#4691f6"
-          />
-          <div className={styles.resultLoaderContent}>
-            <Tripod className={styles.tripodIcon} size={200} />
-            <p>
-              검색 현황 : ( {currentCase} / {totalCases} )
-            </p>
-            <p>트라이포드 매물을 검색중입니다.</p>
-          </div>
-          {myTimer > 0 ? (
-            <div className={styles.timeoutDiv}>
-              <p>
-                로스트아크에서 제공하는 트라이포드 검색은 1분에 100회까지로
-                제한되어 있습니다.
+          <div className={styles.spinnerWrapper}>
+            <Spinner
+              className={styles.spinnerIcon}
+              width={6}
+              progress={currentCase / totalCases}
+              color="#4691f6"
+            />
+            <div className={styles.resultLoaderContent}>
+              <Tripod className={styles.tripodIcon} size={200} />
+              <p className={styles.processP}>
+                검색 현황 : ( {currentCase} / {totalCases} )
               </p>
-              <p>다음 검색을 위해 대기 후 다시 시작합니다.</p>
-              <p className={styles.timerP}>남은 시간 : {myTimer}초</p>
+              <p className={styles.messageP}>트라이포드 매물을 검색중입니다.</p>
             </div>
-          ) : (
-            <></>
-          )}
+            {myTimer > 0 ? (
+              <div className={styles.timeoutDiv}>
+                <p>
+                  로스트아크에서 제공하는 트라이포드 검색은 1분에 100회까지로
+                  제한되어 있습니다.
+                </p>
+                <p>다음 검색을 위해 대기 후 다시 시작합니다.</p>
+                <p className={styles.timerP}>남은 시간 : {myTimer}초</p>
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
         </MyLoader>
       </div>
+      <Tooltip
+        id="tripodPriceSummary"
+        className={styles.tripodPriceSummaryTooltip}
+        place="right"
+        clickable={true}
+      >
+        <ul className={styles.summaryList}>
+          <li>가격목록</li>
+          {responseData[currentSkillTripodIndex[0]]?.Tripods[
+            currentSkillTripodIndex[1]
+          ] ? (
+            responseData[currentSkillTripodIndex[0]].Tripods[
+              currentSkillTripodIndex[1]
+            ]!.Price.All.map((bp, bpIndex) => (
+              <li
+                className={styles.summaryItem}
+                key={`tooltip_price_${bpIndex}`}
+              >
+                <img src="/images/gold.png" width={15} alt="" />
+                <span>{bp}</span>
+              </li>
+            ))
+          ) : (
+            <li className={styles.summaryItem}>로딩중...</li>
+          )}
+        </ul>
+      </Tooltip>
     </div>
   );
 };

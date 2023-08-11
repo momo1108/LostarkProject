@@ -16,6 +16,8 @@ type TripodResultContextType = {
   setButtonDivStatus: Dispatch<SetStateAction<ButtonDivStatus>>;
   totalStatus: TotalStatus;
   totalCost: number;
+  currentSkillTripodIndex: [number, number];
+  setCurrentSkillTripodIndex: Dispatch<SetStateAction<[number, number]>>;
 };
 const TripodResultContext = createContext<TripodResultContextType>({
   responseData: [],
@@ -27,6 +29,8 @@ const TripodResultContext = createContext<TripodResultContextType>({
   setButtonDivStatus: () => {},
   totalStatus: "Exclude",
   totalCost: 0,
+  currentSkillTripodIndex: [0, 0],
+  setCurrentSkillTripodIndex: () => {},
 });
 
 export default TripodResultContext;

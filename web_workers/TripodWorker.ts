@@ -49,6 +49,7 @@ onmessage = async (e: {
       },
       apiKey
     );
+    console.log(res.data.Items[0]);
     powderOfSage = res.data.Items[0].CurrentMinPrice;
   } catch (err: any) {
     console.error(err);
@@ -185,7 +186,6 @@ function calcPrice(
   { Before: boolean; After: boolean },
   { Exclude: number; IncludeWithCost: number; IncludeWithoutCost: number }
 ] {
-  console.log(powderOfSage, level, data);
   const possibility = {
     Before: false,
     After: false,

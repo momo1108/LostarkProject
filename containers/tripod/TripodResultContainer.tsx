@@ -26,10 +26,13 @@ const TripodResultContainer: React.FC<TripodResultContainerProps> = ({
   const [includePowderCost, setIncludePowderCost] = useState<boolean>(false);
   const [buttonDivStatus, setButtonDivStatus] =
     useState<ButtonDivStatus>("AVAILABLE");
+  const [currentSkillTripodIndex, setCurrentSkillTripodIndex] = useState<
+    [number, number]
+  >([0, 0]);
 
   // onclick event로 state를 setting으로 변경 -> flag를 반대로 setting -> state가 available로 변경
   useEffect(() => {
-    console.log(buttonDivStatus);
+    // console.log(buttonDivStatus);
     if (buttonDivStatus === "SETTING_USAGE") setUsePowder((e) => !e);
     else if (buttonDivStatus === "SETTING_COST")
       setIncludePowderCost((e) => !e);
@@ -69,6 +72,8 @@ const TripodResultContainer: React.FC<TripodResultContainerProps> = ({
         setButtonDivStatus,
         totalStatus,
         totalCost,
+        currentSkillTripodIndex,
+        setCurrentSkillTripodIndex,
       }}
     >
       <TripodResultBlock />

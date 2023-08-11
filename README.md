@@ -1008,6 +1008,7 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
   - 캐릭터명으로 불러오기기능
   - 트포에 툴팁추가는 힘들듯? 레벨별로 다 따로해야되서...
 - .env.production 안되나?
+- 크리스탈 시세 : https://loatool.taeu.kr/api/crystal-history/ohlc/시간단위(ex. 1m, 1h, 1d)
 
 #### 에러 업데이트
 

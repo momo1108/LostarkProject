@@ -153,12 +153,12 @@ $myLightBlue: #76b1ff;
     }
 
     .settingTripodDiv {
-      @apply grid grid-cols-1 mx-auto;
+      @apply grid grid-cols-1 xs:mx-auto;
       .settingWrapper {
-        @apply inline-grid grid-cols-1 max-xs:min-w-[90%] overflow-hidden;
+        @apply inline-grid grid-cols-1 mx-auto max-xs:min-w-[268px] max-xs:w-[90%] overflow-hidden;
         transition: height 0s 0.2s;
         &[data-selected="true"] {
-          @apply h-[833.78px] xs:h-[821.78px] sm:h-[616.667px];
+          @apply h-[855px] xs:h-[850px] sm:h-[616.667px];
         }
         &[data-selected="false"] {
           @apply h-[493.111px] xs:h-[469.111px] sm:h-[616.667px];
@@ -194,7 +194,7 @@ $myLightBlue: #76b1ff;
           transition: transform 0.5s 0.1s;
 
           .settingTitle {
-            @apply text-sm sm:text-base text-center font-bold sm:hidden py-1 border-y border-[#000];
+            @apply text-sm sm:text-base text-center text-[#4691f6] font-bold sm:hidden py-1 border-y border-[#000];
             background: linear-gradient(
               90deg,
               #0d1117 15%,
@@ -413,7 +413,7 @@ $myLightBlue: #76b1ff;
       }
 
       .searchDiv {
-        @apply flex border-t border-[#1d1d1d] text-[#c8ccda];
+        @apply flex max-xs:mx-auto max-xs:min-w-[268px] max-xs:w-[90%] border-t border-[#1d1d1d] text-[#c8ccda];
         .searchBtn {
           @apply py-2 grow font-bold hover:font-extrabold bg-[#0d1117] hover:bg-[#0b0e13];
         }
@@ -424,22 +424,53 @@ $myLightBlue: #76b1ff;
   .resultContainer {
     @apply flex flex-col relative gap-2;
     .resultHeader {
-      @apply flex justify-between items-center;
+      @apply flex-wrap xs:flex-nowrap flex gap-x-4 justify-between items-center;
+      .totalPriceP {
+        @apply font-bold;
+      }
       .resultButtonDiv {
         @apply flex gap-2;
+        .powderP {
+          @apply flex items-center gap-1 font-bold;
+          color: $myLightBlue;
+        }
         .powderButton {
           @apply text-sm py-1 px-2;
         }
       }
     }
+    .infoDiv {
+      @apply flex items-center text-[#f44] gap-1;
+    }
     .resultDiv {
-      @apply min-h-[450px];
+      @apply flex flex-col gap-2 min-h-[450px] text-sm sm:text-base;
+      .headerDiv {
+        @apply flex justify-center xl:justify-start gap-4;
+        .firstHeader {
+          @apply inline-grid xl:grid grid-cols-[72px_96px_60px_28px] xs:grid-cols-[72px_160px_60px_60px]
+           sm:grid-cols-[92px_176px_80px_66px] xl:grid-cols-[92px_176px_80px_1fr] xl:w-full gap-2 font-bold text-[#ccc] border-b border-[#888] pb-1;
+          box-shadow: 0px 5px 15px -9px #fff;
+          .skillDiv {
+            @apply text-center;
+          }
+          .priceListDiv::before {
+            @apply content-['매물'] xs:content-['매물_가격'];
+          }
+        }
+        .secondHeader {
+          @apply hidden lg:inline-grid xl:hidden grid-cols-[92px_176px_80px_66px] gap-2 font-bold text-[#ccc] border-b border-[#888] pb-1;
+          box-shadow: 0px 5px 15px -9px #fff;
+          .skillDiv {
+            @apply text-center;
+          }
+        }
+      }
       .dataDiv {
-        @apply flex flex-col gap-2;
+        @apply grid justify-center grid-cols-[280px] xs:grid-cols-[376px] sm:grid-cols-[438px] lg:grid-cols-[438px_438px] gap-x-4 gap-y-2 xl:flex xl:flex-col xl:justify-start xl:gap-2;
         .skillDiv {
-          @apply flex gap-2 min-h-[84px];
+          @apply inline-grid grid-cols-[72px_200px] xs:grid-cols-[72px_296px] sm:grid-cols-[92px_338px] xl:flex gap-2 min-h-[84px];
           .skillDescrDiv {
-            @apply flex flex-col justify-center items-center w-[92px] gap-1;
+            @apply flex flex-col justify-center items-center w-[72px] sm:w-[92px] gap-1;
             .iconWrapper {
               @apply flex justify-center items-center w-[50px] h-[50px];
               background-image: url("/images/skill_slot.png");
@@ -449,11 +480,11 @@ $myLightBlue: #76b1ff;
               }
             }
             p {
-              @apply break-keep leading-4 text-sm text-center font-bold;
+              @apply break-keep leading-3 text-xs sm:leading-4 sm:text-sm text-center font-bold;
             }
           }
           .tripodWrapper {
-            @apply grid grid-rows-3 justify-center gap-[2px];
+            @apply grid grid-rows-3 justify-start gap-[2px];
             .tripodDiv {
               @apply flex gap-2;
               .tripodDescrDiv {
@@ -475,19 +506,36 @@ $myLightBlue: #76b1ff;
                   @apply w-7;
                 }
                 .tripodP {
-                  @apply flex gap-1 items-center w-[144px];
+                  @apply flex gap-1 items-center w-[64px] xs:w-[128px] sm:w-[144px];
+                  span {
+                    @apply max-xs:truncate max-xs:max-w-[40px];
+                  }
                 }
               }
               .totalPriceDiv {
-                @apply flex items-center gap-1;
+                @apply flex items-center gap-1 w-[60px] sm:w-[80px];
                 .goldP {
-                  @apply flex items-center w-[60px];
+                  @apply flex items-center w-full;
                 }
               }
               .tripodPriceList {
-                @apply flex items-center gap-[10px];
+                @apply flex items-center flex-wrap gap-2;
                 .tripodPriceItem {
-                  @apply flex items-center gap-[2px] font-bold min-w-[52px];
+                  @apply hidden xl:flex items-center gap-[2px] font-bold min-w-[52px];
+                }
+                .tripodPriceViewer {
+                  @apply flex xl:hidden items-center gap-1 cursor-help hover:bg-[#fff3] hover:text-[#4691f6] rounded;
+                  svg {
+                    @apply fill-[#eee];
+                  }
+                  span {
+                    @apply hidden xs:inline pr-[2px];
+                  }
+                  &:hover {
+                    svg {
+                      @apply fill-[#4691f6];
+                    }
+                  }
                 }
               }
             }
@@ -505,22 +553,43 @@ $myLightBlue: #76b1ff;
       }
       .resultLoader {
         @apply relative justify-center items-center;
-        .resultLoaderContent {
-          @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-65%] flex flex-col justify-center items-center
-          text-lg font-bold leading-6;
-        }
-        .timeoutDiv {
-          @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] break-keep text-center
-           w-[400px] text-lg bg-[#000d] p-4 font-bold text-[#a77];
-          .timerP {
-            @apply text-xl;
-            color: $myBlue;
+        .spinnerWrapper {
+          @apply relative w-[95%] max-w-[400px];
+          .spinnerIcon {
+            @apply w-full h-auto max-w-[400px] max-h-[400px];
+          }
+          .resultLoaderContent {
+            @apply absolute w-full top-1/2 left-1/2 translate-x-[-50%] translate-y-[-65%] flex flex-col justify-center items-center
+            text-base leading-5 xs:text-lg xs:leading-6 font-bold;
+            .tripodIcon {
+              @apply max-w-[200px] w-[50%] h-auto;
+            }
+            .messageP {
+              @apply break-keep text-center w-4/5;
+            }
+          }
+          .timeoutDiv {
+            @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] break-keep text-center
+             w-full max-w-[400px] text-base xs:text-lg bg-[#000d] p-4 font-bold text-[#a77];
+            .timerP {
+              @apply text-lg xs:text-xl;
+              color: $myBlue;
+            }
           }
         }
       }
     }
     .searchingDiv {
       @apply border border-green-300;
+    }
+
+    .tripodPriceSummaryTooltip {
+      @apply p-2;
+      .summaryList {
+        .summaryItem {
+          @apply flex items-center gap-1;
+        }
+      }
     }
   }
 }

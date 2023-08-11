@@ -62,7 +62,6 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
     if (myWorker) {
       myWorker.onmessage = (e) => {
         const result = JSON.parse(e.data);
-        console.log(result);
         if (result.status === "SUCCESS") {
           setResponseData(result.data);
           setTimeout(() => {
