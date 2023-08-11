@@ -49,7 +49,7 @@ onmessage = async (e: {
       },
       apiKey
     );
-    console.log(res.data.Items[0]);
+
     powderOfSage = res.data.Items[0].CurrentMinPrice;
   } catch (err: any) {
     console.error(err);
@@ -108,9 +108,9 @@ onmessage = async (e: {
           Tier: reqData[i].tier,
           Possibility,
           Price: {
-            All: res.data.Items.map(
+            All: res.data.Items.filter(
               (item: AuctionItem) => item.AuctionInfo.BuyPrice
-            ),
+            ).map((item: AuctionItem) => item.AuctionInfo.BuyPrice),
             Total,
           },
         };
@@ -132,9 +132,9 @@ onmessage = async (e: {
           Tier: reqData[i].tier,
           Possibility,
           Price: {
-            All: res.data.Items.map(
+            All: res.data.Items.filter(
               (item: AuctionItem) => item.AuctionInfo.BuyPrice
-            ),
+            ).map((item: AuctionItem) => item.AuctionInfo.BuyPrice),
             Total,
           },
         };
