@@ -468,9 +468,9 @@ $myLightBlue: #76b1ff;
       .dataDiv {
         @apply grid justify-center grid-cols-[280px] xs:grid-cols-[376px] sm:grid-cols-[438px] lg:grid-cols-[438px_438px] gap-x-4 gap-y-2 xl:flex xl:flex-col xl:justify-start xl:gap-2;
         .skillDiv {
-          @apply inline-grid grid-cols-[72px_200px] xs:grid-cols-[72px_296px] sm:grid-cols-[92px_338px] xl:flex gap-2 min-h-[84px];
+          @apply inline-grid grid-cols-[72px_200px] xs:grid-cols-[72px_296px] sm:grid-cols-[92px_338px] xl:flex gap-2 min-h-[84px] bg-[#0e0e0e] py-1;
           .skillDescrDiv {
-            @apply flex flex-col justify-center items-center w-[72px] sm:w-[92px] gap-1;
+            @apply flex flex-col justify-center items-center w-[72px] sm:w-[92px] gap-1 hover:bg-[#1a1a1a] cursor-pointer;
             .iconWrapper {
               @apply flex justify-center items-center w-[50px] h-[50px];
               background-image: url("/images/skill_slot.png");
@@ -486,18 +486,18 @@ $myLightBlue: #76b1ff;
           .tripodWrapper {
             @apply grid grid-rows-3 justify-start gap-[2px];
             .tripodDiv {
-              @apply flex gap-2;
+              @apply flex gap-2 hover:bg-[#1a1a1a] cursor-pointer;
               .tripodDescrDiv {
                 @apply flex items-center justify-center font-bold gap-1;
                 border-radius: 14px 0px 0px 14px;
                 &[data-tier="0"] {
-                  background: linear-gradient(150deg, #4691f644, #000 70%);
+                  background: linear-gradient(150deg, #4691f644, #0000 70%);
                 }
                 &[data-tier="1"] {
-                  background: linear-gradient(150deg, #81d36144, #000 70%);
+                  background: linear-gradient(150deg, #81d36144, #0000 70%);
                 }
                 &[data-tier="2"] {
-                  background: linear-gradient(150deg, #b3b36044, #000 70%);
+                  background: linear-gradient(150deg, #b3b36044, #0000 70%);
                 }
                 .emptyIcon {
                   @apply w-6 h-6 m-[2px];

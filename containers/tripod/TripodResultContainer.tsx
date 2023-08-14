@@ -60,6 +60,17 @@ const TripodResultContainer: React.FC<TripodResultContainerProps> = ({
     );
   }, [responseData, totalStatus]);
 
+  const copyName = useCallback((type: string, name: string) => {
+    window.navigator.clipboard
+      .writeText(name)
+      .then(() => {
+        alert(`${type} 이름 (${name}) 복사 완료`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <TripodResultContext.Provider
       value={{
@@ -74,6 +85,7 @@ const TripodResultContainer: React.FC<TripodResultContainerProps> = ({
         totalCost,
         currentSkillTripodIndex,
         setCurrentSkillTripodIndex,
+        copyName,
       }}
     >
       <TripodResultBlock />

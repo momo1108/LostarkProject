@@ -26,6 +26,7 @@ const TripodResultBlock: React.FC = () => {
     totalCost,
     currentSkillTripodIndex,
     setCurrentSkillTripodIndex,
+    copyName,
   } = useContext(TripodResultContext);
   return (
     <div className={styles.resultContainer}>
@@ -85,7 +86,12 @@ const TripodResultBlock: React.FC = () => {
                 className={styles.skillDiv}
                 key={`result_skill_${skill.Name}`}
               >
-                <div className={styles.skillDescrDiv}>
+                <div
+                  className={styles.skillDescrDiv}
+                  onClick={() => {
+                    copyName("스킬", skill.Name);
+                  }}
+                >
                   <div className={styles.iconWrapper}>
                     <img src={skill.Icon} alt="" />
                   </div>
@@ -97,6 +103,9 @@ const TripodResultBlock: React.FC = () => {
                       <div
                         className={styles.tripodDiv}
                         key={`result_skill_${skill.Name}_tripod_${tripod.Name}`}
+                        onClick={() => {
+                          copyName("트라이포드", tripod.Name);
+                        }}
                       >
                         <div
                           className={styles.tripodDescrDiv}
