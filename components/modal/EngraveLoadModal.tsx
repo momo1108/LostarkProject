@@ -1,19 +1,18 @@
-import {
-  EngravePreset,
-  EngravePresetWithParsedData,
-  ModalProps,
-} from "@/types/GlobalType";
 import { useEffect, useMemo, useState, Fragment, useContext } from "react";
 import { createPortal } from "react-dom";
 import MenuIcons from "../icons/MenuIcons";
 import usePreventBodyScroll from "@/hooks/usePreventBodyScroll";
 import { Necklace, Earring, Ring2, Check, Empty } from "../icons/Index";
 import EngraveContext from "@/contexts/EngraveContext";
+import {
+  EngravePreset,
+  EngravePresetWithParsedData,
+} from "@/types/EngraveType";
+import { ModalProps } from "@/types/ModalType";
 
-const LoadModal: React.FC<ModalProps> = ({
+const EngraveLoadModal: React.FC<ModalProps> = ({
   children,
   className,
-  closeTimer = 0,
   isOpen,
   closeFunc,
 }): JSX.Element | null => {
@@ -34,15 +33,6 @@ const LoadModal: React.FC<ModalProps> = ({
     []
   );
   const [viewMode, setViewMode] = useState<number>(0);
-  useEffect(() => {
-    // https://velog.io/@hyeonq/Next.js-Hydration-failed-error
-    // https://velog.io/@sssssssssy/React-createPortal
-    if (closeTimer) {
-      setTimeout(() => {
-        closeFunc!();
-      }, closeTimer);
-    }
-  }, []);
   useEffect(() => {
     if (isOpen) {
       const tmpPreset = localStorage.getItem("engraveSettingInfo");
@@ -381,4 +371,4 @@ const LoadModal: React.FC<ModalProps> = ({
   }
 };
 
-export default LoadModal;
+export default EngraveLoadModal;

@@ -39,6 +39,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   setMyTimer,
 }) => {
   const [apiShine, setApiShine] = useState<boolean>(false);
+  const [copyModalIsOpen, setCopyModalIsOpen] = useState<boolean>(false);
   const rootClassList = Object.keys(classDetailMap);
   const [rootClass, setRootClass] = useState<string>("전사(남)");
   const [subClass, setSubClass] = useState<string>("버서커");
@@ -344,6 +345,8 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
     <TripodSearchContext.Provider
       value={{
         apiShine,
+        copyModalIsOpen,
+        setCopyModalIsOpen,
         rootClassList,
         rootClass,
         setRootClass,

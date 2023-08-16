@@ -1,10 +1,12 @@
 import ApiKeyInput from "@/components/ApiKeyInput";
 import {
+  Copy,
   MenuIcons,
   Meteor,
   TriangleSpinner,
   Tripod,
 } from "@/components/icons/Index";
+import TripodCopyModal from "@/components/modal/TripodCopyModal";
 import TripodSearchContext from "@/contexts/TripodSearchContext";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import styles from "@/styles/tripod/Body.module.scss";
@@ -20,6 +22,8 @@ import { Fragment, useContext } from "react";
 const TripodSearchBlock: React.FC = () => {
   const {
     apiShine,
+    copyModalIsOpen,
+    setCopyModalIsOpen,
     rootClassList,
     rootClass,
     setRootClass,
@@ -45,6 +49,24 @@ const TripodSearchBlock: React.FC = () => {
   return (
     <div className={styles.searchContainer}>
       <ApiKeyInput shine={apiShine} />
+      <TripodCopyModal
+        isOpen={copyModalIsOpen}
+        closeFunc={() => {
+          setCopyModalIsOpen(false);
+        }}
+        data=""
+      />
+      <div className={styles.copySettingDiv}>
+        <button
+          className={`${styles.copyButton} myButtons`}
+          onClick={() => {
+            setCopyModalIsOpen(true);
+          }}
+        >
+          <Copy size={20} fill="#eee" />
+          <span>캐릭터 세팅 복사</span>
+        </button>
+      </div>
       <div className={styles.settingClassDiv}>
         <div className={styles.classWrapper}>
           <h4 className={styles.rootClassSmallTitle}>상위 클래스</h4>

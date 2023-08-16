@@ -1010,6 +1010,11 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 - .env.production 안되나?
 - 크리스탈 시세 : https://loatool.taeu.kr/api/crystal-history/ohlc/시간단위(ex. 1m, 1h, 1d)
 - 트포 검색결과를 grid 하나로 병합하는게 맞다.
+- 트포 캐릭터 검색
+- 알림용 modal 을 따로 만들어야할듯.
+  - 모달에 내용을 push하는 형식. type으로 완료/에러 구분?
+  - 전역에서 동작을 해야함. redux 사용해야할듯? 아니면 react context? 중복이 되나?
+- info 아이콘, 툴팁 묶어서 컴포넌트화하기
 
 #### 에러 업데이트
 

@@ -23,6 +23,7 @@ const TripodResultBlock: React.FC = () => {
     buttonDivStatus,
     setButtonDivStatus,
     totalStatus,
+    includePowderCost,
     totalCost,
     currentSkillTripodIndex,
     setCurrentSkillTripodIndex,
@@ -31,7 +32,7 @@ const TripodResultBlock: React.FC = () => {
   return (
     <div className={styles.resultContainer}>
       <div className={styles.resultHeader}>
-        <p className={styles.totalPriceP}>총 골드 : {totalCost}</p>
+        <p className={styles.totalPriceP}>총 골드예측 : {totalCost}</p>
         <div className={styles.resultButtonDiv}>
           <p className={styles.powderP}>
             <img width={30} src="/images/powderofsage.png" alt="" />
@@ -49,7 +50,7 @@ const TripodResultBlock: React.FC = () => {
           </button>
           <button
             className={`${styles.powderButton} myButtons`}
-            data-active={totalStatus === "IncludeWithCost"}
+            data-active={includePowderCost}
             disabled={buttonDivStatus !== "AVAILABLE"}
             onClick={() => {
               setButtonDivStatus("SETTING_COST");
@@ -60,32 +61,40 @@ const TripodResultBlock: React.FC = () => {
           {/* <button>페온 값 포함</button> */}
         </div>
       </div>
-      <div className={styles.infoDiv}>
-        <AlertOctagon size={16} color="#f44" />
-        <span>매물 부족</span>
-      </div>
-      <div className={styles.resultDiv}>
-        <div className={styles.headerDiv}>
-          <div className={styles.firstHeader}>
-            <div className={styles.skillDiv}>스킬</div>
-            <div>트라이포드</div>
-            <div>골드예측</div>
-            <div className={styles.priceListDiv}></div>
+      <div className={styles.resultBody}>
+        <div className={styles.resultDiv}>
+          <div className={styles.infoDiv}>
+            <AlertOctagon size={16} color="#f44" />
+            <span>매물 부족</span>
           </div>
-          <div className={styles.secondHeader}>
-            <div className={styles.skillDiv}>스킬</div>
-            <div>트라이포드</div>
-            <div>골드예측</div>
-            <div>매물 가격</div>
+          <div data-role="header" className={styles.skillHeader}>
+            스킬
           </div>
-        </div>
-        {responseData.length ? (
-          <div className={styles.dataDiv}>
-            {responseData.map((skill: TripodResType, skillIndex) => (
-              <div
-                className={styles.skillDiv}
-                key={`result_skill_${skill.Name}`}
-              >
+          <div data-role="header">트라이포드</div>
+          <div data-role="header">골드예측</div>
+          <div data-role="header" className={styles.priceListDiv}></div>
+          <div className={styles.gapItem} />
+          <div
+            data-role="header"
+            className={`${styles.skillHeader} ${styles.secondHeader}`}
+          >
+            스킬
+          </div>
+          <div data-role="header" className={styles.secondHeader}>
+            트라이포드
+          </div>
+          <div data-role="header" className={styles.secondHeader}>
+            골드예측
+          </div>
+          <div data-role="header" className={styles.secondHeader}>
+            매물 가격
+          </div>
+          <div className={styles.headerLine} />
+          <div className={styles.gapItem} />
+          <div className={styles.headerLine} data-sub={true} />
+          {responseData.length ? (
+            responseData.map((skill: TripodResType, skillIndex) => (
+              <Fragment key={`result_skill_${skill.Name}`}>
                 <div
                   className={styles.skillDescrDiv}
                   onClick={() => {
@@ -135,36 +144,6 @@ const TripodResultBlock: React.FC = () => {
                             />
                           </p>
                         </div>
-                        <div className={styles.totalPriceDiv}>
-                          <img src="/images/gold.png" width={15} alt="" />
-                          <p className={styles.goldP}>
-                            {tripod.Price.Total[totalStatus]}
-                          </p>
-                        </div>
-                        <ul className={styles.tripodPriceList}>
-                          {tripod.Price.All.map((bp, bpIndex) => (
-                            <li
-                              className={styles.tripodPriceItem}
-                              key={`result_skill_${skill.Name}_tripod_${tripod.Name}_${bpIndex}`}
-                            >
-                              <img src="/images/gold.png" width={15} alt="" />
-                              <span>{bp}</span>
-                            </li>
-                          ))}
-                          <li
-                            className={styles.tripodPriceViewer}
-                            data-tooltip-id="tripodPriceSummary"
-                            onMouseEnter={() => {
-                              setCurrentSkillTripodIndex([
-                                skillIndex,
-                                tripodIndex,
-                              ]);
-                            }}
-                          >
-                            <List size={20} />
-                            <span>확인</span>
-                          </li>
-                        </ul>
                       </div>
                     ) : (
                       <div
@@ -189,22 +168,83 @@ const TripodResultBlock: React.FC = () => {
                     )
                   )}
                 </div>
+                <div className={styles.totalPriceWrapper}>
+                  {skill.Tripods.map((tripod, tripodIndex) =>
+                    tripod ? (
+                      <div
+                        className={styles.totalPriceDiv}
+                        key={`result_skill_${skill.Name}_tripod_${tripod.Name}_totalPrice`}
+                      >
+                        <img src="/images/gold.png" width={15} alt="" />
+                        <p className={styles.goldP}>
+                          {tripod.Price.Total[totalStatus]}
+                        </p>
+                      </div>
+                    ) : (
+                      <div
+                        key={`result_skill_${skill.Name}_tripod_${tripodIndex}_emptyTotalPrice`}
+                      ></div>
+                    )
+                  )}
+                </div>
+                <div className={styles.priceListWrapper}>
+                  {skill.Tripods.map((tripod, tripodIndex) =>
+                    tripod ? (
+                      <ul
+                        className={styles.tripodPriceList}
+                        key={`result_skill_${skill.Name}_tripod_${tripod.Name}_list`}
+                      >
+                        {tripod.Price.All.map((bp, bpIndex) => (
+                          <li
+                            className={styles.tripodPriceItem}
+                            key={`result_skill_${skill.Name}_tripod_${tripod.Name}_${bpIndex}`}
+                          >
+                            <img src="/images/gold.png" width={15} alt="" />
+                            <span>{bp}</span>
+                          </li>
+                        ))}
+                        <li
+                          className={styles.tripodPriceViewer}
+                          data-tooltip-id="tripodPriceSummary"
+                          onMouseEnter={() => {
+                            setCurrentSkillTripodIndex([
+                              skillIndex,
+                              tripodIndex,
+                            ]);
+                          }}
+                        >
+                          <List size={20} />
+                          <span>확인</span>
+                        </li>
+                      </ul>
+                    ) : (
+                      <div
+                        key={`result_skill_${skill.Name}_emptyTripod_${tripodIndex}`}
+                      ></div>
+                    )
+                  )}
+                </div>
+                {skillIndex % 2 ? (
+                  <></>
+                ) : (
+                  <div className={styles.gapItem}></div>
+                )}
+              </Fragment>
+            ))
+          ) : (
+            <div className={styles.emptyDiv}>
+              <div className={styles.iconWrapper}>
+                <MagnifyingGlass
+                  className={styles.mgIcon}
+                  size={200}
+                  color="none"
+                  fill="#ddd"
+                />
               </div>
-            ))}
-          </div>
-        ) : (
-          <div className={styles.emptyDiv}>
-            <div className={styles.iconWrapper}>
-              <MagnifyingGlass
-                className={styles.mgIcon}
-                size={200}
-                color="none"
-                fill="#ddd"
-              />
+              <p>현재 검색된 결과가 없습니다</p>
             </div>
-            <p>현재 검색된 결과가 없습니다</p>
-          </div>
-        )}
+          )}
+        </div>
         <MyLoader
           className={styles.resultLoader}
           backgroundColor="#000e"

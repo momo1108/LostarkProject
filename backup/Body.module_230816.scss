@@ -10,13 +10,6 @@ $myLightBlue: #76b1ff;
   .searchContainer {
     @apply flex flex-col gap-4;
 
-    .copySettingDiv {
-      @apply flex;
-      .copyButton {
-        @apply flex items-center gap-1 text-base;
-      }
-    }
-
     .settingClassDiv {
       @apply flex flex-col gap-2 lg:gap-0;
       .classWrapper {
@@ -443,132 +436,124 @@ $myLightBlue: #76b1ff;
         }
         .powderButton {
           @apply text-sm py-1 px-2;
-          &[data-active="false"]:hover {
-            background: none !important;
-          }
         }
       }
     }
-    .resultBody {
-      @apply relative flex justify-center items-start min-h-[385px] sm:min-h-[397px];
-      .resultDiv {
-        @apply grid grid-cols-[72px_96px_60px_28px] xs:grid-cols-[72px_160px_60px_60px] sm:grid-cols-[92px_176px_80px_66px]
-        lg:grid-cols-[92px_176px_80px_66px_16px_92px_176px_80px_66px] xl:grid-cols-[92px_176px_80px_650px] xl:mx-auto text-sm sm:text-base
-        gap-2;
-        .infoDiv {
-          @apply col-span-4 lg:max-xl:col-span-9 flex items-center text-[#f44] gap-1;
-        }
-        div[data-role="header"] {
-          @apply font-bold text-[#ccc];
-        }
-        .priceListDiv::before {
-          @apply content-['매물'] xs:content-['매물_가격'];
-        }
-        .gapItem {
+    .infoDiv {
+      @apply flex items-center text-[#f44] gap-1;
+    }
+    .resultDiv2 {
+      @apply grid grid-cols-[72px_96px_60px_28px] xs:grid-cols-[72px_160px_60px_60px] sm:grid-cols-[92px_176px_80px_66px]
+      lg:grid-cols-[92px_176px_80px_66px_16px_92px_176px_80px_66px] xl:grid-cols-[92px_176px_80px_650px] xl:mx-auto text-sm sm:text-base
+      gap-2 mx-auto;
+      div[data-role="header"] {
+        @apply font-bold text-[#ccc];
+      }
+      .gapItem {
+        @apply hidden lg:block xl:hidden;
+      }
+      .headerLine {
+        @apply col-span-4 border-b border-[#aaa];
+        box-shadow: 0px 5px 15px -9px #fff;
+        &[data-sub="true"] {
           @apply hidden lg:block xl:hidden;
         }
-        .headerLine {
-          @apply col-span-4 border-b border-[#aaa];
-          &[data-sub="true"] {
-            @apply hidden lg:block xl:hidden;
+      }
+      .secondHeader {
+        @apply hidden lg:block xl:hidden;
+      }
+      .skillHeader {
+        @apply text-center;
+      }
+      .skillDescrDiv {
+        @apply flex flex-col justify-center items-center w-[72px] sm:w-[92px] gap-1 hover:bg-[#1a1a1a] cursor-pointer;
+        .iconWrapper {
+          @apply flex justify-center items-center w-[50px] h-[50px];
+          background-image: url("/images/skill_slot.png");
+          background-size: 100%;
+          img {
+            @apply w-[44px];
           }
         }
-        .secondHeader {
-          @apply hidden lg:block xl:hidden;
+        p {
+          @apply break-keep leading-3 text-xs sm:leading-4 sm:text-sm text-center font-bold;
         }
-        .skillHeader {
-          @apply text-center;
-        }
-        .skillDescrDiv {
-          @apply flex flex-col justify-center items-center w-[72px] sm:w-[92px] gap-1 hover:bg-[#1a1a1a] cursor-pointer;
-          .iconWrapper {
-            @apply flex justify-center items-center w-[50px] h-[50px];
-            background-image: url("/images/skill_slot.png");
-            background-size: 100%;
-            img {
-              @apply w-[44px];
+      }
+      .tripodWrapper {
+        @apply grid grid-rows-3 justify-start gap-[2px];
+        .tripodDiv {
+          @apply flex gap-2 hover:bg-[#1a1a1a] cursor-pointer;
+          .tripodDescrDiv {
+            @apply flex items-center justify-center font-bold gap-1;
+            border-radius: 14px 0px 0px 14px;
+            &[data-tier="0"] {
+              background: linear-gradient(150deg, #4691f644, #0000 70%);
             }
-          }
-          p {
-            @apply break-keep leading-3 text-xs sm:leading-4 sm:text-sm text-center font-bold;
-          }
-        }
-        .tripodWrapper {
-          @apply grid grid-rows-3 justify-start gap-[2px];
-          .tripodDiv {
-            @apply flex gap-2 hover:bg-[#1a1a1a] cursor-pointer;
-            .tripodDescrDiv {
-              @apply flex items-center justify-center font-bold gap-1;
-              border-radius: 14px 0px 0px 14px;
-              &[data-tier="0"] {
-                background: linear-gradient(150deg, #4691f644, #0000 70%);
-              }
-              &[data-tier="1"] {
-                background: linear-gradient(150deg, #81d36144, #0000 70%);
-              }
-              &[data-tier="2"] {
-                background: linear-gradient(150deg, #b3b36044, #0000 70%);
-              }
-              .emptyIcon {
-                @apply w-6 h-6 m-[2px];
-              }
-              .tripodIcon {
-                @apply w-7;
-              }
-              .tripodP {
-                @apply flex gap-1 items-center w-[64px] xs:w-[128px] sm:w-[144px];
-                span {
-                  @apply max-xs:truncate max-xs:max-w-[40px];
-                }
-              }
+            &[data-tier="1"] {
+              background: linear-gradient(150deg, #81d36144, #0000 70%);
             }
-          }
-        }
-        .totalPriceWrapper {
-          @apply grid grid-rows-3 justify-start gap-[2px];
-          .totalPriceDiv {
-            @apply flex items-center gap-1 w-[60px] sm:w-[80px];
-            .goldP {
-              @apply flex items-center w-full;
+            &[data-tier="2"] {
+              background: linear-gradient(150deg, #b3b36044, #0000 70%);
             }
-          }
-        }
-        .priceListWrapper {
-          @apply grid grid-rows-3 justify-start gap-[2px];
-          .tripodPriceList {
-            @apply flex items-center flex-wrap gap-2;
-            .tripodPriceItem {
-              @apply hidden xl:flex items-center gap-[2px] font-bold min-w-[52px];
+            .emptyIcon {
+              @apply w-6 h-6 m-[2px];
             }
-            .tripodPriceViewer {
-              @apply flex xl:hidden items-center gap-1 cursor-help hover:bg-[#fff3] hover:text-[#4691f6] rounded;
-              svg {
-                @apply fill-[#eee];
-              }
+            .tripodIcon {
+              @apply w-7;
+            }
+            .tripodP {
+              @apply flex gap-1 items-center w-[64px] xs:w-[128px] sm:w-[144px];
               span {
-                @apply hidden xs:inline pr-[2px];
-              }
-              &:hover {
-                svg {
-                  @apply fill-[#4691f6];
-                }
+                @apply max-xs:truncate max-xs:max-w-[40px];
               }
             }
           }
         }
-
-        .emptyDiv {
-          @apply col-span-4 lg:col-span-8 xl:col-span-4 flex flex-col justify-center items-center py-10;
-          .iconWrapper {
-            @apply flex items-center justify-center h-[220px];
-            .mgIcon {
-              animation: shake 6s linear infinite;
+      }
+      .totalPriceWrapper {
+        @apply grid grid-rows-3 justify-start gap-[2px];
+        .totalPriceDiv {
+          @apply flex items-center gap-1 w-[60px] sm:w-[80px];
+          .goldP {
+            @apply flex items-center w-full;
+          }
+        }
+      }
+      .priceListWrapper {
+        @apply grid grid-rows-3 justify-start gap-[2px];
+        .tripodPriceList {
+          @apply flex items-center flex-wrap gap-2;
+          .tripodPriceItem {
+            @apply hidden xl:flex items-center gap-[2px] font-bold min-w-[52px];
+          }
+          .tripodPriceViewer {
+            @apply flex xl:hidden items-center gap-1 cursor-help hover:bg-[#fff3] hover:text-[#4691f6] rounded;
+            svg {
+              @apply fill-[#eee];
             }
+            span {
+              @apply hidden xs:inline pr-[2px];
+            }
+            &:hover {
+              svg {
+                @apply fill-[#4691f6];
+              }
+            }
+          }
+        }
+      }
+
+      .emptyDiv {
+        @apply col-span-4 lg:col-span-8 xl:col-span-4 flex flex-col justify-center items-center py-10;
+        .iconWrapper {
+          @apply flex items-center justify-center h-[220px];
+          .mgIcon {
+            animation: shake 6s linear infinite;
           }
         }
       }
       .resultLoader {
-        @apply justify-center items-center;
+        @apply relative justify-center items-center;
         .spinnerWrapper {
           @apply relative w-[95%] max-w-[400px];
           .spinnerIcon {
@@ -595,7 +580,143 @@ $myLightBlue: #76b1ff;
         }
       }
     }
-
+    .resultDiv {
+      @apply flex flex-col gap-2 min-h-[450px] text-sm sm:text-base;
+      .headerDiv {
+        @apply flex justify-center xl:justify-start gap-4;
+        .firstHeader {
+          @apply inline-grid xl:grid grid-cols-[72px_96px_60px_28px] xs:grid-cols-[72px_160px_60px_60px]
+           sm:grid-cols-[92px_176px_80px_66px] xl:grid-cols-[92px_176px_80px_600px] xl:mx-auto gap-2 font-bold text-[#ccc] border-b border-[#888] pb-1;
+          box-shadow: 0px 5px 15px -9px #fff;
+          .skillDiv {
+            @apply text-center;
+          }
+          .priceListDiv::before {
+            @apply content-['매물'] xs:content-['매물_가격'];
+          }
+        }
+        .secondHeader {
+          @apply hidden lg:inline-grid xl:hidden grid-cols-[92px_176px_80px_66px] gap-2 font-bold text-[#ccc] border-b border-[#888] pb-1;
+          box-shadow: 0px 5px 15px -9px #fff;
+          .skillDiv {
+            @apply text-center;
+          }
+        }
+      }
+      .dataDiv {
+        @apply grid justify-center grid-cols-[280px] xs:grid-cols-[376px] sm:grid-cols-[438px] lg:grid-cols-[438px_438px] gap-x-4 gap-y-2 xl:flex xl:flex-col xl:justify-start xl:gap-2 xl:mx-auto;
+        .skillDiv {
+          @apply inline-grid grid-cols-[72px_200px] xs:grid-cols-[72px_296px] sm:grid-cols-[92px_338px] xl:flex gap-2 min-h-[84px] bg-[#0e0e0e] py-1;
+          .skillDescrDiv {
+            @apply flex flex-col justify-center items-center w-[72px] sm:w-[92px] gap-1 hover:bg-[#1a1a1a] cursor-pointer;
+            .iconWrapper {
+              @apply flex justify-center items-center w-[50px] h-[50px];
+              background-image: url("/images/skill_slot.png");
+              background-size: 100%;
+              img {
+                @apply w-[44px];
+              }
+            }
+            p {
+              @apply break-keep leading-3 text-xs sm:leading-4 sm:text-sm text-center font-bold;
+            }
+          }
+          .tripodWrapper {
+            @apply grid grid-rows-3 justify-start gap-[2px];
+            .tripodDiv {
+              @apply flex gap-2 hover:bg-[#1a1a1a] cursor-pointer;
+              .tripodDescrDiv {
+                @apply flex items-center justify-center font-bold gap-1;
+                border-radius: 14px 0px 0px 14px;
+                &[data-tier="0"] {
+                  background: linear-gradient(150deg, #4691f644, #0000 70%);
+                }
+                &[data-tier="1"] {
+                  background: linear-gradient(150deg, #81d36144, #0000 70%);
+                }
+                &[data-tier="2"] {
+                  background: linear-gradient(150deg, #b3b36044, #0000 70%);
+                }
+                .emptyIcon {
+                  @apply w-6 h-6 m-[2px];
+                }
+                .tripodIcon {
+                  @apply w-7;
+                }
+                .tripodP {
+                  @apply flex gap-1 items-center w-[64px] xs:w-[128px] sm:w-[144px];
+                  span {
+                    @apply max-xs:truncate max-xs:max-w-[40px];
+                  }
+                }
+              }
+              .totalPriceDiv {
+                @apply flex items-center gap-1 w-[60px] sm:w-[80px];
+                .goldP {
+                  @apply flex items-center w-full;
+                }
+              }
+              .tripodPriceList {
+                @apply flex items-center flex-wrap gap-2;
+                .tripodPriceItem {
+                  @apply hidden xl:flex items-center gap-[2px] font-bold min-w-[52px];
+                }
+                .tripodPriceViewer {
+                  @apply flex xl:hidden items-center gap-1 cursor-help hover:bg-[#fff3] hover:text-[#4691f6] rounded;
+                  svg {
+                    @apply fill-[#eee];
+                  }
+                  span {
+                    @apply hidden xs:inline pr-[2px];
+                  }
+                  &:hover {
+                    svg {
+                      @apply fill-[#4691f6];
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .emptyDiv {
+        @apply flex flex-col justify-center items-center py-10;
+        .iconWrapper {
+          @apply flex items-center justify-center h-[220px];
+          .mgIcon {
+            animation: shake 6s linear infinite;
+          }
+        }
+      }
+      .resultLoader {
+        @apply relative justify-center items-center;
+        .spinnerWrapper {
+          @apply relative w-[95%] max-w-[400px];
+          .spinnerIcon {
+            @apply w-full h-auto max-w-[400px] max-h-[400px];
+          }
+          .resultLoaderContent {
+            @apply absolute w-full top-1/2 left-1/2 translate-x-[-50%] translate-y-[-65%] flex flex-col justify-center items-center
+            text-base leading-5 xs:text-lg xs:leading-6 font-bold;
+            .tripodIcon {
+              @apply max-w-[200px] w-[50%] h-auto;
+            }
+            .messageP {
+              @apply break-keep text-center w-4/5;
+            }
+          }
+          .timeoutDiv {
+            @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] break-keep text-center
+             w-full max-w-[400px] text-base xs:text-lg bg-[#000d] p-4 font-bold text-[#a77];
+            .timerP {
+              @apply text-lg xs:text-xl;
+              color: $myBlue;
+            }
+          }
+        }
+      }
+    }
     .searchingDiv {
       @apply border border-green-300;
     }

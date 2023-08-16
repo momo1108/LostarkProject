@@ -1,14 +1,18 @@
-import { EngravePreset, ModalData, ModalProps } from "@/types/GlobalType";
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import MenuIcons from "../icons/MenuIcons";
 import usePreventBodyScroll from "@/hooks/usePreventBodyScroll";
-import { AccessoryInfo, EngraveInfo } from "@/types/EngraveType";
+import {
+  AccessoryInfo,
+  EngraveInfo,
+  EngraveModalData,
+  EngravePreset,
+} from "@/types/EngraveType";
+import { ModalProps } from "@/types/ModalType";
 
-const SaveModal: React.FC<ModalProps> = ({
+const EngraveSaveModal: React.FC<ModalProps> = ({
   children,
   className,
-  closeTimer = 0,
   isOpen,
   data,
   closeFunc,
@@ -19,7 +23,7 @@ const SaveModal: React.FC<ModalProps> = ({
     []
   );
   const [currentStatInfo, setCurrentStatInfo] = useState<string>("");
-  const [parsedData, setParsedData] = useState<ModalData>();
+  const [parsedData, setParsedData] = useState<EngraveModalData>();
   const [presetName, setPresetName] = useState<string>("");
   const validName: boolean = useMemo(() => {
     return (
@@ -31,11 +35,6 @@ const SaveModal: React.FC<ModalProps> = ({
     // https://velog.io/@hyeonq/Next.js-Hydration-failed-error
     // https://velog.io/@sssssssssy/React-createPortal
     setParsedData(JSON.parse(data));
-    if (closeTimer) {
-      setTimeout(() => {
-        closeFunc!();
-      }, closeTimer);
-    }
   }, []);
   useEffect(() => {
     if (isOpen) {
@@ -55,7 +54,7 @@ const SaveModal: React.FC<ModalProps> = ({
     setPresetName(`세팅 ${currentPresetList.length + 1}`);
   }, [currentPresetList]);
   useEffect(() => {
-    const tmpParsedData: ModalData = JSON.parse(data);
+    const tmpParsedData: EngraveModalData = JSON.parse(data);
     const tmpStatData = {
       치명: 0,
       특화: 0,
@@ -309,4 +308,4 @@ const SaveModal: React.FC<ModalProps> = ({
   }
 };
 
-export default SaveModal;
+export default EngraveSaveModal;

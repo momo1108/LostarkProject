@@ -23,8 +23,8 @@ html {
   backdrop-filter: blur(1px);
   .modalContent {
     @apply relative w-1/2 min-w-[320px] max-w-[650px] py-2 xs:py-3 rounded xs:rounded-xl bg-[#111];
-    border: 1px solid #555;
-    box-shadow: 0px 0px 10px -2px #aaa;
+    border: 1px solid #222;
+    box-shadow: 0px 0px 7px -2px #aaa;
     hr {
       @apply border-[#444] border-dashed;
     }
@@ -124,7 +124,7 @@ html {
           @apply border-[#444];
         }
         .loadModalDetailList {
-          @apply flex flex-col gap-4 max-h-[650px] xs:max-h-[800px] overflow-auto pr-2 xs:pr-3;
+          @apply flex flex-col gap-4 max-h-[500px] xs:max-h-[600px] overflow-auto pr-2 xs:pr-3;
           .loadModalDetailListItem {
             @apply flex flex-col gap-1;
             .presetName {
@@ -154,7 +154,7 @@ html {
       }
       .loadModalSimpleDiv {
         .loadModalSimpleList {
-          @apply flex flex-wrap flex-row gap-2 justify-center max-h-[650px] xs:max-h-[800px] overflow-auto pr-2 xs:pr-3;
+          @apply flex flex-wrap flex-row gap-2 justify-center max-h-[500px] xs:max-h-[600px] overflow-auto pr-2 xs:pr-3;
           .loadModalSimpleListItem {
             @apply inline-flex flex-col gap-2 border border-[#555] rounded py-1 px-2;
             .presetName {

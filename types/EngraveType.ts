@@ -128,6 +128,32 @@ export const engraveLevelColorMap: { [key: number]: string } = {
   3: "legendary",
 };
 
+export type EngraveModalData = {
+  targetList: EngraveInfo[];
+  equipList: EngraveInfo[];
+  abilityList: EngraveInfo[];
+  negativeEngrave: EngraveInfo;
+  accessoryList: AccessoryInfo[];
+};
+
+export type EngravePreset = {
+  name: string;
+  descr: {
+    engrave: string; // ex."원예저타아피 333331"
+    stat: string; // ex."치특"
+  };
+  data: string;
+};
+
+export type EngravePresetWithParsedData = {
+  name: string;
+  descr: {
+    engrave: string; // ex."원예저타아피 333331"
+    stat: string; // ex."치특"
+  };
+  data: EngraveModalData;
+};
+
 // ear_diff, ring_diff 의 true/false 여부에 따른 list
 export const accessoryOrderMap: { [key: number]: number[][] } = {
   0: [

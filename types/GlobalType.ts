@@ -13,41 +13,6 @@ export type FooterProps = {
   className?: string;
 };
 
-export type ModalProps = {
-  children?: React.ReactNode;
-  className?: string;
-  closeTimer?: number;
-  isOpen: boolean;
-  data: string;
-  closeFunc?: () => void;
-};
-
-export type EngravePreset = {
-  name: string;
-  descr: {
-    engrave: string; // ex."원예저타아피 333331"
-    stat: string; // ex."치특"
-  };
-  data: string;
-};
-
-export type EngravePresetWithParsedData = {
-  name: string;
-  descr: {
-    engrave: string; // ex."원예저타아피 333331"
-    stat: string; // ex."치특"
-  };
-  data: ModalData;
-};
-
-export type ModalData = {
-  targetList: EngraveInfo[];
-  equipList: EngraveInfo[];
-  abilityList: EngraveInfo[];
-  negativeEngrave: EngraveInfo;
-  accessoryList: AccessoryInfo[];
-};
-
 export type MenuProps = {
   menu: Menu[];
 };

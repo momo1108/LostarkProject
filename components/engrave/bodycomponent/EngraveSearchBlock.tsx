@@ -27,9 +27,9 @@ import {
 } from "@/components/icons/Index";
 import { Tooltip } from "react-tooltip";
 import ApiKeyInput from "@/components/ApiKeyInput";
-import SaveModal from "@/components/modal/SaveModal";
+import EngraveSaveModal from "@/components/modal/EngraveSaveModal";
 import EngraveContext from "@/contexts/EngraveContext";
-import LoadModal from "@/components/modal/LoadModal";
+import EngraveLoadModal from "@/components/modal/EngraveLoadModal";
 
 const EngraveSearchBlock: React.FC = () => {
   const {
@@ -76,7 +76,7 @@ const EngraveSearchBlock: React.FC = () => {
   return (
     <div className={styles.searchContainer}>
       <div className={styles.searchHeader}>
-        <SaveModal
+        <EngraveSaveModal
           isOpen={saveModalIsOpen}
           closeFunc={() => {
             setSaveModalIsOpen(false);
@@ -89,7 +89,7 @@ const EngraveSearchBlock: React.FC = () => {
             accessoryList: accessoryList.getter,
           })}
         />
-        <LoadModal
+        <EngraveLoadModal
           isOpen={loadModalIsOpen}
           closeFunc={() => {
             setLoadModalIsOpen(false);

@@ -82,6 +82,7 @@ const TripodResultContainer: React.FC<TripodResultContainerProps> = ({
         buttonDivStatus,
         setButtonDivStatus,
         totalStatus,
+        includePowderCost,
         totalCost,
         currentSkillTripodIndex,
         setCurrentSkillTripodIndex,

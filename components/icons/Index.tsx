@@ -29,12 +29,14 @@ import Dots from "./Dots";
 import MagnifyingGlass from "./MagnifyingGlass";
 import Meteor from "./Meteor";
 import List from "./List";
+import Copy from "./Copy";
 
 export {
   AlertOctagon,
   Box,
   Check,
   Close,
+  Copy,
   Delete,
   Dots,
   Earring,
