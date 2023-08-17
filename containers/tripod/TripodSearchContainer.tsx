@@ -281,7 +281,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   }, [tripodData, selectedData, selectedSkillIndex]);
 
   const searchTripod = useCallback(async () => {
-    const apiKey = localStorage.getItem("loapleEngraveApiKey");
+    const apiKey = localStorage.getItem("loapleApiKey");
     if (!apiKey) {
       alert(
         "API Key 를 발급받아서 등록해주세요.\n등록 방법은 상단의 등록방법을 참조해주세요."

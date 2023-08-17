@@ -8,6 +8,7 @@ $mediumQ: #00b5ff;
 $highQ: #ce43fc;
 $maxQ: #fe9600;
 $basicFontColor: #eee;
+$myDeepDarkBlue: #19375d;
 $myDarkBlue: #2a5996;
 $myBlue: #4691f6;
 $myLightBlue: #76b1ff;
@@ -22,9 +23,10 @@ html {
   color: $basicFontColor;
   backdrop-filter: blur(1px);
   .modalContent {
-    @apply relative w-1/2 min-w-[320px] max-w-[650px] py-2 xs:py-3 rounded xs:rounded-xl bg-[#111];
-    border: 1px solid #222;
+    @apply relative w-1/2 w-[480px] h-[600px] py-2 xs:py-3;
     box-shadow: 0px 0px 7px -2px #aaa;
+    background-image: url("/images/bg_modal.jpg");
+    background-size: 100% 100%;
     hr {
       @apply border-[#444] border-dashed;
     }
@@ -35,10 +37,10 @@ html {
       }
     }
     .modalTitle {
-      @apply text-lg font-bold xs:text-2xl xs:font-extrabold;
+      @apply text-xl font-bold;
     }
     .modalSubtitle {
-      @apply text-base xs:text-lg font-bold;
+      @apply text-base font-bold;
     }
     .modalEmptyListItem {
       @apply text-[#bbb];
@@ -46,14 +48,14 @@ html {
     .modalList {
       @apply flex flex-wrap gap-x-2 gap-y-1 my-1;
       .modalListItem {
-        @apply py-1 px-2 border rounded;
+        @apply py-1 px-2 text-xs border rounded;
       }
     }
     .modalVerticalList {
       @apply flex flex-col gap-1;
     }
     .saveModalContentDiv {
-      @apply flex flex-col gap-2 pl-3 xs:pl-4 pr-2 xs:pr-3 max-h-[650px] xs:max-h-[800px] overflow-auto;
+      @apply flex flex-col gap-2 pl-6 py-3 pr-4 mr-2 max-h-[576px] overflow-auto;
       .saveModalCurrentDiv {
         @apply flex flex-col gap-1;
         .modalListItem {
@@ -63,7 +65,13 @@ html {
       .savedPresetList {
         @apply py-2 xs:py-3 flex flex-wrap gap-2;
         .savedPresetListItem {
-          @apply flex flex-col px-2 py-1 border border-[#eee] rounded items-start;
+          @apply flex flex-col px-2 py-1 border border-[#eee] rounded items-start w-[137px];
+          .modalSubtitle {
+            @apply w-full truncate;
+          }
+          .engraveP {
+            @apply break-keep;
+          }
           .savedPresetListItemEngraveDiv,
           .savedPresetListItemStatDiv {
             @apply px-2 py-1 border border-[#eee] rounded;
@@ -103,9 +111,9 @@ html {
       }
     }
     .loadModalContentDiv {
-      @apply flex flex-col gap-2 pl-3 xs:pl-4;
+      @apply flex flex-col gap-2 pl-4 pr-2;
       .loadModalContentDivHeader {
-        @apply flex gap-2;
+        @apply flex justify-center gap-2 pr-3;
         .loadModalContentViewBtn {
           @apply inline-flex gap-1 text-[#777];
           svg {
@@ -124,11 +132,14 @@ html {
           @apply border-[#444];
         }
         .loadModalDetailList {
-          @apply flex flex-col gap-4 max-h-[500px] xs:max-h-[600px] overflow-auto pr-2 xs:pr-3;
+          @apply flex flex-col gap-4 h-[532px] overflow-auto px-2;
           .loadModalDetailListItem {
             @apply flex flex-col gap-1;
             .presetName {
-              color: $myBlue;
+              text-shadow: -1px -1px 0 $myDeepDarkBlue, 0 -1px 0 $myDeepDarkBlue,
+                1px -1px 0 $myDeepDarkBlue, 1px 0 0 $myDeepDarkBlue,
+                1px 1px 0 $myDeepDarkBlue, 0 1px 0 $myDeepDarkBlue,
+                -1px 1px 0 $myDeepDarkBlue, -1px 0 0 $myDeepDarkBlue;
             }
             .accessoryListItem {
               .accessoryTitle {
@@ -137,9 +148,9 @@ html {
             }
 
             .detailListItemButtonDiv {
-              @apply grid grid-cols-2 gap-1 mt-4;
+              @apply grid grid-cols-2 gap-1 mt-2;
               .myButtons {
-                @apply justify-center;
+                @apply justify-center text-base;
                 &:not(:first-child):hover {
                   @apply bg-[#a22] border-[#a22];
                 }
@@ -154,22 +165,25 @@ html {
       }
       .loadModalSimpleDiv {
         .loadModalSimpleList {
-          @apply flex flex-wrap flex-row gap-2 justify-center max-h-[500px] xs:max-h-[600px] overflow-auto pr-2 xs:pr-3;
+          @apply flex flex-wrap flex-row gap-2 justify-center max-h-[540px] overflow-auto pr-2 xs:pr-3;
           .loadModalSimpleListItem {
-            @apply inline-flex flex-col gap-2 border border-[#555] rounded py-1 px-2;
+            @apply inline-flex flex-col gap-2 border w-[142px] border-[#555] rounded p-2;
             .presetName {
-              @apply text-center;
-              color: $myBlue;
+              @apply text-center w-full truncate;
+              text-shadow: -1px -1px 0 $myDeepDarkBlue, 0 -1px 0 $myDeepDarkBlue,
+                1px -1px 0 $myDeepDarkBlue, 1px 0 0 $myDeepDarkBlue,
+                1px 1px 0 $myDeepDarkBlue, 0 1px 0 $myDeepDarkBlue,
+                -1px 1px 0 $myDeepDarkBlue, -1px 0 0 $myDeepDarkBlue;
             }
             .descrDiv {
               .descrP {
-                @apply ml-2;
+                @apply text-sm ml-2;
               }
             }
             .simpleListItemButtonDiv {
-              @apply flex flex-col gap-1;
+              @apply flex flex-col gap-1 mt-auto;
               .myButtons {
-                @apply justify-center;
+                @apply text-base py-[2px] justify-center;
                 &:not(:first-child):hover {
                   @apply bg-[#a22] border-[#a22];
                 }
@@ -487,13 +501,9 @@ body,
   }
 }
 
-.apiDiv {
-  @apply relative flex items-center gap-x-4 gap-y-1 flex-wrap max-w-[383px];
-  transition: box-shadow;
-  &[data-editing="true"] {
-    @apply pt-6;
-  }
-  .apiKeyInput {
+.myInputDiv {
+  @apply relative pt-6;
+  .myInput {
     @apply w-44 bg-transparent outline-none h-8 leading-8 text-lg text-[#eee];
     border-bottom: 1px solid #333;
     &:focus {
@@ -501,22 +511,26 @@ body,
       color: $myBlue;
     }
   }
-
-  .apiDescr {
-    @apply text-xs text-red-600 font-bold;
-  }
-
   .placeholder {
-    @apply absolute top-7 left-0 text-[#999];
-    transition: color 300ms ease-in-out, top 300ms ease-in-out,
-      left 300ms ease-in-out, font-size 300ms ease-in-out;
+    @apply absolute top-7 left-0 text-[#999] cursor-text;
+    transition: color 150ms ease-out, top 150ms ease-out, left 150ms ease-out,
+      font-size 150ms ease-out;
   }
-  .apiKeyInput:valid ~ .placeholder {
+  .myInput:valid ~ .placeholder {
     @apply text-sm top-2 left-0;
   }
-  .apiKeyInput:focus ~ .placeholder {
+  .myInput:focus ~ .placeholder {
     @apply text-sm top-2 left-0;
     color: $myBlue;
+  }
+}
+
+.apiDiv {
+  @apply relative flex items-end gap-x-4 gap-y-1 flex-wrap max-w-[383px];
+  transition: box-shadow;
+
+  .apiDescr {
+    @apply text-xs text-red-600 font-bold break-keep;
   }
 
   button {

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import MenuIcons from "../icons/MenuIcons";
 import usePreventBodyScroll from "@/hooks/usePreventBodyScroll";
@@ -83,6 +83,62 @@ const EngraveSaveModal: React.FC<ModalProps> = ({
     setParsedData(tmpParsedData);
   }, [data]);
 
+  const deleteSetting = useCallback(
+    (index: number) => {
+      const tmpDeletedPresetData = currentPresetList.filter(
+        (preset: EngravePreset, i: number) => index !== i
+      );
+      localStorage.setItem(
+        "engraveSettingInfo",
+        JSON.stringify(tmpDeletedPresetData)
+      );
+      setCurrentPresetList(tmpDeletedPresetData);
+      alert("삭제 완료!");
+    },
+    [currentPresetList]
+  );
+
+  const saveSetting = useCallback(() => {
+    if (currentPresetList.length >= 10) {
+      alert(
+        "저장가능한 세팅은 최대 10개 까지입니다.\n불필요한 세팅을 삭제 후 진행해주세요."
+      );
+      return;
+    }
+    const tmpList = [
+      ...currentPresetList,
+      {
+        name: presetName.trim(),
+        descr: {
+          engrave:
+            parsedData?.targetList
+              .reduce(
+                (prev, cur) => {
+                  return [
+                    `${prev[0]}${cur.name.charAt(0)}`,
+                    `${prev[1]}${cur.level}`,
+                  ];
+                },
+                ["", ""]
+              )
+              .join(" ") || "목표 각인 없음",
+          stat: currentStatInfo,
+        },
+        data: data,
+      },
+    ];
+    localStorage.setItem("engraveSettingInfo", JSON.stringify(tmpList));
+    closeFunc!();
+    alert("저장 완료!");
+  }, [
+    currentPresetList,
+    currentStatInfo,
+    presetName,
+    parsedData,
+    data,
+    closeFunc,
+  ]);
+
   return isOpen && ready ? (
     createPortal(
       <div className={`modalRoot ${className || ""}`} onClick={closeFunc}>
@@ -114,14 +170,20 @@ const EngraveSaveModal: React.FC<ModalProps> = ({
                         className="savedPresetListItem"
                         key={`preset_${preset.name}`}
                       >
-                        <h3 className="modalSubtitle">🔹{preset.name}</h3>
-                        <p>- {preset.descr.engrave.trim() || "각인 없음"}</p>
-                        <p>- {preset.descr.stat}</p>
+                        <h3 className="modalSubtitle" title={preset.name}>
+                          🔹{preset.name}
+                        </h3>
+                        <p className="statP">- {preset.descr.stat}</p>
+                        <p className="engraveP">
+                          {preset.descr.engrave.trim() || "각인 없음"}
+                        </p>
                         <button
                           className="myButtons"
                           onClick={() => {
                             if (
-                              confirm(`${preset.name} 세팅을 삭제하시겠습니까?`)
+                              confirm(
+                                `${preset.name} 프리셋을 삭제하시겠습니까?`
+                              )
                             )
                               deleteSetting(i);
                           }}
@@ -260,52 +322,6 @@ const EngraveSaveModal: React.FC<ModalProps> = ({
   ) : (
     <></>
   );
-
-  function deleteSetting(index: number) {
-    const tmpDeletedPresetData = currentPresetList.filter(
-      (preset: EngravePreset, i: number) => index !== i
-    );
-    localStorage.setItem(
-      "engraveSettingInfo",
-      JSON.stringify(tmpDeletedPresetData)
-    );
-    setCurrentPresetList(tmpDeletedPresetData);
-    alert("삭제 완료!");
-  }
-
-  function saveSetting() {
-    if (currentPresetList.length >= 10) {
-      alert(
-        "저장가능한 세팅은 최대 10개 까지입니다.\n불필요한 세팅을 삭제 후 진행해주세요."
-      );
-      return;
-    }
-    const tmpList = [
-      ...currentPresetList,
-      {
-        name: presetName.trim(),
-        descr: {
-          engrave:
-            parsedData?.targetList
-              .reduce(
-                (prev, cur) => {
-                  return [
-                    `${prev[0]}${cur.name.charAt(0)}`,
-                    `${prev[1]}${cur.level}`,
-                  ];
-                },
-                ["", ""]
-              )
-              .join(" ") || "목표 각인 없음",
-          stat: currentStatInfo,
-        },
-        data: data,
-      },
-    ];
-    localStorage.setItem("engraveSettingInfo", JSON.stringify(tmpList));
-    closeFunc!();
-    alert("저장 완료!");
-  }
 };
 
 export default EngraveSaveModal;

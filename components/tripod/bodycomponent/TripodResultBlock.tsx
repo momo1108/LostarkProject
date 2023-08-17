@@ -194,15 +194,21 @@ const TripodResultBlock: React.FC = () => {
                         className={styles.tripodPriceList}
                         key={`result_skill_${skill.Name}_tripod_${tripod.Name}_list`}
                       >
-                        {tripod.Price.All.map((bp, bpIndex) => (
-                          <li
-                            className={styles.tripodPriceItem}
-                            key={`result_skill_${skill.Name}_tripod_${tripod.Name}_${bpIndex}`}
-                          >
-                            <img src="/images/gold.png" width={15} alt="" />
-                            <span>{bp}</span>
+                        {tripod.Price.All.length ? (
+                          tripod.Price.All.map((bp, bpIndex) => (
+                            <li
+                              className={styles.tripodPriceItem}
+                              key={`result_skill_${skill.Name}_tripod_${tripod.Name}_${bpIndex}`}
+                            >
+                              <img src="/images/gold.png" width={15} alt="" />
+                              <span>{bp}</span>
+                            </li>
+                          ))
+                        ) : (
+                          <li className={styles.tripodPriceItem}>
+                            <span>매물 없음</span>
                           </li>
-                        ))}
+                        )}
                         <li
                           className={styles.tripodPriceViewer}
                           data-tooltip-id="tripodPriceSummary"
@@ -292,15 +298,23 @@ const TripodResultBlock: React.FC = () => {
           ] ? (
             responseData[currentSkillTripodIndex[0]].Tripods[
               currentSkillTripodIndex[1]
-            ]!.Price.All.map((bp, bpIndex) => (
-              <li
-                className={styles.summaryItem}
-                key={`tooltip_price_${bpIndex}`}
-              >
-                <img src="/images/gold.png" width={15} alt="" />
-                <span>{bp}</span>
+            ]!.Price.All.length ? (
+              responseData[currentSkillTripodIndex[0]].Tripods[
+                currentSkillTripodIndex[1]
+              ]!.Price.All.map((bp, bpIndex) => (
+                <li
+                  className={styles.summaryItem}
+                  key={`tooltip_price_${bpIndex}`}
+                >
+                  <img src="/images/gold.png" width={15} alt="" />
+                  <span>{bp}</span>
+                </li>
+              ))
+            ) : (
+              <li className={styles.summaryItem}>
+                <span>매물 없음</span>
               </li>
-            ))
+            )
           ) : (
             <li className={styles.summaryItem}>로딩중...</li>
           )}

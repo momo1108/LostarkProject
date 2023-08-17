@@ -1,4 +1,11 @@
-import { useEffect, useMemo, useState, Fragment, useContext } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  Fragment,
+  useContext,
+  useCallback,
+} from "react";
 import { createPortal } from "react-dom";
 import MenuIcons from "../icons/MenuIcons";
 import usePreventBodyScroll from "@/hooks/usePreventBodyScroll";
@@ -55,6 +62,53 @@ const EngraveLoadModal: React.FC<ModalProps> = ({
     } else return JSON.parse(JSON.stringify(currentPresetList));
   }, [currentPresetList]);
 
+  const loadSetting = useCallback(
+    (index: number) => {
+      // 주의) parse된 데이터를 사용해야 하므로 parsedPresetList 사용
+      const tmpPresetData = JSON.parse(
+        JSON.stringify(parsedPresetList[index].data)
+      );
+      setTargetList(tmpPresetData.targetList);
+      setEquipList(tmpPresetData.equipList);
+      setAbilityList(tmpPresetData.abilityList);
+      setNegativeEngrave(tmpPresetData.negativeEngrave);
+      setNecklaceState(tmpPresetData.accessoryList[0]);
+      setEarringState1(tmpPresetData.accessoryList[1]);
+      setEarringState2(tmpPresetData.accessoryList[2]);
+      setRingState1(tmpPresetData.accessoryList[3]);
+      setRingState2(tmpPresetData.accessoryList[4]);
+      closeFunc!();
+    },
+    [
+      parsedPresetList,
+      setTargetList,
+      setEquipList,
+      setAbilityList,
+      setNegativeEngrave,
+      setNecklaceState,
+      setEarringState1,
+      setEarringState2,
+      setRingState1,
+      setRingState2,
+      closeFunc,
+    ]
+  );
+  const deleteSetting = useCallback(
+    (index: number) => {
+      // 주의) localStorage에 저장된 상태의 데이터를 사용해야 하므로 currentPresetList 사용 (data가 string인 상태)
+      const tmpDeletedPresetData = currentPresetList.filter(
+        (preset: EngravePreset, i: number) => index !== i
+      );
+      localStorage.setItem(
+        "engraveSettingInfo",
+        JSON.stringify(tmpDeletedPresetData)
+      );
+      setCurrentPresetList(tmpDeletedPresetData);
+      alert("삭제 완료!");
+    },
+    [currentPresetList, setCurrentPresetList]
+  );
+
   return isOpen && ready ? (
     createPortal(
       <div
@@ -101,7 +155,7 @@ const EngraveLoadModal: React.FC<ModalProps> = ({
                             className="loadModalSimpleListItem"
                           >
                             <h3
-                              className="modalTitle presetName"
+                              className="modalSubtitle presetName"
                               title={e.name}
                             >
                               {e.name.length >= 7
@@ -133,7 +187,7 @@ const EngraveLoadModal: React.FC<ModalProps> = ({
                                 onClick={() => {
                                   if (
                                     confirm(
-                                      `${e.name} 세팅을 삭제하시겠습니까?`
+                                      `${e.name} 프리셋을 삭제하시겠습니까?`
                                     )
                                   )
                                     deleteSetting(i);
@@ -261,8 +315,8 @@ const EngraveLoadModal: React.FC<ModalProps> = ({
                                             목걸이
                                           </h4>
                                           <p>
-                                            <span>▪️ {acc.stat1.type}</span>
-                                            <span> ▪️ {acc.stat2.type}</span>
+                                            <span># {acc.stat1.type}</span>
+                                            <span> # {acc.stat2.type}</span>
                                           </p>
                                         </>
                                       ) : acc.type === 1 ? (
@@ -275,7 +329,7 @@ const EngraveLoadModal: React.FC<ModalProps> = ({
                                             />
                                             귀걸이
                                           </h4>
-                                          <p>▪️ {acc.stat1.type}</p>
+                                          <p># {acc.stat1.type}</p>
                                         </>
                                       ) : (
                                         <>
@@ -287,7 +341,7 @@ const EngraveLoadModal: React.FC<ModalProps> = ({
                                             />
                                             반지
                                           </h4>
-                                          <p>▪️ {acc.stat1.type}</p>
+                                          <p># {acc.stat1.type}</p>
                                         </>
                                       )}
                                       <p>
@@ -309,7 +363,12 @@ const EngraveLoadModal: React.FC<ModalProps> = ({
                                 <button
                                   className="myButtons"
                                   onClick={() => {
-                                    deleteSetting(presetIndex);
+                                    if (
+                                      confirm(
+                                        `${e.name} 프리셋을 삭제하시겠습니까?`
+                                      )
+                                    )
+                                      deleteSetting(presetIndex);
                                   }}
                                 >
                                   삭제하기
@@ -340,35 +399,6 @@ const EngraveLoadModal: React.FC<ModalProps> = ({
   ) : (
     <></>
   );
-
-  function loadSetting(index: number) {
-    // 주의) parse된 데이터를 사용해야 하므로 parsedPresetList 사용
-    const tmpPresetData = JSON.parse(
-      JSON.stringify(parsedPresetList[index].data)
-    );
-    setTargetList(tmpPresetData.targetList);
-    setEquipList(tmpPresetData.equipList);
-    setAbilityList(tmpPresetData.abilityList);
-    setNegativeEngrave(tmpPresetData.negativeEngrave);
-    setNecklaceState(tmpPresetData.accessoryList[0]);
-    setEarringState1(tmpPresetData.accessoryList[1]);
-    setEarringState2(tmpPresetData.accessoryList[2]);
-    setRingState1(tmpPresetData.accessoryList[3]);
-    setRingState2(tmpPresetData.accessoryList[4]);
-    closeFunc!();
-  }
-  function deleteSetting(index: number) {
-    // 주의) localStorage에 저장된 상태의 데이터를 사용해야 하므로 currentPresetList 사용 (data가 string인 상태)
-    const tmpDeletedPresetData = currentPresetList.filter(
-      (preset: EngravePreset, i: number) => index !== i
-    );
-    localStorage.setItem(
-      "engraveSettingInfo",
-      JSON.stringify(tmpDeletedPresetData)
-    );
-    setCurrentPresetList(tmpDeletedPresetData);
-    alert("삭제 완료!");
-  }
 };
 
 export default EngraveLoadModal;

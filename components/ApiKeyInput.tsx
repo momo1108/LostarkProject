@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { MenuIcons, Edit, Check, Info } from "@/components/icons/Index";
 import Link from "next/link";
 import { ApiKeyInputProps } from "@/types/CustomType";
+import MyInput from "./custom/MyInput";
 
 const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ shine }) => {
   const [apiKey, setApiKey] = useState<string>("");
@@ -9,8 +10,8 @@ const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ shine }) => {
   const apiKeyRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const key = localStorage.getItem("loapleEngraveApiKey");
-    if (key === null) localStorage.setItem("loapleEngraveApiKey", "");
+    const key = localStorage.getItem("loapleApiKey");
+    if (key === null) localStorage.setItem("loapleApiKey", "");
     else setApiKey(key);
   }, []);
 
@@ -20,28 +21,15 @@ const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ shine }) => {
         className={`${editApiKey ? "apiDiv" : "hidden"}${
           shine ? " shinyShadow" : ""
         }`}
-        data-editing="true"
       >
-        <label>
-          <input
-            className={"apiKeyInput"}
-            type="text"
-            spellCheck="false"
-            ref={apiKeyRef}
-            required
-          />
-          <div className={"placeholder"}>API 키 입력</div>
-        </label>
+        <MyInput placeholder="API 키 입력" ref={apiKeyRef} />
         <div className="flex gap-1 items-center">
           <button
             className="myButtons"
             onClick={() => {
               setApiKey(apiKeyRef!.current!.value);
               setEditApiKey(false);
-              localStorage.setItem(
-                "loapleEngraveApiKey",
-                apiKeyRef!.current!.value
-              );
+              localStorage.setItem("loapleApiKey", apiKeyRef!.current!.value);
             }}
           >
             <Check size={16} color="#fff" />

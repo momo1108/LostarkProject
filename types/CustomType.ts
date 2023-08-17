@@ -44,6 +44,11 @@ export type CustomLoaderProps = {
   children?: React.ReactNode;
 };
 
+export type CustomInputProps = {
+  className?: string;
+  placeholder: string;
+};
+
 export type ApiKeyInputProps = {
   shine: boolean;
 };

@@ -93,6 +93,7 @@ onmessage = async (e: {
         },
         apiKey
       );
+      res.data.Items = res.data.TotalCount === 0 ? [] : res.data.Items;
 
       const index = tmpData.findIndex((data) => data.Name === reqData[i].skill);
       if (index < 0) {

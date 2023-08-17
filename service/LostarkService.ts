@@ -49,7 +49,7 @@ export default class LostarkService {
 
   /**
    * GET
-   * /armories/characters/{characterName}
+   * /armories/characters/{characterName}/profiles
    * Returns a summary of basic stats by a character name.
    */
   public static getCharacterProfile = async (

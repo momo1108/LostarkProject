@@ -611,6 +611,24 @@ $myLightBlue: #76b1ff;
   }
 }
 
+.tripodModalDiv {
+  @apply px-4;
+  .searchDiv {
+    @apply flex gap-2 justify-center items-end;
+    input {
+      @apply text-base font-bold;
+    }
+    button {
+      @apply text-base py-1 leading-5;
+    }
+  }
+  .resultDiv {
+    .resultContentDiv {
+      @apply h-[200px] border border-[#fff];
+    }
+  }
+}
+
 @keyframes spinning {
   100% {
     stroke-dashoffset: 136;

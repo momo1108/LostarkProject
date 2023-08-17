@@ -5,3 +5,5 @@ export type ModalProps = {
   data: string;
   closeFunc?: () => void;
 };
+
+export type ModalState = "INIT" | "LOADING" | "DONE";

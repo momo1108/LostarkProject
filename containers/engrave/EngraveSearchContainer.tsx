@@ -481,7 +481,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
       alert("어빌리티 스톤의 감소 각인을 설정해주세요.");
       return;
     }
-    const apiKey = localStorage.getItem("loapleEngraveApiKey");
+    const apiKey = localStorage.getItem("loapleApiKey");
     if (!apiKey) {
       alert(
         "API Key 를 발급받아서 등록해주세요.\n등록 방법은 상단의 등록방법을 참조해주세요."
