@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
 import MenuIcons from "../icons/MenuIcons";
 import usePreventBodyScroll from "@/hooks/usePreventBodyScroll";
 import { ModalProps, ModalState } from "@/types/ModalType";
 import styles from "@/styles/tripod/Body.module.scss";
 import MyInput from "../custom/MyInput";
+import LostarkService from "@/service/LostarkService";
+import { CharData } from "@/types/ReducerType";
 
 const TripodCopyModal: React.FC<ModalProps> = ({
   children,
@@ -16,7 +18,30 @@ const TripodCopyModal: React.FC<ModalProps> = ({
   const { disableScroll, enableScroll } = usePreventBodyScroll();
   const [modalState, setModalState] = useState<ModalState>("INIT");
   const [ready, setReady] = useState<boolean>(false);
+  const [profile, setProfile] = useState<CharData>();
   const nameRef = useRef<HTMLInputElement>(null);
+  const search = useCallback(async () => {
+    setModalState("LOADING");
+    if (nameRef.current) {
+      nameRef.current.value = nameRef.current.value.trim();
+      if (nameRef.current.value) {
+        try {
+          const res = await LostarkService.getCharacterProfile(
+            nameRef.current.value
+          );
+          setProfile(res);
+        } catch (err) {
+          alert(err);
+          console.error(err);
+          setModalState("DONE");
+        }
+      } else {
+        alert("닉네임을 입력해주세요.");
+        setModalState("DONE");
+        nameRef.current.focus();
+      }
+    } else return;
+  }, [nameRef]);
 
   useEffect(() => {
     //     flow
@@ -36,6 +61,11 @@ const TripodCopyModal: React.FC<ModalProps> = ({
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    console.log(profile);
+    setModalState("DONE");
+  }, [profile]);
+
   return isOpen && ready ? (
     createPortal(
       <div className={`modalRoot ${className || ""}`} onClick={closeFunc}>
@@ -50,8 +80,14 @@ const TripodCopyModal: React.FC<ModalProps> = ({
           </button>
           <div className={styles.tripodModalDiv}>
             <div className={styles.searchDiv}>
-              <MyInput placeholder="캐릭터명" ref={nameRef} />
-              <button className="myButtons">검색</button>
+              <MyInput
+                placeholder="캐릭터명"
+                ref={nameRef}
+                onKeyEnter={search}
+              />
+              <button className="myButtons" onClick={search}>
+                검색
+              </button>
             </div>
             <div className={styles.resultDiv}>
               <h4 className="modalTitle">검색 결과</h4>
@@ -61,11 +97,7 @@ const TripodCopyModal: React.FC<ModalProps> = ({
                 ) : modalState === "LOADING" ? (
                   <p>검색을 진행중입니다.</p>
                 ) : (
-                  <>
-                    <p>닉네임</p>
-                    <p>직업</p>
-                    <p>레벨</p>
-                  </>
+                  <div></div>
                 )}
               </div>
             </div>

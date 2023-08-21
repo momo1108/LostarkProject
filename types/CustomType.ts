@@ -46,6 +46,7 @@ export type CustomLoaderProps = {
 
 export type CustomInputProps = {
   className?: string;
+  onKeyEnter?: () => void;
   placeholder: string;
 };
 

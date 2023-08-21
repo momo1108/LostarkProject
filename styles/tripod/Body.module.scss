@@ -612,7 +612,7 @@ $myLightBlue: #76b1ff;
 }
 
 .tripodModalDiv {
-  @apply px-4;
+  @apply flex flex-col gap-2 px-4;
   .searchDiv {
     @apply flex gap-2 justify-center items-end;
     input {
@@ -624,7 +624,7 @@ $myLightBlue: #76b1ff;
   }
   .resultDiv {
     .resultContentDiv {
-      @apply h-[200px] border border-[#fff];
+      @apply border border-[#fff];
     }
   }
 }
