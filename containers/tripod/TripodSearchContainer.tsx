@@ -1,12 +1,11 @@
 import TripodSearchBlock from "@/components/tripod/bodycomponent/TripodSearchBlock";
-import TripodContext from "@/contexts/TripodResultContext";
 import TripodSearchContext from "@/contexts/TripodSearchContext";
 import LostarkService from "@/service/LostarkService";
-import { AuctionItem } from "@/types/LostarkApiType";
 import { classDetailMap } from "@/types/GlobalType";
 import {
   FilteredSkillType,
   ParsedFilteredSkillType,
+  SkillType,
   TripodPageStatus,
   TripodReqType,
   TripodResType,
@@ -48,6 +47,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   const [selectedSkillIndex, setSelectedSkillIndex] = useState<number>(0);
   const [minimizeSelector, setMinimizeSelector] = useState<boolean>(false);
   const [myWorker, setMyWorker] = useState<Worker>();
+  const [copyData, setCopyData] = useState<SkillType[]>([]);
 
   useEffect(() => {
     setMyWorker(
@@ -97,7 +97,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   }, [myWorker]);
 
   useEffect(() => {
-    setPageStatus("LOADING_SKILL");
+    if (pageStatus !== "COPYING") setPageStatus("LOADING_SKILL");
     // setLoadingSkillset(true);
     setSelectedSkillIndex(0);
     const url =
@@ -144,12 +144,14 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
         setPageStatus("DONE");
         // setSelectingTripod(false);
       }, 500);
-    } else {
+    } else if (pageStatus === "LOADING_SKILL") {
       setSelectedSkills(Array(tripodData.length).fill(false));
       setTimeout(() => {
         setPageStatus("DONE");
         // setLoadingSkillset(false);
       }, 500);
+    } else if (pageStatus === "COPYING") {
+      // nothing
     }
   }, [tripodData]);
 
@@ -340,6 +342,29 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
       )
     );
   }, [subClass, selectedData]);
+
+  const copyClass = useCallback(
+    async (charName: string, className: string) => {
+      try {
+        setPageStatus("COPYING");
+        const { data } = await LostarkService.getCharacterSkills(charName);
+        setCopyData(data);
+        setRootClass(
+          rootClassList.find((e) => classDetailMap[e].includes(className))!
+        );
+        setSubClass(className);
+        if (subClass !== className) setSubClass(className);
+      } catch (err) {
+        alert("복사 실패");
+        console.error(err);
+      }
+    },
+    [rootClassList, subClass, classDetailMap]
+  );
+
+  const copyTripod = useCallback(() => {
+    // copyData에서 tripodData로 적용하기.
+  }, []);
 
   return (
     <TripodSearchContext.Provider

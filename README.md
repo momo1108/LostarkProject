@@ -1015,6 +1015,7 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
   - 모달에 내용을 push하는 형식. type으로 완료/에러 구분?
   - 전역에서 동작을 해야함. redux 사용해야할듯? 아니면 react context? 중복이 되나?
 - info 아이콘, 툴팁 묶어서 컴포넌트화하기
+- engrave modal css 분리하기. global -> engrave body
 
 #### 에러 업데이트
 

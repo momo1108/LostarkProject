@@ -55,8 +55,9 @@ export default function useSkillParser() {
       let singleSkillData: FilteredSkillType[] | null = null;
       for (let user = 0; user < userList[cls].length; user++) {
         try {
-          const skillData: SkillType[] =
-            await LostarkService.getCharacterSkills(userList[cls][user]);
+          const { data: skillData } = await LostarkService.getCharacterSkills(
+            userList[cls][user]
+          );
           singleSkillData = singleClassParser(skillData);
           break;
         } catch (err) {

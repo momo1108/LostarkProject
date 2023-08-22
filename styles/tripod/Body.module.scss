@@ -569,9 +569,9 @@ $myLightBlue: #76b1ff;
       }
       .resultLoader {
         @apply justify-center items-center;
-        .spinnerWrapper {
+        .loaderWrapper {
           @apply relative w-[95%] max-w-[400px];
-          .spinnerIcon {
+          .loaderIcon {
             @apply w-full h-auto max-w-[400px] max-h-[400px];
           }
           .resultLoaderContent {
@@ -623,8 +623,39 @@ $myLightBlue: #76b1ff;
     }
   }
   .resultDiv {
+    @apply flex flex-col gap-2;
+    .messageDiv {
+      @apply text-center text-lg text-[#aaa];
+    }
     .resultContentDiv {
-      @apply border border-[#fff];
+      @apply bg-[#0009] px-2 py-4 rounded-lg border border-[#957b5c];
+      .resultProfileDiv {
+        @apply flex items-center gap-4 pl-2;
+        .serverNameDiv {
+          @apply flex flex-col;
+          .serverSpan {
+            @apply text-sm;
+          }
+          .nameSpan {
+            @apply text-lg leading-5 font-extrabold max-w-[160px] truncate;
+          }
+        }
+        .classLevelDiv {
+          @apply flex flex-col;
+          .classSpan {
+            @apply text-sm;
+          }
+          .levelP {
+            @apply flex gap-1 items-center leading-4 font-bold;
+            .levelSpan {
+              @apply text-lg font-extrabold leading-5;
+            }
+          }
+        }
+        .buttonDiv {
+          @apply flex flex-auto justify-end;
+        }
+      }
     }
   }
 }

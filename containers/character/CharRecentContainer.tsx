@@ -27,14 +27,23 @@ const CharRecentContainer: React.FC<CharRecentContainerProps> = ({
 
   const updateSrc = useCallback(
     async (index: number) => {
-      const profileData = await LostarkService.getCharacterProfile(
-        searchedDataList[index].name
-      );
-      setSearchedDataList((e) => [
-        ...e.slice(0, index),
-        { ...e[index], img: profileData.CharacterImage },
-        ...e.slice(index + 1),
-      ]);
+      try {
+        const { data } = await LostarkService.getCharacterProfile(
+          searchedDataList[index].name
+        );
+        setSearchedDataList((e) => [
+          ...e.slice(0, index),
+          {
+            ...e[index],
+            img: data.CharacterImage,
+            level: parseInt(data.ItemMaxLevel.replace(",", "")),
+          },
+          ...e.slice(index + 1),
+        ]);
+      } catch (err) {
+        console.error(err);
+        alert(`"${searchedDataList[index].name}" 캐릭터 이미지 갱신 실패`);
+      }
     },
     [searchedDataList, setSearchedDataList]
   );

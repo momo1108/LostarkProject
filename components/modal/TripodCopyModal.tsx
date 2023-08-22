@@ -1,4 +1,11 @@
-import { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+  useCallback,
+  useContext,
+} from "react";
 import { createPortal } from "react-dom";
 import MenuIcons from "../icons/MenuIcons";
 import usePreventBodyScroll from "@/hooks/usePreventBodyScroll";
@@ -6,7 +13,9 @@ import { ModalProps, ModalState } from "@/types/ModalType";
 import styles from "@/styles/tripod/Body.module.scss";
 import MyInput from "../custom/MyInput";
 import LostarkService from "@/service/LostarkService";
-import { CharData } from "@/types/ReducerType";
+import { ArmoryProfileType } from "@/types/LostarkApiType";
+import { Copy } from "../icons/Index";
+import TripodSearchContext from "@/contexts/TripodSearchContext";
 
 const TripodCopyModal: React.FC<ModalProps> = ({
   children,
@@ -15,29 +24,31 @@ const TripodCopyModal: React.FC<ModalProps> = ({
   data,
   closeFunc,
 }): JSX.Element | null => {
+  const { subClass, setSubClass, tripodData } = useContext(TripodSearchContext);
   const { disableScroll, enableScroll } = usePreventBodyScroll();
   const [modalState, setModalState] = useState<ModalState>("INIT");
   const [ready, setReady] = useState<boolean>(false);
-  const [profile, setProfile] = useState<CharData>();
+  const [profile, setProfile] = useState<ArmoryProfileType>();
   const nameRef = useRef<HTMLInputElement>(null);
+
   const search = useCallback(async () => {
     setModalState("LOADING");
     if (nameRef.current) {
       nameRef.current.value = nameRef.current.value.trim();
       if (nameRef.current.value) {
         try {
-          const res = await LostarkService.getCharacterProfile(
+          const { data } = await LostarkService.getCharacterProfile(
             nameRef.current.value
           );
-          setProfile(res);
+          setProfile(data);
         } catch (err) {
-          alert(err);
+          alert("검색 실패");
           console.error(err);
-          setModalState("DONE");
+          setModalState("ERROR");
         }
       } else {
         alert("닉네임을 입력해주세요.");
-        setModalState("DONE");
+        setModalState("ERROR");
         nameRef.current.focus();
       }
     } else return;
@@ -63,7 +74,7 @@ const TripodCopyModal: React.FC<ModalProps> = ({
 
   useEffect(() => {
     console.log(profile);
-    setModalState("DONE");
+    if (profile) setModalState("DONE");
   }, [profile]);
 
   return isOpen && ready ? (
@@ -76,7 +87,7 @@ const TripodCopyModal: React.FC<ModalProps> = ({
           }}
         >
           <button className="modalCloseBtn" onClick={closeFunc}>
-            <MenuIcons type={3} size={30} />
+            <MenuIcons type={3} size={20} width={2} color="#957b5c" />
           </button>
           <div className={styles.tripodModalDiv}>
             <div className={styles.searchDiv}>
@@ -90,19 +101,53 @@ const TripodCopyModal: React.FC<ModalProps> = ({
               </button>
             </div>
             <div className={styles.resultDiv}>
-              <h4 className="modalTitle">검색 결과</h4>
+              <h4 className="modalSubtitle">검색 결과</h4>
               <div className={styles.resultContentDiv}>
                 {modalState === "INIT" ? (
-                  <p>검색을 진행해주세요</p>
+                  <div className={styles.messageDiv}>검색을 진행해 주세요.</div>
                 ) : modalState === "LOADING" ? (
-                  <p>검색을 진행중입니다.</p>
+                  <div className={styles.messageDiv}>검색을 진행 중입니다.</div>
+                ) : modalState === "DONE" ? (
+                  <div className={styles.resultProfileDiv}>
+                    <div className={styles.serverNameDiv}>
+                      <span className={styles.serverSpan}>
+                        {profile!.ServerName}
+                      </span>
+                      <span
+                        className={styles.nameSpan}
+                        title={profile!.CharacterName}
+                      >
+                        {profile!.CharacterName}
+                      </span>
+                    </div>
+                    <div className={styles.classLevelDiv}>
+                      <span className={styles.classSpan}>
+                        {profile!.CharacterClassName}
+                      </span>
+                      <p className={styles.levelP}>
+                        <span>Lv.</span>
+                        <span className={styles.levelSpan}>
+                          {profile!.ItemMaxLevel}
+                        </span>
+                      </p>
+                    </div>
+                    <div className={styles.buttonDiv}>
+                      <button
+                        className={`myButtons ${styles.copyButton}`}
+                        onClick={() => {}}
+                      >
+                        <Copy size={20} fill="#eee" />
+                        <span>세팅 복사</span>
+                      </button>
+                    </div>
+                  </div>
                 ) : (
-                  <div></div>
+                  <div className={styles.errorDiv}>에러</div>
                 )}
               </div>
             </div>
             <div>
-              <h4 className="modalTitle">최근 검색 목록</h4>
+              <h4 className="modalSubtitle">최근 검색 목록</h4>
             </div>
           </div>
           {children}

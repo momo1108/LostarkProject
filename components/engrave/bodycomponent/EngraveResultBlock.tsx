@@ -6,7 +6,7 @@ import {
   Necklace,
   Ring2,
   Skip,
-  Spinner,
+  Loader,
   Triangle,
   Dots,
   MagnifyingGlass,
@@ -312,7 +312,7 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
         >
           <div className={styles.presentationSection}>
             <div className={styles.apiSearch}>
-              <Spinner
+              <Loader
                 size={400}
                 width={6}
                 progress={currentCase / totalCases}
@@ -336,7 +336,7 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
               />
             </div>
             <div className={styles.findCombination}>
-              <Spinner
+              <Loader
                 size={400}
                 width={6}
                 progress={progress}

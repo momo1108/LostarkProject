@@ -1,6 +1,6 @@
-import { SpinnerIconProps } from "@/types/CustomType";
+import { LoaderIconProps } from "@/types/CustomType";
 
-const Spinner: React.FC<SpinnerIconProps> = ({
+const Loader: React.FC<LoaderIconProps> = ({
   size = 300,
   color = "#bbb",
   width = 2.5,
@@ -33,4 +33,4 @@ const Spinner: React.FC<SpinnerIconProps> = ({
     </g>
   </svg>
 );
-export default Spinner;
+export default Loader;

@@ -10,7 +10,8 @@ export type TripodPageStatus =
   | "LOADING_SKILL"
   | "SELECTING_SKILL"
   | "SELECTING_TRIPOD"
-  | "SEARCHING";
+  | "SEARCHING"
+  | "COPYING";
 
 export type ButtonDivStatus = "AVAILABLE" | "SETTING_USAGE" | "SETTING_COST";
 export type TotalStatus = "IncludeWithCost" | "IncludeWithoutCost" | "Exclude";

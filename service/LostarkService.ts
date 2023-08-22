@@ -34,17 +34,13 @@ export default class LostarkService {
    */
   public static getCharacterSummary = async (
     name: string
-  ): Promise<CharData> => {
-    const res = await axios.get(`${this.url}armories/characters/${name}`, {
+  ): Promise<AxiosResponse<CharData, any>> => {
+    return await axios.get(`${this.url}armories/characters/${name}`, {
       headers: {
         Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
         Accept: "application/json",
       },
     });
-    if (res.data) return res.data;
-    else {
-      throw new Error("존재하지 않는 닉네임 입니다!");
-    }
   };
 
   /**
@@ -54,20 +50,13 @@ export default class LostarkService {
    */
   public static getCharacterProfile = async (
     name: string
-  ): Promise<ArmoryProfileType> => {
-    const res = await axios.get(
-      `${this.url}armories/characters/${name}/profiles`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
-          Accept: "application/json",
-        },
-      }
-    );
-    if (res.data) return res.data;
-    else {
-      throw new Error("존재하지 않는 닉네임 입니다!");
-    }
+  ): Promise<AxiosResponse<ArmoryProfileType, any>> => {
+    return await axios.get(`${this.url}armories/characters/${name}/profiles`, {
+      headers: {
+        Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
+        Accept: "application/json",
+      },
+    });
   };
 
   /**
@@ -77,8 +66,8 @@ export default class LostarkService {
    */
   public static getCharacterSkills = async (
     name: string
-  ): Promise<SkillType[]> => {
-    const res = await axios.get(
+  ): Promise<AxiosResponse<SkillType[], any>> => {
+    return await axios.get(
       `${this.url}armories/characters/${name}/combat-skills`,
       {
         headers: {
@@ -87,10 +76,6 @@ export default class LostarkService {
         },
       }
     );
-    if (res.data) return res.data;
-    else {
-      throw new Error("존재하지 않는 닉네임 입니다!");
-    }
   };
 
   /**

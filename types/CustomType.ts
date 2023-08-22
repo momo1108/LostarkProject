@@ -3,7 +3,7 @@ export interface PairIconProps extends IconProps {
   fill2?: string;
 }
 
-export interface SpinnerIconProps extends IconProps {
+export interface LoaderIconProps extends IconProps {
   progress: number;
 }
 

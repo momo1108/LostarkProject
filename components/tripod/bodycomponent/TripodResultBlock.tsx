@@ -4,7 +4,7 @@ import {
   Empty,
   List,
   MagnifyingGlass,
-  Spinner,
+  Loader,
   Tripod,
 } from "@/components/icons/Index";
 import TripodResultContext from "@/contexts/TripodResultContext";
@@ -257,7 +257,7 @@ const TripodResultBlock: React.FC = () => {
           display={pageStatus === "SEARCHING" ? "flex" : "none"}
         >
           <div className={styles.spinnerWrapper}>
-            <Spinner
+            <Loader
               className={styles.spinnerIcon}
               width={6}
               progress={currentCase / totalCases}

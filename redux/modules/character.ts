@@ -52,7 +52,7 @@ export const { getChar } = createActions("GET_CHAR", { prefix });
 function* getCharSaga(action: Action<string>) {
   try {
     yield put(pending());
-    const data: { ArmoryProfile: any } = yield call(
+    const { data } = yield call(
       LostarkService.getCharacterSummary,
       action.payload
     );

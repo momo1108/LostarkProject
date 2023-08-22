@@ -19,7 +19,7 @@ import Target from "./Target";
 import Triangle from "./Triangle";
 import TriangleSpinner from "./TriangleSpinner";
 import Tripod from "./Tripod";
-import Spinner from "./Spinner";
+import Loader from "./Loader";
 import Box from "./Box";
 import Gear from "./Gear";
 import Github from "./Github";
@@ -57,7 +57,7 @@ export {
   Save,
   Search,
   Skip,
-  Spinner,
+  Loader,
   Target,
   Triangle,
   TriangleSpinner,

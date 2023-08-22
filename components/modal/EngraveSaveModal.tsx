@@ -149,7 +149,7 @@ const EngraveSaveModal: React.FC<ModalProps> = ({
           }}
         >
           <button className="modalCloseBtn" onClick={closeFunc}>
-            <MenuIcons type={3} size={30} />
+            <MenuIcons type={3} size={20} width={2} color="#957b5c" />
           </button>
           <div className="saveModalContentDiv hideScroll">
             <div className="saveModalSavedDiv">

@@ -45,12 +45,12 @@ export default function CharBody() {
   useEffect(() => {
     const initData = localStorage.getItem("recentSearch");
     if (initData) setSearchedDataList(JSON.parse(initData));
-    setLoadSDL(true);
   }, []);
 
   useEffect(() => {
     if (loadSDL)
       localStorage.setItem("recentSearch", JSON.stringify(searchedDataList));
+    if (!loadSDL) setLoadSDL(true);
   }, [searchedDataList]);
 
   const push = useCallback(
