@@ -11,6 +11,7 @@ export type TripodPageStatus =
   | "SELECTING_SKILL"
   | "SELECTING_TRIPOD"
   | "SEARCHING"
+  | "BEFORE_COPY"
   | "COPYING";
 
 export type ButtonDivStatus = "AVAILABLE" | "SETTING_USAGE" | "SETTING_COST";

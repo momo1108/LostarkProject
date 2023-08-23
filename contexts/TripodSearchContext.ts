@@ -25,6 +25,7 @@ type TripodSearchContextType = {
   setMinimizeSelector: Dispatch<SetStateAction<boolean>>;
   searchTripod: () => Promise<void>;
   pageStatus: TripodPageStatus;
+  copyClass: (charName: string, className: string) => Promise<void>;
 };
 
 const TripodSearchContext = createContext<TripodSearchContextType>({
@@ -50,6 +51,7 @@ const TripodSearchContext = createContext<TripodSearchContextType>({
   setMinimizeSelector: () => {},
   searchTripod: async () => {},
   pageStatus: "INIT",
+  copyClass: async (charName: string, className: string) => {},
 });
 
 export default TripodSearchContext;

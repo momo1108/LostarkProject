@@ -24,7 +24,7 @@ const TripodCopyModal: React.FC<ModalProps> = ({
   data,
   closeFunc,
 }): JSX.Element | null => {
-  const { subClass, setSubClass, tripodData } = useContext(TripodSearchContext);
+  const { copyClass } = useContext(TripodSearchContext);
   const { disableScroll, enableScroll } = usePreventBodyScroll();
   const [modalState, setModalState] = useState<ModalState>("INIT");
   const [ready, setReady] = useState<boolean>(false);
@@ -134,7 +134,12 @@ const TripodCopyModal: React.FC<ModalProps> = ({
                     <div className={styles.buttonDiv}>
                       <button
                         className={`myButtons ${styles.copyButton}`}
-                        onClick={() => {}}
+                        onClick={() => {
+                          copyClass(
+                            profile!.CharacterName,
+                            profile!.CharacterClassName
+                          );
+                        }}
                       >
                         <Copy size={20} fill="#eee" />
                         <span>세팅 복사</span>

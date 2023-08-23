@@ -97,7 +97,8 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   }, [myWorker]);
 
   useEffect(() => {
-    if (pageStatus !== "COPYING") setPageStatus("LOADING_SKILL");
+    if (pageStatus !== "COPYING" && pageStatus !== "BEFORE_COPY")
+      setPageStatus("LOADING_SKILL");
     // setLoadingSkillset(true);
     setSelectedSkillIndex(0);
     const url =
@@ -139,6 +140,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
 
   useEffect(() => {
     // console.log(tripodData);
+    console.log(pageStatus);
     if (pageStatus === "SELECTING_TRIPOD") {
       setTimeout(() => {
         setPageStatus("DONE");
@@ -150,16 +152,24 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
         setPageStatus("DONE");
         // setLoadingSkillset(false);
       }, 500);
+    } else if (pageStatus === "BEFORE_COPY") {
+      setPageStatus("COPYING");
+      copyTripod();
     } else if (pageStatus === "COPYING") {
-      // nothing
+      setCopyData([]);
+      setTimeout(() => {
+        setPageStatus("DONE");
+      }, 500);
     }
   }, [tripodData]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setPageStatus("DONE");
-      // setSelectingSkill(false);
-    }, 500);
+    if (pageStatus !== "COPYING") {
+      setTimeout(() => {
+        setPageStatus("DONE");
+        // setSelectingSkill(false);
+      }, 500);
+    }
   }, [selectedSkills]);
 
   const selectedData = useMemo(() => {
@@ -346,25 +356,64 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   const copyClass = useCallback(
     async (charName: string, className: string) => {
       try {
-        setPageStatus("COPYING");
+        setPageStatus("BEFORE_COPY");
         const { data } = await LostarkService.getCharacterSkills(charName);
         setCopyData(data);
-        setRootClass(
-          rootClassList.find((e) => classDetailMap[e].includes(className))!
-        );
-        setSubClass(className);
-        if (subClass !== className) setSubClass(className);
+        if (subClass !== className) {
+          setRootClass(
+            rootClassList.find((e) => classDetailMap[e].includes(className))!
+          );
+          setSubClass(className);
+        } else {
+          setTripodData(JSON.parse(JSON.stringify(tripodData)));
+        }
       } catch (err) {
         alert("복사 실패");
         console.error(err);
       }
     },
-    [rootClassList, subClass, classDetailMap]
+    [rootClassList, subClass, classDetailMap, tripodData]
   );
 
   const copyTripod = useCallback(() => {
     // copyData에서 tripodData로 적용하기.
-  }, []);
+    const tmp_SelectedSkills = Array(tripodData.length).fill(false);
+    const tmp_TripodData: ParsedFilteredSkillType[] = JSON.parse(
+      JSON.stringify(tripodData)
+    );
+
+    copyData
+      .filter((skill) => !skill.IsAwakening && skill.Tripods.length)
+      .forEach((skill) => {
+        // console.log(`skill : ${skill.Name}`);
+        const skillIndex = tmp_TripodData.findIndex(
+          (parsedSkill) => parsedSkill.Name === skill.Name
+        );
+        skill.Tripods.forEach((tripod) => {
+          // console.log(`tripod : ${tripod.Name}`);
+          if (tripod.IsSelected) {
+            tmp_SelectedSkills[skillIndex] = true;
+            const tripodIndex = tmp_TripodData[skillIndex].Tripods.findIndex(
+              (parsedTripod) => parsedTripod.Name === tripod.Name
+            );
+            const originalTripod =
+              tmp_TripodData[skillIndex].Tripods[tripodIndex];
+            if (originalTripod.Upgradable && tripod.Level >= 4) {
+              originalTripod.Level = tripod.Level;
+              originalTripod.IsSelected = true;
+            }
+            if (!originalTripod.Upgradable) {
+              originalTripod.IsSelected = true;
+            }
+          }
+        });
+      });
+
+    console.log(tmp_SelectedSkills);
+    console.log(tmp_TripodData);
+    setSelectedSkills(tmp_SelectedSkills);
+    setTripodData(tmp_TripodData);
+  }, [tripodData, copyData]);
 
   return (
     <TripodSearchContext.Provider
@@ -391,6 +440,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
         setMinimizeSelector,
         searchTripod,
         pageStatus,
+        copyClass,
       }}
     >
       <TripodSearchBlock />
