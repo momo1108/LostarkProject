@@ -167,7 +167,7 @@ const EngraveSearchBlock: React.FC = () => {
               }}
               onKeyDown={(event) => {
                 const updown = Math.floor(
-                  dropdownRef.current.offsetWidth / 200
+                  dropdownRef.current!.offsetWidth / 200
                 );
                 const keyValue: { [key: string]: number } = {
                   ArrowLeft: -1,
@@ -190,18 +190,18 @@ const EngraveSearchBlock: React.FC = () => {
                     } else {
                       next = tmpDropdownSelector;
                     }
-                    if (dropdownRef.current.clientHeight >= 400) {
+                    if (dropdownRef.current!.clientHeight >= 400) {
                       const line = Math.floor(next / updown);
                       const startLine = Math.ceil(
-                        dropdownRef.current.scrollTop / 50
+                        dropdownRef.current!.scrollTop / 50
                       );
                       const lastLine =
-                        Math.floor(dropdownRef.current.scrollTop / 50) + 7;
+                        Math.floor(dropdownRef.current!.scrollTop / 50) + 7;
                       // console.log(line, startLine, lastLine);
                       if (line > lastLine || line < startLine) {
                         if (keyValue[event.key] < 0)
-                          dropdownRef.current.scrollTop = line * 50;
-                        else dropdownRef.current.scrollTop = (line - 7) * 50;
+                          dropdownRef.current!.scrollTop = line * 50;
+                        else dropdownRef.current!.scrollTop = (line - 7) * 50;
                       }
                     }
                     return next;
