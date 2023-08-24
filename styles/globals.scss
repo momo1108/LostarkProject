@@ -111,7 +111,7 @@ html {
       }
     }
     .loadModalContentDiv {
-      @apply flex flex-col gap-2 pl-4 pr-2;
+      @apply flex flex-col h-full gap-2 pl-4 pr-2;
       .loadModalContentDivHeader {
         @apply flex justify-center gap-2 pr-3;
         .loadModalContentViewBtn {
@@ -193,7 +193,7 @@ html {
         }
       }
       .loadModalEmptyDiv {
-        @apply flex flex-col items-center text-lg xs:text-xl font-bold text-[#888] py-4 text-center;
+        @apply flex flex-col my-auto items-center text-lg xs:text-xl font-bold text-[#888] py-4 text-center;
       }
     }
   }
@@ -486,6 +486,21 @@ body,
   @apply inline-block cursor-pointer hover:stroke-[#437dcb] transition-all duration-200 mx-2;
 }
 
+.triangleSpinner {
+  @apply inline-block;
+  polygon {
+    stroke-dasharray: 17;
+    animation: 2.5s cubic-bezier(0.35, 0.04, 0.63, 0.95) 0s infinite normal none
+      running spinning;
+  }
+}
+
+@keyframes spinning {
+  100% {
+    stroke-dashoffset: 136;
+  }
+}
+
 .hideScroll {
   -ms-overflow-style: none; /* IE and Edge */
   // scrollbar-width: none; /* Firefox */
@@ -530,7 +545,10 @@ body,
   transition: box-shadow;
 
   .apiDescr {
-    @apply text-xs text-red-600 font-bold break-keep;
+    @apply text-xs text-red-600 font-bold break-keep w-[300px];
+    &[data-register="true"] {
+      color: $myBlue;
+    }
   }
 
   button {

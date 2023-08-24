@@ -230,6 +230,16 @@ const TripodResultBlock: React.FC = () => {
                     )
                   )}
                 </div>
+                <div className={styles.boundary} />
+                {skillIndex > 0 && skillIndex % 2 ? (
+                  <Fragment>
+                    <div className={styles.separatedBoundary} />
+                    <div className={styles.gapItem} />
+                    <div className={styles.separatedBoundary} />
+                  </Fragment>
+                ) : (
+                  <></>
+                )}
                 {skillIndex % 2 ? (
                   <></>
                 ) : (
@@ -256,9 +266,9 @@ const TripodResultBlock: React.FC = () => {
           backgroundColor="#000e"
           display={pageStatus === "SEARCHING" ? "flex" : "none"}
         >
-          <div className={styles.spinnerWrapper}>
+          <div className={styles.loaderWrapper}>
             <Loader
-              className={styles.spinnerIcon}
+              className={styles.loaderIcon}
               width={6}
               progress={currentCase / totalCases}
               color="#4691f6"

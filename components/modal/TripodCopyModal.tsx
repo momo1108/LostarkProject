@@ -14,8 +14,9 @@ import styles from "@/styles/tripod/Body.module.scss";
 import MyInput from "../custom/MyInput";
 import LostarkService from "@/service/LostarkService";
 import { ArmoryProfileType } from "@/types/LostarkApiType";
-import { Copy } from "../icons/Index";
+import { Copy, TriangleSpinner } from "../icons/Index";
 import TripodSearchContext from "@/contexts/TripodSearchContext";
+import { SearchedData } from "@/types/ReducerType";
 
 const TripodCopyModal: React.FC<ModalProps> = ({
   children,
@@ -29,6 +30,7 @@ const TripodCopyModal: React.FC<ModalProps> = ({
   const [modalState, setModalState] = useState<ModalState>("INIT");
   const [ready, setReady] = useState<boolean>(false);
   const [profile, setProfile] = useState<ArmoryProfileType>();
+  const [searchedDataList, setSearchedDataList] = useState<SearchedData[]>([]);
   const nameRef = useRef<HTMLInputElement>(null);
 
   const search = useCallback(async () => {
@@ -55,16 +57,19 @@ const TripodCopyModal: React.FC<ModalProps> = ({
   }, [nameRef]);
 
   useEffect(() => {
-    //     flow
-    // - 캐릭터 이름 profile 검색
-    // - 응답 데이터의 직업으로 스킬셋 불러오기
-    // - 응답 데이터의 트포세팅 그대로 적용하기
+    const local_searchedDataList = JSON.parse(
+      localStorage.getItem("recentSearch") || "[]"
+    );
+    setSearchedDataList(
+      local_searchedDataList[0] ? local_searchedDataList : []
+    );
     setReady(true);
   }, []);
 
   useEffect(() => {
     if (isOpen) {
       disableScroll();
+      setModalState("INIT");
       setReady(true);
     } else {
       enableScroll();
@@ -73,13 +78,16 @@ const TripodCopyModal: React.FC<ModalProps> = ({
   }, [isOpen]);
 
   useEffect(() => {
-    console.log(profile);
+    // console.log(profile);
     if (profile) setModalState("DONE");
   }, [profile]);
 
   return isOpen && ready ? (
     createPortal(
-      <div className={`modalRoot ${className || ""}`} onClick={closeFunc}>
+      <div
+        className={`modalRoot ${className || ""}`}
+        onClick={modalState !== "COPYING" ? closeFunc : () => {}}
+      >
         <div
           className="modalContent"
           onClick={(event) => {
@@ -106,7 +114,23 @@ const TripodCopyModal: React.FC<ModalProps> = ({
                 {modalState === "INIT" ? (
                   <div className={styles.messageDiv}>검색을 진행해 주세요.</div>
                 ) : modalState === "LOADING" ? (
-                  <div className={styles.messageDiv}>검색을 진행 중입니다.</div>
+                  <div className={styles.messageDiv}>
+                    <TriangleSpinner
+                      width={4}
+                      size={30}
+                      className="triangleSpinner"
+                    />
+                    <span>검색을 진행 중입니다.</span>
+                  </div>
+                ) : modalState === "COPYING" ? (
+                  <div className={styles.messageDiv}>
+                    <TriangleSpinner
+                      width={4}
+                      size={30}
+                      className="triangleSpinner"
+                    />
+                    <span>복사를 진행 중입니다.</span>
+                  </div>
                 ) : modalState === "DONE" ? (
                   <div className={styles.resultProfileDiv}>
                     <div className={styles.serverNameDiv}>
@@ -135,6 +159,7 @@ const TripodCopyModal: React.FC<ModalProps> = ({
                       <button
                         className={`myButtons ${styles.copyButton}`}
                         onClick={() => {
+                          setModalState("COPYING");
                           copyClass(
                             profile!.CharacterName,
                             profile!.CharacterClassName
@@ -142,7 +167,7 @@ const TripodCopyModal: React.FC<ModalProps> = ({
                         }}
                       >
                         <Copy size={20} fill="#eee" />
-                        <span>세팅 복사</span>
+                        <span className={styles.copyButtonSpan}>세팅 복사</span>
                       </button>
                     </div>
                   </div>
@@ -151,8 +176,62 @@ const TripodCopyModal: React.FC<ModalProps> = ({
                 )}
               </div>
             </div>
-            <div>
+            <div className={styles.recentDiv}>
               <h4 className="modalSubtitle">최근 검색 목록</h4>
+              <p className={styles.recentDescr}>
+                "캐릭터 검색" 메뉴의 검색 기록
+              </p>
+              <div className={`${styles.recentContentDiv} hideScroll`}>
+                {searchedDataList.length ? (
+                  searchedDataList.map((searchedData) => (
+                    <div
+                      className={styles.recentProfileDiv}
+                      key={`recentSearch_${searchedData.name}`}
+                    >
+                      <div className={styles.serverNameDiv}>
+                        <span className={styles.serverSpan}>
+                          {searchedData.server}
+                        </span>
+                        <span
+                          className={styles.nameSpan}
+                          title={searchedData.name}
+                        >
+                          {searchedData.name}
+                        </span>
+                      </div>
+                      <div className={styles.classLevelDiv}>
+                        <span className={styles.classSpan}>
+                          {searchedData.class}
+                        </span>
+                        <p className={styles.levelP}>
+                          <span>Lv.</span>
+                          <span className={styles.levelSpan}>
+                            {searchedData.level}
+                          </span>
+                        </p>
+                      </div>
+                      <div className={styles.buttonDiv}>
+                        <button
+                          className={`myButtons ${styles.copyButton}`}
+                          onClick={() => {
+                            setModalState("COPYING");
+                            copyClass(searchedData.name, searchedData.class);
+                          }}
+                        >
+                          <Copy size={20} fill="#eee" />
+                          <span className={styles.copyButtonSpan}>
+                            세팅 복사
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className={styles.emptyProfileDiv}>
+                    검색 기록이 없습니다.
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           {children}

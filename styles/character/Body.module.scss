@@ -723,11 +723,6 @@ $myLightBlue: #76b1ff;
     .loadingSvg {
       @apply m-4;
       transform-origin: 50% 65%;
-      polygon {
-        stroke-dasharray: 17;
-        animation: 2.5s cubic-bezier(0.35, 0.04, 0.63, 0.95) 0s infinite normal
-          none running spinning;
-      }
     }
     .loadingMessage {
       @apply text-white font-bold text-2xl;

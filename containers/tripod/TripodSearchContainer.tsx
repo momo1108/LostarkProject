@@ -140,7 +140,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
 
   useEffect(() => {
     // console.log(tripodData);
-    console.log(pageStatus);
+    // console.log(pageStatus);
     if (pageStatus === "SELECTING_TRIPOD") {
       setTimeout(() => {
         setPageStatus("DONE");
@@ -159,6 +159,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
       setCopyData([]);
       setTimeout(() => {
         setPageStatus("DONE");
+        setCopyModalIsOpen(false);
       }, 500);
     }
   }, [tripodData]);
@@ -359,13 +360,23 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
         setPageStatus("BEFORE_COPY");
         const { data } = await LostarkService.getCharacterSkills(charName);
         setCopyData(data);
+        setSelectedSkillIndex(0);
         if (subClass !== className) {
           setRootClass(
             rootClassList.find((e) => classDetailMap[e].includes(className))!
           );
           setSubClass(className);
         } else {
-          setTripodData(JSON.parse(JSON.stringify(tripodData)));
+          setTripodData(
+            tripodData.map((skill) => ({
+              ...skill,
+              Tripods: skill.Tripods.map((tripod) => ({
+                ...tripod,
+                IsSelected: false,
+                Level: 5,
+              })),
+            }))
+          );
         }
       } catch (err) {
         alert("복사 실패");
@@ -398,6 +409,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
             );
             const originalTripod =
               tmp_TripodData[skillIndex].Tripods[tripodIndex];
+            // 원본 tripodData에만 Upgradable 설정해놓음.
             if (originalTripod.Upgradable && tripod.Level >= 4) {
               originalTripod.Level = tripod.Level;
               originalTripod.IsSelected = true;
@@ -409,8 +421,8 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
         });
       });
 
-    console.log(tmp_SelectedSkills);
-    console.log(tmp_TripodData);
+    // console.log(tmp_SelectedSkills);
+    // console.log(tmp_TripodData);
     setSelectedSkills(tmp_SelectedSkills);
     setTripodData(tmp_TripodData);
   }, [tripodData, copyData]);

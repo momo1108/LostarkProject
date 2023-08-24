@@ -83,7 +83,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
   return loading ? (
     <div className={styles.loadingContainer}>
       <p className={styles.loadingMessage}>검색을 진행중입니다.</p>
-      <TriangleSpinner className={styles.loadingSvg} />
+      <TriangleSpinner className={`triangleSpinner ${styles.loadingSvg}`} />
     </div>
   ) : render ? (
     <div className={styles.infoContainer}>

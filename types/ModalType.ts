@@ -6,4 +6,4 @@ export type ModalProps = {
   closeFunc?: () => void;
 };
 
-export type ModalState = "INIT" | "LOADING" | "DONE" | "ERROR";
+export type ModalState = "INIT" | "LOADING" | "DONE" | "ERROR" | "COPYING";

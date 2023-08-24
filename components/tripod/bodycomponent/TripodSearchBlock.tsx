@@ -129,7 +129,7 @@ const TripodSearchBlock: React.FC = () => {
       <div className={styles.settingSkillsetDiv}>
         {pageStatus === "LOADING_SKILL" ? (
           <div className={styles.loadingSkillsetDiv}>
-            <TriangleSpinner className={styles.loadingSvg} />
+            <TriangleSpinner className="triangleSpinner" />
             <p className={styles.loadingP}>트라이포드 정보를 로딩중입니다.</p>
           </div>
         ) : (

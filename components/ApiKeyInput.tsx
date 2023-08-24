@@ -50,8 +50,10 @@ const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ shine }) => {
           shine ? " shinyShadow" : ""
         }`}
       >
-        <p className={"apiDescr"}>
-          ★ 서비스 사용을 위해서 반드시 API Key를 등록해주세요.
+        <p className={"apiDescr"} data-register={!!apiKey}>
+          {apiKey
+            ? "◎ API Key 등록 완료"
+            : "★ 서비스 사용을 위해서 반드시 API Key를 등록해주세요"}
         </p>
         <div className={"apiKeyDiv"} data-valid={apiKey ? "true" : "false"}>
           {apiKey ? apiKey : "API Key 가 없습니다."}

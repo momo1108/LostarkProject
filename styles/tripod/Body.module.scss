@@ -557,6 +557,16 @@ $myLightBlue: #76b1ff;
           }
         }
 
+        // 경계선 작업.
+        .boundary {
+          @apply col-span-4 lg:hidden xl:block xl:col-span-4 border-b border-[#292929] border-dashed;
+        }
+        .boundaryGapItem {
+        }
+        .separatedBoundary {
+          @apply hidden lg:block lg:col-span-4 xl:hidden border-b border-[#292929] border-dashed;
+        }
+
         .emptyDiv {
           @apply col-span-4 lg:col-span-8 xl:col-span-4 flex flex-col justify-center items-center py-10;
           .iconWrapper {
@@ -613,6 +623,9 @@ $myLightBlue: #76b1ff;
 
 .tripodModalDiv {
   @apply flex flex-col gap-2 px-4;
+  h4 {
+    @apply text-[#d6b996] pl-1;
+  }
   .searchDiv {
     @apply flex gap-2 justify-center items-end;
     input {
@@ -625,7 +638,10 @@ $myLightBlue: #76b1ff;
   .resultDiv {
     @apply flex flex-col gap-2;
     .messageDiv {
-      @apply text-center text-lg text-[#aaa];
+      @apply flex items-center justify-center text-lg text-[#aaa];
+    }
+    .errorDiv {
+      @apply flex items-center justify-center text-lg text-[#f00];
     }
     .resultContentDiv {
       @apply bg-[#0009] px-2 py-4 rounded-lg border border-[#957b5c];
@@ -634,27 +650,79 @@ $myLightBlue: #76b1ff;
         .serverNameDiv {
           @apply flex flex-col;
           .serverSpan {
-            @apply text-sm;
+            @apply text-xs xs:text-sm;
           }
           .nameSpan {
-            @apply text-lg leading-5 font-extrabold max-w-[160px] truncate;
+            @apply text-sm xs:text-lg leading-5 font-extrabold truncate min-w-[70px] max-w-[100px] xs:min-w-[90px] xs:max-w-[115px] sm:max-w-[160px];
           }
         }
         .classLevelDiv {
           @apply flex flex-col;
           .classSpan {
-            @apply text-sm;
+            @apply text-xs xs:text-sm;
           }
           .levelP {
-            @apply flex gap-1 items-center leading-4 font-bold;
+            @apply text-xs xs:text-base flex gap-1 items-center leading-4 font-bold;
             .levelSpan {
-              @apply text-lg font-extrabold leading-5;
+              @apply text-sm xs:text-lg font-extrabold leading-5;
             }
           }
         }
         .buttonDiv {
-          @apply flex flex-auto justify-end;
+          @apply flex flex-auto justify-end text-sm xs:text-base;
+          button {
+            @apply px-1 xs:px-3 py-2 xs:py-1;
+            .copyButtonSpan {
+              @apply text-sm xs:text-lg break-keep shrink;
+            }
+          }
         }
+      }
+    }
+  }
+
+  .recentDiv {
+    .recentDescr {
+      @apply text-[#aaa] text-sm pl-1;
+    }
+    .recentContentDiv {
+      @apply flex flex-col gap-2 h-[328px] overflow-auto py-2 pr-2;
+      .recentProfileDiv {
+        @apply bg-[#0009] py-4 pl-4 pr-2 rounded-lg border border-[#957b5c] flex items-center gap-2 xs:gap-4;
+        .serverNameDiv {
+          @apply flex flex-col;
+          .serverSpan {
+            @apply text-xs xs:text-sm;
+          }
+          .nameSpan {
+            @apply text-sm xs:text-lg leading-5 font-extrabold truncate min-w-[70px] max-w-[100px] xs:min-w-[90px] xs:max-w-[115px] sm:max-w-[160px];
+          }
+        }
+        .classLevelDiv {
+          @apply flex flex-col;
+          .classSpan {
+            @apply text-xs xs:text-sm;
+          }
+          .levelP {
+            @apply text-xs xs:text-base flex gap-1 items-center leading-4 font-bold;
+            .levelSpan {
+              @apply text-sm xs:text-lg font-extrabold leading-5;
+            }
+          }
+        }
+        .buttonDiv {
+          @apply flex flex-auto justify-end text-sm xs:text-base;
+          button {
+            @apply px-1 xs:px-3 py-2 xs:py-1;
+            .copyButtonSpan {
+              @apply text-sm xs:text-lg break-keep;
+            }
+          }
+        }
+      }
+
+      .emptyProfileDiv {
+        @apply bg-[#0009] px-2 py-4 rounded-lg border border-[#957b5c] text-center text-lg text-[#aaa];
       }
     }
   }
