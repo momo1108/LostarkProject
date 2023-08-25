@@ -19,7 +19,7 @@ html {
 }
 
 .modalRoot {
-  @apply absolute top-0 left-0 right-0 h-screen flex flex-wrap bg-[#0009] items-center justify-center z-[7] overflow-auto;
+  @apply absolute top-0 left-0 right-0 bottom-0 h-screen flex flex-wrap bg-[#0009] items-center justify-center z-[7];
   color: $basicFontColor;
   backdrop-filter: blur(1px);
   .modalContent {
@@ -55,7 +55,7 @@ html {
       @apply flex flex-col gap-1;
     }
     .saveModalContentDiv {
-      @apply flex flex-col gap-2 pl-6 py-3 pr-4 mr-2 max-h-[576px] overflow-auto;
+      @apply flex flex-col gap-2 pl-6 py-3 pr-4 mr-2 max-h-[576px];
       .saveModalCurrentDiv {
         @apply flex flex-col gap-1;
         .modalListItem {
@@ -132,7 +132,7 @@ html {
           @apply border-[#444];
         }
         .loadModalDetailList {
-          @apply flex flex-col gap-4 h-[532px] overflow-auto px-2;
+          @apply flex flex-col gap-4 h-[532px] px-2;
           .loadModalDetailListItem {
             @apply flex flex-col gap-1;
             .presetName {
@@ -165,7 +165,7 @@ html {
       }
       .loadModalSimpleDiv {
         .loadModalSimpleList {
-          @apply flex flex-wrap flex-row gap-2 justify-center max-h-[540px] overflow-auto pr-2 xs:pr-3;
+          @apply flex flex-wrap flex-row gap-2 justify-center max-h-[540px] pr-2 xs:pr-3;
           .loadModalSimpleListItem {
             @apply inline-flex flex-col gap-2 border w-[142px] border-[#555] rounded p-2;
             .presetName {
@@ -502,6 +502,7 @@ body,
 }
 
 .hideScroll {
+  overflow: auto;
   -ms-overflow-style: none; /* IE and Edge */
   // scrollbar-width: none; /* Firefox */
   scrollbar-color: #4a4c55 #1a1c25;

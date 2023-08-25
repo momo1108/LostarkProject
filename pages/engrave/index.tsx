@@ -15,7 +15,7 @@ const Engrave: React.FC<MenuProps> = ({ menu }) => {
         title="로아플 로스트아크 각인세팅, 악세세팅, 악세서리세팅"
         description="로아플에서 제공하는 각인과 악세서리 세팅 비용을 찾아주는 페이지입니다."
       />
-      <Page className={`${styles.container} ${nanumNeo.className}`}>
+      <Page className={`${styles.container} ${nanumNeo.className} hideScroll`}>
         <MenuBar menu={menu} />
         <EngraveBody />
         <Footer>

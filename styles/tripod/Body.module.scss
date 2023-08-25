@@ -114,7 +114,7 @@ $myLightBlue: #76b1ff;
         }
         .skillsDiv {
           @apply grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-11 2xl:grid-cols-13 3xl:grid-cols-16
-            gap-1 md:gap-2 max-h-[340px] sm:max-h-[450px] pr-2 overflow-auto;
+            gap-1 md:gap-2 max-h-[340px] sm:max-h-[450px] pr-2;
           .skillBtn {
             @apply relative flex flex-col justify-center items-center border md:border-2 border-[#333] p-1 w-[77px] h-[81px] text-xs md:w-[90px] md:h-[90px] md:text-sm;
             .iconDiv {
@@ -211,7 +211,7 @@ $myLightBlue: #76b1ff;
           }
 
           .selectedSkillsDiv {
-            @apply flex flex-col overflow-auto my-2 sm:my-0 pl-1 pr-1 md:pr-0 bg-[#0d1117] sm:border-t border-t-[#1d1d1d] sm:border-r border-r-[#050505];
+            @apply flex flex-col my-2 sm:my-0 pl-1 pr-1 md:pr-0 bg-[#0d1117] sm:border-t border-t-[#1d1d1d] sm:border-r border-r-[#050505];
             direction: rtl;
             .emptySkillDiv {
               @apply mx-auto sm:mx-0 flex-auto flex flex-col gap-2 justify-center items-center xs:w-[320px] sm:w-[160px] md:w-[234px] lg:w-[452px] 1.5xl:w-[678px];
@@ -686,7 +686,7 @@ $myLightBlue: #76b1ff;
       @apply text-[#aaa] text-sm pl-1;
     }
     .recentContentDiv {
-      @apply flex flex-col gap-2 h-[328px] overflow-auto py-2 pr-2;
+      @apply flex flex-col gap-2 h-[328px] py-2 pr-2;
       .recentProfileDiv {
         @apply bg-[#0009] py-4 pl-4 pr-2 rounded-lg border border-[#957b5c] flex items-center gap-2 xs:gap-4;
         .serverNameDiv {

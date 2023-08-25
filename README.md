@@ -1009,15 +1009,21 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
   - 트포에 툴팁추가는 힘들듯? 레벨별로 다 따로해야되서...
 - .env.production 안되나?
 - 크리스탈 시세 : https://loatool.taeu.kr/api/crystal-history/ohlc/시간단위(ex. 1m, 1h, 1d)
-- 트포 검색결과를 grid 하나로 병합하는게 맞다.
-- 트포 캐릭터 검색
+- 트포 검색결과를 grid 하나로 병합하는게 맞다. O
+- 트포 캐릭터 검색 O
 - 알림용 modal 을 따로 만들어야할듯.
   - 모달에 내용을 push하는 형식. type으로 완료/에러 구분?
   - 전역에서 동작을 해야함. redux 사용해야할듯? 아니면 react context? 중복이 되나?
 - info 아이콘, 툴팁 묶어서 컴포넌트화하기
 - engrave modal css 분리하기. global -> engrave body
-- tripod copy 시 비활성화 관련 출력해주기
-- tripod 검색 시 loader css 박살남
+- tripod copy 시 비활성화 관련 출력해주기 O
+- tripod 검색 시 loader css 박살남 O
+- character, engrave css 개편 필요
+  - character의 이미지 창과 전투정보 출력을 통합해야 할듯.(이미지는 작게만 출력하고, hover 시 자세히 포기 가능하게.)
+  - engrave의 검색 설정 컴포넌트들의 출력을 통합하자.
+  - engrave의 검색 결과 반응성 설정. 화면이 작아지면, 한 악세서리 정보를 가로로 길게 출력하도록 변경하자.
+- 왜 onWheel 이벤트 stopPropagation이 안먹힐까?
+- overflow-auto 찾아서 hideScroll 클래스로 사용하기
 
 #### 에러 업데이트
 
