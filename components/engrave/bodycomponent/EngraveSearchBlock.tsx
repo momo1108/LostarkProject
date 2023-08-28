@@ -699,14 +699,14 @@ const EngraveSearchBlock: React.FC = () => {
                                 setAbilityInput(i, 2);
                               }}
                             >
-                              <Check color="#0f0" size={25} />
+                              <Check color="#0f0" />
                             </button>
                             <button
                               onClick={() => {
                                 setAbilityInput(i, 1);
                               }}
                             >
-                              <MenuIcons type={3} color="#f00" size={25} />
+                              <MenuIcons type={3} color="#f00" />
                             </button>
                           </div>
                         ) : (
@@ -721,7 +721,7 @@ const EngraveSearchBlock: React.FC = () => {
                               >
                                 <Edit size={15} />
                               </button>
-                              <div>
+                              <div className={styles.updownButtonDiv}>
                                 <button
                                   className={styles.plusMinusButtons}
                                   onClick={() => {
@@ -741,6 +741,7 @@ const EngraveSearchBlock: React.FC = () => {
                               </div>
                             </div>
                             <Delete
+                              className={styles.deleteIcon}
                               size={22}
                               width={2}
                               color="#aaa"
@@ -781,8 +782,9 @@ const EngraveSearchBlock: React.FC = () => {
                       alt="emptyslot"
                     />
                   </div>
-                  <div>
+                  <div className={styles.negativeDiv}>
                     <MySelect
+                      className={styles.negativeSelector}
                       title={negativeEngrave.name}
                       data={NEGATIVE_ENGRAVES}
                       width={115}
@@ -799,8 +801,6 @@ const EngraveSearchBlock: React.FC = () => {
                         });
                       }}
                     />
-                  </div>
-                  <div>
                     <div
                       className={`${styles.equipListItemButtons} ${styles.negativeItemButtons}`}
                     >
@@ -831,14 +831,14 @@ const EngraveSearchBlock: React.FC = () => {
                               setNegativeAbilityInput(2);
                             }}
                           >
-                            <Check color="#0f0" size={25} />
+                            <Check color="#0f0" />
                           </button>
                           <button
                             onClick={() => {
                               setNegativeAbilityInput(1);
                             }}
                           >
-                            <MenuIcons type={3} color="#f00" size={25} />
+                            <MenuIcons type={3} color="#f00" />
                           </button>
                         </div>
                       ) : (
