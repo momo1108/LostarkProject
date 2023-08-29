@@ -13,7 +13,13 @@ $myLightBlue: #76b1ff;
     .searchHeader {
       @apply flex flex-col items-start gap-4;
       .presetDiv {
-        @apply flex flex-wrap w-full gap-x-4 gap-y-1 items-center;
+        @apply flex flex-wrap w-full gap-x-2 gap-y-1 items-center;
+        button {
+          @apply text-sm xs:text-lg;
+          svg {
+            @apply w-4 h-4 xs:w-5 xs:h-5;
+          }
+        }
       }
     }
 
@@ -160,7 +166,7 @@ $myLightBlue: #76b1ff;
                 @apply text-lg xs:text-2xl font-extrabold xs:w-12 text-center;
               }
               .equipAbilityInputDiv {
-                @apply w-[85px] text-lg xs:w-[141px] xs:text-2xl font-extrabold flex gap-1 xs:gap-2 items-center;
+                @apply text-lg xs:text-2xl font-extrabold flex gap-1 xs:gap-2 items-center;
                 .inputArea {
                   @apply xs:w-12 flex justify-end items-center;
                   .equipAbilityInput {
@@ -193,10 +199,6 @@ $myLightBlue: #76b1ff;
               .deleteIcon {
                 @apply mx-0 xs:mx-2;
               }
-
-              &.negativeItemButtons {
-                @apply w-[141px] justify-start;
-              }
             }
             .equipListItemTitle {
               @apply text-center font-bold text-[#ccc] text-sm w-full break-keep xs:text-base;
@@ -224,10 +226,16 @@ $myLightBlue: #76b1ff;
             .negativeDiv {
               @apply col-span-2 flex items-center justify-center;
               .negativeSelector {
-                @apply text-sm xs:text-base;
+                @apply text-sm xs:text-base max-xs:col-span-2;
               }
-              .equipListItemButtons {
-                @apply max-xs:w-20 w-24;
+              .negativeItemButtons {
+                @apply max-xs:w-16 justify-end xs:justify-start;
+                .equipAbilityInputDiv {
+                  @apply max-xs:grid grid-cols-2;
+                  .inputArea {
+                    @apply max-xs:col-span-2 max-xs:justify-center;
+                  }
+                }
               }
             }
           }
@@ -251,7 +259,7 @@ $myLightBlue: #76b1ff;
         }
       }
       .targetAccessoryDiv {
-        @apply flex flex-col px-7 py-4 gap-4;
+        @apply flex flex-col px-2 xs:px-7 py-4 gap-4;
         h4 {
           @apply flex text-xl font-bold items-center justify-center gap-2;
         }
@@ -259,63 +267,72 @@ $myLightBlue: #76b1ff;
           @apply font-bold;
         }
 
-        .accessoryTableCol1 {
-          @apply py-2;
-          div {
-            @apply px-2 pb-1 inline-flex flex-col min-w-[76px] min-h-[74px] justify-center items-center;
-            border: 2px solid #fff;
-            border-radius: 10px;
-          }
-        }
-
-        .accessoryTableCol2 {
-          .colBlock {
-            @apply flex flex-col w-24 items-center;
-            h5 {
-              @apply w-14 pl-2 text-lg;
-            }
+        table {
+          @apply max-xs:w-[240px] mx-auto;
+          .accessoryTableCol1 {
+            @apply py-2;
             div {
-              @apply relative inline-block;
-              .accessoryQuailityInput {
-                @apply outline-none w-14 mt-1 text-right pb-[2px];
-                background: none;
-                border-bottom: 1px solid transparent;
-                &:focus {
-                  @apply font-bold;
-                  color: $myBlue;
+              @apply xs:px-2 pb-1 inline-flex flex-col min-w-[60px] min-h-[60px] xs:min-w-[76px] xs:min-h-[74px] justify-center items-center text-sm xs:text-base;
+              border: 2px solid #fff;
+              border-radius: 10px;
+              svg {
+                @apply w-[20px] h-[20px] xs:w-[30px] xs:h-[30px];
+              }
+            }
+          }
+
+          .accessoryTableCol2 {
+            .colBlock {
+              @apply flex flex-col xs:w-24 items-center;
+              h5 {
+                @apply w-14 pl-2 text-base xs:text-lg;
+              }
+              div {
+                @apply relative inline-block;
+                .accessoryQuailityInput {
+                  @apply outline-none w-14 mt-1 text-right pb-[2px] text-sm xs:text-base;
+                  background: none;
+                  border-bottom: 1px solid transparent;
+                  &:focus {
+                    @apply font-bold;
+                    color: $myBlue;
+                  }
+                }
+                &::before {
+                  @apply absolute bottom-0 right-4 w-8;
+                  content: "";
+                  border-bottom: 1px solid #aaa;
+                }
+                &::after {
+                  @apply absolute bottom-0 right-4 w-0 duration-500;
+                  transition: width 0.5s;
+                  content: "";
+                  border-bottom: 1px solid $myBlue;
+                }
+                &:has(.accessoryQuailityInput:focus)::after {
+                  @apply w-8;
                 }
               }
-              &::before {
-                @apply absolute bottom-0 right-4 w-8;
-                content: "";
-                border-bottom: 1px solid #aaa;
-              }
-              &::after {
-                @apply absolute bottom-0 right-4 w-0 duration-500;
-                transition: width 0.5s;
-                content: "";
-                border-bottom: 1px solid $myBlue;
-              }
-              &:has(.accessoryQuailityInput:focus)::after {
-                @apply w-8;
-              }
             }
           }
-        }
 
-        .accessoryTableCol3 {
-          .colBlock {
-            @apply flex flex-col;
-            h5 {
-              @apply inline-flex text-lg w-[70px] justify-center;
+          .accessoryTableCol3 {
+            .colBlock {
+              @apply max-xs:items-center flex flex-col;
+              h5 {
+                @apply inline-flex w-[70px] justify-center text-base xs:text-lg;
+              }
+              .statSelector {
+                @apply text-sm xs:text-base w-[70px] h-[24px] xs:w-[94px] xs:h-[30px] #{!important};
+              }
             }
           }
-        }
-        .accessoryTableCol4 {
-          .colBlock {
-            @apply flex flex-col;
-            h5 {
-              @apply inline-flex text-lg w-[70px] justify-center;
+          .accessoryTableCol4 {
+            .colBlock {
+              @apply flex flex-col;
+              h5 {
+                @apply inline-flex text-lg w-[70px] justify-center;
+              }
             }
           }
         }
@@ -424,7 +441,13 @@ $myLightBlue: #76b1ff;
         }
       }
       .searchButtons {
-        @apply flex w-full gap-4 items-center h-10;
+        @apply flex flex-wrap w-full gap-1 xs:gap-x-2 items-center;
+        button {
+          @apply text-sm xs:text-lg;
+        }
+        svg {
+          @apply w-4 h-6 xs:w-5 xs:h-[30px];
+        }
       }
     }
 

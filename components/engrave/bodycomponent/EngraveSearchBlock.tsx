@@ -936,32 +936,27 @@ const EngraveSearchBlock: React.FC = () => {
                         {i === 0 ? (
                           <>
                             <h5>목걸이</h5>
-                            <Necklace size={30} fill="#fff" />
+                            <Necklace fill="#fff" />
                           </>
                         ) : i === 1 ? (
                           <>
                             <h5>귀걸이1</h5>
-                            <Earring size={30} fill="#fff" fill2="#555" />
+                            <Earring fill="#fff" fill2="#555" />
                           </>
                         ) : i === 2 ? (
                           <>
                             <h5>귀걸이2</h5>
-                            <Earring size={30} fill="#555" fill2="#fff" />
+                            <Earring fill="#555" fill2="#fff" />
                           </>
                         ) : i === 3 ? (
                           <>
                             <h5>반지1</h5>
-                            <Ring2 size={30} fill="#fff" fill2="#555" />
+                            <Ring2 fill="#fff" fill2="#555" />
                           </>
                         ) : (
                           <>
                             <h5>반지2</h5>
-                            <Ring2
-                              size={30}
-                              first={false}
-                              fill="#555"
-                              fill2="#fff"
-                            />
+                            <Ring2 first={false} fill="#555" fill2="#fff" />
                           </>
                         )}
                       </div>
@@ -1003,8 +998,7 @@ const EngraveSearchBlock: React.FC = () => {
                       <div className={styles.colBlock}>
                         <h5>특성</h5>
                         <MySelect
-                          width={70}
-                          height={30}
+                          className={styles.statSelector}
                           title={e.stat1.type}
                           place="bottom"
                           offset={3}
@@ -1031,6 +1025,39 @@ const EngraveSearchBlock: React.FC = () => {
                             });
                           }}
                         />
+                        {e.type === 0 ? (
+                          <MySelect
+                            className={styles.statSelector}
+                            title={e.stat2.type}
+                            place="bottom"
+                            offset={3}
+                            color="#ccc"
+                            data={[
+                              "치명",
+                              "특화",
+                              "신속",
+                              "제압",
+                              "인내",
+                              "숙련",
+                            ]}
+                            mapFunction={(el) => {
+                              return <span>{el}</span>;
+                            }}
+                            onClickFunction={(el) => {
+                              console.log(e.stat1, el);
+                              if (e.type === 0 && el === e.stat1.type) {
+                                alert("이미 선택된 특성입니다.");
+                                return;
+                              }
+                              accessoryList.setter[i]({
+                                ...e,
+                                stat2: { ...e.stat2, type: el },
+                              });
+                            }}
+                          />
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     </td>
                     {/* <td className={styles.accessoryTableCol4}>
