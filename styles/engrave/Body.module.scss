@@ -24,7 +24,7 @@ $myLightBlue: #76b1ff;
     }
 
     .searchBody {
-      @apply flex flex-col max-sm:w-full max-sm:max-w-[450px] sm:inline-grid sm:grid-cols-[450px] lg:grid-cols-[450px_450px] 2xl:grid-cols-[450px_450px_450px] border border-[#333] mx-auto;
+      @apply flex flex-col max-sm:w-full max-sm:max-w-[450px] sm:inline-grid sm:grid-cols-[450px] lg:grid-cols-[450px_450px] 3xl:grid-cols-[450px_450px_450px] border border-[#333] mx-auto;
       box-shadow: 0px 0px 8px -5px #fff;
       background-image: url("/images/bg_engrave.jpg");
       background-position: center;
@@ -285,12 +285,12 @@ $myLightBlue: #76b1ff;
             .colBlock {
               @apply flex flex-col xs:w-24 items-center;
               h5 {
-                @apply w-14 pl-2 text-base xs:text-lg;
+                @apply w-12 text-base xs:text-lg;
               }
               div {
                 @apply relative inline-block;
                 .accessoryQuailityInput {
-                  @apply outline-none w-14 mt-1 text-right pb-[2px] text-sm xs:text-base;
+                  @apply outline-none w-12 mt-1 text-right pb-[2px] text-sm xs:text-base;
                   background: none;
                   border-bottom: 1px solid transparent;
                   &:focus {
@@ -299,18 +299,18 @@ $myLightBlue: #76b1ff;
                   }
                 }
                 &::before {
-                  @apply absolute bottom-0 right-4 w-8;
+                  @apply absolute bottom-0 right-0 w-12;
                   content: "";
                   border-bottom: 1px solid #aaa;
                 }
                 &::after {
-                  @apply absolute bottom-0 right-4 w-0 duration-500;
+                  @apply absolute bottom-0 right-0 w-0 duration-500;
                   transition: width 0.5s;
                   content: "";
                   border-bottom: 1px solid $myBlue;
                 }
                 &:has(.accessoryQuailityInput:focus)::after {
-                  @apply w-8;
+                  @apply w-12;
                 }
               }
             }
@@ -565,9 +565,9 @@ $myLightBlue: #76b1ff;
   .resultContainer {
     @apply flex flex-col gap-3 py-8 relative;
     .resultHeader {
-      @apply text-2xl font-bold flex items-end;
+      @apply text-lg xs:text-2xl font-bold flex flex-wrap items-center;
       .resultPageDiv {
-        @apply text-lg flex items-center;
+        @apply text-sm xs:text-lg flex items-center;
         .resultPageP {
           @apply min-w-[150px];
         }
@@ -612,7 +612,9 @@ $myLightBlue: #76b1ff;
           .combinationBody {
             @apply flex flex-wrap gap-2;
             .combinationItemDiv {
-              @apply w-[230px] flex flex-wrap gap-1 py-1 px-2;
+              @apply flex flex-col w-[230px] 
+              sm:w-auto sm:grid sm:grid-cols-[202px_200px_120px] sm:justify-between sm:items-center
+              2xl:flex 2xl:items-start 2xl:flex-col 2xl:w-[230px] gap-y-1 gap-x-3 2xl:gap-x-1 py-1 px-2;
               box-shadow: 0px 0px 4px -2px #fff;
               border: 1px solid #222;
               border-radius: 5px;
@@ -641,15 +643,15 @@ $myLightBlue: #76b1ff;
                 }
               }
               .optionDiv {
-                @apply text-xs w-full flex gap-2;
+                @apply text-xs 2xl:w-full flex gap-2;
                 .engraveDiv {
-                  @apply max-w-[60%];
+                  @apply 2xl:max-w-[60%];
                   .negativeP {
                     @apply font-bold text-[#d33];
                   }
                 }
                 .statDiv {
-                  @apply max-w-[40%];
+                  @apply 2xl:max-w-[40%];
                 }
               }
               .costDiv {

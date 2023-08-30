@@ -87,14 +87,13 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
     </div>
   ) : render ? (
     <div className={styles.infoContainer}>
-      <div className={styles.infoContainerItemDiv}>
-        <ArmoryEAA
-          data={data}
-          equipment={equipment}
-          accessory={accessory}
-          avatar={avatar}
-        />
-      </div>
+      <ArmoryEAA
+        className={styles.eaaContainer}
+        data={data}
+        equipment={equipment}
+        accessory={accessory}
+        avatar={avatar}
+      />
       <div className={styles.infoContainerItemDiv}>
         <ul className={styles.infoMenuList}>
           {infoMenuList.names.map((e: string, i: number) => {
@@ -118,11 +117,15 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
         </ul>
         <ArmoryTEGC
           data={data}
-          className={infoMenuList.activeMenu === 0 ? "" : "hidden"}
+          className={`${styles.tegcContainer}${
+            infoMenuList.activeMenu === 0 ? "" : " hidden"
+          }`}
         />
         <ArmoryST
           data={data}
-          className={infoMenuList.activeMenu === 1 ? "" : "hidden"}
+          className={`${styles.stContainer}${
+            infoMenuList.activeMenu === 1 ? "" : " hidden"
+          }`}
         />
       </div>
     </div>

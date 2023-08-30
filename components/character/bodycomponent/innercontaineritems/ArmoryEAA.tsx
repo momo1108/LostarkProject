@@ -32,6 +32,7 @@ new Array(12)
 최대 12개
 */
 const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
+  className,
   data,
   equipment,
   accessory,
@@ -77,8 +78,12 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
     }
   }
   // console.log("ArmoryProfile");
+  // 서버 길드이름
+  // 닉네임 칭호
+  // 원정대레벨 영지레벨
+  // 직업 템레벨
   return (
-    <>
+    <div className={className}>
       <div className={styles.profileHeader}>
         <p className={styles.profileHeaderLine}>
           <span className={styles.profileServerSpan}>
@@ -303,7 +308,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
           "Loading..."
         )}
       </Tooltip>
-    </>
+    </div>
   );
 };
 

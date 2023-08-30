@@ -5,6 +5,7 @@ Equipment, Accessory, Avatar 를 위한 타입파일
 import { CharData } from "./ReducerType";
 
 export type ArmoryEAAProps = {
+  className: string;
   data: CharData;
   equipment: any;
   accessory: any;

@@ -146,36 +146,19 @@ $myLightBlue: #76b1ff;
   .infoContainer {
     @apply flex-auto flex flex-wrap lg:flex-nowrap w-full md:px-16 gap-3 justify-center items-start py-2;
 
-    .infoContainerItemDiv {
+    .eaaContainer,
+    .stContainer,
+    .tegcContainer {
       @apply relative min-h-[600px];
-      box-shadow: 0px 0px 3px 1px #333;
+    }
 
-      &:first-child {
-        @apply flex flex-col items-center w-[550px] pt-2 pb-8 bg-[#14181d];
-        box-shadow: 0px 0px 4px 3px #333;
-      }
-      &:nth-child(2) {
-        @apply relative flex flex-col min-w-[640px] max-w-[780px];
-        background-image: url("/images/charbg.png");
-      }
-      hr {
-        border-color: #282828;
-      }
-      .infoMenuList {
-        @apply flex text-[#9aa1ad] font-bold gap-1;
-        .infoMenuItem {
-          @apply w-full text-center py-2 transition-all duration-100 ease-linear cursor-pointer;
-          border-bottom: 2px solid #9aa1ad;
-        }
-        .infoMenuItem.active {
-          color: #fffdec;
-          border-color: #fffdec;
-          box-shadow: inset 0px -10px 13px -10px #fffdec;
-        }
-      }
-      /* ###############################
-      ########## ArmoryEAA 관련 #########
-      ############################### */
+    /* ###############################
+    ########## ArmoryEAA 관련 #########
+    ############################### */
+    .eaaContainer {
+      @apply flex flex-col items-center w-[550px] pt-2 pb-8 bg-[#14181d];
+      box-shadow: 0px 0px 4px 3px #333;
+
       .profileHeader {
         @apply py-1 w-full;
         .profileHeaderLine {
@@ -415,7 +398,28 @@ $myLightBlue: #76b1ff;
           transform: translate(-50%, -50%);
         }
       }
-
+    }
+    .infoContainerItemDiv {
+      box-shadow: 0px 0px 3px 1px #333;
+      &:nth-child(2) {
+        @apply relative flex flex-col min-w-[640px] max-w-[780px];
+        background-image: url("/images/charbg.png");
+      }
+      hr {
+        border-color: #282828;
+      }
+      .infoMenuList {
+        @apply flex text-[#9aa1ad] font-bold gap-1;
+        .infoMenuItem {
+          @apply w-full text-center py-2 transition-all duration-100 ease-linear cursor-pointer;
+          border-bottom: 2px solid #9aa1ad;
+        }
+        .infoMenuItem.active {
+          color: #fffdec;
+          border-color: #fffdec;
+          box-shadow: inset 0px -10px 13px -10px #fffdec;
+        }
+      }
       /* ###############################
       ########## ArmoryTEGC 관련 #########
       ############################### */
