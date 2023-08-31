@@ -86,6 +86,19 @@ function useApiTagParser() {
     },
     []
   );
+  const parseEngravingPointNumber = useCallback((html: string): number => {
+    const point: number = parseInt(html.replace(/<[^>]+>/g, "").slice(11));
+    const color: string =
+      point >= 12
+        ? "#fe9600"
+        : point >= 9
+        ? "#ce43fc"
+        : point >= 6
+        ? "#00b5ff"
+        : "#61ce02";
+
+    return point;
+  }, []);
   const parseGemName = useCallback((html: string): [string, number] => {
     const info: string[] = html.replace(/<[^>]+>/g, "").split(" ");
     return [
@@ -116,6 +129,7 @@ function useApiTagParser() {
   return {
     parseApiDataToHtmlString,
     parseEngravingPoint,
+    parseEngravingPointNumber,
     parseGemName,
     parseSkillPoint,
     parseTextformat,

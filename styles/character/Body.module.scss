@@ -144,285 +144,341 @@ $myLightBlue: #76b1ff;
   }
 
   .infoContainer {
-    @apply flex-auto flex flex-wrap lg:flex-nowrap w-full md:px-16 gap-3 justify-center items-start py-2;
+    @apply w-full max-w-[1340px] inline-grid grid-cols-1 justify-center items-start py-2;
 
-    .eaaContainer,
+    .upperContainer,
     .stContainer,
     .tegcContainer {
-      @apply relative min-h-[600px];
+      @apply relative;
+    }
+
+    .infoHeader {
+      @apply flex py-1 justify-center text-sm font-bold;
+      color: #bbb;
+      background: linear-gradient(
+        180.2deg,
+        rgba(14, 15, 23, 0.8) 6.8%,
+        rgba(33, 43, 49, 0.8) 131%
+      );
+      box-shadow: 0px 5px 20px -12px #ddd;
+    }
+
+    .upperContainer {
+      @apply grid grid-cols-[400px_minmax(220px,350px)_minmax(220px,350px)] gap-2 mx-auto;
+
+      /* ###############################
+      ########## ArmoryEAA 관련 #########
+      ############################### */
+      .profileDiv {
+        @apply flex flex-col max-w-[400px] items-center pt-2 pb-8 bg-[#14181d];
+
+        .profileHeader {
+          @apply py-1 w-full;
+          .profileHeaderLine {
+            @apply flex justify-center items-center font-bold mb-1;
+            color: $basicFontColor;
+            line-height: 24px;
+
+            &:first-child > span {
+              @apply mx-1;
+            }
+            .profileServerSpan {
+              @apply py-1 px-3 bg-[#116] text-sm font-extrabold;
+              border-radius: 14px;
+            }
+            .profileNameSpan {
+              @apply font-normal;
+              & > span {
+                @apply font-extrabold;
+              }
+            }
+            .profileClassSpan {
+              @apply text-sm;
+            }
+
+            img {
+              max-width: 23px;
+              max-width: 23px;
+            }
+
+            &:not(:first-child) > span {
+              @apply mr-2;
+
+              &:last-child {
+                @apply mr-0;
+              }
+            }
+            .profileCategorySpan {
+              @apply py-1 px-2 bg-[#116] font-extrabold text-sm;
+              border-radius: 12px;
+            }
+            &:nth-child(3) span {
+              @apply max-w-[160px];
+            }
+          }
+        }
+
+        .profileMenu {
+          @apply flex mb-2;
+          .profileMenuSep {
+            @apply mx-6;
+            border-left: 1px solid #444;
+          }
+          .profileMenuBtn {
+            @apply text-white text-center hover:font-bold w-[70px] py-1 cursor-pointer relative;
+            &::after {
+              content: "";
+              position: absolute;
+              width: 100%;
+              transform: scaleX(0);
+              height: 2px;
+              bottom: 0;
+              left: 0;
+              background-color: #172f9c;
+              transform-origin: bottom right;
+              transition: transform 0.25s ease-out;
+            }
+            &:hover::after {
+              transform: scaleX(1);
+              transform-origin: bottom left;
+            }
+            &.active {
+              @apply font-bold;
+              &::after {
+                transform: scaleX(1) !important;
+              }
+            }
+          }
+        }
+
+        .profileBody {
+          @apply relative bg-[#15181d] flex justify-between items-center min-w-[280px] min-h-[363px] max-w-[400px] w-full overflow-hidden;
+          aspect-ratio: 153 / 177;
+
+          .profileEquipmentDiv {
+            @apply w-[70px] h-full relative z-[2] flex flex-col gap-1 xs:gap-3 justify-center items-center;
+
+            .profileEquipmentSlot {
+              @apply w-[38px] h-[38px] xs:w-[40px] xs:h-[40px] p-1 xs:p-[7px] flex justify-center items-center relative overflow-hidden;
+              box-sizing: content-box;
+              border-radius: 5px;
+
+              .profileEquipmentHoning {
+                @apply absolute top-0 left-0 font-bold text-white bg-[#0005] px-1;
+                font-size: 11px;
+                border-radius: 5px;
+              }
+              .profileEquipmentQualityBar {
+                @apply absolute bottom-0 w-full h-[9px] bg-[#0003];
+                font-size: 9px;
+                line-height: 9px;
+                border-top: 1px solid #0001;
+
+                .profileEquipmentQualityValue {
+                  @apply absolute top-1/2 left-1/2 font-bold text-white z-[3];
+                  transform: translate(-50%, -50%);
+                }
+              }
+            }
+          }
+          .profileAccessoryDiv {
+            @apply w-[70px] relative z-[2] flex flex-col gap-1 xs:gap-2 justify-center items-center;
+
+            .profileAccessorySlot {
+              @apply w-[38px] h-[38px] xs:w-[46px] xs:h-[46px] p-1 flex justify-center items-center relative overflow-hidden;
+              box-sizing: content-box;
+              border-radius: 5px;
+
+              .profileAccessoryOption {
+                @apply absolute top-0 left-0 font-bold text-white bg-[#0005] py-[2px] px-[1px] xs:px-1 leading-[11px] xs:leading-[12px] text-[10px] xs:text-[11px];
+                border-radius: 5px;
+              }
+
+              .profileAccessoryQualityBar {
+                @apply absolute bottom-0 w-full h-[9px] bg-[#0003];
+                font-size: 9px;
+                line-height: 9px;
+                border-top: 1px solid #0001;
+
+                .profileAccessoryQualityValue {
+                  @apply absolute top-1/2 left-1/2 font-bold text-white z-[3];
+                  transform: translate(-50%, -50%);
+                }
+              }
+            }
+          }
+          .profileAvatarDiv {
+            @apply w-[140px] h-full px-2 relative z-[2] flex flex-col gap-1 xs:gap-3 justify-center items-start;
+            &:nth-child(2) {
+              @apply items-end;
+            }
+
+            .profileAvatarSubAscDiv,
+            .profileAvatarSubDescDiv {
+              @apply flex w-full gap-1 items-center;
+            }
+            .profileAvatarSubDescDiv {
+              @apply flex-row-reverse;
+            }
+            .profileAvatarSlot {
+              @apply w-[38px] h-[38px] xs:w-[46px] xs:h-[46px] p-1 flex justify-center items-center relative overflow-hidden;
+              box-sizing: content-box;
+              border-radius: 5px;
+              &.profileEmptySlot {
+                @apply w-[41px] h-[41px] p-[7px] #{!important};
+                background-repeat: no-repeat;
+                border-radius: 5px;
+                background-size: contain;
+              }
+            }
+            .blankAvatarSlot {
+              @apply w-[46px] h-[46px] p-1 flex;
+              box-sizing: content-box;
+              border-radius: 5px;
+            }
+          }
+          .profileEmptySlot {
+            @apply w-[43px] h-[43px] p-[7px] #{!important};
+            background-repeat: no-repeat;
+            border-radius: 5px;
+            background-size: contain;
+          }
+          .profileEmptyHelm {
+            background-image: $brighter, getEmptySlotBackground(1);
+          }
+          .profileEmptyShoulders {
+            background-image: $brighter, getEmptySlotBackground(2);
+          }
+          .profileEmptyChestpiece {
+            background-image: $brighter, getEmptySlotBackground(3);
+          }
+          .profileEmptyPants {
+            background-image: $brighter, getEmptySlotBackground(4);
+          }
+          .profileEmptyGloves {
+            background-image: $brighter, getEmptySlotBackground(5);
+          }
+          .profileEmptyWeapon {
+            background-image: $brighter, getEmptySlotBackground(6);
+          }
+          .profileEmptyNecklace {
+            background-image: $brighter, getEmptySlotBackground(7);
+          }
+          .profileEmptyEarring {
+            background-image: $brighter, getEmptySlotBackground(8);
+          }
+          .profileEmptyRing {
+            background-image: $brighter, getEmptySlotBackground(9);
+          }
+          .profileEmptyBracelet {
+            background-image: $brighter, getEmptySlotBackground(10);
+          }
+          .profileEmptyAbilityStone {
+            background-image: $brighter, getEmptySlotBackground(11);
+          }
+          .profileEmptyWeaponAvatar {
+            background-image: $brighter2, getEmptyAvatarSlotBackground(1);
+          }
+          .profileEmptyInstrumentAvatar {
+            background-image: $brighter2, getEmptyAvatarSlotBackground(2);
+          }
+          .profileEmptyMovementAvatar {
+            background-image: $brighter2, getEmptyAvatarSlotBackground(8);
+          }
+          .profileEmptyHeadAvatar {
+            background-image: $brighter2, getEmptyAvatarSlotBackground(3);
+          }
+          .profileEmptyFace1Avatar {
+            background-image: $brighter2, getEmptyAvatarSlotBackground(4);
+          }
+          .profileEmptyFace2Avatar {
+            background-image: $brighter2, getEmptyAvatarSlotBackground(5);
+          }
+          .profileEmptyChestpieceAvatar {
+            background-image: $brighter2, getEmptyAvatarSlotBackground(6);
+          }
+          .profileEmptyPantsAvatar {
+            background-image: $brighter2, getEmptyAvatarSlotBackground(7);
+          }
+          .profileImage {
+            @apply absolute top-1/2 left-1/2 z-0 w-full;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+
+      .stDiv {
+        @apply flex flex-col bg-[#14181d];
+        .statsDiv {
+          color: $basicFontColor;
+          .statsBody {
+            @apply flex flex-col gap-1;
+            .statsP {
+              @apply flex justify-between px-[12%] mb-1;
+              .statsSpan {
+                @apply text-[#e4ba27] font-bold;
+              }
+            }
+          }
+        }
+
+        .tendencyDiv {
+          color: $basicFontColor;
+          .tendencyBody {
+            @apply flex flex-col gap-4;
+            .tendencyInnerDiv {
+              @apply flex px-2 items-center;
+              img {
+                @apply inline-block;
+              }
+              .tendencyContentDiv {
+                @apply w-full;
+                .tendencyP {
+                  @apply flex justify-between text-sm font-bold;
+                }
+                .tendencyBar {
+                  @apply h-2 bg-[#444] overflow-hidden;
+                  .tendencyValueBar {
+                    @apply h-2 block bg-[#0096ff];
+                    animation: stretch 0.4s ease-out 0s;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .egDiv {
+        @apply flex flex-col bg-[#14181d];
+        .engravingDiv {
+          .engravingBody {
+            @apply px-2 flex flex-col gap-2 justify-center items-center;
+            .engravingEffectsDiv {
+              @apply inline-flex items-center gap-2 text-sm font-bold;
+              color: $basicFontColor;
+
+              .engravingEquipIconImage {
+                border-radius: 50%;
+              }
+              .engravingNameP {
+                @apply min-w-[150px];
+              }
+              .engravingLevel {
+                @apply shrink-0 w-6 h-6 leading-6 text-center font-extrabold text-lg;
+              }
+            }
+          }
+        }
+      }
     }
 
     /* ###############################
-    ########## ArmoryEAA 관련 #########
-    ############################### */
-    .eaaContainer {
-      @apply flex flex-col items-center w-[550px] pt-2 pb-8 bg-[#14181d];
-      box-shadow: 0px 0px 4px 3px #333;
-
-      .profileHeader {
-        @apply py-1 w-full;
-        .profileHeaderLine {
-          @apply flex justify-center items-center font-bold mb-1;
-          color: $basicFontColor;
-          line-height: 24px;
-
-          &:first-child > span {
-            @apply mx-1;
-          }
-          .profileServerSpan {
-            @apply py-1 px-3 bg-[#116] text-sm font-extrabold;
-            border-radius: 14px;
-          }
-          .profileNameSpan {
-            @apply font-normal;
-            & > span {
-              @apply font-extrabold;
-            }
-          }
-          .profileClassSpan {
-            @apply text-sm;
-          }
-
-          img {
-            max-width: 23px;
-            max-width: 23px;
-          }
-
-          &:not(:first-child) > span {
-            @apply mr-2;
-
-            &:last-child {
-              @apply mr-0;
-            }
-          }
-          .profileCategorySpan {
-            @apply py-1 px-2 bg-[#116] font-extrabold text-sm;
-            border-radius: 12px;
-          }
-          &:nth-child(3) span {
-            @apply max-w-[160px];
-          }
-        }
-      }
-
-      .profileMenu {
-        @apply flex mb-2;
-        .profileMenuSep {
-          @apply mx-6;
-          border-left: 1px solid #444;
-        }
-        .profileMenuBtn {
-          @apply text-white text-center hover:font-bold w-[70px] py-1 cursor-pointer relative;
-          &::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            transform: scaleX(0);
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #172f9c;
-            transform-origin: bottom right;
-            transition: transform 0.25s ease-out;
-          }
-          &:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-          }
-          &.active {
-            @apply font-bold;
-            &::after {
-              transform: scaleX(1) !important;
-            }
-          }
-        }
-      }
-
-      .profileBody {
-        @apply relative bg-[#15181d] flex justify-between;
-        width: 450px;
-        height: 500px;
-
-        .profileEquipmentDiv {
-          @apply w-[70px] h-full relative z-[2] flex flex-wrap flex-col py-8 justify-between items-center;
-
-          .profileEquipmentSlot {
-            @apply w-[40px] h-[40px] p-[7px] flex justify-center items-center relative overflow-hidden;
-            box-sizing: content-box;
-            border-radius: 5px;
-
-            .profileEquipmentHoning {
-              @apply absolute top-0 left-0 font-bold text-white bg-[#0005] px-1;
-              font-size: 11px;
-              border-radius: 5px;
-            }
-            .profileEquipmentQualityBar {
-              @apply absolute bottom-0 w-full h-[9px] bg-[#0003];
-              font-size: 9px;
-              line-height: 9px;
-              border-top: 1px solid #0001;
-
-              .profileEquipmentQualityValue {
-                @apply absolute top-1/2 left-1/2 font-bold text-white z-[3];
-                transform: translate(-50%, -50%);
-              }
-            }
-          }
-        }
-        .profileAccessoryDiv {
-          @apply w-[70px] h-full relative z-[2] flex flex-wrap flex-col py-4 justify-between items-center;
-
-          .profileAccessorySlot {
-            @apply w-[46px] h-[46px] p-1 flex justify-center items-center relative overflow-hidden;
-            box-sizing: content-box;
-            border-radius: 5px;
-
-            .profileAccessoryOption {
-              @apply absolute top-0 left-0 font-bold text-white bg-[#0005] pb-[5px] px-1;
-              font-size: 11px;
-              border-radius: 5px;
-
-              & > p {
-                height: 11px;
-              }
-            }
-
-            .profileAccessoryQualityBar {
-              @apply absolute bottom-0 w-full h-[9px] bg-[#0003];
-              font-size: 9px;
-              line-height: 9px;
-              border-top: 1px solid #0001;
-
-              .profileAccessoryQualityValue {
-                @apply absolute top-1/2 left-1/2 font-bold text-white z-[3];
-                transform: translate(-50%, -50%);
-              }
-            }
-          }
-        }
-        .profileAvatarDiv {
-          @apply w-[140px] h-full px-2 relative z-[2] flex flex-wrap flex-col py-8 justify-between items-start;
-          &:nth-child(2) {
-            @apply items-end;
-          }
-
-          .profileAvatarSubAscDiv,
-          .profileAvatarSubDescDiv {
-            @apply flex w-full justify-between items-center;
-          }
-          .profileAvatarSubDescDiv {
-            @apply flex-row-reverse;
-          }
-          .profileAvatarSlot {
-            @apply w-[46px] h-[46px] p-1 flex justify-center items-center relative overflow-hidden;
-            box-sizing: content-box;
-            border-radius: 5px;
-            &.profileEmptySlot {
-              @apply w-[41px] h-[41px] p-[7px] #{!important};
-              background-repeat: no-repeat;
-              border-radius: 5px;
-              background-size: contain;
-            }
-          }
-          .blankAvatarSlot {
-            @apply w-[46px] h-[46px] p-1 flex;
-            box-sizing: content-box;
-            border-radius: 5px;
-          }
-        }
-        .profileEmptySlot {
-          @apply w-[43px] h-[43px] p-[7px] #{!important};
-          background-repeat: no-repeat;
-          border-radius: 5px;
-          background-size: contain;
-        }
-        .profileEmptyHelm {
-          background-image: $brighter, getEmptySlotBackground(1);
-        }
-        .profileEmptyShoulders {
-          background-image: $brighter, getEmptySlotBackground(2);
-        }
-        .profileEmptyChestpiece {
-          background-image: $brighter, getEmptySlotBackground(3);
-        }
-        .profileEmptyPants {
-          background-image: $brighter, getEmptySlotBackground(4);
-        }
-        .profileEmptyGloves {
-          background-image: $brighter, getEmptySlotBackground(5);
-        }
-        .profileEmptyWeapon {
-          background-image: $brighter, getEmptySlotBackground(6);
-        }
-        .profileEmptyNecklace {
-          background-image: $brighter, getEmptySlotBackground(7);
-        }
-        .profileEmptyEarring {
-          background-image: $brighter, getEmptySlotBackground(8);
-        }
-        .profileEmptyRing {
-          background-image: $brighter, getEmptySlotBackground(9);
-        }
-        .profileEmptyBracelet {
-          background-image: $brighter, getEmptySlotBackground(10);
-        }
-        .profileEmptyAbilityStone {
-          background-image: $brighter, getEmptySlotBackground(11);
-        }
-        .profileEmptyWeaponAvatar {
-          background-image: $brighter2, getEmptyAvatarSlotBackground(1);
-        }
-        .profileEmptyInstrumentAvatar {
-          background-image: $brighter2, getEmptyAvatarSlotBackground(2);
-        }
-        .profileEmptyMovementAvatar {
-          background-image: $brighter2, getEmptyAvatarSlotBackground(8);
-        }
-        .profileEmptyHeadAvatar {
-          background-image: $brighter2, getEmptyAvatarSlotBackground(3);
-        }
-        .profileEmptyFace1Avatar {
-          background-image: $brighter2, getEmptyAvatarSlotBackground(4);
-        }
-        .profileEmptyFace2Avatar {
-          background-image: $brighter2, getEmptyAvatarSlotBackground(5);
-        }
-        .profileEmptyChestpieceAvatar {
-          background-image: $brighter2, getEmptyAvatarSlotBackground(6);
-        }
-        .profileEmptyPantsAvatar {
-          background-image: $brighter2, getEmptyAvatarSlotBackground(7);
-        }
-        .profileImage {
-          @apply absolute top-1/2 left-1/2 z-0;
-          transform: translate(-50%, -50%);
-        }
-      }
-    }
-    .infoContainerItemDiv {
-      box-shadow: 0px 0px 3px 1px #333;
-      &:nth-child(2) {
-        @apply relative flex flex-col min-w-[640px] max-w-[780px];
-        background-image: url("/images/charbg.png");
-      }
-      hr {
-        border-color: #282828;
-      }
-      .infoMenuList {
-        @apply flex text-[#9aa1ad] font-bold gap-1;
-        .infoMenuItem {
-          @apply w-full text-center py-2 transition-all duration-100 ease-linear cursor-pointer;
-          border-bottom: 2px solid #9aa1ad;
-        }
-        .infoMenuItem.active {
-          color: #fffdec;
-          border-color: #fffdec;
-          box-shadow: inset 0px -10px 13px -10px #fffdec;
-        }
-      }
-      /* ###############################
       ########## ArmoryTEGC 관련 #########
       ############################### */
+    .tegcContainer {
+      @apply relative flex-col min-w-[640px];
+      background-image: url("/images/charbg.png");
 
       .tegcDiv {
         @apply flex flex-col mb-6;
@@ -444,7 +500,6 @@ $myLightBlue: #76b1ff;
         }
 
         .statsDiv {
-          @apply col-span-1;
           color: $basicFontColor;
           .statsBody {
             @apply flex flex-col gap-1;
@@ -461,7 +516,6 @@ $myLightBlue: #76b1ff;
         }
 
         .tendencyDiv {
-          @apply col-span-1;
           color: $basicFontColor;
           .tendencyBody {
             @apply flex flex-col gap-4;
@@ -630,89 +684,107 @@ $myLightBlue: #76b1ff;
           }
         }
       }
+    }
 
-      /* ###############################
+    /* ###############################
       ########## ArmoryST 관련 #########
       ############################### */
-      .stContainer {
-        @apply max-h-[640px] overflow-auto flex-auto;
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-        &::-webkit-scrollbar {
-          width: 4px;
-          height: 8px;
-          background-color: #1a1c25;
+    .stContainer {
+      @apply max-h-[640px] overflow-auto flex-auto;
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+      &::-webkit-scrollbar {
+        width: 4px;
+        height: 8px;
+        background-color: #1a1c25;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #4a4c55;
+      }
+
+      .emptyST {
+        @apply flex flex-col w-full items-center justify-center text-white text-lg font-extrabold my-6;
+      }
+      .stDiv {
+        @apply min-w-[640px] py-3 pl-2 pr-4 flex justify-center font-bold items-center gap-2;
+        color: $basicFontColor;
+
+        .skillIconSlot {
+          @apply flex shrink-0 w-[50px] h-[50px] justify-center items-center;
+          background-image: url(/images/skill_slot.png);
+          .skillIcon {
+            @apply w-[44px];
+          }
         }
-        &::-webkit-scrollbar-thumb {
-          background-color: #4a4c55;
+
+        .skillDescr {
+          @apply inline-flex flex-col min-w-[125px];
+          .skillLevelP {
+            @apply text-xs;
+          }
         }
 
-        .emptyST {
-          @apply flex flex-col w-full items-center justify-center text-white text-lg font-extrabold my-6;
-        }
-        .stDiv {
-          @apply w-[640px] py-3 pl-2 pr-4 flex font-bold items-center gap-2;
-          color: $basicFontColor;
-
-          .skillIconSlot {
-            @apply flex shrink-0 w-[50px] h-[50px] justify-center items-center;
-            background-image: url(/images/skill_slot.png);
-            .skillIcon {
-              @apply w-[44px];
-            }
-          }
-
-          .skillDescr {
-            @apply inline-flex flex-col min-w-[125px];
-            .skillLevelP {
-              @apply text-xs;
-            }
-          }
-
-          .skillTripods {
-            @apply flex shrink-0 gap-2 ml-4 min-w-[226px] h-[65px];
-            .usedTripod {
-              @apply relative flex w-[70px] justify-center;
-              img {
-                @apply w-[43px] h-[43px];
-                border-radius: 21.5px;
-                border: 1.5px solid rgb(42, 42, 42);
-              }
-              .tripodSlot {
-                @apply absolute inline-flex text-sm font-extrabold;
-                right: 12px;
-                top: -5px;
-              }
-              .tripodDescrItem {
-                @apply absolute flex flex-col text-xs text-center;
-                bottom: -4px;
-                .tripodNameP {
-                  @apply w-[90px];
-                }
-              }
-            }
-          }
-
-          .skillGems {
-            @apply w-20 flex shrink-0 flex-col justify-center items-center text-sm mx-4;
-            div {
-              @apply inline-flex items-center;
-            }
-          }
-
-          .skillRune {
-            @apply relative w-14 h-14 flex shrink-0 justify-center items-center;
-            border-radius: 50%;
-            border: 2px solid rgb(36, 36, 36);
-            box-shadow: inset 0px 0px 7px 0px #000;
+        .skillTripods {
+          @apply flex shrink-0 gap-2 ml-4 min-w-[226px] h-[65px];
+          .usedTripod {
+            @apply relative flex w-[70px] justify-center;
             img {
-              @apply w-12 h-12;
+              @apply w-[43px] h-[43px];
+              border-radius: 21.5px;
+              border: 1.5px solid rgb(42, 42, 42);
             }
-            .runeNameP {
-              @apply absolute text-sm;
-              bottom: -7px;
+            .tripodSlot {
+              @apply absolute inline-flex text-sm font-extrabold;
+              right: 12px;
+              top: -5px;
+            }
+            .tripodDescrItem {
+              @apply absolute flex flex-col text-xs text-center;
+              bottom: -4px;
+              .tripodNameP {
+                @apply w-[90px];
+              }
             }
           }
+        }
+
+        .skillGems {
+          @apply w-20 flex shrink-0 flex-col justify-center items-center text-sm mx-4;
+          div {
+            @apply inline-flex items-center;
+          }
+        }
+
+        .skillRune {
+          @apply relative w-14 h-14 flex shrink-0 justify-center items-center;
+          border-radius: 50%;
+          border: 2px solid rgb(36, 36, 36);
+          box-shadow: inset 0px 0px 7px 0px #000;
+          img {
+            @apply w-12 h-12;
+          }
+          .runeNameP {
+            @apply absolute text-sm;
+            bottom: -7px;
+          }
+        }
+      }
+    }
+
+    .infoContainerItemDiv {
+      hr {
+        border-color: #282828;
+      }
+      .infoMenuList {
+        @apply flex text-[#9aa1ad] font-bold gap-1;
+        .infoMenuItem {
+          @apply w-full text-center py-2 transition-all duration-100 ease-linear cursor-pointer;
+          border-bottom: 2px solid #9aa1ad;
+        }
+        .infoMenuItem.active {
+          color: #fffdec;
+          border-color: #fffdec;
+          box-shadow: inset 0px -10px 13px -10px #fffdec;
         }
       }
 

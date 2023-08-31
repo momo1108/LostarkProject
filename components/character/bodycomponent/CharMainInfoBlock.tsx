@@ -88,7 +88,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
   ) : render ? (
     <div className={styles.infoContainer}>
       <ArmoryEAA
-        className={styles.eaaContainer}
+        className={styles.upperContainer}
         data={data}
         equipment={equipment}
         accessory={accessory}
@@ -115,16 +115,16 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
             );
           })}
         </ul>
-        <ArmoryTEGC
+        {/* <ArmoryTEGC
           data={data}
           className={`${styles.tegcContainer}${
-            infoMenuList.activeMenu === 0 ? "" : " hidden"
+            infoMenuList.activeMenu === 0 ? " flex" : " hidden"
           }`}
-        />
+        /> */}
         <ArmoryST
           data={data}
           className={`${styles.stContainer}${
-            infoMenuList.activeMenu === 1 ? "" : " hidden"
+            infoMenuList.activeMenu === 1 ? " block" : " hidden"
           }`}
         />
       </div>
