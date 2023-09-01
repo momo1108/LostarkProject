@@ -2,6 +2,7 @@ import styles from "@/styles/character/Body.module.scss";
 import {
   ArmoryEAAProps,
   EngravingsType,
+  GemType,
   emptyAccessoryBackgroundMap,
   emptyAvatarBackgroundMap,
   emptyEquipmentBackgroundMap,
@@ -26,6 +27,7 @@ import {
 } from "@/types/TEGCType";
 import AlertOctagon from "@/components/icons/AlertOctagon";
 import { engraveLevelColorMap } from "@/types/EngraveType";
+import GemTooltip from "../tooltips/GemTooltip";
 
 /*
 아바타 왼쪽 : 무기, 무기
@@ -62,8 +64,14 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
   const [statsTooltipContent, setStatsTooltipContent] = useState<any>();
   const [engravingTooltipContent, setEngravingTooltipContent] = useState<any>();
   const [engEquip, setEngEquip] = useState<{ [key: string]: number }>({});
+  const [gemTooltipContent, setGemTooltipContent] = useState<any>();
+  const [gemEquip, setGemEquip] = useState<{
+    멸화: GemType[];
+    홍염: GemType[];
+  }>({ 멸화: [], 홍염: [] });
 
   useEffect(() => {
+    // 각인
     if (data.ArmoryEngraving?.Engravings) {
       console.log(data.ArmoryEngraving.Engravings);
       setEngEquip(
@@ -81,8 +89,54 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
           }
         }, {})
       );
-    } else setEngEquip(new Array(2));
+    }
 
+    // 보석
+    if (data.ArmoryGem?.Gems) {
+      const mergedGemInfo: GemType[] = data.ArmoryGem.Gems.map((gem: any) => {
+        const effect = data.ArmoryGem.Effects.find(
+          (ef: any) => ef.GemSlot === gem.Slot
+        );
+        const [ShortenedName, Type] = parseGemName(gem.Name);
+        return {
+          ...gem,
+          SkillIcon: effect.Icon,
+          Description: [effect.Name, effect.Description],
+          ShortenedName,
+          Type,
+        };
+      });
+
+      let tmp_GemEquip: {
+        멸화: GemType[];
+        홍염: GemType[];
+      } = {
+        멸화: [],
+        홍염: [],
+      };
+      mergedGemInfo.forEach((gemInfo) => {
+        tmp_GemEquip[gemInfo.Type === 0 ? "멸화" : "홍염"].push(gemInfo);
+      });
+
+      tmp_GemEquip["멸화"].sort((a: any, b: any) => {
+        return a.Type === b.Type
+          ? a.Level === b.Level
+            ? a.Slot - b.Slot
+            : b.Level - a.Level
+          : a.Type - b.Type;
+      });
+      tmp_GemEquip["홍염"].sort((a: any, b: any) => {
+        return a.Type === b.Type
+          ? a.Level === b.Level
+            ? a.Slot - b.Slot
+            : b.Level - a.Level
+          : a.Type - b.Type;
+      });
+
+      setGemEquip(tmp_GemEquip);
+    }
+
+    // 스탯
     const tmp_stats: { [key: string]: [string, Array<string>] } = {};
     data.ArmoryProfile?.Stats?.forEach((e: StatData) => {
       tmp_stats[e.Type] = [e.Value, e.Tooltip];
@@ -91,8 +145,8 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
   }, []);
 
   useEffect(() => {
-    console.log(engEquip);
-  }, [engEquip]);
+    console.log(gemEquip);
+  }, [gemEquip]);
 
   function emptyAvatarChecker(e: number): React.ReactElement {
     if (avatar[e]) {
@@ -137,6 +191,9 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
   return (
     <div className={className}>
       <div className={styles.profileDiv}>
+        <div className={styles.infoHeader}>
+          <span className={styles.infoHeaderSpan}>프로필</span>
+        </div>
         <div className={styles.profileHeader}>
           <p className={styles.profileHeaderLine}>
             <span className={styles.profileServerSpan}>
@@ -456,11 +513,100 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
             )}
           </div>
         </div>
+        <div className={styles.gemDiv}>
+          <div className={styles.infoHeader}>
+            <p className={styles.infoHeaderP}>장착 보석</p>
+          </div>
+          <div className={styles.gemBody}>
+            <div className={styles.nemesisJewelDiv}>
+              <div className={styles.jewelHeader}>
+                {gemEquip["멸화"].length} 멸화 - Lv.{" "}
+                {gemEquip["멸화"].length
+                  ? Math.round(
+                      (gemEquip["멸화"].reduce(
+                        (prev: number, cur) => prev + cur.Level,
+                        0
+                      ) /
+                        gemEquip["멸화"].length) *
+                        10
+                    ) / 10
+                  : 0}
+              </div>
+              {gemEquip["멸화"][0] ? (
+                gemEquip["멸화"].map((e: any, i: number) => {
+                  return (
+                    <div
+                      data-tooltip-id="gemTooltip"
+                      onMouseEnter={() => {
+                        setGemTooltipContent(e);
+                      }}
+                      className={styles.gemSlot}
+                      key={`gemSlot${i}`}
+                    >
+                      <img
+                        className={`${styles.gemImg} ${gradeClassMap[e.Grade]}`}
+                        src={e.Icon}
+                        alt=""
+                      />
+                      <p className={styles.gemOption}>{e.ShortenedName}</p>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className={styles.emptyInfo}>
+                  <AlertOctagon size={110} color="#fff" width={2} /> 장착중인
+                  멸화 보석이 없습니다.
+                </div>
+              )}
+            </div>
+            <div className={styles.frostfireJewelDiv}>
+              <div className={styles.jewelHeader}>
+                {gemEquip["홍염"].length} 홍염 - Lv.{" "}
+                {gemEquip["홍염"].length
+                  ? Math.round(
+                      (gemEquip["홍염"].reduce(
+                        (prev: number, cur) => prev + cur.Level,
+                        0
+                      ) /
+                        gemEquip["홍염"].length) *
+                        10
+                    ) / 10
+                  : 0}
+              </div>
+              {gemEquip["홍염"][0] ? (
+                gemEquip["홍염"].map((e: any, i: number) => {
+                  return (
+                    <div
+                      data-tooltip-id="gemTooltip"
+                      onMouseEnter={() => {
+                        setGemTooltipContent(e);
+                      }}
+                      className={styles.gemSlot}
+                      key={`gemSlot${i}`}
+                    >
+                      <img
+                        className={`${styles.gemImg} ${gradeClassMap[e.Grade]}`}
+                        src={e.Icon}
+                        alt=""
+                      />
+                      <p className={styles.gemOption}>{e.ShortenedName}</p>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className={styles.emptyInfo}>
+                  <AlertOctagon size={110} color="#fff" width={2} /> 장착중인
+                  홍염 보석이 없습니다.
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
       <Tooltip
         id="equipmentTooltip"
         className="tooltip equipmentTooltip"
-        place="right"
+        place="bottom"
         clickable={true}
       >
         {equipmentTooltipContent ? (
@@ -472,7 +618,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
       <Tooltip
         id="accessoryTooltip"
         className="tooltip accessoryTooltip"
-        place="right"
+        place="bottom"
         clickable={true}
         delayHide={10}
       >
@@ -485,7 +631,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
       <Tooltip
         id="avatarTooltip"
         className="tooltip avatarTooltip"
-        place="right"
+        place="bottom"
         clickable={true}
         offset={16}
         delayHide={1}
@@ -499,7 +645,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
       <Tooltip
         id="statsTooltip"
         className="tooltip statsTooltip"
-        place="right"
+        place="bottom"
         clickable={true}
         delayHide={1}
       >
@@ -517,12 +663,26 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
       <Tooltip
         id="engravingTooltip"
         className="tooltip engravingTooltip"
-        place="left"
+        place="bottom"
         clickable={true}
         offset={12}
         delayHide={1}
       >
         {engravingTooltipContent ? engravingTooltipContent : "Loading..."}
+      </Tooltip>
+      <Tooltip
+        id="gemTooltip"
+        className="tooltip gemTooltip"
+        place="bottom"
+        clickable={true}
+        offset={12}
+        delayHide={1}
+      >
+        {gemTooltipContent ? (
+          <GemTooltip data={gemTooltipContent} />
+        ) : (
+          "Loading..."
+        )}
       </Tooltip>
     </div>
   );

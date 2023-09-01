@@ -95,7 +95,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
         avatar={avatar}
       />
       <div className={styles.infoContainerItemDiv}>
-        <ul className={styles.infoMenuList}>
+        {/* <ul className={styles.infoMenuList}>
           {infoMenuList.names.map((e: string, i: number) => {
             return (
               <li
@@ -114,7 +114,7 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
               </li>
             );
           })}
-        </ul>
+        </ul> */}
         {/* <ArmoryTEGC
           data={data}
           className={`${styles.tegcContainer}${

@@ -736,7 +736,7 @@ footer {
 }
 
 .statsTooltip {
-  @apply px-2 flex flex-col gap-2 #{!important};
+  @apply w-[320px] px-2 flex flex-col gap-2 #{!important};
   li {
     @apply pl-4 relative #{!important};
     &::before {

@@ -1,6 +1,6 @@
 $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
 $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
-$gemSlotsize: 60px;
+$gemSlotsize: 51px;
 $basicFontColor: #eee;
 $myBlue: #4691f6;
 $myLightBlue: #76b1ff;
@@ -12,7 +12,7 @@ $myLightBlue: #76b1ff;
 }
 
 .container {
-  @apply flex flex-auto flex-col items-center justify-center;
+  @apply flex flex-auto flex-col items-center px-2;
 
   .searchDiv {
     @apply w-full min-h-[50px] my-2 py-2 flex justify-center items-center gap-4;
@@ -152,28 +152,28 @@ $myLightBlue: #76b1ff;
       @apply relative;
     }
 
+    .emptyInfo {
+      @apply flex flex-col w-full items-center justify-center text-white text-lg font-extrabold text-center;
+    }
+
     .infoHeader {
-      @apply flex py-1 justify-center text-sm font-bold;
-      color: #bbb;
-      background: linear-gradient(
-        180.2deg,
-        rgba(14, 15, 23, 0.8) 6.8%,
-        rgba(33, 43, 49, 0.8) 131%
-      );
-      box-shadow: 0px 5px 20px -12px #ddd;
+      @apply flex py-1 justify-center text-sm font-bold w-full;
+      color: #ccc;
+      background: linear-gradient(90deg, #1f242c 15%, #212d3a 50%, #1f242c 85%);
+      border-bottom: 1px solid #222;
     }
 
     .upperContainer {
-      @apply grid grid-cols-[400px_minmax(220px,350px)_minmax(220px,350px)] gap-2 mx-auto;
+      @apply grid xs:grid-cols-[repeat(6,minmax(50px,70px))] sm:grid-cols-[repeat(10,minmax(50px,70px))] md:grid-cols-[repeat(12,50px)] lg:grid-cols-[repeat(18,minmax(48px,50px))] gap-2 mx-auto;
 
       /* ###############################
       ########## ArmoryEAA 관련 #########
       ############################### */
       .profileDiv {
-        @apply flex flex-col max-w-[400px] items-center pt-2 pb-8 bg-[#14181d];
+        @apply col-span-6 md:col-span-7 flex flex-col gap-2 items-center pb-4 bg-[#14181d] rounded-lg overflow-hidden;
 
         .profileHeader {
-          @apply py-1 w-full;
+          @apply w-full;
           .profileHeaderLine {
             @apply flex justify-center items-center font-bold mb-1;
             color: $basicFontColor;
@@ -219,7 +219,7 @@ $myLightBlue: #76b1ff;
         }
 
         .profileMenu {
-          @apply flex mb-2;
+          @apply flex;
           .profileMenuSep {
             @apply mx-6;
             border-left: 1px solid #444;
@@ -252,11 +252,11 @@ $myLightBlue: #76b1ff;
         }
 
         .profileBody {
-          @apply relative bg-[#15181d] flex justify-between items-center min-w-[280px] min-h-[363px] max-w-[400px] w-full overflow-hidden;
+          @apply relative bg-[#15181d] flex justify-between items-center min-h-[363px] w-full overflow-hidden;
           aspect-ratio: 153 / 177;
 
           .profileEquipmentDiv {
-            @apply w-[70px] h-full relative z-[2] flex flex-col gap-1 xs:gap-3 justify-center items-center;
+            @apply h-full relative z-[2] flex flex-col px-4 gap-1 xs:gap-3 justify-center items-center;
 
             .profileEquipmentSlot {
               @apply w-[38px] h-[38px] xs:w-[40px] xs:h-[40px] p-1 xs:p-[7px] flex justify-center items-center relative overflow-hidden;
@@ -282,7 +282,7 @@ $myLightBlue: #76b1ff;
             }
           }
           .profileAccessoryDiv {
-            @apply w-[70px] relative z-[2] flex flex-col gap-1 xs:gap-2 justify-center items-center;
+            @apply relative z-[2] flex flex-col px-4 gap-1 justify-center items-center;
 
             .profileAccessorySlot {
               @apply w-[38px] h-[38px] xs:w-[46px] xs:h-[46px] p-1 flex justify-center items-center relative overflow-hidden;
@@ -290,7 +290,8 @@ $myLightBlue: #76b1ff;
               border-radius: 5px;
 
               .profileAccessoryOption {
-                @apply absolute top-0 left-0 font-bold text-white bg-[#0005] py-[2px] px-[1px] xs:px-1 leading-[11px] xs:leading-[12px] text-[10px] xs:text-[11px];
+                @apply absolute top-0 left-0 font-bold text-white bg-[#0005] py-[2px] px-[1px]
+                 xs:px-1 leading-[11px] xs:leading-[12px] text-[10px] xs:text-[11px];
                 border-radius: 5px;
               }
 
@@ -408,13 +409,14 @@ $myLightBlue: #76b1ff;
       }
 
       .stDiv {
-        @apply flex flex-col bg-[#14181d];
+        @apply flex sm:flex-col max-sm:items-start gap-2 sm:gap-4 col-span-6 sm:col-span-4 md:col-span-5;
         .statsDiv {
+          @apply bg-[#14181d] rounded-lg overflow-hidden w-1/2 sm:w-auto;
           color: $basicFontColor;
           .statsBody {
-            @apply flex flex-col gap-1;
+            @apply flex flex-col items-center gap-1 py-3 px-2 text-sm sm:text-base;
             .statsP {
-              @apply flex justify-between px-[12%] mb-1;
+              @apply flex justify-between w-full max-w-[250px];
               .statsSpan {
                 @apply text-[#e4ba27] font-bold;
               }
@@ -423,11 +425,12 @@ $myLightBlue: #76b1ff;
         }
 
         .tendencyDiv {
+          @apply bg-[#14181d] rounded-lg overflow-hidden w-1/2 sm:w-auto;
           color: $basicFontColor;
           .tendencyBody {
-            @apply flex flex-col gap-4;
+            @apply flex flex-col items-center gap-4 py-3;
             .tendencyInnerDiv {
-              @apply flex px-2 items-center;
+              @apply flex pr-2 items-center w-full max-w-[310px];
               img {
                 @apply inline-block;
               }
@@ -450,10 +453,11 @@ $myLightBlue: #76b1ff;
       }
 
       .egDiv {
-        @apply flex flex-col bg-[#14181d];
+        @apply flex flex-col gap-4 col-span-6;
         .engravingDiv {
+          @apply bg-[#14181d] rounded-lg overflow-hidden;
           .engravingBody {
-            @apply px-2 flex flex-col gap-2 justify-center items-center;
+            @apply px-2 py-3 flex flex-col gap-3 justify-center items-center;
             .engravingEffectsDiv {
               @apply inline-flex items-center gap-2 text-sm font-bold;
               color: $basicFontColor;
@@ -466,6 +470,36 @@ $myLightBlue: #76b1ff;
               }
               .engravingLevel {
                 @apply shrink-0 w-6 h-6 leading-6 text-center font-extrabold text-lg;
+              }
+            }
+          }
+        }
+
+        .gemDiv {
+          @apply bg-[#14181d] rounded-lg overflow-hidden;
+          .gemBody {
+            @apply flex flex-col items-center gap-2 my-2 px-2 py-3;
+            .nemesisJewelDiv,
+            .frostfireJewelDiv {
+              @apply relative mt-[18px] flex flex-wrap justify-center gap-1 p-3 border-2 w-full max-w-[300px] border-[#2d303b] rounded-lg;
+            }
+            .jewelHeader {
+              @apply absolute top-[-20px] left-1 text-xs bg-[#2d303b] px-2 leading-5 font-bold;
+              content: "";
+              border-radius: 5px 5px 0 0;
+            }
+            .gemSlot {
+              @apply relative;
+              width: $gemSlotsize;
+              height: $gemSlotsize;
+              .gemImg {
+                width: $gemSlotsize;
+                height: $gemSlotsize;
+              }
+
+              .gemOption {
+                @apply absolute bottom-[1px] right-[1px] font-bold text-sm text-white bg-[#0006] px-2;
+                border-radius: 10px;
               }
             }
           }

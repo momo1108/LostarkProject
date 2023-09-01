@@ -43,6 +43,20 @@ export type EngravingsType = {
   Tooltip: any;
 };
 
+export type GemType = {
+  Name: string;
+  Grade: string;
+  Icon: string;
+  Level: number;
+  Slot: number;
+  Tooltip: string;
+  // 추가 property
+  Description: string[];
+  ShortenedName: string;
+  SkillIcon: string;
+  Type: number;
+};
+
 export type EquipmentTooltipProps = {
   data: any;
 };
