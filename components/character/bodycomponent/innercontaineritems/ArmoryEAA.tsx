@@ -7,11 +7,15 @@ import {
   emptyAvatarBackgroundMap,
   emptyEquipmentBackgroundMap,
 } from "@/types/EAAType";
-import { engravingIconMap, gradeClassMap } from "@/types/GlobalType";
+import {
+  engravingIconMap,
+  gradeClassMap,
+  gradeTextColorMap,
+} from "@/types/GlobalType";
 import EquipmentSlot from "../slots/EquipmentSlot";
 import AccessorySlot from "../slots/AccessorySlot";
 import AvatarSlot from "../slots/AvatarSlot";
-import { useState, Fragment, useEffect } from "react";
+import { useState, Fragment, useEffect, useCallback } from "react";
 import { classImageMap } from "@/types/GlobalType";
 import Image from "next/image";
 import { Tooltip } from "react-tooltip";
@@ -20,6 +24,7 @@ import AccessoryTooltip from "../tooltips/AccessoryTooltip";
 import AvatarTooltip from "../tooltips/AvatarTooltip";
 import useApiTagParser from "@/hooks/useApiTagParser";
 import {
+  GemData,
   StatData,
   TendencyData,
   engravingLevelColorMap,
@@ -28,6 +33,10 @@ import {
 import AlertOctagon from "@/components/icons/AlertOctagon";
 import { engraveLevelColorMap } from "@/types/EngraveType";
 import GemTooltip from "../tooltips/GemTooltip";
+import { SkillData, tripodTierToColorMap } from "@/types/STType";
+import { TripodType } from "@/types/TripodType";
+import SkillTooltip from "../tooltips/SkillTooltip";
+import RuneTooltip from "../tooltips/RuneTooltip";
 
 /*
 아바타 왼쪽 : 무기, 무기
@@ -55,6 +64,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
     parseGemName,
     parseApiDataToHtmlString: parse,
     parseTextformat,
+    parseSkillPoint,
   } = useApiTagParser();
   const [menu, setMenu] = useState<number>(0);
   const [myStats, setMyStats] = useState<any>(new Object());
@@ -65,12 +75,56 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
   const [engravingTooltipContent, setEngravingTooltipContent] = useState<any>();
   const [engEquip, setEngEquip] = useState<{ [key: string]: number }>({});
   const [gemTooltipContent, setGemTooltipContent] = useState<any>();
+  const [skillDataList, setSkillDataList] = useState<SkillData[]>();
+  const [skillTooltipContent, setSkillTooltipContent] = useState<string>();
+  const [tripodTooltipContent, setTripodTooltipContent] = useState<string>();
+  const [runeTooltipContent, setRuneTooltipContent] = useState<string>();
   const [gemEquip, setGemEquip] = useState<{
     멸화: GemType[];
     홍염: GemType[];
   }>({ 멸화: [], 홍염: [] });
 
+  const setTripodInfo = useCallback(
+    (tripods: TripodType[], slot: Array<TripodType>) => {
+      tripods.map((e: TripodType) => {
+        if (e.IsSelected) slot[e.Tier] = e;
+      });
+      return slot;
+    },
+    []
+  );
+
   useEffect(() => {
+    // 스킬
+    const tmp: SkillData[] = [];
+
+    data.ArmorySkills?.forEach((e: SkillData) => {
+      // console.log(
+      //   Object.keys(JSON.parse(e.Tooltip)).length,
+      //   JSON.parse(e.Tooltip)
+      // );
+      if (e.Level > 1 || e.Rune) {
+        const tmp_tripod = new Array(3);
+        e.UsedTripods = setTripodInfo(e.Tripods, tmp_tripod);
+        tmp.push(e);
+      }
+    });
+
+    tmp.map((e: SkillData) => {
+      e.Gems = [];
+      data.ArmoryGem?.Effects.forEach((g: GemData) => {
+        if (e.Name === g.Name) {
+          e.Gems.push({
+            ...data.ArmoryGem.Gems[g.GemSlot],
+            Description: g.Description,
+          });
+        }
+      });
+      return e;
+    });
+
+    setSkillDataList(tmp);
+
     // 각인
     if (data.ArmoryEngraving?.Engravings) {
       console.log(data.ArmoryEngraving.Engravings);
@@ -515,7 +569,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
         </div>
         <div className={styles.gemDiv}>
           <div className={styles.infoHeader}>
-            <p className={styles.infoHeaderP}>장착 보석</p>
+            <span className={styles.infoHeaderSpan}>장착 보석</span>
           </div>
           <div className={styles.gemBody}>
             <div className={styles.nemesisJewelDiv}>
@@ -603,6 +657,115 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
           </div>
         </div>
       </div>
+      <div className={styles.skillDiv}>
+        <div className={styles.infoHeader}>
+          <span className={styles.infoHeaderSpan}>장착 스킬</span>
+        </div>
+        <div className={`hideScroll ${styles.skillBody}`}>
+          {skillDataList ? (
+            skillDataList.length ? (
+              skillDataList.map((e) => {
+                return (
+                  <Fragment key={`skillSlot_${e.Name}`}>
+                    <div className={styles.singleSkillDiv}>
+                      <div
+                        className={styles.skillIconSlot}
+                        data-tooltip-id="skillTooltip"
+                        onMouseEnter={() => {
+                          setSkillTooltipContent(JSON.parse(e.Tooltip));
+                        }}
+                      >
+                        <img src={e.Icon} className={styles.skillIcon} alt="" />
+                      </div>
+                      <div className={styles.skillDescr}>
+                        <p className={styles.skillLevelP}>
+                          Lv. {parseSkillPoint(e.Level)}
+                        </p>
+                        <p className={styles.skillNameP}>{e.Name}</p>
+                      </div>
+                      <div className={styles.skillTripods}>
+                        {e.UsedTripods.map((t: TripodType) => {
+                          if (t)
+                            return (
+                              <div
+                                data-tooltip-id="tripodTooltip"
+                                onMouseEnter={() => {
+                                  setTripodTooltipContent(t.Tooltip);
+                                }}
+                                className={styles.usedTripod}
+                                key={`${e.Name}_${t.Tier}_${t.Level}`}
+                              >
+                                <img src={t.Icon} alt="" />
+                                <p className={styles.tripodSlot}>{t.Slot}</p>
+                                <div
+                                  className={`${styles.tripodDescrItem} ${
+                                    tripodTierToColorMap[t.Tier]
+                                  }`}
+                                  key={`${e.Name}_${t.Name}`}
+                                >
+                                  <p className={styles.tripodNameP}>{t.Name}</p>
+                                  <p>Lv. {t.Level}</p>
+                                </div>
+                              </div>
+                            );
+                        })}
+                      </div>
+
+                      <div className={styles.skillGems}>
+                        {e.Gems.map((g: GemData) => {
+                          return (
+                            <div key={`${e.Name}_${g.Slot}`}>
+                              <img width={40} src={g.Icon} alt="" />
+                              <p>{`${g.Level}${
+                                g.Description.startsWith("피해") ? "멸" : "홍"
+                              }`}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      <div
+                        data-tooltip-id={e.Rune ? "runeTooltip" : ""}
+                        onMouseEnter={() => {
+                          e.Rune
+                            ? setRuneTooltipContent(JSON.parse(e.Rune.Tooltip))
+                            : "";
+                        }}
+                        className={`${styles.skillRune} ${
+                          gradeClassMap[e.Rune?.Grade]
+                        }`}
+                      >
+                        {e.Rune ? (
+                          <>
+                            <img src={e.Rune.Icon} alt="" />
+                            <p
+                              className={`${styles.runeNameP} ${
+                                gradeTextColorMap[e.Rune.Grade]
+                              }`}
+                            >
+                              {e.Rune.Name}
+                            </p>
+                          </>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </div>
+                    <hr />
+                  </Fragment>
+                );
+              })
+            ) : (
+              <div className={styles.emptySkill}>
+                <AlertOctagon size={110} color="#fff" width={2} /> 사용중인
+                스킬이 없습니다.
+              </div>
+            )
+          ) : (
+            "로딩중"
+          )}
+        </div>
+      </div>
       <Tooltip
         id="equipmentTooltip"
         className="tooltip equipmentTooltip"
@@ -680,6 +843,44 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
       >
         {gemTooltipContent ? (
           <GemTooltip data={gemTooltipContent} />
+        ) : (
+          "Loading..."
+        )}
+      </Tooltip>
+      <Tooltip
+        id="skillTooltip"
+        className="tooltip skillTooltip"
+        place="bottom"
+        clickable={true}
+        offset={6}
+        delayHide={1}
+      >
+        {skillTooltipContent ? (
+          <SkillTooltip data={skillTooltipContent} />
+        ) : (
+          "Loading..."
+        )}
+      </Tooltip>
+      <Tooltip
+        id="tripodTooltip"
+        className="tooltip tripodTooltip"
+        place="bottom"
+        clickable={true}
+        offset={6}
+        delayHide={1}
+      >
+        {tripodTooltipContent ? parse(tripodTooltipContent) : "Loading..."}
+      </Tooltip>
+      <Tooltip
+        id="runeTooltip"
+        className="tooltip runeTooltip"
+        place="bottom"
+        clickable={true}
+        offset={6}
+        delayHide={1}
+      >
+        {runeTooltipContent ? (
+          <RuneTooltip data={runeTooltipContent} />
         ) : (
           "Loading..."
         )}

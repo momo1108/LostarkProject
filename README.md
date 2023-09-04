@@ -1024,6 +1024,7 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
   - engrave의 검색 결과 반응성 설정. 화면이 작아지면, 한 악세서리 정보를 가로로 길게 출력하도록 변경하자.
 - 왜 onWheel 이벤트 stopPropagation이 안먹힐까?
 - overflow-auto 찾아서 hideScroll 클래스로 사용하기
+- ArmoryEAA 등에서 Type의 중복들이 발견. skill, tripod, gem 등 정리할것
 
 #### 에러 업데이트
 

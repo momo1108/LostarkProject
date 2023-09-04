@@ -113,7 +113,7 @@ $myLightBlue: #76b1ff;
           }
         }
         .skillsDiv {
-          @apply grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-11 3xl:grid-cols-13 4xl:grid-cols-16
+          @apply grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-11 3xl:grid-cols-13 5xl:grid-cols-16
             gap-1 md:gap-2 max-h-[340px] sm:max-h-[450px] pr-2;
           .skillBtn {
             @apply relative flex flex-col justify-center items-center border md:border-2 border-[#333] p-1 w-[77px] h-[81px] text-xs md:w-[90px] md:h-[90px] md:text-sm;

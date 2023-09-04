@@ -144,7 +144,7 @@ $myLightBlue: #76b1ff;
   }
 
   .infoContainer {
-    @apply w-full max-w-[1340px] inline-grid grid-cols-1 justify-center items-start py-2;
+    @apply w-full inline-grid grid-cols-1 justify-center items-start py-2;
 
     .upperContainer,
     .stContainer,
@@ -164,7 +164,8 @@ $myLightBlue: #76b1ff;
     }
 
     .upperContainer {
-      @apply grid xs:grid-cols-[repeat(6,minmax(50px,70px))] sm:grid-cols-[repeat(10,minmax(50px,70px))] md:grid-cols-[repeat(12,50px)] lg:grid-cols-[repeat(18,minmax(48px,50px))] gap-2 mx-auto;
+      @apply grid xs:grid-cols-[repeat(6,minmax(50px,70px))] sm:grid-cols-[repeat(10,minmax(50px,70px))] md:grid-cols-[repeat(12,50px)] lg:grid-cols-[repeat(18,minmax(48px,50px))]
+       4xl:grid-cols-[repeat(29,50px)] gap-2 mx-auto;
 
       /* ###############################
       ########## ArmoryEAA 관련 #########
@@ -500,6 +501,88 @@ $myLightBlue: #76b1ff;
               .gemOption {
                 @apply absolute bottom-[1px] right-[1px] font-bold text-sm text-white bg-[#0006] px-2;
                 border-radius: 10px;
+              }
+            }
+          }
+        }
+      }
+
+      .skillDiv {
+        @apply flex-auto col-span-11;
+
+        hr {
+          border-color: #282828;
+        }
+        hr:last-child {
+          display: none;
+        }
+
+        .skillBody {
+          @apply max-h-[600px];
+          .emptySkill {
+            @apply flex flex-col w-full items-center justify-center text-white text-lg font-extrabold my-6;
+          }
+          .singleSkillDiv {
+            @apply py-3 pl-2 pr-4 flex justify-center font-bold items-center gap-2;
+            color: $basicFontColor;
+
+            .skillIconSlot {
+              @apply flex shrink-0 w-[50px] h-[50px] justify-center items-center;
+              background-image: url(/images/skill_slot.png);
+              .skillIcon {
+                @apply w-[44px];
+              }
+            }
+
+            .skillDescr {
+              @apply inline-flex flex-col min-w-[125px];
+              .skillLevelP {
+                @apply text-xs;
+              }
+            }
+
+            .skillTripods {
+              @apply flex shrink-0 gap-2 ml-4 min-w-[226px] h-[65px];
+              .usedTripod {
+                @apply relative flex w-[70px] justify-center;
+                img {
+                  @apply w-[43px] h-[43px];
+                  border-radius: 21.5px;
+                  border: 1.5px solid rgb(42, 42, 42);
+                }
+                .tripodSlot {
+                  @apply absolute inline-flex text-sm font-extrabold;
+                  right: 12px;
+                  top: -5px;
+                }
+                .tripodDescrItem {
+                  @apply absolute flex flex-col text-xs text-center;
+                  bottom: -4px;
+                  .tripodNameP {
+                    @apply w-[90px];
+                  }
+                }
+              }
+            }
+
+            .skillGems {
+              @apply w-20 flex shrink-0 flex-col justify-center items-center text-sm mx-3;
+              div {
+                @apply inline-flex items-center;
+              }
+            }
+
+            .skillRune {
+              @apply relative w-[52px] h-[52px] flex shrink-0 justify-center items-center;
+              border-radius: 50%;
+              border: 2px solid rgb(36, 36, 36);
+              box-shadow: inset 0px 0px 7px 0px #000;
+              img {
+                @apply w-11 h-11;
+              }
+              .runeNameP {
+                @apply absolute text-sm;
+                bottom: -7px;
               }
             }
           }
