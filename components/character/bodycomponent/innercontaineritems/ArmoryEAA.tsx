@@ -28,6 +28,7 @@ import {
   StatData,
   TendencyData,
   engravingLevelColorMap,
+  gradeCardBackgroundMap,
   tendencyImageMap,
 } from "@/types/TEGCType";
 import AlertOctagon from "@/components/icons/AlertOctagon";
@@ -83,6 +84,14 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
     멸화: GemType[];
     홍염: GemType[];
   }>({ 멸화: [], 홍염: [] });
+  const [selectedCards, setSelectedCards] = useState<any>([]);
+  type CardEffectType = {
+    CardSlots: number[];
+    Index: number;
+    Name: string;
+    Description: string[][];
+  };
+  const [cardEffects, setCardEffects] = useState<CardEffectType[]>([]);
 
   const setTripodInfo = useCallback(
     (tripods: TripodType[], slot: Array<TripodType>) => {
@@ -95,35 +104,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
   );
 
   useEffect(() => {
-    // 스킬
-    const tmp: SkillData[] = [];
-
-    data.ArmorySkills?.forEach((e: SkillData) => {
-      // console.log(
-      //   Object.keys(JSON.parse(e.Tooltip)).length,
-      //   JSON.parse(e.Tooltip)
-      // );
-      if (e.Level > 1 || e.Rune) {
-        const tmp_tripod = new Array(3);
-        e.UsedTripods = setTripodInfo(e.Tripods, tmp_tripod);
-        tmp.push(e);
-      }
-    });
-
-    tmp.map((e: SkillData) => {
-      e.Gems = [];
-      data.ArmoryGem?.Effects.forEach((g: GemData) => {
-        if (e.Name === g.Name) {
-          e.Gems.push({
-            ...data.ArmoryGem.Gems[g.GemSlot],
-            Description: g.Description,
-          });
-        }
-      });
-      return e;
-    });
-
-    setSkillDataList(tmp);
+    console.log(data);
 
     // 각인
     if (data.ArmoryEngraving?.Engravings) {
@@ -161,7 +142,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
         };
       });
 
-      let tmp_GemEquip: {
+      let tmpGemEquip: {
         멸화: GemType[];
         홍염: GemType[];
       } = {
@@ -169,17 +150,17 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
         홍염: [],
       };
       mergedGemInfo.forEach((gemInfo) => {
-        tmp_GemEquip[gemInfo.Type === 0 ? "멸화" : "홍염"].push(gemInfo);
+        tmpGemEquip[gemInfo.Type === 0 ? "멸화" : "홍염"].push(gemInfo);
       });
 
-      tmp_GemEquip["멸화"].sort((a: any, b: any) => {
+      tmpGemEquip["멸화"].sort((a: any, b: any) => {
         return a.Type === b.Type
           ? a.Level === b.Level
             ? a.Slot - b.Slot
             : b.Level - a.Level
           : a.Type - b.Type;
       });
-      tmp_GemEquip["홍염"].sort((a: any, b: any) => {
+      tmpGemEquip["홍염"].sort((a: any, b: any) => {
         return a.Type === b.Type
           ? a.Level === b.Level
             ? a.Slot - b.Slot
@@ -187,15 +168,81 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
           : a.Type - b.Type;
       });
 
-      setGemEquip(tmp_GemEquip);
+      setGemEquip(tmpGemEquip);
     }
 
     // 스탯
-    const tmp_stats: { [key: string]: [string, Array<string>] } = {};
+    const tmpStats: { [key: string]: [string, Array<string>] } = {};
     data.ArmoryProfile?.Stats?.forEach((e: StatData) => {
-      tmp_stats[e.Type] = [e.Value, e.Tooltip];
+      tmpStats[e.Type] = [e.Value, e.Tooltip];
     });
-    setMyStats({ ...tmp_stats });
+    setMyStats({ ...tmpStats });
+
+    // 스킬
+    const tmpSkill: SkillData[] = [];
+
+    data.ArmorySkills?.forEach((e: SkillData) => {
+      // console.log(
+      //   Object.keys(JSON.parse(e.Tooltip)).length,
+      //   JSON.parse(e.Tooltip)
+      // );
+      if (e.Level > 1 || e.Rune) {
+        const tmp_tripod = new Array(3);
+        e.UsedTripods = setTripodInfo(e.Tripods, tmp_tripod);
+        tmpSkill.push(e);
+      }
+    });
+
+    tmpSkill.map((e: SkillData) => {
+      e.Gems = [];
+      data.ArmoryGem?.Effects?.forEach((g: GemData) => {
+        if (e.Name === g.Name) {
+          e.Gems.push({
+            ...data.ArmoryGem.Gems[g.GemSlot],
+            Description: g.Description,
+          });
+        }
+      });
+      return e;
+    });
+
+    setSkillDataList(tmpSkill);
+
+    // 카드
+    const tmpCard: CardEffectType[] = [];
+    data.ArmoryCard?.Effects?.forEach(
+      (effect: {
+        CardSlots: number[];
+        Index: number;
+        Items: { Name: string; Description: string }[];
+      }) => {
+        if (effect.Items.length) {
+          const pattern = /[0-9]{1,2}세트|각성합계/g;
+          const splitName = effect.Items[0].Name.split(" ");
+
+          const endPoint = pattern.exec(splitName[splitName.length - 1])
+            ? pattern.exec(splitName[splitName.length - 2])
+              ? splitName.length - 2
+              : splitName.length - 1
+            : splitName.length;
+
+          const Name = splitName.slice(0, endPoint).join(" ");
+          const Description = effect.Items.map((item) => [
+            item.Name.slice(Name.length + 1),
+            item.Description,
+          ]);
+
+          tmpCard.push({
+            CardSlots: effect.CardSlots,
+            Index: effect.Index,
+            Name,
+            Description,
+          });
+        }
+      }
+    );
+    console.log(tmpCard);
+    setCardEffects(tmpCard);
   }, []);
 
   useEffect(() => {
@@ -250,7 +297,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
         </div>
         <div className={styles.profileHeader}>
           <p className={styles.profileHeaderLine}>
-            <span className={styles.profileServerSpan}>
+            <span className={styles.profileCategorySpan}>
               @{data.ArmoryProfile.ServerName || "서버없음"}
             </span>
             <span className={styles.profileNameSpan}>
@@ -560,7 +607,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                 );
               })
             ) : (
-              <div className={styles.emptyTEGC}>
+              <div className={styles.emptyInfo}>
                 <AlertOctagon size={110} color="#fff" width={2} />
                 활성화된 각인 효과가 없습니다.
               </div>
@@ -655,6 +702,90 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
               )}
             </div>
           </div>
+        </div>
+      </div>
+      <div className={styles.cardDiv}>
+        <div className={styles.infoHeader}>
+          <span className={styles.infoHeaderSpan}>장착 카드</span>
+        </div>
+        <div className={styles.cardBody}>
+          {data.ArmoryCard?.Cards ? (
+            <>
+              <div className={styles.cardList}>
+                {data.ArmoryCard.Cards.map((e: any) => {
+                  return (
+                    <div key={`cardSlot${e.Slot}`} className={styles.cardSlot}>
+                      <div
+                        className={`${styles.cardImageDiv} ${
+                          selectedCards.includes(e.Slot)
+                            ? styles.selectedCardImageDiv
+                            : ""
+                        }`}
+                        data-grade={gradeCardBackgroundMap[e.Grade]}
+                      >
+                        <img src={e.Icon} className={styles.cardIcon} alt="" />
+                        {e.AwakeTotal ? (
+                          <div className={styles.awakeningDiv}>
+                            {[1, 2, 3, 4, 5].map((a: number) => (
+                              <img
+                                key={`cardImage${a}`}
+                                src={
+                                  a <= e.AwakeCount
+                                    ? "/images/gem_awakened.png"
+                                    : "/images/gem_not_awakened.png"
+                                }
+                                alt="AwakeningSlot"
+                              />
+                            ))}
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
+                      <p
+                        style={{ color: gradeTextColorMap[e.Grade] }}
+                        className={styles.cardTitle}
+                      >
+                        {e.Name}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className={styles.cardEffectsDiv}>
+                {cardEffects.map((e, i: number) => {
+                  return (
+                    <div key={`cardSet${i}`} className={styles.cardSetDiv}>
+                      <p className={styles.cardSetP}>
+                        <span>{e.Name}</span>
+                        <button
+                          className={styles.cardIndicator}
+                          onMouseEnter={() => {
+                            setSelectedCards(e.CardSlots);
+                          }}
+                          onMouseLeave={() => setSelectedCards([])}
+                        >
+                          세트 카드 표시
+                        </button>
+                      </p>
+                      {e.Description.map((descr) => (
+                        <div className={styles.cardEffectDescrDiv}>
+                          <p className={styles.nameP}>{descr[0]}</p>
+                          <p className={styles.descrP}>{descr[1]}</p>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          ) : (
+            <div className={styles.emptyInfo}>
+              <AlertOctagon size={110} color="#fff" width={2} /> 장착중인 카드가
+              없습니다.
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.skillDiv}>
@@ -756,7 +887,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                 );
               })
             ) : (
-              <div className={styles.emptySkill}>
+              <div className={styles.emptyInfo}>
                 <AlertOctagon size={110} color="#fff" width={2} /> 사용중인
                 스킬이 없습니다.
               </div>

@@ -1019,12 +1019,13 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 - tripod copy 시 비활성화 관련 출력해주기 O
 - tripod 검색 시 loader css 박살남 O
 - character, engrave css 개편 필요
-  - character의 이미지 창과 전투정보 출력을 통합해야 할듯.(이미지는 작게만 출력하고, hover 시 자세히 포기 가능하게.)
+  - character의 이미지 창과 전투정보 출력을 통합해야 할듯.(이미지는 작게만 출력하고, hover 시 자세히 포기 가능하게.) - 다른 방법으로 변경
   - engrave의 검색 설정 컴포넌트들의 출력을 통합하자.
   - engrave의 검색 결과 반응성 설정. 화면이 작아지면, 한 악세서리 정보를 가로로 길게 출력하도록 변경하자.
 - 왜 onWheel 이벤트 stopPropagation이 안먹힐까?
 - overflow-auto 찾아서 hideScroll 클래스로 사용하기
 - ArmoryEAA 등에서 Type의 중복들이 발견. skill, tripod, gem 등 정리할것
+- character profile header 디자인 변경
 
 #### 에러 업데이트
 

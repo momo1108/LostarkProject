@@ -85,6 +85,45 @@ export default function CharBody() {
     [searchedDataList]
   );
 
+  /*
+  2023-05-30 Redux가 아닌 State 사용을 고려해서 리팩토링
+  */
+  // const dispatch = useDispatch();
+  // const { dispatchWrapper } = useReduxDispatchWrapper();
+  // const [pointer, setPointer] = useState<boolean>(false);
+  // const recentData = useSelector((state: RootState) => state.searched.data);
+  // const data = useSelector<RootState, CharData>(
+  //   (state) => state.character.data
+  // );
+
+  // // 검색 시 유효한 검색건에 대하여 검색기록 저장.
+  // useEffect(() => {
+  //   if (data.ArmoryProfile && data.ArmoryProfile.CharacterImage) {
+  //     setPointer(true);
+  //     dispatchWrapper(save, data);
+  //   }
+  // }, [data]);
+  // // 검색기록이 변경되었을 때, pointer 로 이중 체크 후 localStorage에 저장.
+  // useEffect(() => {
+  //   if (pointer) {
+  //     setPointer(false);
+  //     localStorage.setItem("recentSearch", JSON.stringify(recentData));
+  //     while (
+  //       JSON.parse(localStorage.getItem("recentSearch")!).length !==
+  //       recentData.length
+  //     ) {
+  //       localStorage.setItem("recentSearch", JSON.stringify(recentData));
+  //     }
+  //   }
+  // }, [recentData]);
+
+  // useEffect(() => {
+  //   const recentSearch = localStorage.getItem("recentSearch");
+  //   if (recentSearch) {
+  //     dispatchWrapper(success, JSON.parse(recentSearch));
+  //   }
+  // }, [dispatch]);
+
   return (
     <div className={`${styles.container} ${nanumNeo.className}`}>
       <CharSearchContainer {...{ searchedDataList, like, remove }} />
