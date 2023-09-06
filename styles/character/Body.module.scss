@@ -1,9 +1,10 @@
 $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
 $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
-$gemSlotsize: 51px;
 $basicFontColor: #eee;
 $myBlue: #4691f6;
 $myLightBlue: #76b1ff;
+$myDarkBlue: #2a5996;
+$gemSlotsize: 51px;
 @function getEmptySlotBackground($num) {
   @return url(/images/empty_equipment_#{$num}.png);
 }
@@ -177,74 +178,41 @@ $myLightBlue: #76b1ff;
         @apply col-span-6 md:col-span-7 flex flex-col gap-2 items-center pb-4 bg-[#14181d] rounded-lg overflow-hidden;
 
         .profileHeader {
-          @apply w-full;
-          .profileHeaderLine {
-            @apply flex justify-center items-center font-bold mb-1 leading-6;
-            color: $basicFontColor;
-
-            &:first-child > span {
-              @apply mx-1;
-            }
-            .profileCategorySpan {
-              @apply py-1 px-2 bg-[#116] font-extrabold text-sm;
-              border-radius: 12px;
-            }
-            .profileNameSpan {
-              @apply font-normal;
-              & > span {
-                @apply font-extrabold;
+          @apply flex flex-col gap-2 justify-center items-center;
+          .profileCategorySpan {
+            @apply py-[2px] px-2 bg-[#292f36] font-extrabold text-sm;
+            border-radius: 8px;
+          }
+          .profileUserDiv {
+            @apply inline-flex flex-col items-start gap-1;
+            .headerDiv {
+              @apply flex items-center gap-1;
+              .profileClassP {
+                @apply relative;
+                .classImg {
+                  @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] opacity-30 w-7 h-7;
+                }
+                .profileClassSpan {
+                  @apply text-sm;
+                }
               }
             }
-            .profileClassSpan {
-              @apply text-sm;
-            }
-
-            img {
-              max-width: 23px;
-              max-width: 23px;
-            }
-
-            &:not(:first-child) > span {
-              @apply mr-2;
-
-              &:last-child {
-                @apply mr-0;
+            .bodyDiv {
+              @apply flex flex-col mx-auto;
+              .nameSpan {
+                @apply text-lg font-bold leading-6;
+              }
+              .titleSpan {
+                @apply text-sm;
               }
             }
-            &:nth-child(3) span {
-              @apply max-w-[160px];
-            }
           }
-        }
-
-        .profileMenu {
-          @apply flex;
-          .profileMenuSep {
-            @apply mx-6;
-            border-left: 1px solid #444;
-          }
-          .profileMenuBtn {
-            @apply text-white text-center hover:font-bold w-[70px] py-1 cursor-pointer relative;
-            &::after {
-              content: "";
-              position: absolute;
-              width: 100%;
-              transform: scaleX(0);
-              height: 2px;
-              bottom: 0;
-              left: 0;
-              background-color: #172f9c;
-              transform-origin: bottom right;
-              transition: transform 0.25s ease-out;
-            }
-            &:hover::after {
-              transform: scaleX(1);
-              transform-origin: bottom left;
-            }
-            &.active {
-              @apply font-bold;
-              &::after {
-                transform: scaleX(1) !important;
+          .profileLevelDiv {
+            @apply flex gap-4;
+            .levelDiv {
+              @apply text-lg font-bold;
+              .levelSpan {
+                @apply text-xl font-extrabold;
               }
             }
           }
@@ -253,6 +221,35 @@ $myLightBlue: #76b1ff;
         .profileBody {
           @apply relative bg-[#15181d] flex justify-between items-center min-h-[363px] w-full overflow-hidden;
           aspect-ratio: 153 / 177;
+
+          .profileMenu {
+            @apply absolute top-0 left-1/2 translate-x-[-50%] flex gap-4 z-[3];
+            .profileMenuBtn {
+              @apply text-white text-center hover:font-bold w-[50px] cursor-pointer relative;
+              &::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                transform: scaleX(0);
+                height: 2px;
+                bottom: 0;
+                left: 0;
+                background-color: #172f9c;
+                transform-origin: bottom right;
+                transition: transform 0.25s ease-out;
+              }
+              &:hover::after {
+                transform: scaleX(1);
+                transform-origin: bottom left;
+              }
+              &.active {
+                @apply font-bold;
+                &::after {
+                  transform: scaleX(1) !important;
+                }
+              }
+            }
+          }
 
           .profileEquipmentDiv {
             @apply h-full relative z-[2] flex flex-col px-4 gap-1 xs:gap-3 justify-center items-center;
@@ -309,7 +306,7 @@ $myLightBlue: #76b1ff;
           }
           .profileAvatarDiv {
             @apply w-[140px] h-full px-2 relative z-[2] flex flex-col gap-1 xs:gap-3 justify-center items-start;
-            &:nth-child(2) {
+            &[data-direction="right"] {
               @apply items-end;
             }
 
@@ -408,7 +405,7 @@ $myLightBlue: #76b1ff;
       }
 
       .stDiv {
-        @apply flex sm:flex-col max-sm:items-start gap-2 sm:gap-4 col-span-6 sm:col-span-4 md:col-span-5;
+        @apply flex sm:flex-col max-sm:items-start gap-2 col-span-6 sm:col-span-4 md:col-span-5;
         .statsDiv {
           @apply bg-[#14181d] rounded-lg overflow-hidden w-1/2 sm:w-auto;
           color: $basicFontColor;
@@ -452,9 +449,9 @@ $myLightBlue: #76b1ff;
       }
 
       .egDiv {
-        @apply flex flex-col gap-4 col-span-6;
+        @apply flex xs:max-sm:items-start xs:max-sm:flex-row flex-col gap-2 col-span-6 sm:col-span-5 md:col-span-6;
         .engravingDiv {
-          @apply bg-[#14181d] rounded-lg overflow-hidden;
+          @apply xs:max-sm:min-w-[240px] xs:max-sm:w-1/2 bg-[#14181d] rounded-lg overflow-hidden;
           .engravingBody {
             @apply px-2 py-3 flex flex-col gap-3 justify-center items-center;
             .engravingEffectsDiv {
@@ -475,12 +472,12 @@ $myLightBlue: #76b1ff;
         }
 
         .gemDiv {
-          @apply bg-[#14181d] rounded-lg overflow-hidden;
+          @apply xs:max-sm:w-1/2 bg-[#14181d] rounded-lg overflow-hidden;
           .gemBody {
-            @apply flex flex-col items-center gap-2 my-2 px-2 py-3;
+            @apply flex flex-col items-center gap-2 my-2 px-1 sm:px-2 py-3;
             .nemesisJewelDiv,
             .frostfireJewelDiv {
-              @apply relative mt-[18px] flex flex-wrap justify-center gap-1 p-3 border-2 w-full max-w-[300px] border-[#2d303b] rounded-lg;
+              @apply relative mt-[18px] flex flex-wrap justify-center gap-1 p-2 sm:p-3 border-2 w-full max-w-[300px] border-[#2d303b] rounded-lg;
             }
             .jewelHeader {
               @apply absolute top-[-20px] left-1 text-xs bg-[#2d303b] px-2 leading-5 font-bold;
@@ -488,16 +485,13 @@ $myLightBlue: #76b1ff;
               border-radius: 5px 5px 0 0;
             }
             .gemSlot {
-              @apply relative;
-              width: $gemSlotsize;
-              height: $gemSlotsize;
+              @apply relative w-[38px] h-[38px] sm:w-[51px] sm:h-[51px];
               .gemImg {
-                width: $gemSlotsize;
-                height: $gemSlotsize;
+                @apply w-[38px] h-[38px] sm:w-[51px] sm:h-[51px];
               }
 
               .gemOption {
-                @apply absolute bottom-[1px] right-[1px] font-bold text-sm text-white bg-[#0006] px-2;
+                @apply absolute bottom-[1px] right-[1px] font-bold text-xs sm:text-sm text-white bg-[#0006] px-1 sm:px-2;
                 border-radius: 10px;
               }
             }
@@ -506,7 +500,7 @@ $myLightBlue: #76b1ff;
       }
 
       .cardDiv {
-        @apply col-span-6 lg:col-span-7 overflow-hidden rounded-lg bg-[#14181d];
+        @apply col-span-6 sm:col-span-5 md:col-span-6 lg:col-span-7 overflow-hidden rounded-lg bg-[#14181d];
         .cardBody {
           @apply flex flex-col px-2 py-2 gap-4 min-h-[300px] justify-center;
           .cardList {
@@ -515,13 +509,12 @@ $myLightBlue: #76b1ff;
               @apply flex flex-col items-center gap-1;
               .selectedCardImageDiv {
                 @apply border-[#4691f6];
-                // box-shadow: 0px 0px 2px 2px rgba(136, 134, 20, 0.622);;
               }
               .cardImageDiv:not(.selectedCardImageDiv) {
                 @apply border-transparent;
               }
               .cardImageDiv {
-                @apply relative inline-block border w-[90%];
+                @apply relative inline-block border-2 rounded w-[90%];
                 &::before {
                   @apply absolute top-0 left-0 bottom-0 right-0;
                   background-repeat: no-repeat;
@@ -561,11 +554,14 @@ $myLightBlue: #76b1ff;
             }
           }
           .cardEffectsDiv {
-            @apply text-white flex flex-col w-full gap-4;
+            @apply flex flex-col w-full gap-4;
             .cardSetDiv {
-              @apply w-full flex flex-col gap-2;
+              @apply w-full flex flex-col gap-2 bg-[#191e24] py-1 rounded-lg;
               .cardSetP {
                 @apply flex items-center w-full font-extrabold text-lg px-2;
+                .cardSetTitleSpan {
+                  color: $myLightBlue;
+                }
                 .cardIndicator {
                   @apply font-bold text-xs px-1 py-[2px] ml-2;
                   border: 2px solid #fff;
@@ -579,10 +575,10 @@ $myLightBlue: #76b1ff;
               .cardEffectDescrDiv {
                 @apply flex gap-4 justify-between text-sm;
                 .nameP {
-                  @apply w-[100px] break-keep text-center font-bold;
+                  @apply w-[27%] min-w-[100px] break-keep text-center font-bold;
                 }
                 .descrP {
-                  @apply w-[266px] flex items-center;
+                  @apply w-[73%] flex items-center;
                 }
               }
             }
@@ -591,7 +587,7 @@ $myLightBlue: #76b1ff;
       }
 
       .skillDiv {
-        @apply col-span-6 sm:col-span-12 lg:col-span-11 overflow-hidden bg-[#14181d];
+        @apply col-span-6 sm:col-span-10 md:col-span-12 lg:col-span-11 overflow-hidden bg-[#14181d];
         border-radius: 0.5rem 0.5rem 0 0;
 
         hr {
@@ -607,26 +603,29 @@ $myLightBlue: #76b1ff;
             @apply flex flex-col w-full items-center justify-center text-white text-lg font-extrabold my-6;
           }
           .singleSkillDiv {
-            @apply py-3 pl-2 pr-4 flex justify-center font-bold items-center gap-3;
+            @apply py-3 pl-2 pr-4 flex flex-col sm:flex-row items-center justify-center font-bold gap-3;
             color: $basicFontColor;
 
-            .skillIconSlot {
-              @apply flex shrink-0 w-[50px] h-[50px] justify-center items-center;
-              background-image: url(/images/skill_slot.png);
-              .skillIcon {
-                @apply w-[44px];
+            .skillId {
+              @apply flex gap-3 items-center;
+              .skillIconSlot {
+                @apply flex shrink-0 w-[50px] h-[50px] justify-center items-center;
+                background-image: url(/images/skill_slot.png);
+                .skillIcon {
+                  @apply w-[44px];
+                }
               }
-            }
 
-            .skillDescr {
-              @apply inline-flex flex-col min-w-[125px];
-              .skillLevelP {
-                @apply text-xs;
+              .skillDescr {
+                @apply inline-flex flex-col sm:min-w-[125px];
+                .skillLevelP {
+                  @apply text-xs;
+                }
               }
             }
 
             .skillTripods {
-              @apply flex shrink-0 gap-2 min-w-[226px] h-[65px];
+              @apply grid grid-cols-[70px_70px_70px] gap-2 h-[65px];
               .usedTripod {
                 @apply relative flex w-[70px] justify-center;
                 img {
@@ -647,26 +646,63 @@ $myLightBlue: #76b1ff;
                   }
                 }
               }
-            }
 
-            .skillGems {
-              @apply w-20 flex shrink-0 flex-col justify-center items-center text-sm mx-3;
-              div {
-                @apply inline-flex items-center;
+              .emptyTripod {
+                @apply flex justify-center items-start;
+                .emptyIconWrapper {
+                  @apply flex justify-center items-center w-[43px] h-[43px];
+                  filter: grayscale(70%);
+                  background: #14181d;
+                  border-radius: 21.5px;
+                  border: 1.5px solid rgb(42, 42, 42);
+                  svg {
+                    opacity: 30%;
+                  }
+                }
               }
             }
 
-            .skillRune {
-              @apply relative w-[52px] h-[52px] flex shrink-0 justify-center items-center;
-              border-radius: 50%;
-              border: 2px solid rgb(36, 36, 36);
-              box-shadow: inset 0px 0px 7px 0px #000;
-              img {
-                @apply w-11 h-11;
+            .skillGr {
+              @apply flex gap-3 items-center;
+              .skillGems {
+                @apply flex sm:flex-col gap-1 justify-center items-center text-sm sm:mx-3;
+                .gemSlot {
+                  @apply inline-flex items-center;
+                  .gemWrapper {
+                    @apply relative w-[40px] h-[40px];
+                    .gemOption {
+                      @apply absolute bottom-[1px] right-[1px] font-bold text-xs text-white bg-[#0006] px-1;
+                      border-radius: 8px;
+                    }
+                  }
+                  .emptyIconWrapper {
+                    @apply flex justify-center items-center w-[40px] h-[40px];
+                    filter: grayscale(80%);
+                    background: #14181d;
+                    border: 1.5px solid rgb(42, 42, 42);
+                    svg {
+                      opacity: 30%;
+                    }
+                  }
+                }
               }
-              .runeNameP {
-                @apply absolute text-sm;
-                bottom: -7px;
+
+              .skillRune {
+                @apply relative w-[52px] h-[52px] flex shrink-0 justify-center items-center;
+                border-radius: 50%;
+                border: 2px solid rgb(36, 36, 36);
+                box-shadow: inset 0px 0px 7px 0px #000;
+                img {
+                  @apply w-11 h-11;
+                }
+                .runeNameP {
+                  @apply absolute text-sm;
+                  bottom: -7px;
+                }
+                .emptyRune {
+                  filter: grayscale(80%);
+                  opacity: 50%;
+                }
               }
             }
           }

@@ -38,6 +38,7 @@ import { SkillData, tripodTierToColorMap } from "@/types/STType";
 import { TripodType } from "@/types/TripodType";
 import SkillTooltip from "../tooltips/SkillTooltip";
 import RuneTooltip from "../tooltips/RuneTooltip";
+import { Gem, Tripod } from "@/components/icons/Index";
 
 /*
 아바타 왼쪽 : 무기, 무기
@@ -206,6 +207,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
       return e;
     });
 
+    console.log(tmpSkill);
     setSkillDataList(tmpSkill);
 
     // 카드
@@ -241,13 +243,9 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
         }
       }
     );
-    console.log(tmpCard);
+
     setCardEffects(tmpCard);
   }, []);
-
-  useEffect(() => {
-    console.log(gemEquip);
-  }, [gemEquip]);
 
   function emptyAvatarChecker(e: number): React.ReactElement {
     if (avatar[e]) {
@@ -296,31 +294,67 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
           <span className={styles.infoHeaderSpan}>프로필</span>
         </div>
         <div className={styles.profileHeader}>
-          <p className={styles.profileHeaderLine}>
-            <span className={styles.profileCategorySpan}>
-              @{data.ArmoryProfile.ServerName || "서버없음"}
-            </span>
-            <span className={styles.profileNameSpan}>
-              [ <b>Lv.{data.ArmoryProfile.CharacterLevel}</b>{" "}
-              <span>{data.ArmoryProfile.CharacterName}</span> ]
-            </span>
-            <img
-              src={`/images/${
-                classImageMap[data.ArmoryProfile.CharacterClassName]
-              }`}
-              alt=""
-            />
-            <span className={styles.profileClassSpan}>
-              {data.ArmoryProfile.CharacterClassName}
-            </span>
-          </p>
-          <p className={styles.profileHeaderLine}>
-            <span className={styles.profileCategorySpan}>아이템 레벨</span>
-            <span>{data.ArmoryProfile.ItemAvgLevel.replace(",", "")}</span>
-            <span className={styles.profileCategorySpan}>원정대 레벨</span>
-            <span>{data.ArmoryProfile.ExpeditionLevel}</span>
-          </p>
-          <p className={styles.profileHeaderLine}>
+          <div className={styles.profileUserDiv}>
+            <div className={styles.headerDiv}>
+              <span className={styles.profileCategorySpan}>
+                @{data.ArmoryProfile.ServerName || "서버없음"}
+              </span>
+              <p className={styles.profileClassP}>
+                <img
+                  className={styles.classImg}
+                  src={`/images/${
+                    classImageMap[data.ArmoryProfile.CharacterClassName]
+                  }`}
+                  alt=""
+                />
+                <span className={styles.profileClassSpan}>
+                  {data.ArmoryProfile.CharacterClassName}
+                </span>
+              </p>
+            </div>
+            <div className={styles.bodyDiv}>
+              <span className={styles.nameSpan}>
+                {data.ArmoryProfile.CharacterName}
+              </span>
+              {data.ArmoryProfile.Title ? (
+                <span className={styles.titleSpan}>
+                  {data.ArmoryProfile.Title}
+                </span>
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
+          <div className={styles.profileLevelDiv}>
+            <div className={styles.innerLevelDiv}>
+              <span className={styles.profileCategorySpan}>원정대</span>
+              <div className={styles.levelDiv}>
+                Lv.{" "}
+                <span className={styles.levelSpan}>
+                  {data.ArmoryProfile.ExpeditionLevel}
+                </span>
+              </div>
+            </div>
+            <div className={styles.innerLevelDiv}>
+              <span className={styles.profileCategorySpan}>아이템</span>
+              <div className={styles.levelDiv}>
+                Lv.{" "}
+                <span className={styles.levelSpan}>
+                  {data.ArmoryProfile.ItemAvgLevel.replace(",", "")}
+                </span>
+              </div>
+            </div>
+            <div className={styles.innerLevelDiv}>
+              <span className={styles.profileCategorySpan}>전투</span>
+              <div className={styles.levelDiv}>
+                Lv.{" "}
+                <span className={styles.levelSpan}>
+                  {data.ArmoryProfile.CharacterLevel}
+                </span>
+              </div>
+            </div>
+          </div>
+          {/* <p className={styles.profileHeaderLine}>
             <span className={styles.profileCategorySpan}>영지</span>
             <span>
               {data.ArmoryProfile.TownName}
@@ -328,34 +362,31 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                 ? " Lv." + data.ArmoryProfile.TownLevel
                 : ""}
             </span>
-            <span className={styles.profileCategorySpan}>칭호</span>
-            <span>{data.ArmoryProfile.Title || "칭호없음"}</span>
-          </p>
-        </div>
-        <div className={styles.profileMenu}>
-          <p
-            className={`${styles.profileMenuBtn} ${
-              menu === 0 ? styles.active : ""
-            }`}
-            onClick={() => {
-              setMenu(0);
-            }}
-          >
-            장비
-          </p>
-          <p className={styles.profileMenuSep} />
-          <p
-            className={`${styles.profileMenuBtn} ${
-              menu === 1 ? styles.active : ""
-            }`}
-            onClick={() => {
-              setMenu(1);
-            }}
-          >
-            아바타
-          </p>
+          </p> */}
         </div>
         <div className={styles.profileBody}>
+          <div className={styles.profileMenu}>
+            <p
+              className={`${styles.profileMenuBtn} ${
+                menu === 0 ? styles.active : ""
+              }`}
+              onClick={() => {
+                setMenu(0);
+              }}
+            >
+              장비
+            </p>
+            <p
+              className={`${styles.profileMenuBtn} ${
+                menu === 1 ? styles.active : ""
+              }`}
+              onClick={() => {
+                setMenu(1);
+              }}
+            >
+              아바타
+            </p>
+          </div>
           {menu === 0 ? (
             <>
               <div className={styles.profileEquipmentDiv}>
@@ -434,7 +465,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
             </>
           ) : (
             <>
-              <div className={styles.profileAvatarDiv}>
+              <div className={styles.profileAvatarDiv} data-direction="left">
                 <div className={styles.profileAvatarSubAscDiv}>
                   {[0, 1].map((e: number) => {
                     return emptyAvatarChecker(e);
@@ -448,7 +479,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                 <div className={styles.blankAvatarSlot} />
               </div>
 
-              <div className={styles.profileAvatarDiv}>
+              <div className={styles.profileAvatarDiv} data-direction="right">
                 <div className={styles.profileAvatarSubDescDiv}>
                   {[4, 5].map((e: number) => {
                     return emptyAvatarChecker(e);
@@ -608,7 +639,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
               })
             ) : (
               <div className={styles.emptyInfo}>
-                <AlertOctagon size={110} color="#fff" width={2} />
+                <AlertOctagon size={140} color="#fff" width={2} />
                 활성화된 각인 효과가 없습니다.
               </div>
             )}
@@ -655,7 +686,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                 })
               ) : (
                 <div className={styles.emptyInfo}>
-                  <AlertOctagon size={110} color="#fff" width={2} /> 장착중인
+                  <AlertOctagon size={55} color="#fff" width={2} /> 장착중인
                   멸화 보석이 없습니다.
                 </div>
               )}
@@ -696,7 +727,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                 })
               ) : (
                 <div className={styles.emptyInfo}>
-                  <AlertOctagon size={110} color="#fff" width={2} /> 장착중인
+                  <AlertOctagon size={55} color="#fff" width={2} /> 장착중인
                   홍염 보석이 없습니다.
                 </div>
               )}
@@ -758,7 +789,9 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                   return (
                     <div key={`cardSet${i}`} className={styles.cardSetDiv}>
                       <p className={styles.cardSetP}>
-                        <span>{e.Name}</span>
+                        <span className={styles.cardSetTitleSpan}>
+                          {e.Name}
+                        </span>
                         <button
                           className={styles.cardIndicator}
                           onMouseEnter={() => {
@@ -769,8 +802,11 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                           세트 카드 표시
                         </button>
                       </p>
-                      {e.Description.map((descr) => (
-                        <div className={styles.cardEffectDescrDiv}>
+                      {e.Description.map((descr, descrIndex) => (
+                        <div
+                          key={`cardSet${i}_${descrIndex}`}
+                          className={styles.cardEffectDescrDiv}
+                        >
                           <p className={styles.nameP}>{descr[0]}</p>
                           <p className={styles.descrP}>{descr[1]}</p>
                         </div>
@@ -795,91 +831,153 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
         <div className={`hideScroll ${styles.skillBody}`}>
           {skillDataList ? (
             skillDataList.length ? (
-              skillDataList.map((e) => {
+              skillDataList.map((sd) => {
                 return (
-                  <Fragment key={`skillSlot_${e.Name}`}>
+                  <Fragment key={`skillSlot_${sd.Name}`}>
                     <div className={styles.singleSkillDiv}>
-                      <div
-                        className={styles.skillIconSlot}
-                        data-tooltip-id="skillTooltip"
-                        onMouseEnter={() => {
-                          setSkillTooltipContent(JSON.parse(e.Tooltip));
-                        }}
-                      >
-                        <img src={e.Icon} className={styles.skillIcon} alt="" />
-                      </div>
-                      <div className={styles.skillDescr}>
-                        <p className={styles.skillLevelP}>
-                          Lv. {parseSkillPoint(e.Level)}
-                        </p>
-                        <p className={styles.skillNameP}>{e.Name}</p>
+                      <div className={styles.skillId}>
+                        <div
+                          className={styles.skillIconSlot}
+                          data-tooltip-id="skillTooltip"
+                          onMouseEnter={() => {
+                            setSkillTooltipContent(JSON.parse(sd.Tooltip));
+                          }}
+                        >
+                          <img
+                            src={sd.Icon}
+                            className={styles.skillIcon}
+                            alt=""
+                          />
+                        </div>
+                        <div className={styles.skillDescr}>
+                          <p className={styles.skillLevelP}>
+                            Lv. {parseSkillPoint(sd.Level)}
+                          </p>
+                          <p className={styles.skillNameP}>{sd.Name}</p>
+                        </div>
                       </div>
                       <div className={styles.skillTripods}>
-                        {e.UsedTripods.map((t: TripodType) => {
-                          if (t)
-                            return (
-                              <div
-                                data-tooltip-id="tripodTooltip"
-                                onMouseEnter={() => {
-                                  setTripodTooltipContent(t.Tooltip);
-                                }}
-                                className={styles.usedTripod}
-                                key={`${e.Name}_${t.Tier}_${t.Level}`}
-                              >
-                                <img src={t.Icon} alt="" />
-                                <p className={styles.tripodSlot}>{t.Slot}</p>
-                                <div
-                                  className={`${styles.tripodDescrItem} ${
-                                    tripodTierToColorMap[t.Tier]
-                                  }`}
-                                  key={`${e.Name}_${t.Name}`}
-                                >
-                                  <p className={styles.tripodNameP}>{t.Name}</p>
-                                  <p>Lv. {t.Level}</p>
-                                </div>
-                              </div>
-                            );
-                        })}
-                      </div>
-
-                      <div className={styles.skillGems}>
-                        {e.Gems.map((g: GemData) => {
+                        {[0, 1, 2].map((tripodIndex: number) => {
                           return (
-                            <div key={`${e.Name}_${g.Slot}`}>
-                              <img width={40} src={g.Icon} alt="" />
-                              <p>{`${g.Level}${
-                                g.Description.startsWith("피해") ? "멸" : "홍"
-                              }`}</p>
-                            </div>
+                            <Fragment key={`${sd.Name}_tripod${tripodIndex}`}>
+                              {sd.UsedTripods[tripodIndex] ? (
+                                <div
+                                  data-tooltip-id="tripodTooltip"
+                                  onMouseEnter={() => {
+                                    setTripodTooltipContent(
+                                      sd.UsedTripods[tripodIndex].Tooltip
+                                    );
+                                  }}
+                                  className={styles.usedTripod}
+                                >
+                                  <img
+                                    src={sd.UsedTripods[tripodIndex].Icon}
+                                    alt=""
+                                  />
+                                  <p className={styles.tripodSlot}>
+                                    {sd.UsedTripods[tripodIndex].Slot}
+                                  </p>
+                                  <div
+                                    className={`${styles.tripodDescrItem} ${
+                                      tripodTierToColorMap[
+                                        sd.UsedTripods[tripodIndex].Tier
+                                      ]
+                                    }`}
+                                    key={`${sd.Name}_${sd.UsedTripods[tripodIndex].Name}`}
+                                  >
+                                    <p className={styles.tripodNameP}>
+                                      {sd.UsedTripods[tripodIndex].Name}
+                                    </p>
+                                    <p>
+                                      Lv. {sd.UsedTripods[tripodIndex].Level}
+                                    </p>
+                                  </div>
+                                </div>
+                              ) : (
+                                <div
+                                  data-tooltip-id="tripodTooltip"
+                                  className={styles.emptyTripod}
+                                >
+                                  <div className={styles.emptyIconWrapper}>
+                                    <Tripod size={30} />
+                                  </div>
+                                </div>
+                              )}
+                            </Fragment>
                           );
                         })}
                       </div>
+                      <div className={styles.skillGr}>
+                        <div className={styles.skillGems}>
+                          {[0, 1].map((gemIndex: number) => {
+                            return (
+                              <div
+                                className={styles.gemSlot}
+                                key={`${sd.Name}_gemSlot${gemIndex}`}
+                              >
+                                {sd.Gems[gemIndex] ? (
+                                  <div
+                                    className={`${styles.gemWrapper} ${
+                                      gradeClassMap[sd.Gems[gemIndex].Grade]
+                                    }`}
+                                  >
+                                    <img
+                                      className={styles.gemImg}
+                                      src={sd.Gems[gemIndex].Icon}
+                                      alt=""
+                                    />
+                                    <p className={styles.gemOption}>{`${
+                                      sd.Gems[gemIndex].Level
+                                    }${
+                                      sd.Gems[gemIndex].Description.startsWith(
+                                        "피해"
+                                      )
+                                        ? "멸"
+                                        : "홍"
+                                    }`}</p>
+                                  </div>
+                                ) : (
+                                  <div className={styles.emptyIconWrapper}>
+                                    <Gem size={25} />
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
 
-                      <div
-                        data-tooltip-id={e.Rune ? "runeTooltip" : ""}
-                        onMouseEnter={() => {
-                          e.Rune
-                            ? setRuneTooltipContent(JSON.parse(e.Rune.Tooltip))
-                            : "";
-                        }}
-                        className={`${styles.skillRune} ${
-                          gradeClassMap[e.Rune?.Grade]
-                        }`}
-                      >
-                        {e.Rune ? (
-                          <>
-                            <img src={e.Rune.Icon} alt="" />
-                            <p
-                              className={`${styles.runeNameP} ${
-                                gradeTextColorMap[e.Rune.Grade]
-                              }`}
-                            >
-                              {e.Rune.Name}
-                            </p>
-                          </>
-                        ) : (
-                          ""
-                        )}
+                        <div
+                          data-tooltip-id={sd.Rune ? "runeTooltip" : ""}
+                          onMouseEnter={() => {
+                            sd.Rune
+                              ? setRuneTooltipContent(
+                                  JSON.parse(sd.Rune.Tooltip)
+                                )
+                              : "";
+                          }}
+                          className={`${styles.skillRune} ${
+                            gradeClassMap[sd.Rune?.Grade]
+                          }`}
+                        >
+                          {sd.Rune ? (
+                            <>
+                              <img src={sd.Rune.Icon} alt="" />
+                              <p
+                                className={`${styles.runeNameP} ${
+                                  gradeTextColorMap[sd.Rune.Grade]
+                                }`}
+                              >
+                                {sd.Rune.Name}
+                              </p>
+                            </>
+                          ) : (
+                            <img
+                              className={styles.emptyRune}
+                              src={"/images/runeStone.png"}
+                              alt=""
+                            />
+                          )}
+                        </div>
                       </div>
                     </div>
                     <hr />

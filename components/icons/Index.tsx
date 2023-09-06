@@ -22,6 +22,7 @@ import Tripod from "./Tripod";
 import Loader from "./Loader";
 import Box from "./Box";
 import Gear from "./Gear";
+import Gem from "./Gem";
 import Github from "./Github";
 import Filter from "./Filter";
 import Info from "./Info";
@@ -46,6 +47,7 @@ export {
   Favorite,
   Filter,
   Gear,
+  Gem,
   Github,
   Info,
   Load,
