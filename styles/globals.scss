@@ -624,7 +624,7 @@ footer {
 }
 
 .tooltip {
-  @apply w-[340px] bg-[#2A2C35] px-0 z-[4] max-h-[450px] overflow-auto opacity-100 text-[14px] rounded-none border border-[#000] #{!important};
+  @apply w-[270px] xs:w-[340px] bg-[#2A2C35] px-0 z-[4] max-h-[450px] overflow-auto opacity-100 text-[14px] rounded-none border border-[#000] #{!important};
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 
@@ -653,7 +653,7 @@ footer {
   .tooltipGradeDiv {
     @apply flex items-center my-2 #{!important};
     img {
-      @apply mr-2 w-[64px] border border-[#000] box-content #{!important};
+      @apply mr-2 w-[50px] xs:w-[64px] border border-[#000] box-content #{!important};
     }
 
     .tooltipGradeInfo {
@@ -692,7 +692,7 @@ footer {
   .gemTooltipBody {
     @apply flex items-center #{!important};
     .iconDiv {
-      @apply w-[60px] border border-[#000] #{!important};
+      @apply w-[50px] xs:w-[60px] border border-[#000] #{!important};
       img {
         @apply w-full #{!important};
       }
@@ -736,7 +736,7 @@ footer {
 }
 
 .statsTooltip {
-  @apply w-[320px] px-2 flex flex-col gap-2 #{!important};
+  @apply px-2 flex flex-col gap-2 #{!important};
   li {
     @apply pl-4 relative #{!important};
     &::before {

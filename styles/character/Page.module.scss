@@ -1,4 +1,9 @@
 .container {
   @apply min-h-screen flex flex-col pt-[70px];
   background-color: #0a0e13;
+  background-image: url("/images/bg_char.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }

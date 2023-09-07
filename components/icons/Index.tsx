@@ -9,6 +9,7 @@ import EmptyProfile from "./EmptyProfile";
 import Favorite from "./Favorite";
 import Load from "./Load";
 import MenuIcons from "./MenuIcons";
+import MenuList from "./MenuList";
 import Necklace from "./Necklace";
 import Ring from "./Ring";
 import Ring2 from "./Ring2";
@@ -53,6 +54,7 @@ export {
   Load,
   MagnifyingGlass,
   MenuIcons,
+  MenuList,
   Necklace,
   Ring,
   Ring2,

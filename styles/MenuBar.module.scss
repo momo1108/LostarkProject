@@ -7,11 +7,10 @@ $activeMenuShadow: rgba(
 $myBlue: #4691f6;
 
 .menuContainer {
-  @apply text-white h-[70px] flex items-center
-    justify-between px-3 fixed top-0 w-full z-[6];
+  @apply text-white h-[55px] md:h-[70px] flex items-center
+    justify-between px-3 2xl:px-32 fixed top-0 w-full z-[6] xs:border-b border-[#61616156];
   background: #0009;
   backdrop-filter: blur(1px);
-  border-bottom: 1px solid rgba(97, 97, 97, 0.333);
 
   .homeDiv {
     @apply mx-2 flex;
@@ -26,14 +25,26 @@ $myBlue: #4691f6;
   }
 
   .menuDiv {
-    @apply ml-12 mr-4 overflow-hidden h-[70px];
+    @apply md:ml-12 md:mr-4 hidden xs:flex md:text-lg;
 
     .menuLink {
-      @apply mx-4 my-[16px] p-1 w-[130px] block cursor-pointer
-        text-center leading-[30px] hover:font-bold;
+      @apply xs:mx-2 sm:mx-1 md:mx-4 md:my-[16px] p-1 xs:w-[60px] sm:w-[130px] md:w-[160px] block cursor-pointer
+        text-center hover:font-bold;
 
       &:hover {
         text-shadow: $activeMenuShadow;
+        svg {
+          @apply stroke-2 stroke-[#4691f6];
+          &[data-type="2"] {
+            @apply fill-[#4691f6];
+          }
+        }
+      }
+      span {
+        @apply hidden sm:inline;
+      }
+      svg {
+        @apply inline-block sm:hidden;
       }
     }
 
@@ -57,6 +68,50 @@ $myBlue: #4691f6;
         rgba($color: #fff, $alpha: 0.1),
         transparent
       );
+    }
+  }
+
+  .subMenuDiv {
+    @apply relative flex xs:hidden;
+    .menuListButton {
+      @apply border-2 border-[#555] hover:border-[#4691f6] rounded-lg p-2 outline-none bg-[#000] z-[7];
+      &:hover .listIcon {
+        @apply stroke-[#4691f6];
+      }
+    }
+    .menuLink {
+      @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] p-1 bg-[#333a] hover:bg-[#4691f655];
+      border-radius: 50%;
+      transition: transform 0.25s ease-in;
+    }
+    .menuLink:nth-child(2) {
+      svg {
+        @apply hover:stroke-[#4691f6];
+      }
+      transition-delay: 0.1s;
+    }
+    .menuLink:nth-child(3) {
+      svg {
+        @apply hover:stroke-[#4691f6];
+      }
+      transition-delay: 0.2s;
+    }
+    .menuLink:nth-child(4) {
+      svg {
+        @apply hover:fill-[#4691f6];
+      }
+      transition-delay: 0.3s;
+    }
+    &[data-show="true"] {
+      .menuLink:nth-child(2) {
+        transform: translate(-70px, -50%);
+      }
+      .menuLink:nth-child(3) {
+        transform: translate(-68px, 24px);
+      }
+      .menuLink:nth-child(4) {
+        transform: translate(-50%, 32px);
+      }
     }
   }
 

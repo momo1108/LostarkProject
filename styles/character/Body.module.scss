@@ -154,7 +154,7 @@ $gemSlotsize: 51px;
     }
 
     .emptyInfo {
-      @apply flex flex-col w-full items-center justify-center text-[#777] text-lg font-extrabold text-center py-2;
+      @apply flex flex-col w-full items-center justify-center text-[#777] text-lg font-extrabold text-center py-2 break-keep;
       svg {
         stroke: #777;
       }
@@ -169,7 +169,7 @@ $gemSlotsize: 51px;
 
     .upperContainer {
       @apply grid items-start xs:grid-cols-[repeat(6,minmax(50px,70px))] sm:grid-cols-[repeat(10,minmax(50px,70px))]
-       md:grid-cols-[repeat(12,50px)] lg:grid-cols-[repeat(18,minmax(48px,50px))] gap-2 mx-auto;
+       md:grid-cols-[repeat(12,50px)] lg:grid-cols-[repeat(18,minmax(48px,50px))] gap-2 mx-auto bg-[#0005];
 
       /* ###############################
       ########## ArmoryEAA 관련 #########
@@ -184,13 +184,13 @@ $gemSlotsize: 51px;
             border-radius: 8px;
           }
           .profileUserDiv {
-            @apply inline-flex flex-col items-start gap-1;
+            @apply inline-flex flex-col items-center gap-1 font-bold;
             .headerDiv {
               @apply flex items-center gap-1;
               .profileClassP {
                 @apply relative;
                 .classImg {
-                  @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] opacity-30 w-7 h-7;
+                  @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] opacity-20 w-7 h-7;
                 }
                 .profileClassSpan {
                   @apply text-sm;
@@ -198,9 +198,9 @@ $gemSlotsize: 51px;
               }
             }
             .bodyDiv {
-              @apply flex flex-col mx-auto;
+              @apply flex flex-col mx-auto text-center;
               .nameSpan {
-                @apply text-lg font-bold leading-6;
+                @apply text-lg leading-6;
               }
               .titleSpan {
                 @apply text-sm;
@@ -208,22 +208,22 @@ $gemSlotsize: 51px;
             }
           }
           .profileLevelDiv {
-            @apply flex gap-4;
+            @apply flex gap-5 xs:gap-6;
             .levelDiv {
-              @apply text-lg font-bold;
+              @apply text-sm xs:text-lg font-bold;
               .levelSpan {
-                @apply text-xl font-extrabold;
+                @apply text-base xs:text-xl font-extrabold;
               }
             }
           }
         }
 
         .profileBody {
-          @apply relative bg-[#15181d] flex justify-between items-center min-h-[363px] w-full overflow-hidden;
+          @apply relative flex justify-between items-center min-h-[363px] w-full overflow-hidden;
           aspect-ratio: 153 / 177;
 
           .profileMenu {
-            @apply absolute top-0 left-1/2 translate-x-[-50%] flex gap-4 z-[3];
+            @apply absolute top-0 left-1/2 translate-x-[-50%] flex gap-4 z-[3] bg-[#15181ddd];
             .profileMenuBtn {
               @apply text-white text-center hover:font-bold w-[50px] cursor-pointer relative;
               &::after {
@@ -410,7 +410,7 @@ $gemSlotsize: 51px;
           @apply bg-[#14181d] rounded-lg overflow-hidden w-1/2 sm:w-auto;
           color: $basicFontColor;
           .statsBody {
-            @apply flex flex-col items-center gap-2 py-3 px-2 text-sm sm:text-base;
+            @apply flex flex-col items-center gap-2 py-3 px-2 text-xs xs:text-sm sm:text-base;
             .statsP {
               @apply flex justify-between w-full max-w-[250px];
               .statsSpan {
@@ -433,7 +433,7 @@ $gemSlotsize: 51px;
               .tendencyContentDiv {
                 @apply w-full;
                 .tendencyP {
-                  @apply flex justify-between text-sm font-bold;
+                  @apply flex justify-between text-xs xs:text-sm font-bold;
                 }
                 .tendencyBar {
                   @apply h-2 bg-[#444] overflow-hidden;
@@ -449,11 +449,18 @@ $gemSlotsize: 51px;
       }
 
       .egDiv {
-        @apply flex xs:max-sm:items-start xs:max-sm:flex-row flex-col gap-2 col-span-6 sm:col-span-5 md:col-span-6;
+        @apply flex xs:max-sm:flex-row flex-col gap-2 col-span-6 sm:col-span-5 md:col-span-6;
         .engravingDiv {
-          @apply xs:max-sm:min-w-[240px] xs:max-sm:w-1/2 bg-[#14181d] rounded-lg overflow-hidden;
+          @apply flex flex-col xs:max-sm:min-w-[240px] xs:max-sm:w-1/2 bg-[#14181d] rounded-lg overflow-hidden;
+
+          .emptyInfo {
+            svg {
+              @apply w-[110px] h-[110px];
+            }
+          }
+
           .engravingBody {
-            @apply px-2 py-3 flex flex-col gap-3 justify-center items-center;
+            @apply px-2 py-3 flex flex-col gap-3 justify-center items-center my-auto;
             .engravingEffectsDiv {
               @apply inline-flex items-center gap-2 text-sm font-bold;
               color: $basicFontColor;
@@ -502,7 +509,7 @@ $gemSlotsize: 51px;
       .cardDiv {
         @apply col-span-6 sm:col-span-5 md:col-span-6 lg:col-span-7 overflow-hidden rounded-lg bg-[#14181d];
         .cardBody {
-          @apply flex flex-col px-2 py-2 gap-4 min-h-[300px] justify-center;
+          @apply flex flex-col px-2 py-2 gap-4 min-h-[300px] sm:min-h-[550px] lg:min-h-[300px] justify-center;
           .cardList {
             @apply grid grid-cols-3 gap-2 w-full justify-center;
             .cardSlot {
@@ -548,7 +555,7 @@ $gemSlotsize: 51px;
                 }
               }
               .cardTitle {
-                @apply text-center font-bold px-1 text-sm break-keep;
+                @apply text-center font-bold px-1 text-xs xs:text-sm break-keep;
                 color: $basicFontColor;
               }
             }
@@ -556,14 +563,14 @@ $gemSlotsize: 51px;
           .cardEffectsDiv {
             @apply flex flex-col w-full gap-4;
             .cardSetDiv {
-              @apply w-full flex flex-col gap-2 bg-[#191e24] py-1 rounded-lg;
+              @apply w-full flex flex-wrap xs:flex-nowrap xs:flex-col gap-2 bg-[#191e24] py-1 rounded-lg;
               .cardSetP {
-                @apply flex items-center w-full font-extrabold text-lg px-2;
+                @apply flex items-center w-full font-extrabold text-sm xs:text-lg px-2;
                 .cardSetTitleSpan {
                   color: $myLightBlue;
                 }
                 .cardIndicator {
-                  @apply font-bold text-xs px-1 py-[2px] ml-2;
+                  @apply font-bold text-xs px-1 xs:py-[2px] ml-2;
                   border: 2px solid #fff;
                   border-radius: 10px;
 
@@ -573,12 +580,12 @@ $gemSlotsize: 51px;
                 }
               }
               .cardEffectDescrDiv {
-                @apply flex gap-4 justify-between text-sm;
+                @apply flex items-center gap-4 justify-between text-xs xs:text-sm w-[80px] bg-[#292e34] py-1 rounded xs:w-auto xs:bg-inherit xs:py-0;
                 .nameP {
-                  @apply w-[27%] min-w-[100px] break-keep text-center font-bold;
+                  @apply w-[27%] min-w-[80px] xs:min-w-[100px] break-keep text-center font-bold;
                 }
                 .descrP {
-                  @apply w-[73%] flex items-center;
+                  @apply w-[73%] hidden xs:flex items-center;
                 }
               }
             }
@@ -591,6 +598,7 @@ $gemSlotsize: 51px;
         border-radius: 0.5rem 0.5rem 0 0;
 
         hr {
+          @apply hidden sm:block;
           border-color: #232323;
         }
         hr:last-child {
@@ -598,12 +606,12 @@ $gemSlotsize: 51px;
         }
 
         .skillBody {
-          @apply max-h-[600px];
-          .emptySkill {
-            @apply flex flex-col w-full items-center justify-center text-white text-lg font-extrabold my-6;
+          @apply flex flex-wrap gap-1 justify-center py-2 sm:py-0 sm:block max-h-[600px];
+          .emptyInfo {
+            @apply h-[300px];
           }
           .singleSkillDiv {
-            @apply py-3 pl-2 pr-4 flex flex-col sm:flex-row items-center justify-center font-bold gap-3;
+            @apply py-3 pl-2 pr-4 inline-flex sm:flex flex-col sm:flex-row border border-[#444] rounded-lg sm:border-0 sm:rounded-none items-center justify-center font-bold gap-3;
             color: $basicFontColor;
 
             .skillId {
@@ -617,7 +625,7 @@ $gemSlotsize: 51px;
               }
 
               .skillDescr {
-                @apply inline-flex flex-col sm:min-w-[125px];
+                @apply inline-flex flex-col w-[95px] sm:min-w-[125px] break-keep;
                 .skillLevelP {
                   @apply text-xs;
                 }
@@ -625,9 +633,9 @@ $gemSlotsize: 51px;
             }
 
             .skillTripods {
-              @apply grid grid-cols-[70px_70px_70px] gap-2 h-[65px];
+              @apply grid grid-cols-[50px_50px_50px] sm:grid-cols-[70px_70px_70px] gap-2 h-[65px];
               .usedTripod {
-                @apply relative flex w-[70px] justify-center;
+                @apply relative flex w-[50px] sm:w-[70px] justify-center;
                 img {
                   @apply w-[43px] h-[43px];
                   border-radius: 21.5px;
@@ -639,10 +647,10 @@ $gemSlotsize: 51px;
                   top: -5px;
                 }
                 .tripodDescrItem {
-                  @apply absolute flex flex-col text-xs text-center;
+                  @apply absolute flex flex-col text-xs text-center bg-[#0005] sm:bg-inherit;
                   bottom: -4px;
                   .tripodNameP {
-                    @apply w-[90px];
+                    @apply w-[55px] sm:w-[90px] break-keep;
                   }
                 }
               }

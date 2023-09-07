@@ -894,10 +894,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                                   </div>
                                 </div>
                               ) : (
-                                <div
-                                  data-tooltip-id="tripodTooltip"
-                                  className={styles.emptyTripod}
-                                >
+                                <div className={styles.emptyTripod}>
                                   <div className={styles.emptyIconWrapper}>
                                     <Tripod size={30} />
                                   </div>

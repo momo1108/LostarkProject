@@ -11,7 +11,7 @@ export default class DataService {
   public static getMenu = async (): Promise<Menu[]> => {
     const dataDirectory = path.join(process.cwd(), "data");
     const menuStr: string = await readFileSync(
-      `${dataDirectory}/menudummy.json`
+      `${dataDirectory}/menu.json`
     ).toString();
 
     return JSON.parse(menuStr);

@@ -1026,6 +1026,7 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 - overflow-auto 찾아서 hideScroll 클래스로 사용하기
 - ArmoryEAA 등에서 Type의 중복들이 발견. skill, tripod, gem 등 정리할것
 - character profile header 디자인 변경
+- 인덱스페이지 다시 디자인
 
 #### 에러 업데이트
 
