@@ -7,13 +7,13 @@ $activeMenuShadow: rgba(
 $myBlue: #4691f6;
 
 .menuContainer {
-  @apply text-white h-[55px] md:h-[70px] flex items-center
-    justify-between px-3 2xl:px-32 fixed top-0 w-full z-[6] xs:border-b border-[#61616156];
+  @apply text-white h-[55px] md:h-[70px] flex items-center min-w-[270px] w-4/5 xs:w-[420px] sm:w-[626px] md:w-[688px] lg:w-[1000px]
+    justify-between fixed top-0 left-1/2 translate-x-[-50%] z-[6] xs:border-b border-[#61616156];
   background: #0009;
   backdrop-filter: blur(1px);
 
   .homeDiv {
-    @apply mx-2 flex;
+    @apply flex w-[130px] md:w-[160px] justify-center;
     .homeLink {
       @apply text-2xl font-bold;
       transition: transform ease-in-out 0.5s;
@@ -25,10 +25,10 @@ $myBlue: #4691f6;
   }
 
   .menuDiv {
-    @apply md:ml-12 md:mr-4 hidden xs:flex md:text-lg;
+    @apply hidden xs:flex text-sm md:text-base;
 
     .menuLink {
-      @apply xs:mx-2 sm:mx-1 md:mx-4 md:my-[16px] p-1 xs:w-[60px] sm:w-[130px] md:w-[160px] block cursor-pointer
+      @apply p-1 xs:w-[60px] sm:w-[130px] md:w-[160px] block cursor-pointer
         text-center hover:font-bold;
 
       &:hover {
@@ -47,34 +47,12 @@ $myBlue: #4691f6;
         @apply inline-block sm:hidden;
       }
     }
-
-    .leftArrowBlock,
-    .rightArrowBlock {
-      @apply w-[16px] h-[38px];
-      border-radius: 10px;
-    }
-
-    .leftArrowBlock {
-      background: linear-gradient(
-        to right,
-        rgba($color: #fff, $alpha: 0.1),
-        transparent
-      );
-    }
-
-    .rightArrowBlock {
-      background: linear-gradient(
-        to left,
-        rgba($color: #fff, $alpha: 0.1),
-        transparent
-      );
-    }
   }
 
   .subMenuDiv {
     @apply relative flex xs:hidden;
     .menuListButton {
-      @apply border-2 border-[#555] hover:border-[#4691f6] rounded-lg p-2 outline-none bg-[#000] z-[7];
+      @apply border-2 border-[#555] hover:border-[#4691f6] rounded-lg p-1 outline-none bg-[#000] z-[7] mx-2;
       &:hover .listIcon {
         @apply stroke-[#4691f6];
       }

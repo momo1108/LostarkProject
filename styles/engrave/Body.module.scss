@@ -4,7 +4,7 @@ $myBlue: #4691f6;
 $myLightBlue: #76b1ff;
 
 .body {
-  @apply flex-auto lg:px-20 md:px-16 sm:px-8 px-2 pt-2;
+  @apply flex-auto min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1352px] pt-2 mx-auto;
   color: $basicFontColor;
 
   .searchContainer {
@@ -613,7 +613,7 @@ $myLightBlue: #76b1ff;
             @apply flex flex-wrap gap-2;
             .combinationItemDiv {
               @apply flex flex-col w-[230px] 
-              sm:w-auto sm:grid sm:grid-cols-[202px_200px_120px] sm:justify-between sm:items-center
+              sm:w-auto sm:grid sm:grid-cols-[202px_200px_144px] sm:justify-between sm:items-center
               2xl:flex 2xl:items-start 2xl:flex-col 2xl:w-[230px] gap-y-1 gap-x-3 2xl:gap-x-1 py-1 px-2;
               box-shadow: 0px 0px 4px -2px #fff;
               border: 1px solid #222;

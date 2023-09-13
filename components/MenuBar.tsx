@@ -31,7 +31,7 @@ const MenuBar: React.FC<MenuProps> = ({ menu }) => {
               }`}
             >
               <span>{m.title}</span>
-              <MenuIcons size={35} type={m.id} width={1.4} />
+              <MenuIcons size={30} type={m.id} width={2} />
             </Link>
           );
         })}
