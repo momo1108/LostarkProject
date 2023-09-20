@@ -16,10 +16,10 @@ $gemSlotsize: 51px;
   @apply flex flex-auto flex-col items-center px-2;
 
   .searchDiv {
-    @apply w-full min-h-[50px] my-2 py-2 flex justify-center items-center gap-4;
+    @apply w-full min-h-[50px] my-1 sm:my-2 sm:py-2 flex justify-center items-center gap-4;
 
     .searchInputWrapper {
-      @apply relative w-[300px];
+      @apply relative w-[200px] sm:w-[300px];
       .searchInput {
         @apply h-8 px-2 outline-none bg-transparent text-white w-full;
         border-bottom: 1px solid #8885;
@@ -31,12 +31,7 @@ $gemSlotsize: 51px;
         }
       }
       .dropdown {
-        @apply absolute bottom-0 left-0 w-[300px] bg-[#151515] z-[5] flex-col max-h-[160px] overflow-auto;
-        &::-webkit-scrollbar {
-          display: none;
-        }
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
+        @apply absolute bottom-0 left-0 bg-[#151515] z-[5] flex-col max-h-[160px];
 
         color: $basicFontColor;
         transform: translate(0, 100%);
@@ -45,7 +40,7 @@ $gemSlotsize: 51px;
         }
 
         .dropdownItem {
-          @apply inline-flex items-center py-2 text-base font-bold px-1 hover:bg-[#fff1] cursor-pointer;
+          @apply inline-flex items-center py-1 xs:py-2 text-xs xs:text-sm sm:text-base font-bold px-1 hover:bg-[#fff1] cursor-pointer;
 
           .dropdownNameSpan {
             @apply mx-2;
@@ -54,12 +49,16 @@ $gemSlotsize: 51px;
           .deleteIcon {
             margin-left: auto;
           }
+
+          svg {
+            @apply w-[15px] xs:w-[18px];
+          }
         }
       }
     }
 
     .searchBtn {
-      @apply text-[#ddd] font-bold cursor-pointer w-24 h-10 text-lg transition-all duration-300;
+      @apply text-[#ddd] font-bold cursor-pointer w-16 h-8 sm:w-24 sm:h-10 text-base sm:text-lg transition-all duration-300;
       border: 2px solid #ddd;
       border-radius: 5px;
 
@@ -78,7 +77,7 @@ $gemSlotsize: 51px;
         @apply h-8 px-1;
       }
       .dropdown {
-        @apply w-[320px];
+        @apply w-[220px] xs:w-[250px] sm:w-[300px];
       }
     }
     .searchBtn {
@@ -107,13 +106,11 @@ $gemSlotsize: 51px;
 
     // 검색기록 있는 경우
     .recentList {
-      @apply w-full flex-auto flex flex-wrap gap-2 justify-center;
+      @apply w-full flex-auto text-center;
 
       .recentListItem {
-        @apply inline-flex flex-col text-base items-center px-2 py-3 bg-[#14181d]
-        cursor-pointer transition-all duration-200 ease-in-out relative hover:text-[#4691f6];
-        width: 300px;
-        height: 400px;
+        @apply inline-flex flex-col text-base items-center px-2 py-3 bg-[#14181d] w-[210px] h-[280px] xl:w-[300px] xl:h-[400px]
+        cursor-pointer transition-all duration-200 ease-in-out relative hover:text-[#4691f6] m-1 xl:m-2;
         background-size: 100% 100%;
         background-image: url("/images/searched_card_outline.png");
         &:hover {
@@ -121,9 +118,9 @@ $gemSlotsize: 51px;
         }
 
         .recentItemHeader {
-          @apply flex items-start w-full pl-4 text-sm font-bold;
+          @apply flex items-start w-full pl-2 xl:pl-4 text-xs xl:text-sm font-bold;
           &:first-child {
-            @apply justify-between text-lg font-extrabold relative;
+            @apply justify-between text-sm xl:text-lg font-extrabold relative;
             .recentIconDiv {
               @apply absolute top-0 right-1 bg-[#0008] transition-all duration-300;
             }
@@ -137,8 +134,8 @@ $gemSlotsize: 51px;
           background-color: #0000;
         }
 
-        img {
-          @apply absolute bottom-4 left-0 right-0 mx-auto;
+        .charImg {
+          @apply absolute bottom-2 xl:bottom-4 left-0 right-0 mx-auto w-[189px] xl:w-[270px];
         }
       }
     }

@@ -680,7 +680,7 @@ footer {
 .equipmentTooltip,
 .accessoryTooltip {
   * {
-    font-size: 14px !important;
+    @apply text-[12px] xs:text-[14px] #{!important};
   }
 }
 .engravingTooltip,

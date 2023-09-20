@@ -53,6 +53,10 @@ function useApiTagParser() {
 
       html = html.toLowerCase();
       html = html.replace(
+        /src="[a-zA-z]+transcendence_grade"/g,
+        `src="/images/transcendence.png" style="display:inline-block;"`
+      );
+      html = html.replace(
         /src="[a-zA-z]+locked"/g,
         `src="/images/option_locked.png" style="display:inline-block;"`
       );

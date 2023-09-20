@@ -58,6 +58,7 @@ const CharRecentBlock: React.FC<CharRecentBlockProps> = ({
                     <Image
                       src={n.img}
                       alt="캐릭터 이미지"
+                      className={styles.charImg}
                       width={270}
                       height={312.5}
                       onError={() => {

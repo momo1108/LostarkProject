@@ -25,7 +25,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
       <div className={styles.searchInputWrapper} ref={divRef} tabIndex={0}>
         <input
           className={styles.searchInput}
-          placeholder="검색하고 싶은 닉네임을 입력하세요"
+          placeholder="닉네임을 입력하세요"
           type="text"
           ref={nameRef}
           onKeyDown={(e) => {
@@ -33,7 +33,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
           }}
         />
         <div
-          className={`${styles.dropdown}${
+          className={`${styles.dropdown} hideScroll${
             shrink && dropdownVisibility ? " flex" : " hidden"
           }`}
           ref={dropdownRef}
