@@ -62,6 +62,7 @@ export function checker(state: SearchedData[], data: CharData): SearchedData[] {
       return {
         ...e,
         level,
+        timestamp: Date.now(),
       };
     } else return e;
   });
@@ -76,6 +77,7 @@ export function checker(state: SearchedData[], data: CharData): SearchedData[] {
           img: data.ArmoryProfile.CharacterImage,
           like: -1,
           server: data.ArmoryProfile.ServerName,
+          timestamp: Date.now(),
         },
       ];
 }
