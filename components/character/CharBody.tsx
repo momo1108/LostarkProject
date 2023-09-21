@@ -18,28 +18,47 @@ export default function CharBody() {
     if (!data.ArmoryProfile) return state;
     let duplicate: boolean = false;
     const level = parseInt(data.ArmoryProfile.ItemAvgLevel.replace(",", ""));
-    const tmp = state.map((e: SearchedData) => {
+    let tmp: SearchedData[] = state.map((e: SearchedData) => {
       if (e.name === data.ArmoryProfile.CharacterName) {
         duplicate = true;
         return {
           ...e,
           level,
+          img: data.ArmoryProfile.CharacterImage,
+          timestamp: Date.now(),
         };
       } else return e;
     });
-    return duplicate
-      ? tmp
-      : [
-          ...tmp,
-          {
-            name: data.ArmoryProfile.CharacterName,
-            level,
-            class: data.ArmoryProfile.CharacterClassName,
-            img: data.ArmoryProfile.CharacterImage,
-            like: -1,
-            server: data.ArmoryProfile.ServerName,
-          },
-        ];
+    let index = tmp.findIndex((e) => e.like > 0);
+    if (index < 0) {
+      if (!duplicate)
+        tmp.push({
+          name: data.ArmoryProfile.CharacterName,
+          level,
+          class: data.ArmoryProfile.CharacterClassName,
+          img: data.ArmoryProfile.CharacterImage,
+          like: -1,
+          server: data.ArmoryProfile.ServerName,
+          timestamp: Date.now(),
+        });
+      tmp.sort((a, b) => b.timestamp - a.timestamp);
+    } else {
+      let likeArray = tmp.slice(0, index + 1);
+      let notLikeArray = tmp.slice(index + 1);
+      if (!duplicate)
+        notLikeArray.push({
+          name: data.ArmoryProfile.CharacterName,
+          level,
+          class: data.ArmoryProfile.CharacterClassName,
+          img: data.ArmoryProfile.CharacterImage,
+          like: -1,
+          server: data.ArmoryProfile.ServerName,
+          timestamp: Date.now(),
+        });
+      notLikeArray.sort((a, b) => b.timestamp - a.timestamp);
+      tmp = [...likeArray, ...notLikeArray];
+    }
+    return tmp.slice(0, 10);
   }, []);
 
   useEffect(() => {
@@ -48,6 +67,7 @@ export default function CharBody() {
   }, []);
 
   useEffect(() => {
+    console.log(searchedDataList);
     if (loadSDL)
       localStorage.setItem("recentSearch", JSON.stringify(searchedDataList));
     if (!loadSDL) setLoadSDL(true);
@@ -63,10 +83,26 @@ export default function CharBody() {
   const like = useCallback(
     (name: string) => {
       console.log(name);
-      const tmp = searchedDataList.map((e: SearchedData) => {
-        if (e.name === name) e.like < 0 ? (e.like = Date.now()) : (e.like = -1);
+      let tmp = searchedDataList.map((e: SearchedData) => {
+        if (e.name === name) {
+          e.timestamp = Date.now();
+          if (e.like < 0) {
+            e.like = Date.now();
+          } else {
+            e.like = -1;
+          }
+        }
         return e;
       });
+      let index = tmp.findIndex((e) => e.like > 0);
+      if (index < 0) {
+        tmp.sort((a, b) => b.timestamp - a.timestamp);
+      } else {
+        let likeArray = tmp.slice(0, index + 1);
+        let notLikeArray = tmp.slice(index + 1);
+        notLikeArray.sort((a, b) => b.timestamp - a.timestamp);
+        tmp = [...likeArray, ...notLikeArray];
+      }
       setSearchedDataList(tmp);
     },
     [searchedDataList]

@@ -38,11 +38,13 @@ const TripodCopyModal: React.FC<ModalProps> = ({
     if (nameRef.current) {
       nameRef.current.value = nameRef.current.value.trim();
       if (nameRef.current.value) {
+        console.log(nameRef.current.value);
         try {
           const { data } = await LostarkService.getCharacterProfile(
             nameRef.current.value
           );
-          setProfile(data);
+          if (data) setProfile(data);
+          else throw new Error("검색 실패");
         } catch (err) {
           alert("검색 실패");
           console.error(err);

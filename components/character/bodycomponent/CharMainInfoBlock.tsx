@@ -3,9 +3,7 @@ import { accessoryOrder, avatarOrder, equipmentOrder } from "@/types/EAAType";
 import styles from "@/styles/character/Body.module.scss";
 import EmptyProfile from "@/components/icons/EmptyProfile";
 import { useState, useEffect } from "react";
-import ArmoryTEGC from "./innercontaineritems/ArmoryTEGC";
 import ArmoryEAA from "./innercontaineritems/ArmoryEAA";
-import ArmoryST from "./innercontaineritems/ArmoryST";
 import { TriangleSpinner } from "@/components/icons/Index";
 
 const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
@@ -94,40 +92,6 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
         accessory={accessory}
         avatar={avatar}
       />
-      <div className={styles.infoContainerItemDiv}>
-        {/* <ul className={styles.infoMenuList}>
-          {infoMenuList.names.map((e: string, i: number) => {
-            return (
-              <li
-                key={`infoMenu${i}`}
-                className={`${styles.infoMenuItem} ${
-                  infoMenuList.activeMenu === i ? styles.active : ""
-                }`}
-                onClick={() => {
-                  setInfoMenuList({
-                    ...infoMenuList,
-                    activeMenu: i,
-                  });
-                }}
-              >
-                {e}
-              </li>
-            );
-          })}
-        </ul> */}
-        {/* <ArmoryTEGC
-          data={data}
-          className={`${styles.tegcContainer}${
-            infoMenuList.activeMenu === 0 ? " flex" : " hidden"
-          }`}
-        /> */}
-        <ArmoryST
-          data={data}
-          className={`${styles.stContainer}${
-            infoMenuList.activeMenu === 1 ? " block" : " hidden"
-          }`}
-        />
-      </div>
     </div>
   ) : (
     <div className={styles.emptyContainer}>

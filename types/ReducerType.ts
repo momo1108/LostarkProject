@@ -19,6 +19,7 @@ export type SearchedData = {
   class: string;
   img: string;
   server: string;
+  timestamp: number;
 };
 
 export type RootState = {

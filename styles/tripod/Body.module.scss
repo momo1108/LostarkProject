@@ -27,7 +27,7 @@ $myLightBlue: #76b1ff;
         .rootClassSmallTitle,
         .subClassSmallTitle {
           @apply block lg:hidden text-center py-1 text-[#aaa] font-bold;
-          background: linear-gradient(0.25turn, #080808, #222, #080808);
+          background: linear-gradient(0.25turn, #141921, #1b232e, #141921);
         }
         .rootClassLargeTitle,
         .subClassLargeTitle {
@@ -180,7 +180,7 @@ $myLightBlue: #76b1ff;
 
         .settingHeader {
           @apply relative z-[1] flex flex-col gap-1 xs:gap-0 xs:flex-row items-start justify-center xs:items-center xs:justify-between
-           pl-2 font-bold px-2 py-1 text-xs sm:text-sm text-[#a8acba] bg-[#0d1117] border-b border-[#050505];
+           pl-2 font-bold px-2 py-1 text-xs sm:text-sm text-[#a8acba] bg-[#161c25] border-b border-[#101010];
           .numSpan {
             @apply text-sm sm:text-base mx-1;
             color: $myBlue;
@@ -197,21 +197,21 @@ $myLightBlue: #76b1ff;
         }
 
         .settingBody {
-          @apply relative flex flex-col sm:flex-row sm:h-[580px] bg-[#0d1117] border-b border-[#050505];
+          @apply relative flex flex-col sm:flex-row sm:h-[580px] bg-[#161c25] border-b border-[#101010];
           transition: transform 0.5s 0.1s;
 
           .settingTitle {
-            @apply text-sm sm:text-base text-center text-[#4691f6] font-bold sm:hidden py-1 border-y border-[#000];
+            @apply text-sm sm:text-base text-center text-[#4691f6] font-bold sm:hidden py-1 border-y border-[#101010];
             background: linear-gradient(
               90deg,
-              #0d1117 15%,
-              #19222c 50%,
-              #0d1117 85%
+              #161c25 15%,
+              #1c2631 50%,
+              #161c25 85%
             );
           }
 
           .selectedSkillsDiv {
-            @apply flex flex-col my-2 sm:my-0 pl-1 pr-1 md:pr-0 bg-[#0d1117] sm:border-t border-t-[#1d1d1d] sm:border-r border-r-[#050505];
+            @apply flex flex-col my-2 sm:my-0 pl-1 pr-1 md:pr-0 bg-[#161c25] sm:border-t border-t-[#222222] sm:border-r border-r-[#151515];
             direction: rtl;
             .emptySkillDiv {
               @apply mx-auto sm:mx-0 flex-auto flex flex-col gap-2 justify-center items-center xs:w-[320px] sm:w-[160px] md:w-[234px] lg:w-[452px] 1.5xl:w-[678px];
@@ -225,13 +225,13 @@ $myLightBlue: #76b1ff;
               }
             }
             .gridDiv {
-              @apply mx-auto sm:mx-0 max-w-[390px] sm:max-w-none h-[162px] sm:h-auto 
-              grid grid-cols-[80px_80px_80px] xs:grid-cols-[80px_80px_80px_80px] sm:grid-cols-[80px_80px] 
+              @apply mx-auto sm:mx-0 max-w-[390px] sm:max-w-none h-[120px] xs:h-[162px] sm:h-auto 
+              grid grid-cols-[60px_60px_60px_60px] xs:grid-cols-[80px_80px_80px_80px] sm:grid-cols-[80px_80px] 
               md:grid-cols-[234px] lg:grid-cols-[226px_226px] 1.5xl:grid-cols-[226px_226px_226px];
 
               direction: ltr;
               .selectSkillBtn {
-                @apply relative flex items-center gap-1 h-20 md:pl-2 md:py-2 bg-[#10141c] border-b border-[#060409];
+                @apply relative flex items-center gap-1 h-[60px] xs:h-20 md:pl-2 md:py-2 bg-[#171d26] border-b border-[#101010];
                 transition: box-shadow linear 0.1s;
                 direction: ltr;
                 &:hover,
@@ -239,27 +239,27 @@ $myLightBlue: #76b1ff;
                   box-shadow: inset 0px 0px 6px -2px #6f77ff;
                 }
                 &::before {
-                  @apply absolute top-0 left-0 right-0 bottom-0 opacity-[0.28];
+                  @apply absolute top-0 left-0 right-0 bottom-0 opacity-[0.2];
                   content: "";
                   background-image: url("/images/bg_circuit.png");
                   background-size: cover;
                 }
                 .skillIconDiv {
-                  @apply relative flex items-center justify-center w-[80px] h-[80px] bg-[length:98%_98%] md:w-16 md:h-16 md:bg-[length:100%_100%];
+                  @apply relative flex items-center justify-center w-[60px] h-[60px] xs:w-[80px] xs:h-[80px] bg-[length:98%_98%] md:w-16 md:h-16 md:bg-[length:100%_100%];
                   background-image: url("/images/skill_slot.png");
                   background-position: center;
                   background-repeat: no-repeat;
                   .skillIcon {
-                    @apply w-[70px] h-[70px] grayscale-[85%] md:grayscale-0 md:w-14 md:h-14;
+                    @apply w-[50px] h-[50px] xs:w-[70px] xs:h-[70px] grayscale-[85%] md:grayscale-0 md:w-14 md:h-14;
                   }
                   .nameP {
-                    @apply absolute md:hidden left-0 right-0 bottom-[6px] w-[80px] text-[#aaa] break-keep mx-auto text-sm leading-[14px] font-bold;
+                    @apply absolute md:hidden left-0 right-0 bottom-[6px] w-[60px] xs:w-[80px] text-[#aaa] break-keep mx-auto text-[10px] xs:text-sm leading-[10px] xs:leading-[14px] font-bold;
                     text-shadow: -1px -1px 0 #000, 0 -1px 0 #000,
                       1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000,
                       0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000;
                   }
                   .previewDiv {
-                    @apply absolute md:hidden h-4 top-1 left-1 grayscale-[85%] flex gap-[2px] text-xs font-extrabold bg-[#0008] px-1 rounded-md;
+                    @apply absolute md:hidden h-4 top-1 left-1 grayscale-[85%] flex gap-[2px] text-[10px] xs:text-xs font-extrabold bg-[#0008] px-1 rounded-md;
                   }
 
                   &[data-selected="true"] {
@@ -275,7 +275,7 @@ $myLightBlue: #76b1ff;
                   }
                 }
                 .skillDescrDiv {
-                  @apply relative hidden md:flex flex-auto flex-col justify-between items-start pr-2 border-r border-[#060409];
+                  @apply relative hidden md:flex flex-auto flex-col justify-between items-start pr-2 border-r border-[#101010];
                   .typeDiv {
                     @apply flex items-center gap-2;
                     .previewDiv {
@@ -297,12 +297,12 @@ $myLightBlue: #76b1ff;
             }
           }
           .selectedSkillTripodDiv {
-            @apply flex justify-center px-2 xs:px-8 py-2 bg-[#0d1117] border-t border-[#1d1d1d];
+            @apply flex justify-center px-2 xs:px-8 py-2 bg-[#161c25] border-t border-[#222222];
             .tripodContentDiv {
               @apply flex flex-auto flex-col xs:w-[312px];
               .tripodHeader {
                 @apply text-sm sm:text-base sm:py-1 w-full text-center font-bold;
-                background: linear-gradient(90deg, #121720, #090b09, #121720);
+                background: linear-gradient(90deg, #151b24, #0d1116, #151b24);
               }
               .headerLine {
                 @apply relative my-8 mx-3 xs:mx-0;
@@ -343,10 +343,10 @@ $myLightBlue: #76b1ff;
                   background-size: cover;
                 }
                 hr:first-child {
-                  @apply border-[#050505];
+                  @apply border-[#101010];
                 }
                 hr:last-child {
-                  @apply border-[#1d1d1d];
+                  @apply border-[#222222];
                 }
               }
 
@@ -420,9 +420,9 @@ $myLightBlue: #76b1ff;
       }
 
       .searchDiv {
-        @apply flex max-xs:mx-auto max-xs:min-w-[268px] max-xs:w-[90%] border-t border-[#1d1d1d] text-[#c8ccda];
+        @apply flex max-xs:mx-auto max-xs:min-w-[268px] max-xs:w-[90%] border-t border-[#222222] text-[#c8ccda];
         .searchBtn {
-          @apply py-2 grow font-bold hover:font-extrabold bg-[#0d1117] hover:bg-[#0b0e13];
+          @apply py-2 grow font-bold hover:font-extrabold bg-[#161c25] hover:bg-[#141921];
         }
       }
     }
