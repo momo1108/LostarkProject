@@ -12,6 +12,17 @@ export type ArmoryEAAProps = {
   avatar: any;
 };
 
+export type SiblingType = {
+  ServerName: string;
+  CharacterName: string;
+  CharacterLevel: number;
+  CharacterClassName: string;
+  ItemAvgLevel: string;
+  ItemMaxLevel: string;
+};
+
+export type EAAPageStatus = "INIT" | "DONE" | "LOADING_SIBLINGS" | "ERROR";
+
 export type EquipmentSlotProps = {
   grade: string;
   honing: string;

@@ -16,7 +16,7 @@ const CharRecentBlock: React.FC<CharRecentBlockProps> = ({
     <div className={styles.recentContainer}>
       {searchedDataList.length ? (
         <>
-          <h3 className={styles.recentTitle}>검색 기록</h3>
+          <h3 className={styles.recentTitle}>검색 기록 ( 최대 10개 )</h3>
           <ul className={styles.recentList}>
             {searchedDataList
               .sort((a, b) => b.like - a.like)

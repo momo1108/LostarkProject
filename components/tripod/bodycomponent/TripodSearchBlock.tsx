@@ -76,7 +76,7 @@ const TripodSearchBlock: React.FC = () => {
               return (
                 <li key={`rootClass_${rc}`} className={styles.rootClassItem}>
                   <button
-                    className={`${styles.rootClassBtn} ${
+                    className={`${styles.rootClassButton} ${
                       rootClass === rc ? styles.selected : ""
                     }`}
                     onClick={() => {
@@ -105,7 +105,7 @@ const TripodSearchBlock: React.FC = () => {
               return (
                 <li key={`subClass_${sc}`} className={styles.subClassItem}>
                   <button
-                    className={`${styles.subClassBtn} ${
+                    className={`${styles.subClassButton} ${
                       subClass === sc ? styles.selected : ""
                     }`}
                     onClick={() => {
@@ -141,7 +141,7 @@ const TripodSearchBlock: React.FC = () => {
                 </span>
               </p>
               <button
-                className={`myButtons ${styles.resetBtn}`}
+                className={`myButtons ${styles.resetButton}`}
                 onClick={resetSelectedSkills}
                 disabled={pageStatus !== "DONE"}
               >
@@ -154,7 +154,7 @@ const TripodSearchBlock: React.FC = () => {
                   (data: ParsedFilteredSkillType, index: number) => {
                     return (
                       <button
-                        className={`${styles.skillBtn} ${
+                        className={`${styles.skillButton} ${
                           selectedSkills[index]
                             ? styles.selected
                             : styles.notSelected
@@ -197,21 +197,21 @@ const TripodSearchBlock: React.FC = () => {
             </p>
             <div className={styles.buttonDiv}>
               <button
-                className={`myButtons ${styles.resetBtn}`}
+                className={`myButtons ${styles.resetButton}`}
                 onClick={resetAllTripods}
                 disabled={pageStatus !== "DONE"}
               >
                 전체 스킬 초기화
               </button>
               <button
-                className={`myButtons ${styles.resetBtn}`}
+                className={`myButtons ${styles.resetButton}`}
                 onClick={resetSelectedTripod}
                 disabled={pageStatus !== "DONE"}
               >
                 현재 스킬 초기화
               </button>
               <button
-                className={`myButtons ${styles.minimizeBtn}`}
+                className={`myButtons ${styles.minimizeButton}`}
                 onClick={() => {
                   setMinimizeSelector((e: boolean) => !e);
                 }}
@@ -229,7 +229,7 @@ const TripodSearchBlock: React.FC = () => {
                     (e: ParsedFilteredSkillType, index: number) => {
                       return (
                         <button
-                          className={`${styles.selectSkillBtn} ${
+                          className={`${styles.selectSkillButton} ${
                             index === selectedSkillIndex ? styles.selected : ""
                           }`}
                           key={`selectedSkill_${e.Name}`}
@@ -318,7 +318,7 @@ const TripodSearchBlock: React.FC = () => {
                         ).map((tp: FilteredTripodType, index: number) => {
                           return (
                             <button
-                              className={styles.singleTripodBtn}
+                              className={styles.singleTripodButton}
                               key={`tripod_tier${tier}_${index}`}
                               onClick={() => {
                                 selectTripod(tier, tp.Name, 0);
@@ -355,7 +355,7 @@ const TripodSearchBlock: React.FC = () => {
                                   <div
                                     tabIndex={0}
                                     data-active={tp.Level === 4}
-                                    className={`${styles.levelBtn} ${
+                                    className={`${styles.levelButton} ${
                                       tp.IsSelected
                                         ? `${tripodTierToStyleMap.color[tier]} ${tripodTierToStyleMap.border[tier]}`
                                         : "border-[#333]"
@@ -379,7 +379,7 @@ const TripodSearchBlock: React.FC = () => {
                                     data-active={
                                       tp.IsSelected && tp.Level === 5
                                     }
-                                    className={`${styles.levelBtn} ${
+                                    className={`${styles.levelButton} ${
                                       tp.IsSelected
                                         ? `${tripodTierToStyleMap.color[tier]} ${tripodTierToStyleMap.border[tier]}`
                                         : "border-[#333]"
@@ -422,7 +422,7 @@ const TripodSearchBlock: React.FC = () => {
         </div>
         <div className={styles.searchDiv}>
           <button
-            className={styles.searchBtn}
+            className={styles.searchButton}
             onClick={searchTripod}
             disabled={pageStatus !== "DONE"}
           >

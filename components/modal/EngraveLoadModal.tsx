@@ -121,13 +121,13 @@ const EngraveLoadModal: React.FC<ModalProps> = ({
             event.stopPropagation();
           }}
         >
-          <button className="modalCloseBtn" onClick={closeFunc}>
+          <button className="modalCloseButton" onClick={closeFunc}>
             <MenuIcons type={3} size={20} width={2} color="#957b5c" />
           </button>
           <div className="loadModalContentDiv">
             <div className="loadModalContentDivHeader">
               <button
-                className="loadModalContentViewBtn"
+                className="loadModalContentViewButton"
                 onClick={() => setViewMode(0)}
                 data-selected={viewMode === 0}
               >
@@ -135,7 +135,7 @@ const EngraveLoadModal: React.FC<ModalProps> = ({
                 <span>간단히 보기</span>
               </button>
               <button
-                className="loadModalContentViewBtn"
+                className="loadModalContentViewButton"
                 onClick={() => setViewMode(1)}
                 data-selected={viewMode === 1}
               >

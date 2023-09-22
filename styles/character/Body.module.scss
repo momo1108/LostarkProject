@@ -57,7 +57,7 @@ $gemSlotsize: 51px;
       }
     }
 
-    .searchBtn {
+    .searchButton {
       @apply text-[#ddd] font-bold cursor-pointer w-16 h-8 sm:w-24 sm:h-10 text-base sm:text-lg transition-all duration-300;
       border: 2px solid #ddd;
       border-radius: 5px;
@@ -80,7 +80,7 @@ $gemSlotsize: 51px;
         @apply w-[220px] xs:w-[250px] sm:w-[300px];
       }
     }
-    .searchBtn {
+    .searchButton {
       @apply font-bold w-20 h-8 text-sm;
     }
   }
@@ -89,7 +89,7 @@ $gemSlotsize: 51px;
     @apply text-3xl flex-auto w-full px-4 font-bold flex flex-col justify-center items-center text-[#bbb] my-2;
 
     .recentTitle {
-      @apply text-2xl font-extrabold mb-4;
+      @apply text-base sm:text-xl xl:text-2xl font-extrabold mb-4;
     }
 
     .iconBox {
@@ -182,7 +182,11 @@ $gemSlotsize: 51px;
           }
           .profileUserDiv {
             @apply inline-flex flex-col items-center gap-1 font-bold;
-            .headerDiv {
+            .siblingsDiv {
+              @apply inline-flex items-center gap-1 text-sm py-[2px] px-2 rounded cursor-pointer bg-[#292f36] hover:bg-[#2d343c];
+            }
+
+            .scDiv {
               @apply flex items-center gap-1;
               .profileClassP {
                 @apply relative;
@@ -194,7 +198,7 @@ $gemSlotsize: 51px;
                 }
               }
             }
-            .bodyDiv {
+            .nicknameDiv {
               @apply flex flex-col mx-auto text-center;
               .nameSpan {
                 @apply text-lg leading-6;
@@ -221,7 +225,7 @@ $gemSlotsize: 51px;
 
           .profileMenu {
             @apply absolute top-0 left-1/2 translate-x-[-50%] flex gap-4 z-[3] bg-[#15181ddd];
-            .profileMenuBtn {
+            .profileMenuButton {
               @apply text-white text-center hover:font-bold w-[50px] cursor-pointer relative;
               &::after {
                 content: "";

@@ -18,22 +18,7 @@ const CharDetail: React.FC<MenuProps> = ({ menu }) => {
       <Page className={`${styles.container} ${nanumNeo.className}`}>
         <MenuBar menu={menu} />
         <CharBody />
-        <Footer>
-          <a href="https://www.freepik.com/free-vector/luxury-dark-seamless-pattern_4585477.htm#query=dark%20pattern&position=43&from_view=search&track=ais">
-            Background Image by kjpargeter on Freepik /
-          </a>{" "}
-          <br />
-          <a href="https://pixabay.com/users/gdj-1086657/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7558594">
-            by Gordon Johnson
-          </a>{" "}
-          <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7558594">
-            from Pixabay /
-          </a>
-          <a href="https://www.freepik.com/free-photo/wide-angle-shot-ancient-construction-with-towers-jordan-clear-blue-sky_10399328.htm#page=3&query=parthenon%20temple&position=45&from_view=search&track=ais">
-            by wirestock
-          </a>{" "}
-          on Freepik
-        </Footer>
+        <Footer></Footer>
       </Page>
     </>
   );

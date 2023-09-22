@@ -148,7 +148,7 @@ const EngraveSaveModal: React.FC<ModalProps> = ({
             event.stopPropagation();
           }}
         >
-          <button className="modalCloseBtn" onClick={closeFunc}>
+          <button className="modalCloseButton" onClick={closeFunc}>
             <MenuIcons type={3} size={20} width={2} color="#957b5c" />
           </button>
           <div className="saveModalContentDiv hideScroll">

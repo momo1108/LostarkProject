@@ -29,7 +29,8 @@ export default function CharBody() {
         };
       } else return e;
     });
-    let index = tmp.findIndex((e) => e.like > 0);
+    let index = tmp.findLastIndex((e) => e.like > 0);
+    console.log(index, duplicate);
     if (index < 0) {
       if (!duplicate)
         tmp.push({

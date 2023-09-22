@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import styles from "@/styles/character/Body.module.scss";
 import { CharSearchBarProps } from "@/types/CharacterType";
 import { Delete, Favorite } from "@/components/icons/Index";
@@ -16,6 +16,31 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
   const divRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [dropdownVisibility, setDropdownVisibility] = useState<boolean>(false);
+
+  const click = useCallback(() => {
+    if (loading) {
+      alert("아직 검색이 진행중입니다.");
+      return;
+    }
+    const name = nameRef.current!.value;
+    // console.log(name);
+    if (!name) {
+      alert("닉네임을 입력하세요!");
+      return;
+    }
+    search(name);
+    divRef.current?.blur();
+    nameRef.current!.blur();
+    buttonRef.current!.blur();
+    dropdownRef.current!.scrollTop = 0;
+  }, [
+    loading,
+    nameRef.current,
+    divRef.current,
+    buttonRef.current,
+    dropdownRef.current,
+  ]);
+
   return (
     <div
       className={`${styles.searchDiv} ${shrink ? styles.shrinked : ""}`}
@@ -38,7 +63,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
           }`}
           ref={dropdownRef}
         >
-          <h4 className={styles.dropdownTitle}>검색 기록</h4>
+          <h4 className={styles.dropdownTitle}>검색 기록 ( 최대 10개 )</h4>
           {searchedDataList
             .sort((a, b) => b.like - a.like)
             .map((e) => {
@@ -78,30 +103,12 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
       <input
         type="button"
         ref={buttonRef}
-        className={styles.searchBtn}
+        className={styles.searchButton}
         value="검색"
         onClick={click}
       />
     </div>
   );
-
-  function click() {
-    if (loading) {
-      alert("아직 검색이 진행중입니다.");
-      return;
-    }
-    const name = nameRef.current!.value;
-    // console.log(name);
-    if (!name) {
-      alert("닉네임을 입력하세요!");
-      return;
-    }
-    search(name);
-    divRef.current?.blur();
-    nameRef.current!.blur();
-    buttonRef.current!.blur();
-    dropdownRef.current!.scrollTop = 0;
-  }
 };
 
 export default CharSearchBar;

@@ -1,8 +1,10 @@
 import styles from "@/styles/character/Body.module.scss";
 import {
   ArmoryEAAProps,
+  EAAPageStatus,
   EngravingsType,
   GemType,
+  SiblingType,
   emptyAccessoryBackgroundMap,
   emptyAvatarBackgroundMap,
   emptyEquipmentBackgroundMap,
@@ -38,7 +40,9 @@ import { SkillData, tripodTierToColorMap } from "@/types/STType";
 import { TripodType } from "@/types/TripodType";
 import SkillTooltip from "../tooltips/SkillTooltip";
 import RuneTooltip from "../tooltips/RuneTooltip";
-import { Gem, Tripod } from "@/components/icons/Index";
+import { Copy, Gem, Tripod } from "@/components/icons/Index";
+import LostarkService from "@/service/LostarkService";
+import Link from "next/link";
 
 /*
 아바타 왼쪽 : 무기, 무기
@@ -69,6 +73,10 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
     parseSkillPoint,
   } = useApiTagParser();
   const [menu, setMenu] = useState<number>(0);
+  const [siblingsInfo, setSiblingsInfo] = useState<{
+    [key: string]: SiblingType[];
+  }>({});
+  const [pageStatus, setPageStatus] = useState<EAAPageStatus>("INIT");
   const [myStats, setMyStats] = useState<any>(new Object());
   const [equipmentTooltipContent, setEquipmentTooltipContent] = useState<any>();
   const [accessoryTooltipContent, setAccessoryTooltipContent] = useState<any>();
@@ -106,6 +114,36 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
 
   useEffect(() => {
     console.log(data);
+
+    // 원정대
+    setPageStatus("LOADING_SIBLINGS");
+    LostarkService.getCharacterSiblings(data.ArmoryProfile.CharacterName)
+      .then((res) => {
+        console.log(res);
+        const tmp_siblingsInfo: { [key: string]: SiblingType[] } = {};
+        res.data.forEach((sibling) => {
+          if (tmp_siblingsInfo.hasOwnProperty(sibling.ServerName)) {
+            tmp_siblingsInfo[sibling.ServerName] = [
+              ...tmp_siblingsInfo[sibling.ServerName],
+              sibling,
+            ];
+          } else {
+            tmp_siblingsInfo[sibling.ServerName] = [sibling];
+          }
+        });
+        Object.keys(tmp_siblingsInfo).forEach((server) => {
+          tmp_siblingsInfo[server].sort(
+            (a, b) =>
+              parseFloat(b.ItemMaxLevel.replace(",", "")) -
+              parseFloat(a.ItemMaxLevel.replace(",", ""))
+          );
+        });
+        setSiblingsInfo(tmp_siblingsInfo);
+        // console.log(tmp_siblingsInfo);
+      })
+      .catch((error) => {
+        setPageStatus("ERROR");
+      });
 
     // 각인
     if (data.ArmoryEngraving?.Engravings) {
@@ -247,6 +285,10 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
     setCardEffects(tmpCard);
   }, []);
 
+  useEffect(() => {
+    if (Object.keys(siblingsInfo).length) setPageStatus("DONE");
+  }, [siblingsInfo]);
+
   function emptyAvatarChecker(e: number): React.ReactElement {
     if (avatar[e]) {
       return (
@@ -295,7 +337,14 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
         </div>
         <div className={styles.profileHeader}>
           <div className={styles.profileUserDiv}>
-            <div className={styles.headerDiv}>
+            <div
+              className={styles.siblingsDiv}
+              data-tooltip-id="siblingsTooltip"
+            >
+              <Copy size={15} fill="#eee" />
+              <p>원정대 캐릭터 보기</p>
+            </div>
+            <div className={styles.scDiv}>
               <span className={styles.profileCategorySpan}>
                 @{data.ArmoryProfile.ServerName || "서버없음"}
               </span>
@@ -312,7 +361,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                 </span>
               </p>
             </div>
-            <div className={styles.bodyDiv}>
+            <div className={styles.nicknameDiv}>
               <span className={styles.nameSpan}>
                 {data.ArmoryProfile.CharacterName}
               </span>
@@ -367,7 +416,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
         <div className={styles.profileBody}>
           <div className={styles.profileMenu}>
             <p
-              className={`${styles.profileMenuBtn} ${
+              className={`${styles.profileMenuButton} ${
                 menu === 0 ? styles.active : ""
               }`}
               onClick={() => {
@@ -377,7 +426,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
               장비
             </p>
             <p
-              className={`${styles.profileMenuBtn} ${
+              className={`${styles.profileMenuButton} ${
                 menu === 1 ? styles.active : ""
               }`}
               onClick={() => {
@@ -992,6 +1041,56 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
           )}
         </div>
       </div>
+      <Tooltip
+        id="siblingsTooltip"
+        className="tooltip siblingsTooltip"
+        place="bottom"
+        clickable={true}
+        offset={6}
+        openOnClick={true}
+      >
+        {pageStatus === "DONE" ? (
+          <div className="siblingsTooltip">
+            {Object.keys(siblingsInfo)
+              .sort((a, b) => {
+                return siblingsInfo[b].length === siblingsInfo[a].length
+                  ? a < b
+                    ? -1
+                    : 1
+                  : siblingsInfo[b].length - siblingsInfo[a].length;
+              })
+              .map((server) => {
+                return (
+                  <div className="serverDiv" key={`siblings_server_${server}`}>
+                    <p className="serverNameP">{server}</p>
+                    {siblingsInfo[server].map((character) => (
+                      <Link
+                        href={`/character/${character.CharacterName}`}
+                        className="characterDiv"
+                        key={`siblings_server_${server}_character_${character.CharacterName}`}
+                      >
+                        <p
+                          className="characterNameP"
+                          title={character.CharacterName}
+                        >
+                          {character.CharacterName}
+                        </p>
+                        <p className="characterLevelClassP">
+                          <span>Lv. {character.ItemMaxLevel}</span>
+                          <span>{character.CharacterClassName}</span>
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                );
+              })}
+          </div>
+        ) : pageStatus === "LOADING_SIBLINGS" ? (
+          <div>Loading...</div>
+        ) : (
+          <div>에러발생</div>
+        )}
+      </Tooltip>
       <Tooltip
         id="equipmentTooltip"
         className="tooltip equipmentTooltip"

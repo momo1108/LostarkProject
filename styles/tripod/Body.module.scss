@@ -41,7 +41,7 @@ $myLightBlue: #76b1ff;
               @apply absolute h-3/4 opacity-20 top-1/2 left-1/2;
               transform: translate(-50%, -50%);
             }
-            .rootClassBtn {
+            .rootClassButton {
               @apply px-1 py-2 sm:px-2 sm:py-4 grow relative;
               p {
                 @apply relative;
@@ -63,7 +63,7 @@ $myLightBlue: #76b1ff;
               @apply absolute h-3/4 opacity-20 top-1/2 left-1/2;
               transform: translate(-50%, -50%);
             }
-            .subClassBtn {
+            .subClassButton {
               @apply px-1 py-2 sm:px-2 sm:py-4 grow relative;
               p {
                 @apply relative;
@@ -108,14 +108,14 @@ $myLightBlue: #76b1ff;
               color: $myBlue;
             }
           }
-          .resetBtn {
+          .resetButton {
             @apply text-xs sm:text-sm px-2 py-[2px];
           }
         }
         .skillsDiv {
           @apply grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-11 3xl:grid-cols-13 5xl:grid-cols-16
             gap-1 md:gap-2 max-h-[340px] sm:max-h-[450px] pr-2;
-          .skillBtn {
+          .skillButton {
             @apply relative flex flex-col justify-center items-center border md:border-2 border-[#333] p-1 w-[77px] h-[81px] text-xs md:w-[90px] md:h-[90px] md:text-sm;
             .iconDiv {
               @apply w-[45px] h-[45px] md:w-[50px] md:h-[50px] flex justify-center items-center;
@@ -187,10 +187,10 @@ $myLightBlue: #76b1ff;
           }
           .buttonDiv {
             @apply flex gap-1;
-            .resetBtn {
+            .resetButton {
               @apply text-xs sm:text-sm px-2 py-[2px] border-[#555] hover:text-[#eee] hover:border-[#2a5996];
             }
-            .minimizeBtn {
+            .minimizeButton {
               @apply text-xs sm:text-sm p-0 box-content w-5 sm:w-6 flex justify-center items-center border-[#555] hover:text-[#eee] hover:border-[#2a5996];
             }
           }
@@ -230,7 +230,7 @@ $myLightBlue: #76b1ff;
               md:grid-cols-[234px] lg:grid-cols-[226px_226px] 1.5xl:grid-cols-[226px_226px_226px];
 
               direction: ltr;
-              .selectSkillBtn {
+              .selectSkillButton {
                 @apply relative flex items-center gap-1 h-[60px] xs:h-20 md:pl-2 md:py-2 bg-[#171d26] border-b border-[#101010];
                 transition: box-shadow linear 0.1s;
                 direction: ltr;
@@ -352,7 +352,7 @@ $myLightBlue: #76b1ff;
 
               .tripodTierContentDiv {
                 @apply flex justify-center gap-[6px];
-                .singleTripodBtn {
+                .singleTripodButton {
                   @apply relative z-[1] inline-flex flex-col gap-1 justify-center items-center w-[80px] xs:w-[100px] text-xs xs:text-sm;
                   &:hover .iconDiv .tripodIcon,
                   .iconDiv[data-selected="true"] .tripodIcon {
@@ -391,7 +391,7 @@ $myLightBlue: #76b1ff;
 
                   .upgradableDiv {
                     @apply grid grid-cols-2 gap-[1px] w-full;
-                    .levelBtn {
+                    .levelButton {
                       @apply border text-xs leading-5;
                       &[data-active="true"] {
                         @apply font-extrabold;
@@ -421,7 +421,7 @@ $myLightBlue: #76b1ff;
 
       .searchDiv {
         @apply flex max-xs:mx-auto max-xs:min-w-[268px] max-xs:w-[90%] border-t border-[#222222] text-[#c8ccda];
-        .searchBtn {
+        .searchButton {
           @apply py-2 grow font-bold hover:font-extrabold bg-[#161c25] hover:bg-[#141921];
         }
       }

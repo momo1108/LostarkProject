@@ -1027,6 +1027,7 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 - ArmoryEAA 등에서 Type의 중복들이 발견. skill, tripod, gem 등 정리할것
 - character profile header 디자인 변경
 - 인덱스페이지 다시 디자인
+- 캐릭터 검색 시 api 대역 초과의 경우 어떻게? 현재는 캐릭터 정보 없음으로 출력됨.
 
 #### 에러 업데이트
 

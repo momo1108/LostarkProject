@@ -30,7 +30,7 @@ html {
     hr {
       @apply border-[#444] border-dashed;
     }
-    .modalCloseBtn {
+    .modalCloseButton {
       @apply absolute right-4 top-4;
       &:hover svg {
         stroke: #a33;
@@ -114,7 +114,7 @@ html {
       @apply flex flex-col h-full gap-2 pl-4 pr-2;
       .loadModalContentDivHeader {
         @apply flex justify-center gap-2 pr-3;
-        .loadModalContentViewBtn {
+        .loadModalContentViewButton {
           @apply inline-flex gap-1 text-[#777];
           svg {
             stroke: #777;
@@ -674,6 +674,29 @@ footer {
 
   .tooltipTradeParagraph {
     @apply flex justify-between items-center #{!important};
+  }
+}
+
+#siblingsTooltip {
+  @apply p-0 w-[270px] xs:w-[400px] #{!important};
+  .siblingsTooltip {
+    @apply flex flex-col gap-2 px-0 #{!important};
+    .serverDiv {
+      @apply grid grid-cols-2 items-start gap-1;
+      .serverNameP {
+        @apply w-full text-center text-base font-bold py-[2px] col-span-2;
+        background: linear-gradient(90deg, #25272f, #1b1d22, #25272f);
+      }
+      .characterDiv {
+        @apply px-2 py-1 bg-[#25272f] hover:bg-[#202128] text-center;
+        .characterNameP {
+          @apply font-extrabold truncate text-[#6b9ddf];
+        }
+        .characterLevelClassP {
+          @apply inline-flex flex-wrap gap-x-1;
+        }
+      }
+    }
   }
 }
 

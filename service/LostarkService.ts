@@ -1,3 +1,4 @@
+import { SiblingType } from "@/types/EAAType";
 import {
   AuctionItemSearchReq,
   MarketItemSearchReq,
@@ -25,6 +26,22 @@ export default class LostarkService {
     const img = dom.querySelector(".profile-equipment__character img");
 
     return img?.attributes.src;
+  };
+
+  /**
+   * GET
+   * /characters/{characterName}/siblings
+   * Returns all character profiles for an account.
+   */
+  public static getCharacterSiblings = async (
+    name: string
+  ): Promise<AxiosResponse<SiblingType[]>> => {
+    return await axios.get(`${this.url}characters/${name}/siblings`, {
+      headers: {
+        Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
+        Accept: "application/json",
+      },
+    });
   };
 
   /**
