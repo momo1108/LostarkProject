@@ -10,22 +10,20 @@ import { createPortal } from "react-dom";
 import MenuIcons from "../icons/MenuIcons";
 import usePreventBodyScroll from "@/hooks/usePreventBodyScroll";
 import { ModalProps, ModalState } from "@/types/ModalType";
-import styles from "@/styles/tripod/Body.module.scss";
+import styles from "@/styles/engrave/Body.module.scss";
 import MyInput from "../custom/MyInput";
 import LostarkService from "@/service/LostarkService";
 import { ArmoryProfileType } from "@/types/LostarkApiType";
 import { Copy, TriangleSpinner } from "../icons/Index";
-import TripodSearchContext from "@/contexts/TripodSearchContext";
 import { SearchedData } from "@/types/ReducerType";
 
-const TripodCopyModal: React.FC<ModalProps> = ({
+const EngraveCopyModal: React.FC<ModalProps> = ({
   children,
   className,
   isOpen,
   data,
   closeFunc,
 }): JSX.Element | null => {
-  const { copyClass } = useContext(TripodSearchContext);
   const { disableScroll, enableScroll } = usePreventBodyScroll();
   const [modalState, setModalState] = useState<ModalState>("INIT");
   const [ready, setReady] = useState<boolean>(false);
@@ -57,6 +55,18 @@ const TripodCopyModal: React.FC<ModalProps> = ({
       }
     } else return;
   }, [nameRef]);
+
+  const parseEngraveSetting = useCallback(async (name: string) => {
+    try {
+      const result = await LostarkService.getCharacterSummary(name);
+      console.log(result.data);
+      // 총 각인 정보, 각인서, 어빌리티스톤, 악세부위별 특성
+      // ArmoryEngraving - Effects(총 각인 - 감소 키워드 포함 제외), Engravings(각인서) - Name(각인이름), Tooltip(각인수치), ArmoryEquipment - Type(부위-목걸이,귀걸이,반지,어빌리티 스톤), Tooltip(품질, 특성, 어빌리티 각인)
+      result.data.ArmoryEngraving;
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   useEffect(() => {
     const local_searchedDataList = JSON.parse(
@@ -99,7 +109,7 @@ const TripodCopyModal: React.FC<ModalProps> = ({
           <button className="modalCloseButton" onClick={closeFunc}>
             <MenuIcons type={3} size={20} width={2} color="#957b5c" />
           </button>
-          <div className={styles.tripodModalDiv}>
+          <div className={styles.engraveCopyModalDiv}>
             <div className={styles.searchDiv}>
               <MyInput
                 placeholder="캐릭터명"
@@ -162,10 +172,7 @@ const TripodCopyModal: React.FC<ModalProps> = ({
                         className={`myButtons ${styles.copyButton}`}
                         onClick={() => {
                           setModalState("COPYING");
-                          copyClass(
-                            profile!.CharacterName,
-                            profile!.CharacterClassName
-                          );
+                          parseEngraveSetting(profile!.CharacterName);
                         }}
                       >
                         <Copy size={20} fill="#eee" />
@@ -217,7 +224,7 @@ const TripodCopyModal: React.FC<ModalProps> = ({
                           className={`myButtons ${styles.copyButton}`}
                           onClick={() => {
                             setModalState("COPYING");
-                            copyClass(searchedData.name, searchedData.class);
+                            parseEngraveSetting(searchedData.name);
                           }}
                         >
                           <Copy size={20} fill="#eee" />
@@ -246,4 +253,4 @@ const TripodCopyModal: React.FC<ModalProps> = ({
   );
 };
 
-export default TripodCopyModal;
+export default EngraveCopyModal;

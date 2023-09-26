@@ -26,7 +26,7 @@ const CharMainInfoContainer: React.FC<CharMainInfoContainerProps> = ({
 
   useEffect(() => {
     if (!loading && data.ArmoryProfile && data.ArmoryProfile.CharacterImage) {
-      console.log(data);
+      // console.log(data);
       push(data);
       setRender(true);
     } else setRender(false);

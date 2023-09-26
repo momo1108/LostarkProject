@@ -64,6 +64,8 @@ type EngraveContextType = {
   setSaveModalIsOpen: Dispatch<SetStateAction<boolean>>;
   loadModalIsOpen: boolean;
   setLoadModalIsOpen: Dispatch<SetStateAction<boolean>>;
+  copyModalIsOpen: boolean;
+  setCopyModalIsOpen: Dispatch<SetStateAction<boolean>>;
   dropdownMode: DropdownMode;
   setDropdownMode: Dispatch<SetStateAction<DropdownMode>>;
   dropdownSelector: number;
@@ -191,6 +193,8 @@ const EngraveContext = createContext<EngraveContextType>({
   setSaveModalIsOpen: () => {},
   loadModalIsOpen: false,
   setLoadModalIsOpen: () => {},
+  copyModalIsOpen: false,
+  setCopyModalIsOpen: () => {},
   dropdownMode: 3,
   setDropdownMode: () => {},
   dropdownSelector: 0,

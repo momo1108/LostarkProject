@@ -24,12 +24,14 @@ import {
   Earring,
   Filter,
   Info,
+  Copy,
 } from "@/components/icons/Index";
 import { Tooltip } from "react-tooltip";
 import ApiKeyInput from "@/components/ApiKeyInput";
 import EngraveSaveModal from "@/components/modal/EngraveSaveModal";
 import EngraveContext from "@/contexts/EngraveContext";
 import EngraveLoadModal from "@/components/modal/EngraveLoadModal";
+import EngraveCopyModal from "@/components/modal/EngraveCopyModal";
 
 const EngraveSearchBlock: React.FC = () => {
   const {
@@ -51,6 +53,8 @@ const EngraveSearchBlock: React.FC = () => {
     setSaveModalIsOpen,
     loadModalIsOpen,
     setLoadModalIsOpen,
+    copyModalIsOpen,
+    setCopyModalIsOpen,
     dropdownMode,
     setDropdownMode,
     dropdownSelector,
@@ -96,6 +100,13 @@ const EngraveSearchBlock: React.FC = () => {
           }}
           data=""
         />
+        <EngraveCopyModal
+          isOpen={copyModalIsOpen}
+          closeFunc={() => {
+            setCopyModalIsOpen(false);
+          }}
+          data=""
+        />
         <ApiKeyInput shine={apiShine} />
         <div className={styles.presetDiv}>
           <button
@@ -115,6 +126,15 @@ const EngraveSearchBlock: React.FC = () => {
           >
             <Load color="#ccc" size={20} />
             <span>불러오기</span>
+          </button>
+          <button
+            className="myButtons"
+            onClick={() => {
+              setCopyModalIsOpen(true);
+            }}
+          >
+            <Copy size={20} fill="#eee" />
+            <span>캐릭터 세팅 복사</span>
           </button>
         </div>
       </div>

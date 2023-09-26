@@ -30,7 +30,7 @@ export default function CharBody() {
       } else return e;
     });
     let index = tmp.findLastIndex((e) => e.like > 0);
-    console.log(index, duplicate);
+    // console.log(index, duplicate);
     if (index < 0) {
       if (!duplicate)
         tmp.push({
@@ -68,7 +68,7 @@ export default function CharBody() {
   }, []);
 
   useEffect(() => {
-    console.log(searchedDataList);
+    // console.log(searchedDataList);
     if (loadSDL)
       localStorage.setItem("recentSearch", JSON.stringify(searchedDataList));
     if (!loadSDL) setLoadSDL(true);

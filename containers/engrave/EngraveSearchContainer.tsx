@@ -183,6 +183,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
   });
   const [saveModalIsOpen, setSaveModalIsOpen] = useState<boolean>(false);
   const [loadModalIsOpen, setLoadModalIsOpen] = useState<boolean>(false);
+  const [copyModalIsOpen, setCopyModalIsOpen] = useState<boolean>(false);
   const [dropdownMode, setDropdownMode] = useState<DropdownMode>(3);
   const [dropdownSelector, setDropdownSelector] = useState<number>(0);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -892,6 +893,8 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
         setSaveModalIsOpen,
         loadModalIsOpen,
         setLoadModalIsOpen,
+        copyModalIsOpen,
+        setCopyModalIsOpen,
         dropdownMode,
         setDropdownMode,
         dropdownSelector,

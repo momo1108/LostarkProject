@@ -113,13 +113,13 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
   );
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
 
     // 원정대
     setPageStatus("LOADING_SIBLINGS");
     LostarkService.getCharacterSiblings(data.ArmoryProfile.CharacterName)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         const tmp_siblingsInfo: { [key: string]: SiblingType[] } = {};
         res.data.forEach((sibling) => {
           if (tmp_siblingsInfo.hasOwnProperty(sibling.ServerName)) {
@@ -147,7 +147,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
 
     // 각인
     if (data.ArmoryEngraving?.Engravings) {
-      console.log(data.ArmoryEngraving.Engravings);
+      // console.log(data.ArmoryEngraving.Engravings);
       setEngEquip(
         data.ArmoryEngraving.Engravings.map((engraving: EngravingsType) => ({
           ...engraving,
@@ -245,7 +245,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
       return e;
     });
 
-    console.log(tmpSkill);
+    // console.log(tmpSkill);
     setSkillDataList(tmpSkill);
 
     // 카드
