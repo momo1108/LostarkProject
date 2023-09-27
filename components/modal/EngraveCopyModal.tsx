@@ -56,12 +56,14 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
     } else return;
   }, [nameRef]);
 
-  const parseEngraveSetting = useCallback(async (name: string) => {
+  const copyEngraveSetting = useCallback(async (name: string) => {
     try {
       const result = await LostarkService.getCharacterSummary(name);
       console.log(result.data);
       // 총 각인 정보, 각인서, 어빌리티스톤, 악세부위별 특성
       // ArmoryEngraving - Effects(총 각인 - 감소 키워드 포함 제외), Engravings(각인서) - Name(각인이름), Tooltip(각인수치), ArmoryEquipment - Type(부위-목걸이,귀걸이,반지,어빌리티 스톤), Tooltip(품질, 특성, 어빌리티 각인)
+      // equipList, targetList : EngraveInfo[], negativeEngrave : EngraveInfo
+      // necklaceState, earringState1, earringState2, ringState1, ringState2 : AccessoryInfo
       result.data.ArmoryEngraving;
     } catch (error) {
       console.log(error);
@@ -172,7 +174,7 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
                         className={`myButtons ${styles.copyButton}`}
                         onClick={() => {
                           setModalState("COPYING");
-                          parseEngraveSetting(profile!.CharacterName);
+                          copyEngraveSetting(profile!.CharacterName);
                         }}
                       >
                         <Copy size={20} fill="#eee" />
@@ -224,7 +226,7 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
                           className={`myButtons ${styles.copyButton}`}
                           onClick={() => {
                             setModalState("COPYING");
-                            parseEngraveSetting(searchedData.name);
+                            copyEngraveSetting(searchedData.name);
                           }}
                         >
                           <Copy size={20} fill="#eee" />
