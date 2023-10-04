@@ -47,13 +47,6 @@ export type AvatarSlotProps = {
   contentSetter: React.Dispatch<React.SetStateAction<Object | undefined>>;
 };
 
-export type EngravingsType = {
-  Slot: number;
-  Name: string;
-  Icon: string;
-  Tooltip: any;
-};
-
 export type GemType = {
   Name: string;
   Grade: string;

@@ -2,7 +2,6 @@ import styles from "@/styles/character/Body.module.scss";
 import {
   ArmoryEAAProps,
   EAAPageStatus,
-  EngravingsType,
   GemType,
   SiblingType,
   emptyAccessoryBackgroundMap,
@@ -43,6 +42,7 @@ import RuneTooltip from "../tooltips/RuneTooltip";
 import { Copy, Gem, Tripod } from "@/components/icons/Index";
 import LostarkService from "@/service/LostarkService";
 import Link from "next/link";
+import { EngravingType } from "@/types/LostarkApiType";
 
 /*
 아바타 왼쪽 : 무기, 무기
@@ -149,10 +149,10 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
     if (data.ArmoryEngraving?.Engravings) {
       // console.log(data.ArmoryEngraving.Engravings);
       setEngEquip(
-        data.ArmoryEngraving.Engravings.map((engraving: EngravingsType) => ({
+        data.ArmoryEngraving.Engravings.map((engraving: EngravingType) => ({
           ...engraving,
           Tooltip: JSON.parse(engraving.Tooltip),
-        })).reduce((prev: { [key: string]: number }, cur: EngravingsType) => {
+        })).reduce((prev: { [key: string]: number }, cur: EngravingType) => {
           const currentPoint = parseEngravingPointNumber(
             cur.Tooltip.Element_001.value.leftText
           );

@@ -20,6 +20,32 @@ export type ArmoryProfileType = {
   ItemMaxLevel: string;
 };
 
+export type ArmoryEquipmentType = {
+  Grade: string;
+  Icon: string;
+  Name: string;
+  Tooltip: string;
+  Type: string;
+};
+
+export type ArmoryEngravingType = {
+  Effects: EngravingEffectType[];
+  Engravings: EngravingType[];
+};
+
+export type EngravingEffectType = {
+  Description: string;
+  Icon: string;
+  Name: string;
+};
+
+export type EngravingType = {
+  Slot: number;
+  Name: string;
+  Icon: string;
+  Tooltip: any;
+};
+
 export type Stat = {
   Type: string;
   Value: string;

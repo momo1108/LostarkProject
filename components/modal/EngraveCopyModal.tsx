@@ -13,9 +13,16 @@ import { ModalProps, ModalState } from "@/types/ModalType";
 import styles from "@/styles/engrave/Body.module.scss";
 import MyInput from "../custom/MyInput";
 import LostarkService from "@/service/LostarkService";
-import { ArmoryProfileType } from "@/types/LostarkApiType";
+import {
+  ArmoryEquipmentType,
+  ArmoryProfileType,
+  EngravingEffectType,
+  EngravingType,
+} from "@/types/LostarkApiType";
 import { Copy, TriangleSpinner } from "../icons/Index";
 import { SearchedData } from "@/types/ReducerType";
+import EngraveContext from "@/contexts/EngraveContext";
+import { EngraveInfo } from "@/types/EngraveType";
 
 const EngraveCopyModal: React.FC<ModalProps> = ({
   children,
@@ -24,6 +31,17 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
   data,
   closeFunc,
 }): JSX.Element | null => {
+  const {
+    setTargetList,
+    setEquipList,
+    setAbilityList,
+    setNegativeEngrave,
+    setNecklaceState,
+    setEarringState1,
+    setEarringState2,
+    setRingState1,
+    setRingState2,
+  } = useContext(EngraveContext);
   const { disableScroll, enableScroll } = usePreventBodyScroll();
   const [modalState, setModalState] = useState<ModalState>("INIT");
   const [ready, setReady] = useState<boolean>(false);
@@ -60,13 +78,67 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
     try {
       const result = await LostarkService.getCharacterSummary(name);
       console.log(result.data);
+      const { ArmoryEngraving: ae, ArmoryEquipment: ae2 } = result.data;
       // 총 각인 정보, 각인서, 어빌리티스톤, 악세부위별 특성
       // ArmoryEngraving - Effects(총 각인 - 감소 키워드 포함 제외), Engravings(각인서) - Name(각인이름), Tooltip(각인수치), ArmoryEquipment - Type(부위-목걸이,귀걸이,반지,어빌리티 스톤), Tooltip(품질, 특성, 어빌리티 각인)
       // equipList, targetList : EngraveInfo[], negativeEngrave : EngraveInfo
       // necklaceState, earringState1, earringState2, ringState1, ringState2 : AccessoryInfo
+      if (ae && ae.Effects)
+        setTargetList(
+          ae.Effects.map(({ Name }: EngravingEffectType): EngraveInfo => {
+            Name = Name.trim();
+            const index = Name.indexOf("Lv.");
+
+            return {
+              name: Name.slice(0, index).trim(),
+              level: parseInt(Name[Name.length - 1]),
+              point: parseInt(Name[Name.length - 1]) * 5,
+              enableInput: false,
+              inputValue: (parseInt(Name[Name.length - 1]) * 5).toString(),
+            };
+          })
+        );
+      if (ae && ae.Engravings)
+        setEquipList(
+          ae.Engravings.map(({ Name, Tooltip }: EngravingType): EngraveInfo => {
+            const text = /각인 활성 포인트 \+[0-9]{1,2}/g.exec(Tooltip);
+            console.log(text);
+            return {
+              name: Name,
+              level: parseInt(text![0].split("+")[1]) / 3 - 1,
+              point: parseInt(text![0].split("+")[1]),
+              enableInput: false,
+              inputValue: parseInt(text![0].split("+")[1]).toString(),
+            };
+          })
+        );
+      if (ae2) {
+        const stone = ae2.find(
+          (equipment: ArmoryEquipmentType) => equipment.Type === "어빌리티 스톤"
+        );
+        if (stone) {
+          console.log(stone);
+          console.log(
+            /\[<FONT COLOR='#[0-9A-Fa-f]{1,6}'>[가-힣\s]+<\/FONT>\]/g.exec(
+              stone.Tooltip
+            )
+          );
+        }
+      }
+      // setEquipList(tmpPresetData.equipList);
+      // setAbilityList(tmpPresetData.abilityList);
+      // setNegativeEngrave(tmpPresetData.negativeEngrave);
+      // setNecklaceState(tmpPresetData.accessoryList[0]);
+      // setEarringState1(tmpPresetData.accessoryList[1]);
+      // setEarringState2(tmpPresetData.accessoryList[2]);
+      // setRingState1(tmpPresetData.accessoryList[3]);
+      // setRingState2(tmpPresetData.accessoryList[4]);
+      closeFunc!();
       result.data.ArmoryEngraving;
     } catch (error) {
       console.log(error);
+      alert("에러가 발생했습니다.");
+      closeFunc!();
     }
   }, []);
 
