@@ -81,7 +81,7 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
       const { ArmoryEngraving: ae, ArmoryEquipment: ae2 } = result.data;
       // 총 각인 정보, 각인서, 어빌리티스톤, 악세부위별 특성
       // ArmoryEngraving - Effects(총 각인 - 감소 키워드 포함 제외), Engravings(각인서) - Name(각인이름), Tooltip(각인수치), ArmoryEquipment - Type(부위-목걸이,귀걸이,반지,어빌리티 스톤), Tooltip(품질, 특성, 어빌리티 각인)
-      // equipList, targetList : EngraveInfo[], negativeEngrave : EngraveInfo
+      // equipList, targetList, abilityList : EngraveInfo[], negativeEngrave : EngraveInfo
       // necklaceState, earringState1, earringState2, ringState1, ringState2 : AccessoryInfo
       if (ae && ae.Effects)
         setTargetList(
@@ -113,19 +113,59 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
           })
         );
       if (ae2) {
+        // 이벤트 어빌리티스톤(익스프레스) 처리해야함. keyword. "성장 지원 기능"
         const stone = ae2.find(
           (equipment: ArmoryEquipmentType) => equipment.Type === "어빌리티 스톤"
         );
         if (stone) {
           console.log(stone);
-          console.log(
-            /\[<FONT COLOR='#[0-9A-Fa-f]{1,6}'>[가-힣\s]+<\/FONT>\]/g.exec(
-              stone.Tooltip
-            )
+          const parsedAbilityInfo: string[][] = [
+            ...stone.Tooltip.matchAll(
+              /\[<FONT COLOR='#[0-9A-Fa-f]{1,6}'>[가-힣\s]+<\/FONT>\]\s+활성도\s+\+[0-9]{1,2}/g
+            ),
+          ].map((text: string) => {
+            const engraveNameObject = />[가-힣\s]+</g.exec(text);
+            let engraveName = engraveNameObject ? engraveNameObject[0] : "";
+            engraveName = engraveName.slice(1, engraveName.length - 1).trim();
+            const engravePointObject = /\+[0-9]{1,2}/g.exec(text);
+            let engravePoint = engravePointObject
+              ? engravePointObject[0].slice(1).trim()
+              : "";
+            return [engraveName, engravePoint];
+          });
+          setAbilityList(
+            parsedAbilityInfo
+              .filter((engrave) => !engrave[0].includes("감소"))
+              .map((engrave) => {
+                return {
+                  name: engrave[0],
+                  enableInput: false,
+                  inputValue: engrave[1],
+                  point: parseInt(engrave[1]),
+                  level: 1,
+                };
+              })
           );
+          let negativeEngrave = parsedAbilityInfo.find((engrave) =>
+            engrave[0].includes("감소")
+          );
+          if (negativeEngrave)
+            setNegativeEngrave({
+              name: negativeEngrave[0],
+              enableInput: false,
+              inputValue: negativeEngrave[1],
+              point: parseInt(negativeEngrave[1]),
+              level: 1,
+            });
+        }
+
+        const necklace = ae2.find(
+          (equipment: ArmoryEquipmentType) => equipment.Type === "목걸이"
+        );
+        if (necklace) {
+          // 이벤트 어빌리티스톤(익스프레스) 처리해야함. keyword. "성장 지원 기능" 이 경우 품질 70고정
         }
       }
-      // setEquipList(tmpPresetData.equipList);
       // setAbilityList(tmpPresetData.abilityList);
       // setNegativeEngrave(tmpPresetData.negativeEngrave);
       // setNecklaceState(tmpPresetData.accessoryList[0]);
