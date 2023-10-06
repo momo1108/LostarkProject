@@ -54,7 +54,7 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
     if (nameRef.current) {
       nameRef.current.value = nameRef.current.value.trim();
       if (nameRef.current.value) {
-        console.log(nameRef.current.value);
+        // console.log(nameRef.current.value);
         try {
           const { data } = await LostarkService.getCharacterProfile(
             nameRef.current.value
@@ -102,7 +102,7 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
         setEquipList(
           ae.Engravings.map(({ Name, Tooltip }: EngravingType): EngraveInfo => {
             const text = /각인 활성 포인트 \+[0-9]{1,2}/g.exec(Tooltip);
-            console.log(text);
+            // console.log(text);
             return {
               name: Name,
               level: parseInt(text![0].split("+")[1]) / 3 - 1,
@@ -118,7 +118,7 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
           (equipment: ArmoryEquipmentType) => equipment.Type === "어빌리티 스톤"
         );
         if (stone) {
-          console.log(stone);
+          // console.log(stone);
           const parsedAbilityInfo: string[][] = [
             ...stone.Tooltip.matchAll(
               /\[<FONT COLOR='#[0-9A-Fa-f]{1,6}'>[가-힣\s]+<\/FONT>\]\s+활성도\s+\+[0-9]{1,2}/g
@@ -163,7 +163,125 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
           (equipment: ArmoryEquipmentType) => equipment.Type === "목걸이"
         );
         if (necklace) {
-          // 이벤트 어빌리티스톤(익스프레스) 처리해야함. keyword. "성장 지원 기능" 이 경우 품질 70고정
+          // 이벤트 악세서리(익스프레스) 처리해야함. keyword. "성장 지원 기능" 이 경우 품질 70고정
+          const qualityLine = /"qualityValue"[:\s0-9]+/g.exec(necklace.Tooltip);
+          const valueString = /[0-9]+/g.exec(qualityLine![0]);
+          const qualityValue = necklace.Tooltip.includes("성장 지원 기능")
+            ? 70
+            : valueString
+            ? parseInt(valueString[0])
+            : 50;
+
+          const stat: string[] = [
+            ...necklace.Tooltip.matchAll(
+              /(치명|특화|신속|제압|인내|숙련)[\s\+0-9]+/g
+            ),
+          ].map((text: string) => {
+            return (
+              ["치명", "특화", "신속", "제압", "인내", "숙련"].find((s) =>
+                text.includes(s)
+              ) || ""
+            );
+          });
+
+          setNecklaceState({
+            type: 0,
+            quality: qualityValue,
+            stat1: { type: stat[0] || "치명", value: 0 },
+            stat2: { type: stat[1] || "특화", value: 0 },
+            isOwned: false,
+            engraveInfo: {
+              engrave1: { name: "" },
+              engrave2: { name: "" },
+              negativeEngrave: { name: "" },
+            },
+          });
+        }
+
+        const earrings = ae2.filter(
+          (equipment: ArmoryEquipmentType) => equipment.Type === "귀걸이"
+        );
+        if (earrings.length) {
+          // 이벤트 악세서리(익스프레스) 처리해야함. keyword. "성장 지원 기능" 이 경우 품질 70고정
+          for (let index = 0; index < earrings.length; index++) {
+            const qualityLine = /"qualityValue"[:\s0-9]+/g.exec(
+              earrings[index].Tooltip
+            );
+            const valueString = /[0-9]+/g.exec(qualityLine![0]);
+            const qualityValue = earrings[index].Tooltip.includes(
+              "성장 지원 기능"
+            )
+              ? 70
+              : valueString
+              ? parseInt(valueString[0])
+              : 50;
+
+            const statLine = /(치명|특화|신속|제압|인내|숙련)[\s\+0-9]+/g.exec(
+              earrings[index].Tooltip
+            );
+            const stat =
+              ["치명", "특화", "신속", "제압", "인내", "숙련"].find((s) =>
+                statLine![0].includes(s)
+              ) || "";
+
+            const earringState = {
+              type: 1,
+              quality: qualityValue,
+              stat1: { type: stat || "치명", value: 0 },
+              stat2: { type: "특화", value: 0 },
+              isOwned: false,
+              engraveInfo: {
+                engrave1: { name: "" },
+                engrave2: { name: "" },
+                negativeEngrave: { name: "" },
+              },
+            };
+
+            index === 0
+              ? setEarringState1(earringState)
+              : setEarringState2(earringState);
+          }
+        }
+
+        const rings = ae2.filter(
+          (equipment: ArmoryEquipmentType) => equipment.Type === "반지"
+        );
+        if (rings.length) {
+          // 이벤트 악세서리(익스프레스) 처리해야함. keyword. "성장 지원 기능" 이 경우 품질 70고정
+          for (let index = 0; index < rings.length; index++) {
+            const qualityLine = /"qualityValue"[:\s0-9]+/g.exec(
+              rings[index].Tooltip
+            );
+            const valueString = /[0-9]+/g.exec(qualityLine![0]);
+            const qualityValue = rings[index].Tooltip.includes("성장 지원 기능")
+              ? 70
+              : valueString
+              ? parseInt(valueString[0])
+              : 50;
+
+            const statLine = /(치명|특화|신속|제압|인내|숙련)[\s\+0-9]+/g.exec(
+              rings[index].Tooltip
+            );
+            const stat =
+              ["치명", "특화", "신속", "제압", "인내", "숙련"].find((s) =>
+                statLine![0].includes(s)
+              ) || "";
+
+            const ringState = {
+              type: 2,
+              quality: qualityValue,
+              stat1: { type: stat || "치명", value: 0 },
+              stat2: { type: "특화", value: 0 },
+              isOwned: false,
+              engraveInfo: {
+                engrave1: { name: "" },
+                engrave2: { name: "" },
+                negativeEngrave: { name: "" },
+              },
+            };
+
+            index === 0 ? setRingState1(ringState) : setRingState2(ringState);
+          }
         }
       }
       // setAbilityList(tmpPresetData.abilityList);

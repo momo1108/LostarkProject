@@ -67,7 +67,7 @@ enum AccessoryType {
 }
 
 type Stat = {
-  type: "치명" | "특화" | "신속" | "제압" | "인내" | "숙련";
+  type: string;
   value: number;
 };
 
