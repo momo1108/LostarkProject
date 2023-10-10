@@ -1,112 +1,54 @@
 .container {
-  $focus-border: #003e6e;
-  @apply flex flex-col content-center 
-    justify-center my-4 py-16 px-[50px] flex-auto;
-  .lineDiv {
-    @apply flex flex-wrap flex-none content-center 
-        justify-center;
+  .cardList {
+    @apply flex justify-center items-center h-[400px];
+    perspective: 1500px;
+    .cardItem {
+      @apply relative w-[200px] h-[300px] flex items-center justify-center border border-[#fff] transition-all duration-300 bg-[#f00];
+      margin: 0px -30px;
+      &:hover {
+      }
 
-    .dummyLink {
-      margin-left: -3px;
-      margin-top: -53px;
-      p {
-        width: 173.20508075688772px;
-        height: 200px;
+      @for $i from 1 through 3 {
+        &:nth-child(#{$i}) {
+          z-index: 3-$i;
+          transform: rotateY(-50deg)
+            rotateZ(calc(-30deg + (15deg * $i)))
+            translateY(-30px * (1 - ($i % 2)));
+
+          &.selectedMenu {
+            @apply w-[240px] h-[360px] z-[3];
+            margin: 0px -5px;
+            transform: rotateY(-180deg)
+              rotateZ(calc(30deg - (15deg * $i)))
+              translateY(-30px * (1 - ($i % 2)));
+          }
+        }
       }
     }
-    .menuLink {
-      @apply text-gray-300;
-      .menuDiv {
-        @apply inline-flex items-center content-center 
-                justify-center font-bold 
-                relative shrink-0;
-        margin-left: -3px;
-        margin-top: -53px;
 
-        .menuContent {
-          @apply flex flex-col items-center justify-center relative z-[2] font-light transition-all duration-300 ease-out;
-          width: 173.20508075688772px;
-          height: 200px;
-        }
-        .menuSvg {
-          @apply absolute top-0 left-0;
-        }
-
-        .innerHex {
-          // inner가 가장 안쪽에서 -> 가장 바깥으로
-          @apply absolute top-0 left-0;
-          width: 173.20508075688772px;
-          height: 200px;
-
-          .innerHexChild {
-            @apply absolute top-[21.4px] left-[41.5px] transition-all ease-out duration-300 z-[4];
-            width: 90.76239569296px;
-            height: 157.20508075688772px;
-            border-top: 4px solid #333;
-            border-bottom: 4px solid #333;
-            opacity: 0;
-          }
-
-          @for $i from 1 through 3 {
-            .innerHexChild:nth-child(#{$i}) {
-              transform: rotate(30deg + (60deg * ($i - 1)));
-            }
-          }
-        }
-        .outerHex {
-          // outer가 처음 보이는 외곽선 -> 육각 테두리로
-          @apply absolute top-0 left-0;
-          width: 173.20508075688772px;
-          height: 200px;
-
-          .outerHexChild {
-            @apply absolute top-[16.4px] left-[38.5px] transition-all duration-300 z-[3];
-            width: 96.535898384862px;
-            height: 167.20508075688772px;
-            border-top: 5px solid #111;
-            border-bottom: 5px solid #111;
-          }
-
-          @for $i from 1 through 3 {
-            .outerHexChild:nth-child(#{$i}) {
-              transform: rotate(30deg + (60deg * ($i - 1)));
-            }
-          }
-        }
+    .cardListWrapper {
+      @apply absolute z-[4] top-0 left-0 right-0 bottom-0 bg-[#f002] flex justify-center items-center;
+      perspective: 1500px;
+      .cardItemWrapper {
+        @apply relative w-[200px] h-[300px] flex items-center justify-center cursor-pointer;
+        margin: 0px -30px;
 
         @for $i from 1 through 3 {
-          &:hover .innerHexChild:nth-child(#{$i}) {
-            @apply top-[3.3px] left-[30.6px];
-            width: 112px;
-            height: 193.98969px;
-            border-top: 6px solid $focus-border;
-            border-bottom: 6px solid $focus-border;
-            opacity: 1;
-          }
-          &:hover .outerHexChild:nth-child(#{$i}) {
-            @apply top-[13.4px] left-[36.6px];
-            width: 100px;
-            height: 173.20508075688772px;
-            border-top: 3px solid $focus-border;
-            border-bottom: 3px solid $focus-border;
-          }
-        }
+          &:nth-child(#{$i}) {
+            transform: rotateY(-50deg)
+              rotateZ(calc(-30deg + (15deg * $i)))
+              translateY(-30px * (1 - ($i % 2)));
 
-        &:hover .menuContent {
-          @apply scale-125 text-[#2a82c6] font-bold;
-          .menuIcon[data-type="2"] {
-            fill: #2a82c6;
-            stroke: none;
-          }
-          .menuIcon {
-            stroke: #2a82c6;
+            &.selectedMenu {
+              @apply w-[240px] h-[360px] z-[5];
+              margin: 0px -5px;
+              transform: rotateY(0deg)
+                rotateZ(calc(-30deg + (15deg * $i)))
+                translateY(-30px * (1 - ($i % 2)));
+            }
           }
         }
       }
-    }
-
-    .menuLink:first-child .menuDiv {
-      margin-left: 0px;
     }
   }
 }

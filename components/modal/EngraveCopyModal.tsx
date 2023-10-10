@@ -41,6 +41,7 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
     setEarringState2,
     setRingState1,
     setRingState2,
+    setOtherFilterValue,
   } = useContext(EngraveContext);
   const { disableScroll, enableScroll } = usePreventBodyScroll();
   const [modalState, setModalState] = useState<ModalState>("INIT");
@@ -283,14 +284,41 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
             index === 0 ? setRingState1(ringState) : setRingState2(ringState);
           }
         }
+
+        const filterMap: { [key: string]: number } = {
+          고대: 0,
+          유물: 1,
+          "고대+유물": 2,
+          전설: 3,
+          영웅: 3,
+          희귀: 3,
+          고급: 3,
+          일반: 3,
+        };
+
+        const gradeValue = ae2
+          .filter((equipment: ArmoryEquipmentType) =>
+            ["목걸이", "귀걸이", "반지"].includes(equipment.Type)
+          )
+          .reduce((prev: number, cur: ArmoryEquipmentType) => {
+            const curType = filterMap[cur.Grade];
+            if (curType > 2 || prev > 2) return 3;
+            if (prev === -1) return curType;
+            if (prev === 2) return 2;
+            if (prev === curType) return prev;
+            else return 2;
+          }, -1);
+
+        if (gradeValue === 3)
+          alert(
+            "전설등급 이하의 악세서리를 장착한 캐릭터입니다.\n검색은 최소 유물 등급 이상의 악세서리로 진행됩니다.\n필터 항목의 악세서리 등급을 참조해주세요."
+          );
+        setOtherFilterValue((filterValue) => ({
+          ...filterValue,
+          "악세서리 등급": gradeValue % 3,
+        }));
       }
-      // setAbilityList(tmpPresetData.abilityList);
-      // setNegativeEngrave(tmpPresetData.negativeEngrave);
-      // setNecklaceState(tmpPresetData.accessoryList[0]);
-      // setEarringState1(tmpPresetData.accessoryList[1]);
-      // setEarringState2(tmpPresetData.accessoryList[2]);
-      // setRingState1(tmpPresetData.accessoryList[3]);
-      // setRingState2(tmpPresetData.accessoryList[4]);
+
       closeFunc!();
       result.data.ArmoryEngraving;
     } catch (error) {

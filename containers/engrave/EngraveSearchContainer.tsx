@@ -796,6 +796,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
         !usingWebWorker[0])
     ) {
       alert("조건에 맞는 매물이 없습니다.");
+      setUsingWebWorker([false, 0]);
       setPageStatus(1);
       return;
     }
