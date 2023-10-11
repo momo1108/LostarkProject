@@ -1,22 +1,51 @@
 .container {
+  @apply flex-auto flex items-center justify-center;
   .cardList {
-    @apply flex justify-center items-center h-[400px];
+    @apply flex justify-center items-center w-full h-[450px];
     perspective: 1500px;
     .cardItem {
-      @apply relative w-[200px] h-[300px] flex items-center justify-center border border-[#fff] transition-all duration-300 bg-[#f00];
-      margin: 0px -30px;
-      &:hover {
+      @apply relative w-[200px] h-[300px];
+      margin: 0px -20px;
+      opacity: 0;
+      transform-style: preserve-3d;
+      box-shadow: 0 0 9px -3px #af9363;
+
+      &.showUs {
+        opacity: 1;
+      }
+
+      .cardItemFront,
+      .cardItemBack {
+        @apply absolute top-0 left-0 right-0 bottom-0 flex flex-col gap-2 items-center justify-center text-center break-keep;
+        background-image: url("/images/cards.jpg");
+        background-size: 100% 100%;
+        -webkit-backface-visibility: hidden; /* Safari */
+        backface-visibility: hidden;
+        .cardItemTitle {
+          @apply font-extrabold text-xl text-[#d4b887];
+        }
+        .cardItemDesc {
+          @apply w-[200px] font-bold text-[#ccc];
+        }
+      }
+      .cardItemBack {
+        transform: rotateY(180deg);
       }
 
       @for $i from 1 through 3 {
         &:nth-child(#{$i}) {
-          z-index: 3-$i;
-          transform: rotateY(-50deg)
+          transition: transform 300ms ease-in-out, width 300ms ease-in-out,
+            height 300ms ease-in-out, margin 300ms ease-in-out,
+            opacity 500ms ease-in-out calc(1000ms + (200ms * $i));
+          z-index: 4-$i;
+          transform: rotateX(0deg)
+            rotateY(-30deg)
             rotateZ(calc(-30deg + (15deg * $i)))
             translateY(-30px * (1 - ($i % 2)));
 
           &.selectedMenu {
-            @apply w-[240px] h-[360px] z-[3];
+            @apply w-[240px] h-[360px] z-[4];
+            animation: shiningBorder 3s ease-in-out infinite;
             margin: 0px -5px;
             transform: rotateY(-180deg)
               rotateZ(calc(30deg - (15deg * $i)))
@@ -27,20 +56,20 @@
     }
 
     .cardListWrapper {
-      @apply absolute z-[4] top-0 left-0 right-0 bottom-0 bg-[#f002] flex justify-center items-center;
+      @apply absolute z-[5] top-0 left-0 right-0 bottom-0 flex justify-center items-center;
       perspective: 1500px;
       .cardItemWrapper {
         @apply relative w-[200px] h-[300px] flex items-center justify-center cursor-pointer;
-        margin: 0px -30px;
+        margin: 0px -20px;
 
         @for $i from 1 through 3 {
           &:nth-child(#{$i}) {
-            transform: rotateY(-50deg)
+            transform: rotateY(-30deg)
               rotateZ(calc(-30deg + (15deg * $i)))
               translateY(-30px * (1 - ($i % 2)));
 
             &.selectedMenu {
-              @apply w-[240px] h-[360px] z-[5];
+              @apply w-[240px] h-[360px] z-[6];
               margin: 0px -5px;
               transform: rotateY(0deg)
                 rotateZ(calc(-30deg + (15deg * $i)))
@@ -50,5 +79,17 @@
         }
       }
     }
+  }
+}
+
+@keyframes shiningBorder {
+  0% {
+    box-shadow: 0 0 9px -3px #af9363;
+  }
+  50% {
+    box-shadow: 0 0 12px -1px #d8c5a4;
+  }
+  100% {
+    box-shadow: 0 0 9px -3px #af9363;
   }
 }

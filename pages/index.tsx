@@ -7,6 +7,7 @@ import { roboto } from "@/types/GlobalType";
 import Page from "@/components/Page";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
+import Footer from "@/components/Footer";
 
 const Home: React.FC<MainProps> = ({ menu }) => {
   const router = useRouter();
@@ -28,6 +29,12 @@ const Home: React.FC<MainProps> = ({ menu }) => {
       >
         <MainHeader />
         <MainBody menu={menu} />
+        <Footer>
+          <a href="https://www.freepik.com/free-vector/hand-drawn-2023-lunar-calendar-template_33459684.htm#page=4&query=tarot%20card%20background&position=16&from_view=search&track=ais">
+            Image by pikisuperstar
+          </a>{" "}
+          on Freepik
+        </Footer>
       </Page>
     </>
   );
