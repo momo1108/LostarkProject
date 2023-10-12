@@ -24,6 +24,7 @@ type EngraveResultBlockProps = {
   totalCases: number;
   currentCase: number;
   myTimer: number;
+  copyToClipboard: (text: string) => void;
 };
 const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
   combinationList,
@@ -32,6 +33,7 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
   totalCases,
   currentCase,
   myTimer,
+  copyToClipboard,
 }) => {
   const { bgClassMaker } = useCssHook();
   const initialStat = {
@@ -181,7 +183,14 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
                               alt=""
                             />
                             <div className={styles.titleInfoDiv}>
-                              <p className={styles.nameP}>{e2.Name}</p>
+                              <p
+                                className={styles.nameP}
+                                onClick={() => {
+                                  copyToClipboard(e2.Name);
+                                }}
+                              >
+                                {e2.Name}
+                              </p>
                               <p className={styles.qualityP}>
                                 품질 : {e2.GradeQuality}
                               </p>
@@ -215,20 +224,42 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
                                   <p
                                     key={`combination_${i}_item_${i2}_eng_${i3}`}
                                   >
-                                    [{option.OptionName}] +{option.Value}
+                                    <span
+                                      className={styles.engraveNameSpan}
+                                      onClick={() => {
+                                        copyToClipboard(option.OptionName);
+                                      }}
+                                    >
+                                      [{option.OptionName}]
+                                    </span>{" "}
+                                    +{option.Value}
                                   </p>
                                 );
                               })}
                               <p className={styles.negativeP}>
-                                [
-                                {
-                                  e2.Options.find(
-                                    (option) =>
-                                      option.Type === "ABILITY_ENGRAVE" &&
-                                      option.IsPenalty
-                                  )?.OptionName
-                                }
-                                ] +
+                                <span
+                                  className={styles.negativeNameSpan}
+                                  onClick={() => {
+                                    copyToClipboard(
+                                      e2.Options.find(
+                                        (option) =>
+                                          option.Type === "ABILITY_ENGRAVE" &&
+                                          option.IsPenalty
+                                      )?.OptionName || ""
+                                    );
+                                  }}
+                                >
+                                  [
+                                  {
+                                    e2.Options.find(
+                                      (option) =>
+                                        option.Type === "ABILITY_ENGRAVE" &&
+                                        option.IsPenalty
+                                    )?.OptionName
+                                  }
+                                  ]
+                                </span>{" "}
+                                +
                                 {
                                   e2.Options.find(
                                     (option) =>
@@ -246,7 +277,15 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
                                   <p
                                     key={`combination_${i}_item_${i2}_stat_${i3}`}
                                   >
-                                    [{option.OptionName}] +{option.Value}
+                                    <span
+                                      className={styles.statNameSpan}
+                                      onClick={() => {
+                                        copyToClipboard(option.OptionName);
+                                      }}
+                                    >
+                                      [{option.OptionName}]
+                                    </span>{" "}
+                                    +{option.Value}
                                   </p>
                                 );
                               })}

@@ -1031,6 +1031,7 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 - 각인도 캐릭터 검색기능(캐릭터 검색창에서 바로가기도?)
 - 매칭가능한 조합이 없는경우 pagestatus가 이상한듯? 검색 활성이 안됨
 - engravecopymodal 악세서리가 없거나 성장 지원인 경우 알림?
+- engraveResultBlock에서 api데이터를 그대로 사용하다보니, negative engrave의 이름을 추출할 때 null체크가 제대로 안되어 컴파일에러발생. 실제로는 null이 있는 경우가 없을테지만, 객체를 만들어 생성해서 사용해야하나?
 
 #### 에러 업데이트
 

@@ -1,7 +1,7 @@
 .container {
-  @apply flex-auto flex items-center justify-center;
+  @apply flex-auto flex justify-center;
   .cardList {
-    @apply flex justify-center items-center w-full h-[450px];
+    @apply flex justify-center items-center w-full h-[500px];
     perspective: 1500px;
     .cardItem {
       @apply relative w-[200px] h-[300px];
@@ -25,7 +25,7 @@
           @apply font-extrabold text-xl text-[#d4b887];
         }
         .cardItemDesc {
-          @apply w-[200px] font-bold text-[#ccc];
+          @apply w-[200px] text-[#dfd8b7];
         }
       }
       .cardItemBack {

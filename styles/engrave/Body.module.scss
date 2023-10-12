@@ -626,6 +626,9 @@ $myLightBlue: #76b1ff;
                 @apply flex gap-2 items-center;
                 .titleInfoDiv {
                   @apply flex flex-col justify-center text-sm;
+                  .nameP {
+                    @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
+                  }
                   .qualityP {
                     @apply text-xs;
                   }
@@ -646,12 +649,19 @@ $myLightBlue: #76b1ff;
                 @apply text-xs 2xl:w-full flex gap-2;
                 .engraveDiv {
                   @apply 2xl:max-w-[60%];
+                  .engraveNameSpan,
+                  .negativeNameSpan {
+                    @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
+                  }
                   .negativeP {
                     @apply font-bold text-[#d33];
                   }
                 }
                 .statDiv {
                   @apply 2xl:max-w-[40%];
+                  .statNameSpan {
+                    @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
+                  }
                 }
               }
               .costDiv {

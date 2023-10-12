@@ -1,5 +1,4 @@
 import EngraveResultBlock from "@/components/engrave/bodycomponent/EngraveResultBlock";
-import styles from "@/styles/engrave/Body.module.scss";
 import { AuctionItem } from "@/types/LostarkApiType";
 
 type EngraveResultContainerProps = {
@@ -9,6 +8,7 @@ type EngraveResultContainerProps = {
   totalCases: number;
   currentCase: number;
   myTimer: number;
+  copyToClipboard: (text: string) => void;
 };
 const EngraveResultContainer: React.FC<EngraveResultContainerProps> = ({
   combinationList,
@@ -17,6 +17,7 @@ const EngraveResultContainer: React.FC<EngraveResultContainerProps> = ({
   totalCases,
   currentCase,
   myTimer,
+  copyToClipboard,
 }) => {
   return (
     <EngraveResultBlock
@@ -27,6 +28,7 @@ const EngraveResultContainer: React.FC<EngraveResultContainerProps> = ({
         totalCases,
         currentCase,
         myTimer,
+        copyToClipboard,
       }}
     />
   );

@@ -3,7 +3,7 @@ import EngraveSearchContainer from "@/containers/engrave/EngraveSearchContainer"
 import styles from "@/styles/engrave/Body.module.scss";
 import { AuctionItem } from "@/types/LostarkApiType";
 import { nanumNeo } from "@/types/GlobalType";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 export default function EngraveBody() {
   // 0 : 초기, 1 : 검색 완료, 2 : 악세 검색 중, 3 : 악세 필터링 중
@@ -13,6 +13,17 @@ export default function EngraveBody() {
   const [totalCases, setTotalCases] = useState<number>(1);
   const [currentCase, setCurrentCase] = useState<number>(0);
   const [myTimer, setMyTimer] = useState<number>(0);
+  const copyToClipboard = useCallback((text: string) => {
+    window.navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        alert("복사 완료.");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className={`${styles.body} ${nanumNeo.className}`}>
       <EngraveSearchContainer
@@ -35,6 +46,7 @@ export default function EngraveBody() {
           totalCases,
           currentCase,
           myTimer,
+          copyToClipboard,
         }}
       />
     </div>
