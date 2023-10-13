@@ -55,7 +55,7 @@ const EngraveSaveModal: React.FC<ModalProps> = ({
   }, [currentPresetList]);
   useEffect(() => {
     const tmpParsedData: EngraveModalData = JSON.parse(data);
-    const tmpStatData = {
+    const tmpStatData: { [key: string]: number } = {
       치명: 0,
       특화: 0,
       신속: 0,
