@@ -6,17 +6,20 @@ import { Provider } from "react-redux";
 
 import { DefaultSeo } from "next-seo";
 import SEO from "../next-seo.config";
+import AlertProvider from "@/components/alert/AlertProvider";
 
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
   return (
     <Provider store={store}>
-      <DefaultSeo {...SEO} />
-      <Component
-        className={`${nanumNeo.className} ${roboto.className}`}
-        {...pageProps}
-      />
+      <AlertProvider>
+        <DefaultSeo {...SEO} />
+        <Component
+          className={`${nanumNeo.className} ${roboto.className}`}
+          {...pageProps}
+        />
+      </AlertProvider>
     </Provider>
   );
 }

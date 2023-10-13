@@ -3,7 +3,7 @@ $myBlue: #4691f6;
 $myLightBlue: #76b1ff;
 
 .container {
-  @apply text-white flex flex-col sm:flex-row min-h-screen;
+  @apply text-white flex flex-col sm:flex-row h-screen;
   .indexWrapper {
     @apply flex flex-col gap-2 w-full items-center;
     padding-top: 4%;

@@ -6,7 +6,7 @@ const Page: React.FC<PageProps> = ({ children, className, onKeyDown }) => {
 
   return (
     <div
-      className={className}
+      className={`hideScroll ${className}`}
       tabIndex={router.asPath === "/" ? 0 : undefined}
       onKeyDown={onKeyDown}
     >

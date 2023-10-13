@@ -17,6 +17,9 @@ html {
   background-color: #010101;
   color: $basicFontColor;
 }
+body {
+  overflow: hidden;
+}
 
 .modalRoot {
   @apply absolute top-0 left-0 right-0 bottom-0 h-screen flex flex-wrap bg-[#0009] items-center justify-center z-[7];

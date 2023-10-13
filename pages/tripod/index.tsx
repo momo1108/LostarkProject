@@ -15,7 +15,7 @@ const Tripod: React.FC<TripodPageProps> = ({ menu }) => {
         title="로아플 로스트아크 트라이포드 세팅, 트포 세팅"
         description="로아플에서 제공하는 트라이포드 세팅 비용을 찾아주는 페이지입니다."
       />
-      <Page className={`${styles.container} ${nanumNeo.className} hideScroll`}>
+      <Page className={`${styles.container} ${nanumNeo.className}`}>
         <MenuBar menu={menu} />
         <TripodBody />
         <Footer>
