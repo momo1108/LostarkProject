@@ -30,55 +30,26 @@ const AlertProvider: React.FC<{ children: React.ReactNode }> = ({
           <div
             style={{
               position: "absolute",
-              top: 0,
-              right: 0,
+              display: "flex",
+              flexDirection: "column",
+              gap: 14,
+              top: "5%",
+              right: 100,
               zIndex: 100,
-              overflow: "hidden",
+              width: 0,
+              height: 0,
             }}
           >
-            {/* <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p> */}
+            <p style={{ width: 100, background: "#fff5" }}>test</p>
+            <p style={{ width: 100, background: "#fff5" }}>test</p>
+            <p style={{ width: 100, background: "#fff5" }}>test</p>
+            <p style={{ width: 100, background: "#fff5" }}>test</p>
+            <p style={{ width: 100, background: "#fff5" }}>test</p>
+            <p style={{ width: 100, background: "#fff5" }}>test</p>
+            <p style={{ width: 100, background: "#fff5" }}>test</p>
+            <p style={{ width: 100, background: "#fff5" }}>test</p>
+            <p style={{ width: 100, background: "#fff5" }}>test</p>
+            <p style={{ width: 100, background: "#fff5" }}>test</p>
           </div>,
           document.body
         )}
