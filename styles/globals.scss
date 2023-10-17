@@ -21,6 +21,21 @@ body {
   overflow: hidden;
 }
 
+.alertWrapperDiv {
+  @apply gap-1 xs:gap-2 sm:gap-[14px] top-[60px] right-0 z-[100];
+  .alertDiv {
+    @apply w-[260px] 2xs:w-[290px] sm:w-[350px] min-h-[60px] flex px-2 sm:px-4 gap-2 sm:gap-4 text-xs 2xs:text-sm sm:text-base justify-center items-center font-bold text-center bg-[#161b20];
+    animation: alertShowAndHide 5s linear;
+    transform: translateX(-100%);
+    svg {
+      @apply w-[20px] h-[20px] sm:w-[25px] sm:h-[25px];
+    }
+    p {
+      @apply w-[176px] 2xs:w-[206px] sm:w-[236px];
+    }
+  }
+}
+
 .modalRoot {
   @apply absolute top-0 left-0 right-0 bottom-0 h-screen flex flex-wrap bg-[#0009] items-center justify-center z-[7];
   color: $basicFontColor;
@@ -811,5 +826,20 @@ footer {
   }
   100% {
     left: 130%;
+  }
+}
+
+@keyframes alertShowAndHide {
+  0% {
+    opacity: 0;
+  }
+  3% {
+    opacity: 1;
+  }
+  97% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

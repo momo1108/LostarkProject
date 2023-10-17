@@ -1,5 +1,6 @@
 import TripodResultBlock from "@/components/tripod/bodycomponent/TripodResultBlock";
 import TripodResultContext from "@/contexts/TripodResultContext";
+import useAlert from "@/hooks/useAlert";
 import {
   ButtonDivStatus,
   TotalStatus,
@@ -22,6 +23,7 @@ const TripodResultContainer: React.FC<TripodResultContainerProps> = ({
   totalCases,
   myTimer,
 }) => {
+  const alert = useAlert();
   const [usePowder, setUsePowder] = useState<boolean>(false);
   const [includePowderCost, setIncludePowderCost] = useState<boolean>(false);
   const [buttonDivStatus, setButtonDivStatus] =
@@ -64,9 +66,10 @@ const TripodResultContainer: React.FC<TripodResultContainerProps> = ({
     window.navigator.clipboard
       .writeText(name)
       .then(() => {
-        alert(`${type} 이름 (${name}) 복사 완료`);
+        alert.success(`${type} 이름 (${name}) 복사 완료`);
       })
       .catch((err) => {
+        alert.error(`에러 발생 : ${type} 이름 (${name}) 복사 실패`);
         console.log(err);
       });
   }, []);

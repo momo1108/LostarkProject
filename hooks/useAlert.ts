@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import AlertContext from "@/contexts/AlertContext";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 /*
 App 컴포넌트 단에
 AlertProvider로 감싸줌.
@@ -10,18 +11,9 @@ useAlert 훅에서는 해당 Context의 상태를 return해서 내부의 메서�
  */
 
 export default function useAlert() {
-  const show = useCallback((message: string) => {
-    console.log(message);
-  }, []);
-  const error = useCallback((message: string) => {
-    console.log(message);
-  }, []);
-  const success = useCallback((message: string) => {
-    console.log(message);
-  }, []);
-  const confirm = useCallback((message: string) => {
-    console.log(message);
-  }, []);
-
-  return { show, error, success, confirm };
+  const alertContext = useContext(AlertContext);
+  const alert = useMemo(() => {
+    return alertContext;
+  }, [alertContext]);
+  return alert;
 }

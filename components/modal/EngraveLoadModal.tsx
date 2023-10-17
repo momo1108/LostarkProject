@@ -16,6 +16,7 @@ import {
   EngravePresetWithParsedData,
 } from "@/types/EngraveType";
 import { ModalProps } from "@/types/ModalType";
+import useAlert from "@/hooks/useAlert";
 
 const EngraveLoadModal: React.FC<ModalProps> = ({
   children,
@@ -34,6 +35,7 @@ const EngraveLoadModal: React.FC<ModalProps> = ({
     setRingState1,
     setRingState2,
   } = useContext(EngraveContext);
+  const alert = useAlert();
   const { disableScroll, enableScroll } = usePreventBodyScroll();
   const [ready, setReady] = useState<boolean>(false);
   const [currentPresetList, setCurrentPresetList] = useState<EngravePreset[]>(
@@ -104,7 +106,7 @@ const EngraveLoadModal: React.FC<ModalProps> = ({
         JSON.stringify(tmpDeletedPresetData)
       );
       setCurrentPresetList(tmpDeletedPresetData);
-      alert("삭제 완료!");
+      alert.success("삭제 완료!");
     },
     [currentPresetList, setCurrentPresetList]
   );

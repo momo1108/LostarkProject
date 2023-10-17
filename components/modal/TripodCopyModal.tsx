@@ -17,6 +17,7 @@ import { ArmoryProfileType } from "@/types/LostarkApiType";
 import { Copy, TriangleSpinner } from "../icons/Index";
 import TripodSearchContext from "@/contexts/TripodSearchContext";
 import { SearchedData } from "@/types/ReducerType";
+import useAlert from "@/hooks/useAlert";
 
 const TripodCopyModal: React.FC<ModalProps> = ({
   children,
@@ -26,6 +27,7 @@ const TripodCopyModal: React.FC<ModalProps> = ({
   closeFunc,
 }): JSX.Element | null => {
   const { copyClass } = useContext(TripodSearchContext);
+  const alert = useAlert();
   const { disableScroll, enableScroll } = usePreventBodyScroll();
   const [modalState, setModalState] = useState<ModalState>("INIT");
   const [ready, setReady] = useState<boolean>(false);
@@ -46,12 +48,12 @@ const TripodCopyModal: React.FC<ModalProps> = ({
           if (data) setProfile(data);
           else throw new Error("검색 실패");
         } catch (err) {
-          alert("검색 실패");
+          alert.error("에러가 발생해 검색에 실패했습니다.");
           console.error(err);
           setModalState("ERROR");
         }
       } else {
-        alert("닉네임을 입력해주세요.");
+        alert.info("닉네임을 입력해주세요.");
         setModalState("ERROR");
         nameRef.current.focus();
       }

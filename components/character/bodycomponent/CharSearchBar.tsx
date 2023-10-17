@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import styles from "@/styles/character/Body.module.scss";
 import { CharSearchBarProps } from "@/types/CharacterType";
 import { Delete, Favorite } from "@/components/icons/Index";
+import useAlert from "@/hooks/useAlert";
 
 const CharSearchBar: React.FC<CharSearchBarProps> = ({
   search,
@@ -11,6 +12,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
   remove,
   searchedDataList,
 }) => {
+  const alert = useAlert();
   const nameRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLInputElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
@@ -19,13 +21,13 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
 
   const click = useCallback(() => {
     if (loading) {
-      alert("아직 검색이 진행중입니다.");
+      alert.error("아직 검색이 진행중입니다.");
       return;
     }
     const name = nameRef.current!.value;
     // console.log(name);
     if (!name) {
-      alert("닉네임을 입력하세요!");
+      alert.info("닉네임을 입력하세요!");
       return;
     }
     search(name);

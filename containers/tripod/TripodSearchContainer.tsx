@@ -1,5 +1,6 @@
 import TripodSearchBlock from "@/components/tripod/bodycomponent/TripodSearchBlock";
 import TripodSearchContext from "@/contexts/TripodSearchContext";
+import useAlert from "@/hooks/useAlert";
 import LostarkService from "@/service/LostarkService";
 import { classDetailMap } from "@/types/GlobalType";
 import {
@@ -37,6 +38,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   setTotalCases,
   setMyTimer,
 }) => {
+  const alert = useAlert();
   const [apiShine, setApiShine] = useState<boolean>(false);
   const [copyModalIsOpen, setCopyModalIsOpen] = useState<boolean>(false);
   const rootClassList = Object.keys(classDetailMap);
@@ -71,7 +73,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
           }, 1000);
         } else if (result.status === "ERROR") {
           if (result.code === 401) {
-            alert(
+            alert.error(
               "잘못된 API key 값이 입력됐습니다. 수정 후 다시 검색해주세요."
             );
             window.scrollTo({ top: 0 });
@@ -133,7 +135,8 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
         );
       })
       .catch((err) => {
-        alert(err.response.data);
+        console.error(err);
+        alert.error("스킬 데이터를 불러오지 못했습니다. 새로고침 해주세요.");
         setTripodData([]);
       });
   }, [subClass]);
@@ -181,7 +184,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   const selectSkill = useCallback(
     (i: number) => {
       if (pageStatus === "SELECTING_SKILL") {
-        alert("선택 작업을 진행중입니다.");
+        alert.info("선택 작업을 진행중입니다.");
         return;
       }
       setPageStatus("SELECTING_SKILL");
@@ -296,9 +299,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   const searchTripod = useCallback(async () => {
     const apiKey = localStorage.getItem("loapleApiKey");
     if (!apiKey) {
-      alert(
-        "API Key 를 발급받아서 등록해주세요.\n등록 방법은 상단의 등록방법을 참조해주세요."
-      );
+      alert.info("API Key를 발급받아서 등록해주세요.(상단의 등록방법을 참조)");
       window.scrollTo({ top: 0 });
       setApiShine(true);
       setTimeout(() => {
@@ -379,7 +380,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
           );
         }
       } catch (err) {
-        alert("복사 실패");
+        alert.error("에러 : 캐릭터 정보 복사에 실패했습니다.");
         console.error(err);
       }
     },

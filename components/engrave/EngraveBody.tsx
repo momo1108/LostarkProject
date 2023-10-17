@@ -4,8 +4,10 @@ import styles from "@/styles/engrave/Body.module.scss";
 import { AuctionItem } from "@/types/LostarkApiType";
 import { nanumNeo } from "@/types/GlobalType";
 import { useCallback, useState } from "react";
+import useAlert from "@/hooks/useAlert";
 
 export default function EngraveBody() {
+  const alert = useAlert();
   // 0 : 초기, 1 : 검색 완료, 2 : 악세 검색 중, 3 : 악세 필터링 중
   const [pageStatus, setPageStatus] = useState<number>(0);
   const [combinationList, setCombinationList] = useState<AuctionItem[][]>([]);
@@ -17,9 +19,10 @@ export default function EngraveBody() {
     window.navigator.clipboard
       .writeText(text)
       .then(() => {
-        alert("복사 완료.");
+        alert.success("복사가 완료됐습니다.");
       })
       .catch((err) => {
+        alert.info("복사를 실패했습니다.");
         console.log(err);
       });
   }, []);

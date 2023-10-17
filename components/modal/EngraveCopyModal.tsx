@@ -23,6 +23,7 @@ import { Copy, TriangleSpinner } from "../icons/Index";
 import { SearchedData } from "@/types/ReducerType";
 import EngraveContext from "@/contexts/EngraveContext";
 import { EngraveInfo } from "@/types/EngraveType";
+import useAlert from "@/hooks/useAlert";
 
 const EngraveCopyModal: React.FC<ModalProps> = ({
   children,
@@ -43,6 +44,7 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
     setRingState2,
     setOtherFilterValue,
   } = useContext(EngraveContext);
+  const alert = useAlert();
   const { disableScroll, enableScroll } = usePreventBodyScroll();
   const [modalState, setModalState] = useState<ModalState>("INIT");
   const [ready, setReady] = useState<boolean>(false);
@@ -63,12 +65,12 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
           if (data) setProfile(data);
           else throw new Error("검색 실패");
         } catch (err) {
-          alert("검색 실패");
+          alert.error(`에러로 인해 검색에 실패했습니다.`);
           console.error(err);
           setModalState("ERROR");
         }
       } else {
-        alert("닉네임을 입력해주세요.");
+        alert.info("닉네임을 입력해주세요.");
         setModalState("ERROR");
         nameRef.current.focus();
       }
@@ -310,9 +312,7 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
           }, -1);
 
         if (gradeValue === 3)
-          alert(
-            "전설등급 이하의 악세서리를 장착한 캐릭터입니다.\n검색은 최소 유물 등급 이상의 악세서리로 진행됩니다.\n필터 항목의 악세서리 등급을 참조해주세요."
-          );
+          alert.info("전설등급 이하의 악세서리를 장착한 캐릭터입니다.");
         setOtherFilterValue((filterValue) => ({
           ...filterValue,
           "악세서리 등급": gradeValue % 3,
@@ -323,7 +323,7 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
       result.data.ArmoryEngraving;
     } catch (error) {
       console.log(error);
-      alert("에러가 발생했습니다.");
+      alert.error("에러가 발생했습니다.\n캐릭터 세팅 복사창을 닫습니다.");
       closeFunc!();
     }
   }, []);

@@ -9,6 +9,7 @@ import {
   EngravePreset,
 } from "@/types/EngraveType";
 import { ModalProps } from "@/types/ModalType";
+import useAlert from "@/hooks/useAlert";
 
 const EngraveSaveModal: React.FC<ModalProps> = ({
   children,
@@ -18,6 +19,7 @@ const EngraveSaveModal: React.FC<ModalProps> = ({
   closeFunc,
 }): JSX.Element | null => {
   const { disableScroll, enableScroll } = usePreventBodyScroll();
+  const alert = useAlert();
   const [ready, setReady] = useState<boolean>(false);
   const [currentPresetList, setCurrentPresetList] = useState<EngravePreset[]>(
     []
@@ -93,16 +95,14 @@ const EngraveSaveModal: React.FC<ModalProps> = ({
         JSON.stringify(tmpDeletedPresetData)
       );
       setCurrentPresetList(tmpDeletedPresetData);
-      alert("삭제 완료!");
+      alert.success("삭제 완료!");
     },
     [currentPresetList]
   );
 
   const saveSetting = useCallback(() => {
     if (currentPresetList.length >= 10) {
-      alert(
-        "저장가능한 세팅은 최대 10개 까지입니다.\n불필요한 세팅을 삭제 후 진행해주세요."
-      );
+      alert.info("저장가능한 세팅은 최대 10개 까지입니다.");
       return;
     }
     const tmpList = [
@@ -129,7 +129,7 @@ const EngraveSaveModal: React.FC<ModalProps> = ({
     ];
     localStorage.setItem("engraveSettingInfo", JSON.stringify(tmpList));
     closeFunc!();
-    alert("저장 완료!");
+    alert.success("저장 완료!");
   }, [
     currentPresetList,
     currentStatInfo,

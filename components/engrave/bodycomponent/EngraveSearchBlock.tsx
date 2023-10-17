@@ -32,6 +32,7 @@ import EngraveSaveModal from "@/components/modal/EngraveSaveModal";
 import EngraveContext from "@/contexts/EngraveContext";
 import EngraveLoadModal from "@/components/modal/EngraveLoadModal";
 import EngraveCopyModal from "@/components/modal/EngraveCopyModal";
+import useAlert from "@/hooks/useAlert";
 
 const EngraveSearchBlock: React.FC = () => {
   const {
@@ -76,6 +77,7 @@ const EngraveSearchBlock: React.FC = () => {
     dropdownRef,
     apiShine,
   } = useContext(EngraveContext);
+  const alert = useAlert();
 
   return (
     <div className={styles.searchContainer}>
@@ -407,7 +409,7 @@ const EngraveSearchBlock: React.FC = () => {
               }`}
               onClick={() => {
                 if (!targetList.length) {
-                  alert("목표 각인을 먼저 설정해주세요.");
+                  alert.info("목표 각인을 먼저 설정해주세요.");
                   return;
                 }
                 setDropdownMode(dropdownMode === 1 ? 3 : 1);
@@ -596,7 +598,7 @@ const EngraveSearchBlock: React.FC = () => {
               }`}
               onClick={() => {
                 if (!targetList.length) {
-                  alert("목표 각인을 먼저 설정해주세요.");
+                  alert.info("목표 각인을 먼저 설정해주세요.");
                   return;
                 }
                 setDropdownMode(dropdownMode === 2 ? 3 : 2);
@@ -880,7 +882,7 @@ const EngraveSearchBlock: React.FC = () => {
                                 className={styles.plusMinusButtons}
                                 onClick={() => {
                                   if (negativeEngrave.point === 10) {
-                                    alert(
+                                    alert.info(
                                       "0~10 사이의 값만 설정이 가능합니다."
                                     );
                                     return;
@@ -897,7 +899,7 @@ const EngraveSearchBlock: React.FC = () => {
                                 className={styles.plusMinusButtons}
                                 onClick={() => {
                                   if (negativeEngrave.point === 0) {
-                                    alert(
+                                    alert.info(
                                       "0~10 사이의 값만 설정이 가능합니다."
                                     );
                                     return;
@@ -1036,7 +1038,7 @@ const EngraveSearchBlock: React.FC = () => {
                           }}
                           onClickFunction={(el) => {
                             if (e.type === 0 && el === e.stat2.type) {
-                              alert("이미 선택된 특성입니다.");
+                              alert.info("이미 선택된 특성입니다.");
                               return;
                             }
                             accessoryList.setter[i]({
@@ -1066,7 +1068,7 @@ const EngraveSearchBlock: React.FC = () => {
                             onClickFunction={(el) => {
                               console.log(e.stat1, el);
                               if (e.type === 0 && el === e.stat1.type) {
-                                alert("이미 선택된 특성입니다.");
+                                alert.info("이미 선택된 특성입니다.");
                                 return;
                               }
                               accessoryList.setter[i]({
@@ -1105,7 +1107,7 @@ const EngraveSearchBlock: React.FC = () => {
                             onClickFunction={(el) => {
                               console.log(e.stat1, el);
                               if (e.type === 0 && el === e.stat1.type) {
-                                alert("이미 선택된 특성입니다.");
+                                alert.info("이미 선택된 특성입니다.");
                                 return;
                               }
                               accessoryList.setter[i]({

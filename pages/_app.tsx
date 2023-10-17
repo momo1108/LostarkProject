@@ -13,7 +13,10 @@ export default function App({ Component, ...rest }: AppProps) {
   const { pageProps } = props;
   return (
     <Provider store={store}>
-      <AlertProvider>
+      <AlertProvider
+        alertWrapperClassName="alertWrapperDiv"
+        alertClassName="alertDiv"
+      >
         <DefaultSeo {...SEO} />
         <Component
           className={`${nanumNeo.className} ${roboto.className}`}

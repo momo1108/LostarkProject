@@ -1,5 +1,6 @@
 import EngraveSearchBlock from "@/components/engrave/bodycomponent/EngraveSearchBlock";
 import EngraveContext from "@/contexts/EngraveContext";
+import useAlert from "@/hooks/useAlert";
 import {
   AbilityInputMode,
   AccessoryInfo,
@@ -52,6 +53,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
   setCurrentCase,
   setMyTimer,
 }) => {
+  const alert = useAlert();
   const [apiShine, setApiShine] = useState<boolean>(false);
   const [negativeEngrave, setNegativeEngrave] = useState<EngraveInfo>({
     name: "감소 효과 선택",
@@ -231,13 +233,11 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
         } else if (e.data.type === 4) {
           setUsingWebWorker([false, 4]);
           setPageStatus(1);
-          alert(
-            "로스트아크 서버의 검색 서비스가 일시적으로 비활성화 됐습니다.\n서버 점검 시간이 아니라면, 잠시 후에 다시 검색해주세요."
-          );
+          alert.error("로스트아크 서버가 임시 비활성화 상태입니다.");
         } else if (e.data.type === 5) {
           setUsingWebWorker([false, 5]);
           setPageStatus(1);
-          alert("잘못된 API key 값이 입력됐습니다. 수정 후 다시 검색해주세요.");
+          alert.error("잘못된 API key 값이 입력됐습니다.");
           window.scrollTo({ top: 0 });
           setApiShine(true);
           setTimeout(() => {
@@ -247,7 +247,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
           setUsingWebWorker([false, 6]);
           setPageStatus(1);
           console.dir(e.data.errorArray);
-          alert("로스트아크 서버 상태가 좋지 않아 검색이 취소됩니다.");
+          alert.error("로스트아크 서버 오류로 검색이 취소됩니다.");
         } else if (e.data.type === 7) {
           /* 
           resultObject에서 중복을 제거해줘야 한다.
@@ -328,7 +328,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
     } else if (mode === 1) {
       if (equipList.length >= 2) {
         setPreventBlur(true);
-        alert("장착 각인은 최대 2개까지입니다.");
+        alert.info("장착 각인은 최대 2개까지입니다.");
         return;
       } else setEquipList([...equipList, { name, level: 3 }]);
     } else if (mode === 2) {
@@ -337,7 +337,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
         setAbilityList(abilityList.filter((e: EngraveInfo) => e.name !== name));
       else if (abilityList.length >= 2) {
         setPreventBlur(true);
-        alert("장착 각인은 최대 2개까지입니다.");
+        alert.info("장착 각인은 최대 2개까지입니다.");
         return;
       } else
         setAbilityList([
@@ -362,7 +362,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
 
   function setAbilityEngravePoint(i: number, point: number) {
     if (point > 10 || point < 0) {
-      alert("잘못된 값이 입력됐습니다.\n0~10 사이의 값을 입력해주세요.");
+      alert.info("0~10 사이의 값만 입력해주세요.");
       return;
     }
     const tmp = JSON.parse(JSON.stringify(abilityList));
@@ -398,7 +398,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
       } else {
         let tmpPoint;
         if (tmpValue > 10 || tmpValue < 0) {
-          alert("잘못된 값이 입력됐습니다.\n0~10 사이의 값을 입력해주세요.");
+          alert.info("0~10 사이의 값만 입력해주세요.");
           tmpPoint = abilityList[i].point;
         } else {
           tmpPoint = tmpValue;
@@ -437,7 +437,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
       } else {
         let tmpPoint;
         if (tmpValue > 10 || tmpValue < 0) {
-          alert("잘못된 값이 입력됐습니다.\n0~10 사이의 값을 입력해주세요.");
+          alert.info("0~10 사이의 값만 입력해주세요.");
           tmpPoint = negativeEngrave.point;
         } else {
           tmpPoint = tmpValue;
@@ -466,27 +466,25 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
 
   async function searchSetting() {
     if (pageStatus > 1) {
-      alert("검색 서비스가 진행중입니다.\n완료 후 다시 시도해주세요.");
+      alert.info("이전 검색이 완료된 후 시도해주세요.");
       return;
     }
     if (targetList.length < 4) {
-      alert("각인을 4개 이상 설정해주세요.");
+      alert.info("각인을 4개 이상 설정해주세요.");
       return;
     } else if (equipList.length < 2) {
-      alert("장착 각인서를 2개 이상 설정해주세요.");
+      alert.info("장착 각인서를 2개 이상 설정해주세요.");
       return;
     } else if (abilityList.length < 2) {
-      alert("어빌리티 스톤의 각인을 2개 이상 설정해주세요.");
+      alert.info("어빌리티 스톤의 각인을 2개 이상 설정해주세요.");
       return;
     } else if (negativeEngrave.name === "감소 효과 선택") {
-      alert("어빌리티 스톤의 감소 각인을 설정해주세요.");
+      alert.info("어빌리티 스톤의 감소 각인을 설정해주세요.");
       return;
     }
     const apiKey = localStorage.getItem("loapleApiKey");
     if (!apiKey) {
-      alert(
-        "API Key 를 발급받아서 등록해주세요.\n등록 방법은 상단의 등록방법을 참조해주세요."
-      );
+      alert.info("API Key를 발급받아서 등록해주세요.(상단의 등록방법을 참조)");
       window.scrollTo({ top: 0 });
       setApiShine(true);
       setTimeout(() => {
@@ -564,7 +562,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
     // console.log(uniqueEngrave);
     if (!uniqueEngrave.length) {
       setPageStatus(1);
-      alert("불가능한 목표 각인입니다.");
+      alert.info("불가능한 목표 각인입니다.");
       return;
     }
 
@@ -762,17 +760,17 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
     위 0~3 상태 내에서 처리하는게 best. 그 외에는 presentational layer 까지 영향을 미친다.
      */
     if (pageStatus === 2 && usingWebWorker[0] && usingWebWorker[1] === 999) {
-      alert("검색 서비스가 진행중입니다.\n완료 후 다시 시도해주세요.");
+      alert.info("이전 검색이 완료된 후 시도해주세요.");
       return;
     } else if (
       pageStatus === 3 &&
       usingWebWorker[0] &&
       usingWebWorker[1] === 999
     ) {
-      alert("필터링 서비스가 이미 진행중입니다.\n완료 후 다시 시도해주세요.");
+      alert.info("이전 필터링이 완료된 후 시도해주세요.");
       return;
     } else if (pageStatus === 0) {
-      alert("필터링 전 검색을 먼저 진행해주세요.");
+      alert.info("필터링 전 검색을 먼저 진행해주세요.");
       return;
     }
     /*
@@ -795,7 +793,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
         !resultObject[4].length &&
         !usingWebWorker[0])
     ) {
-      alert("조건에 맞는 매물이 없습니다.");
+      alert.info("조건에 맞는 매물이 없습니다.");
       setUsingWebWorker([false, 0]);
       setPageStatus(1);
       return;

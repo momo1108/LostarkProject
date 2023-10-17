@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { useRouter } from "next/router";
 import LostarkService from "@/service/LostarkService";
+import useAlert from "@/hooks/useAlert";
 
 type CharRecentContainerProps = {
   searchedDataList: SearchedData[];
@@ -18,6 +19,7 @@ const CharRecentContainer: React.FC<CharRecentContainerProps> = ({
   setSearchedDataList,
 }) => {
   const router = useRouter();
+  const alert = useAlert();
   // const data = useSelector<RootState, SearchedData[]>(
   //   (state) => state.searched.data
   // );
@@ -42,7 +44,9 @@ const CharRecentContainer: React.FC<CharRecentContainerProps> = ({
         ]);
       } catch (err) {
         console.error(err);
-        alert(`"${searchedDataList[index].name}" 캐릭터 이미지 갱신 실패`);
+        alert.error(
+          `"${searchedDataList[index].name}" 캐릭터의 이미지 갱신 실패`
+        );
       }
     },
     [searchedDataList, setSearchedDataList]
