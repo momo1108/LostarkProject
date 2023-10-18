@@ -2,6 +2,7 @@ import AlertContext from "@/contexts/AlertContext";
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AlertOctagon, Check, Info, MenuIcons } from "../icons/Index";
+import useSound from "@/hooks/useSound";
 
 type AlertDataType = { id: number; type: number; message: string };
 type AlertStatetype = { id: number; data: AlertDataType[] };
@@ -11,8 +12,8 @@ const AlertProvider: React.FC<{
   alertWrapperClassName: string;
   alertClassName: string; // 알러트창의 css설정을 위한 className
 }> = ({ children, alertWrapperClassName, alertClassName }) => {
+  const { infoBeep, errorBeep, successBeep } = useSound();
   const [ready, setReady] = useState<boolean>(false);
-  const [alertId, setAlertId] = useState<number>(0); // 알러트창 자동종료를 위해 알러트창별로 id설정
   const [alerts, setAlerts] = useState<{
     id: number;
     data: AlertDataType[];
@@ -33,26 +34,26 @@ const AlertProvider: React.FC<{
   );
 
   const setAlertState = useCallback(
-    (message: string, type: number) => {
+    async (message: string, type: number) => {
       setAlerts((alertState: AlertStatetype) => {
         // 알러트 창 추가시 새로운 알러트창 추가 전에 미리 삭제 예약을 한다.(id값을 미리 예약해놓고 +1로 갱신해야 순서가 맞기때문.)
         setTimeout(() => {
           remove(alertState.id);
         }, 5000);
 
-        new Audio(
-          `/sounds/${
-            type === 0 ? "info" : type === 1 ? "error" : "success"
-          }Beep.mp3`
-        ).play();
         // 새로운 알러트를 추가하고 id를 갱신한 state를 return
         return {
           id: alertState.id + 1,
           data: [...alertState.data, { id: alertState.id, type, message }],
         };
       });
+
+      console.log(infoBeep, errorBeep, successBeep);
+      if (type === 0) await infoBeep!.play();
+      else if (type === 1) await errorBeep!.play();
+      else if (type === 2) await successBeep!.play();
     },
-    [alerts, alertId, remove, setAlerts]
+    [alerts, remove, setAlerts, infoBeep, errorBeep, successBeep]
   );
 
   const info = useCallback(
@@ -88,8 +89,8 @@ const AlertProvider: React.FC<{
               position: "absolute",
               display: "flex",
               flexDirection: "column",
-              width: 0,
-              height: 0,
+              top: 60,
+              right: 0,
             }}
           >
             {alerts.data.map((a) => {

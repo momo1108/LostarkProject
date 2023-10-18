@@ -1033,6 +1033,7 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 - engravecopymodal 악세서리가 없거나 성장 지원인 경우 알림?
 - engraveResultBlock에서 api데이터를 그대로 사용하다보니, negative engrave의 이름을 추출할 때 null체크가 제대로 안되어 컴파일에러발생. 실제로는 null이 있는 경우가 없을테지만, 객체를 만들어 생성해서 사용해야하나?
 - 하단의 license 를 alert로 띄워주기?크기가 모자랄듯. 뭐 어쨌든 클릭 시 보여주는거로
+- 복사 성공 시 성공 alert
 
 #### 에러 업데이트
 

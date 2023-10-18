@@ -388,44 +388,51 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   );
 
   const copyTripod = useCallback(() => {
-    // copyData에서 tripodData로 적용하기.
-    const tmp_SelectedSkills = Array(tripodData.length).fill(false);
-    const tmp_TripodData: ParsedFilteredSkillType[] = JSON.parse(
-      JSON.stringify(tripodData)
-    );
+    try {
+      // copyData에서 tripodData로 적용하기.
+      const tmp_SelectedSkills = Array(tripodData.length).fill(false);
+      const tmp_TripodData: ParsedFilteredSkillType[] = JSON.parse(
+        JSON.stringify(tripodData)
+      );
 
-    copyData
-      .filter((skill) => !skill.IsAwakening && skill.Tripods.length)
-      .forEach((skill) => {
-        // console.log(`skill : ${skill.Name}`);
-        const skillIndex = tmp_TripodData.findIndex(
-          (parsedSkill) => parsedSkill.Name === skill.Name
-        );
-        skill.Tripods.forEach((tripod) => {
-          // console.log(`tripod : ${tripod.Name}`);
-          if (tripod.IsSelected) {
-            tmp_SelectedSkills[skillIndex] = true;
-            const tripodIndex = tmp_TripodData[skillIndex].Tripods.findIndex(
-              (parsedTripod) => parsedTripod.Name === tripod.Name
-            );
-            const originalTripod =
-              tmp_TripodData[skillIndex].Tripods[tripodIndex];
-            // 원본 tripodData에만 Upgradable 설정해놓음.
-            if (originalTripod.Upgradable && tripod.Level >= 4) {
-              originalTripod.Level = tripod.Level;
-              originalTripod.IsSelected = true;
+      copyData
+        .filter((skill) => !skill.IsAwakening && skill.Tripods.length)
+        .forEach((skill) => {
+          // console.log(`skill : ${skill.Name}`);
+          const skillIndex = tmp_TripodData.findIndex(
+            (parsedSkill) => parsedSkill.Name === skill.Name
+          );
+          skill.Tripods.forEach((tripod) => {
+            // console.log(`tripod : ${tripod.Name}`);
+            if (tripod.IsSelected) {
+              tmp_SelectedSkills[skillIndex] = true;
+              const tripodIndex = tmp_TripodData[skillIndex].Tripods.findIndex(
+                (parsedTripod) => parsedTripod.Name === tripod.Name
+              );
+              const originalTripod =
+                tmp_TripodData[skillIndex].Tripods[tripodIndex];
+              // 원본 tripodData에만 Upgradable 설정해놓음.
+              if (originalTripod.Upgradable && tripod.Level >= 4) {
+                originalTripod.Level = tripod.Level;
+                originalTripod.IsSelected = true;
+              }
+              if (!originalTripod.Upgradable) {
+                originalTripod.IsSelected = true;
+              }
             }
-            if (!originalTripod.Upgradable) {
-              originalTripod.IsSelected = true;
-            }
-          }
+          });
         });
-      });
 
-    // console.log(tmp_SelectedSkills);
-    // console.log(tmp_TripodData);
-    setSelectedSkills(tmp_SelectedSkills);
-    setTripodData(tmp_TripodData);
+      // console.log(tmp_SelectedSkills);
+      // console.log(tmp_TripodData);
+      setSelectedSkills(tmp_SelectedSkills);
+      setTripodData(tmp_TripodData);
+      alert.success(`트라이포드 정보를 복사했습니다.`);
+    } catch (error) {
+      alert.error("에러가 발생했습니다.\n트라이포드 복사창을 닫습니다.");
+    } finally {
+      setCopyModalIsOpen(false);
+    }
   }, [tripodData, copyData]);
 
   return (

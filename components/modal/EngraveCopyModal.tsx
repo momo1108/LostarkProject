@@ -80,7 +80,7 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
   const copyEngraveSetting = useCallback(async (name: string) => {
     try {
       const result = await LostarkService.getCharacterSummary(name);
-      console.log(result.data);
+      // console.log(result.data);
       const { ArmoryEngraving: ae, ArmoryEquipment: ae2 } = result.data;
       // 총 각인 정보, 각인서, 어빌리티스톤, 악세부위별 특성
       // ArmoryEngraving - Effects(총 각인 - 감소 키워드 포함 제외), Engravings(각인서) - Name(각인이름), Tooltip(각인수치), ArmoryEquipment - Type(부위-목걸이,귀걸이,반지,어빌리티 스톤), Tooltip(품질, 특성, 어빌리티 각인)
@@ -319,8 +319,8 @@ const EngraveCopyModal: React.FC<ModalProps> = ({
         }));
       }
 
+      alert.success(`"${name}"의 각인 정보를 복사했습니다.`);
       closeFunc!();
-      result.data.ArmoryEngraving;
     } catch (error) {
       console.log(error);
       alert.error("에러가 발생했습니다.\n캐릭터 세팅 복사창을 닫습니다.");

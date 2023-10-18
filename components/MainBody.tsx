@@ -6,10 +6,14 @@ import MenuIcons from "./icons/MenuIcons";
 
 const MainBody: React.FC<MainBodyProps> = ({ menu }) => {
   const [selectedMenu, setSelectedMenu] = useState<number>(-1);
-  const [load, setLoad] = useState(false);
+  const [load, setLoad] = useState<boolean>(false);
+  const [isActive, setIsActive] = useState<boolean>(false);
 
   useEffect(() => {
     setLoad(true);
+    setTimeout(() => {
+      setIsActive(true);
+    }, 2500);
   }, []);
 
   return (
@@ -40,25 +44,27 @@ const MainBody: React.FC<MainBodyProps> = ({ menu }) => {
             </li>
           );
         })}
-        <div className={styles.cardListWrapper}>
-          {menu.map((m, i) => {
-            return (
-              <Link
-                href={m.url}
-                className={`${styles.cardItemWrapper} ${
-                  selectedMenu === i ? styles.selectedMenu : ""
-                }`}
-                key={`cardItemWrapper_${i}`}
-                onMouseEnter={() => {
-                  setSelectedMenu(i);
-                }}
-                onMouseLeave={() => {
-                  setSelectedMenu(-1);
-                }}
-              ></Link>
-            );
-          })}
-        </div>
+        {isActive && (
+          <div className={styles.cardListWrapper}>
+            {menu.map((m, i) => {
+              return (
+                <Link
+                  href={m.url}
+                  className={`${styles.cardItemWrapper} ${
+                    selectedMenu === i ? styles.selectedMenu : ""
+                  }`}
+                  key={`cardItemWrapper_${i}`}
+                  onMouseEnter={() => {
+                    setSelectedMenu(i);
+                  }}
+                  onMouseLeave={() => {
+                    setSelectedMenu(-1);
+                  }}
+                ></Link>
+              );
+            })}
+          </div>
+        )}
       </ul>
     </div>
   );
