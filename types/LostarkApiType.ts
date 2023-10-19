@@ -58,6 +58,58 @@ export type Tendency = {
   MaxPoint: number;
 };
 
+/**
+ * https://developer-lostark.game.onstove.com/auctions/options
+ */
+export type AuctionSearchOption = {
+  MaxItemLevel: number;
+  ItemGradeQualities: number[];
+  SkillOptions: AuctionSkillOption[];
+  EtcOptions: AuctionEtcOption[];
+  Categories: AuctionCategoryOption[];
+  ItemGrades: string[];
+  ItemTiers: number[];
+  Classes: string[];
+};
+
+export type AuctionSkillOption = {
+  Value: number;
+  Class: string;
+  Text: string;
+  IsSkillGroup: boolean;
+  Tripods: AuctionSkillTripodOption[];
+};
+
+export type AuctionSkillTripodOption = {
+  Value: number;
+  Text: string;
+  IsGem: boolean;
+};
+
+export type AuctionEtcOption = {
+  Value: number;
+  Text: string;
+  EtcSubs: AuctionEtcSubsOption[];
+};
+
+export type AuctionEtcSubsOption = {
+  Value: number;
+  Text: string;
+  Class: string;
+};
+
+export type AuctionCategoryOption = {
+  Subs: AuctionCategoryItemOption[];
+  Code: number;
+  CodeName: string;
+};
+
+export type AuctionCategoryItemOption = {
+  Code: number;
+  CodeName: string;
+};
+/* ################################################# */
+
 export type AuctionItemSearchReq = {
   CategoryCode?: number;
   EtcOptions?: EtcOption[];

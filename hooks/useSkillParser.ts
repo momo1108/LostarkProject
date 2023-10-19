@@ -1,4 +1,5 @@
 import LostarkService from "@/service/LostarkService";
+import { AuctionSkillOption } from "@/types/LostarkApiType";
 import { FilteredSkillType, SkillType, userList } from "@/types/TripodType";
 import { useCallback, useState } from "react";
 
@@ -11,8 +12,11 @@ export default function useSkillParser() {
   const [classList, setClassList] = useState<{
     [key: string]: FilteredSkillType[];
   }>();
+  const [auctionSearchOptions, setAuctionSearchOptions] = useState<
+    AuctionSkillOption[]
+  >([]);
 
-  const singleClassParser = useCallback(
+  const skillDataParser = useCallback(
     (skills: SkillType[]): FilteredSkillType[] => {
       // 한 클래스 스킬데이터 파서
       // 스킬, 트포 정보만 빼내기
@@ -41,6 +45,22 @@ export default function useSkillParser() {
     []
   );
 
+  const singleClassParser = useCallback(async (className: string) => {
+    let singleSkillData: FilteredSkillType[] | null = null;
+    for (let user = 0; user < userList[className].length; user++) {
+      try {
+        const { data: skillData } = await LostarkService.getCharacterSkills(
+          userList[className][user]
+        );
+        singleSkillData = skillDataParser(skillData);
+        break;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    return singleSkillData;
+  }, []);
+
   const allClassSave = useCallback(async () => {
     /* nicknameForEachClass.json 활용
     key들로 반복 돌려서 skill api 요청
@@ -58,7 +78,7 @@ export default function useSkillParser() {
           const { data: skillData } = await LostarkService.getCharacterSkills(
             userList[cls][user]
           );
-          singleSkillData = singleClassParser(skillData);
+          singleSkillData = skillDataParser(skillData);
           break;
         } catch (err) {
           console.error(err);
@@ -74,5 +94,22 @@ export default function useSkillParser() {
     setClassList(JSON.parse(JSON.stringify(tmpClassList)));
   }, []);
 
-  return { singleClassParser, allClassSave, classList };
+  const getAuctionValueCode = useCallback(async () => {
+    try {
+      const { data } = await LostarkService.getAuctionOptions();
+      setAuctionSearchOptions(data.SkillOptions);
+      console.log(data.SkillOptions);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  return {
+    skillDataParser,
+    singleClassParser,
+    allClassSave,
+    getAuctionValueCode,
+    classList,
+    auctionSearchOptions,
+  };
 }

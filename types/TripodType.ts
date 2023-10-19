@@ -46,6 +46,7 @@ export type TripodResType = {
   } | null)[];
 };
 
+// Value : 트포 api 검색 코드
 export type FilteredSkillType = {
   Icon: string;
   Name: string;

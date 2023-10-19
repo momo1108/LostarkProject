@@ -4,6 +4,7 @@ import {
   MarketItemSearchReq,
   MarketItemSearchResult,
   ArmoryProfileType,
+  AuctionSearchOption,
 } from "@/types/LostarkApiType";
 import { CharData } from "@/types/ReducerType";
 import { SkillType } from "@/types/TripodType";
@@ -120,6 +121,22 @@ export default class LostarkService {
     return await axios.post(`${this.url}markets/items`, req, {
       headers: {
         Authorization: `Bearer ${apiKey}`,
+        Accept: "application/json",
+      },
+    });
+  };
+
+  /**
+   * GET
+   * /characters/{characterName}/siblings
+   * Returns all character profiles for an account.
+   */
+  public static getAuctionOptions = async (): Promise<
+    AxiosResponse<AuctionSearchOption>
+  > => {
+    return await axios.get(`${this.url}auctions/options`, {
+      headers: {
+        Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
         Accept: "application/json",
       },
     });
