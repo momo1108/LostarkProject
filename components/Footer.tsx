@@ -7,20 +7,6 @@ const Footer: React.FC<FooterProps> = ({ children, className }) => {
   const alert = useAlert();
   return (
     <footer className={className}>
-      <div className="attribution">
-        {children}. Sound Effect from{" "}
-        <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=87963">
-          Pixabay
-        </a>
-        . Sound Effect from{" "}
-        <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=47985">
-          Pixabay
-        </a>
-        . Sound Effect from{" "}
-        <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=43861">
-          Pixabay
-        </a>
-      </div>
       <div className="copyright">
         <div className="descr">
           <p>Copyright © {new Date().getFullYear()} Loaple</p>
@@ -47,6 +33,20 @@ const Footer: React.FC<FooterProps> = ({ children, className }) => {
             <Github size={25} />
           </Link>
         </div>
+      </div>
+      <div className="attribution">
+        {children}. Sound Effect from{" "}
+        <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=87963">
+          Pixabay
+        </a>
+        . Sound Effect from{" "}
+        <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=47985">
+          Pixabay
+        </a>
+        . Sound Effect from{" "}
+        <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=43861">
+          Pixabay
+        </a>
       </div>
     </footer>
   );

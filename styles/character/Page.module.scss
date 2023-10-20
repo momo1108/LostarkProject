@@ -1,4 +1,7 @@
 .container {
   @apply h-screen flex flex-col pt-[70px];
-  background-color: #101318;
+  background-image: url("/images/black_paint_background.jpg");
+  background-size: 100% auto;
+  background-repeat: repeat;
+  background-attachment: local;
 }

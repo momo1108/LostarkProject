@@ -202,6 +202,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
   const dropdownRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
+    // type 2 -> 7 -> 0 -> 1
     if (myWorker) {
       myWorker.onmessage = (e) => {
         // console.log("search컴포넌트단", e);
@@ -218,6 +219,7 @@ const EngraveSearchContainer: React.FC<EngraveSearchContainerProps> = ({
           );
           setTimeout(() => {
             setPageStatus(1);
+            alert.success("악세서리 검색을 완료했습니다.");
           }, 1000);
         } else if (e.data.type === 2) {
           setCurrentCase((e) => e + 1);

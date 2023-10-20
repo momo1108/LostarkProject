@@ -50,7 +50,7 @@ const AlertProvider: React.FC<{
           };
         });
 
-        console.log(infoBeep, errorBeep, successBeep);
+        // console.log(infoBeep, errorBeep, successBeep);
         if (type === 0) await infoBeep.current!.play();
         else if (type === 1) await errorBeep.current!.play();
         else if (type === 2) await successBeep.current!.play();

@@ -2,11 +2,7 @@ import TripodResultContainer from "@/containers/tripod/TripodResultContainer";
 import TripodSearchContainer from "@/containers/tripod/TripodSearchContainer";
 import styles from "@/styles/tripod/Body.module.scss";
 import { nanumNeo } from "@/types/GlobalType";
-import {
-  FilteredSkillType,
-  TripodPageStatus,
-  TripodResType,
-} from "@/types/TripodType";
+import { TripodPageStatus, TripodResType } from "@/types/TripodType";
 import { useState, useEffect } from "react";
 
 const TripodBody: React.FC = () => {
