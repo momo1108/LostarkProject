@@ -18,6 +18,14 @@ export type CharSearchBarProps = {
   remove: (name: string) => void;
 };
 
+export type CharacterPageStatus =
+  | "SEARCHING"
+  | "DONE"
+  | "NODATA"
+  | "ERROR"
+  | "TOOMANYREQUESTS"
+  | "INIT";
+
 export type CharMainInfoBlockProps = {
   loading: boolean;
   data: CharData;

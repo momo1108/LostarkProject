@@ -2,15 +2,13 @@ import { CharMainInfoBlockProps, InfoMenu } from "@/types/CharacterType";
 import { accessoryOrder, avatarOrder, equipmentOrder } from "@/types/EAAType";
 import styles from "@/styles/character/Body.module.scss";
 import EmptyProfile from "@/components/icons/EmptyProfile";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ArmoryEAA from "./innercontaineritems/ArmoryEAA";
 import { TriangleSpinner } from "@/components/icons/Index";
+import CharacterContext from "@/contexts/CharacterContext";
 
-const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
-  loading,
-  data,
-  render,
-}) => {
+const CharMainInfoBlock: React.FC = () => {
+  const { characterProfile: data, pageStatus } = useContext(CharacterContext);
   const [equipment, setEquipment] = useState<Array<any>>();
   const [accessory, setAccessory] = useState<Array<any>>();
   const [avatar, setAvatar] = useState<Array<any>>();
@@ -78,12 +76,12 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
     // console.log(data);
   }, [data]);
 
-  return loading ? (
+  return pageStatus === "SEARCHING" ? (
     <div className={styles.loadingContainer}>
       <p className={styles.loadingMessage}>검색을 진행중입니다.</p>
       <TriangleSpinner className={`triangleSpinner ${styles.loadingSvg}`} />
     </div>
-  ) : render ? (
+  ) : pageStatus === "DONE" ? (
     <div className={styles.infoContainer}>
       <ArmoryEAA
         className={styles.upperContainer}
@@ -93,12 +91,9 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
         avatar={avatar}
       />
     </div>
-  ) : (
+  ) : pageStatus === "NODATA" ? (
     <div className={styles.emptyContainer}>
       <p className={styles.emptyMessage}>
-        <span className={styles.charName}>
-          {data.ArmoryProfile?.CharacterName}
-        </span>{" "}
         캐릭터 정보가 없습니다.
         <br />
         캐릭터명을 확인해주세요.
@@ -106,6 +101,18 @@ const CharMainInfoBlock: React.FC<CharMainInfoBlockProps> = ({
       <div className={styles.emptyBody}>
         <EmptyProfile />
       </div>
+    </div>
+  ) : pageStatus === "TOOMANYREQUESTS" ? (
+    <div>
+      <p>이용자가 몰려서 잠시 서비스를 이용할 수 없습니다.</p>
+    </div>
+  ) : pageStatus === "ERROR" ? (
+    <div>
+      <p>로스트아크 서버에 문제가 발생했습니다.</p>
+    </div>
+  ) : (
+    <div>
+      <p>검색을 진행해주세요.</p>
     </div>
   );
 };

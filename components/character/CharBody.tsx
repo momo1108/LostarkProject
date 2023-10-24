@@ -1,7 +1,9 @@
 import CharMainInfoContainer from "@/containers/character/CharMainInfoContainer";
 import CharRecentContainer from "@/containers/character/CharRecentContainer";
 import CharSearchContainer from "@/containers/character/CharSearchContainer";
+import CharacterContext from "@/contexts/CharacterContext";
 import styles from "@/styles/character/Body.module.scss";
+import { CharacterPageStatus } from "@/types/CharacterType";
 import { nanumNeo } from "@/types/GlobalType";
 import { CharData, SearchedData } from "@/types/ReducerType";
 import { useRouter } from "next/router";
@@ -122,16 +124,28 @@ export default function CharBody() {
     [searchedDataList]
   );
 
+  const [pageStatus, setPageStatus] = useState<CharacterPageStatus>("INIT");
+  const [characterProfile, setCharacterProfile] = useState<any>({});
+
   return (
-    <div className={`${styles.container} ${nanumNeo.className}`}>
-      <CharSearchContainer {...{ searchedDataList, like, remove }} />
-      {searched ? (
-        <CharMainInfoContainer push={push} />
-      ) : (
-        <CharRecentContainer
-          {...{ searchedDataList, setSearchedDataList, like, remove }}
-        />
-      )}
-    </div>
+    <CharacterContext.Provider
+      value={{
+        pageStatus,
+        setPageStatus,
+        characterProfile,
+        setCharacterProfile,
+      }}
+    >
+      <div className={`${styles.container} ${nanumNeo.className}`}>
+        <CharSearchContainer {...{ searchedDataList, like, remove }} />
+        {searched ? (
+          <CharMainInfoContainer push={push} />
+        ) : (
+          <CharRecentContainer
+            {...{ searchedDataList, setSearchedDataList, like, remove }}
+          />
+        )}
+      </div>
+    </CharacterContext.Provider>
   );
 }

@@ -1,11 +1,9 @@
 import CharMainInfoBox from "@/components/character/bodycomponent/CharMainInfoBlock";
-import { getChar } from "@/redux/modules/character";
-import { CharState, SearchedData } from "@/types/ReducerType";
-import { RootState } from "@/types/ReducerType";
+import CharacterContext from "@/contexts/CharacterContext";
+import LostarkService from "@/service/LostarkService";
+import { SearchedData } from "@/types/ReducerType";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 type CharMainInfoContainerProps = {
   push: (name: SearchedData) => void;
@@ -13,26 +11,59 @@ type CharMainInfoContainerProps = {
 const CharMainInfoContainer: React.FC<CharMainInfoContainerProps> = ({
   push,
 }) => {
-  const dispatch = useDispatch();
+  const { pageStatus, setPageStatus, characterProfile, setCharacterProfile } =
+    useContext(CharacterContext);
   const router = useRouter();
-  const { loading, data } = useSelector<RootState, CharState>(
-    (state) => state.character
-  );
-  const [render, setRender] = useState<boolean>(false);
+
+  const getCharacterProfile = useCallback(async () => {
+    try {
+      const result = await LostarkService.getCharacterSummary(
+        router.query.name![0]
+      );
+
+      if (!result.data || !result.data.ArmoryProfile) {
+        // 유효 데이터인지 먼저 체크
+        setPageStatus("NODATA");
+      } else if (!result.data.ArmoryProfile.CharacterImage) {
+        // 유효 데이터인 경우, 이미지 링크가 있는지 체크
+        const url: string | undefined =
+          await LostarkService.getCharacterImageUrl(router.query.name![0]);
+        if (!url) {
+          setPageStatus("NODATA");
+        } else {
+          result.data.ArmoryProfile.CharacterImage = url ? url : null;
+          setCharacterProfile(result.data);
+        }
+      } else {
+        // 유효 데이터에, 이미지 링크도 있으면 데이터 세팅
+        setCharacterProfile(result.data);
+      }
+    } catch (error: any) {
+      console.log(error);
+      if (error.response.status === 429) {
+        setPageStatus("TOOMANYREQUESTS");
+      } else {
+        setPageStatus("ERROR");
+      }
+    }
+  }, [router]);
 
   useEffect(() => {
-    dispatch(getChar(router.query.name![0]));
-  }, [dispatch, router]);
+    setPageStatus("SEARCHING");
+  }, [router]);
 
   useEffect(() => {
-    if (!loading && data.ArmoryProfile && data.ArmoryProfile.CharacterImage) {
-      // console.log(data);
-      push(data);
-      setRender(true);
-    } else setRender(false);
-  }, [loading, data]);
+    if (pageStatus === "SEARCHING") {
+      getCharacterProfile();
+    }
+  }, [pageStatus]);
+  useEffect(() => {
+    if (pageStatus === "SEARCHING") {
+      setPageStatus("DONE");
+    }
+  }, [characterProfile]);
 
-  return <CharMainInfoBox {...{ loading, data, render }} />;
+  return <CharMainInfoBox />;
 };
 
 export default CharMainInfoContainer;
