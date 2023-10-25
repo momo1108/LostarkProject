@@ -1,4 +1,4 @@
-import CharMainInfoBox from "@/components/character/bodycomponent/CharMainInfoBlock";
+import CharMainInfoBlock from "@/components/character/bodycomponent/CharMainInfoBlock";
 import CharacterContext from "@/contexts/CharacterContext";
 import LostarkService from "@/service/LostarkService";
 import { SearchedData } from "@/types/ReducerType";
@@ -63,7 +63,7 @@ const CharMainInfoContainer: React.FC<CharMainInfoContainerProps> = ({
     }
   }, [characterProfile]);
 
-  return <CharMainInfoBox />;
+  return <CharMainInfoBlock />;
 };
 
 export default CharMainInfoContainer;

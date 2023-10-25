@@ -1,4 +1,4 @@
-import styles from "@/styles/MainBody.module.scss";
+import styles from "@/styles/main/MainBody.module.scss";
 import { MainBodyProps, nanumNeo } from "@/types/GlobalType";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -65,6 +65,29 @@ const MainBody: React.FC<MainBodyProps> = ({ menu }) => {
             })}
           </div>
         )}
+      </ul>
+      <ul className={`${styles.smallCardList} ${nanumNeo.className}`}>
+        {menu.map((m, i) => {
+          return (
+            <li
+              className={`${styles.cardItem} ${
+                selectedMenu === i ? styles.selectedMenu : ""
+              } ${load ? styles.showUs : ""}`}
+              key={`cardItem_${i}`}
+            >
+              <div className={styles.cardItemTitle}>
+                <MenuIcons
+                  color="#bFa373"
+                  size={35}
+                  width={m.strokeWidth}
+                  className={styles.menuIcon}
+                  type={m.id}
+                />
+                <p className={styles.cardItemTitle}>{m.title}</p>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

@@ -698,6 +698,9 @@ footer {
   @apply p-0 w-[270px] xs:w-[400px] #{!important};
   .siblingsTooltip {
     @apply flex flex-col gap-2 px-0 #{!important};
+    .messageP {
+      @apply flex h-[60px] items-center justify-center;
+    }
     .serverDiv {
       @apply grid grid-cols-2 items-start gap-1;
       .serverNameP {

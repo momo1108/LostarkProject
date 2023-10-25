@@ -21,7 +21,12 @@ export type SiblingType = {
   ItemMaxLevel: string;
 };
 
-export type EAAPageStatus = "INIT" | "DONE" | "LOADING_SIBLINGS" | "ERROR";
+export type EAAPageStatus =
+  | "INIT"
+  | "DONE"
+  | "LOADING_SIBLINGS"
+  | "TOOMANYREQUESTS"
+  | "ERROR";
 
 export type EquipmentSlotProps = {
   grade: string;

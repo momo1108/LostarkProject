@@ -142,7 +142,11 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
         // console.log(tmp_siblingsInfo);
       })
       .catch((error) => {
-        setPageStatus("ERROR");
+        if (error.response.status === 429) {
+          setPageStatus("TOOMANYREQUESTS");
+        } else {
+          setPageStatus("ERROR");
+        }
       });
 
     // 각인
@@ -1086,9 +1090,19 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
               })}
           </div>
         ) : pageStatus === "LOADING_SIBLINGS" ? (
-          <div>Loading...</div>
+          <div className="siblingsTooltip">
+            <p className="messageP">Loading...</p>
+          </div>
+        ) : pageStatus === "TOOMANYREQUESTS" ? (
+          <div className="siblingsTooltip">
+            <p className="messageP">
+              이용자가 몰려서 잠시 서비스를 이용할 수 없습니다.
+            </p>
+          </div>
         ) : (
-          <div>에러발생</div>
+          <div className="siblingsTooltip">
+            <p className="messageP">에러발생</p>
+          </div>
         )}
       </Tooltip>
       <Tooltip

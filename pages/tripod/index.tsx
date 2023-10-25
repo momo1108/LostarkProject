@@ -23,9 +23,13 @@ const Tripod: React.FC<TripodPageProps> = ({ menu }) => {
             <a href="https://www.freepik.com/free-vector/geometric-astrological-symbols-tarot-card_3905450.htm#page=4&query=outline&position=46&from_view=search&track=sph">
               Image by rawpixel.com
             </a>{" "}
-            on Freepik
+            on Freepik.
             <a href="https://www.freepik.com/free-vector/black-paint-background_44156746.htm#page=12&query=dark%20background&position=17&from_view=search&track=ais">
               Image by juicy_fish
+            </a>{" "}
+            on Freepik.
+            <a href="https://www.freepik.com/free-vector/collection-patterns-vector-illustration_2922475.htm#query=patterned%20background&position=49&from_view=search&track=ais">
+              Image by rawpixel.com
             </a>{" "}
             on Freepik
           </p>

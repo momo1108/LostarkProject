@@ -1,4 +1,4 @@
-import styles from "@/styles/MainPage.module.scss";
+import styles from "@/styles/main/MainPage.module.scss";
 import MainHeader from "@/components/MainHeader";
 import MainBody from "@/components/MainBody";
 import { MainProps } from "@/types/GlobalType";

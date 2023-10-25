@@ -1,7 +1,7 @@
 .container {
   @apply flex-auto flex justify-center;
   .cardList {
-    @apply flex justify-center items-center w-full h-[500px];
+    @apply hidden sm:flex justify-center items-center w-full h-[500px];
     perspective: 1500px;
     .cardItem {
       @apply relative w-[200px] h-[300px];
@@ -77,6 +77,25 @@
             }
           }
         }
+      }
+    }
+  }
+
+  .smallCardList {
+    @apply flex flex-col sm:hidden justify-center items-center min-w-[250px];
+    .cardItem {
+      @apply px-2 py-1;
+      border: 2px solid #d4b887;
+      border-bottom: none;
+      border-radius: 10px 10px 0 0;
+      &:nth-child(odd) {
+        @apply mr-auto;
+      }
+      &:nth-child(even) {
+        @apply ml-auto;
+      }
+      .cardItemTitle {
+        @apply flex items-center text-[#e4c897] text-lg font-bold gap-2;
       }
     }
   }

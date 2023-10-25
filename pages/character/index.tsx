@@ -23,7 +23,10 @@ const Character: React.FC<MenuProps> = ({ menu }) => {
             <a href="https://www.freepik.com/free-vector/black-paint-background_44156746.htm#page=12&query=dark%20background&position=17&from_view=search&track=ais">
               Image by juicy_fish
             </a>{" "}
-            on Freepik
+            on Freepik. Image by{" "}
+            <a href="https://www.freepik.com/free-vector/flat-design-art-deco-vintage-pattern_20029968.htm#page=2&query=patterned%20background&position=33&from_view=search&track=ais">
+              Freepik
+            </a>
           </p>
         </Footer>
       </Page>

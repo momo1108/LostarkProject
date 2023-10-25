@@ -1,4 +1,4 @@
-import styles from "@/styles/MainHeader.module.scss";
+import styles from "@/styles/main/MainHeader.module.scss";
 import { useEffect, useState } from "react";
 
 export default function MainHeader() {

@@ -342,10 +342,13 @@ $myLightBlue: #76b1ff;
     .searchFooter {
       @apply flex flex-col gap-3 items-start;
       .filterWrapper {
-        @apply inline-flex grow-0 flex-col gap-3 p-4 pt-2 bg-[#010101];
+        @apply inline-flex grow-0 flex-col gap-3 p-4 pt-2;
         border-radius: 5px;
         border: 1px solid #333;
         box-shadow: 0px 0px 10px -5px #fff;
+        background-image: url("/images/bg_engrave.jpg");
+        background-position: center;
+        background-size: 450px 450px;
 
         .filterHeader {
           @apply flex text-xl font-bold items-center gap-2;
@@ -582,9 +585,9 @@ $myLightBlue: #76b1ff;
       }
     }
     .resultBodyWrapper {
-      @apply flex flex-col gap-3 relative bg-[#010101];
+      @apply flex flex-col gap-3 relative bg-[#0005];
       .resultBody {
-        @apply flex flex-col gap-3 items-start max-h-[660px];
+        @apply flex flex-col gap-3 items-start max-h-[660px] pl-2;
         .combinationDiv {
           @apply inline-flex flex-col gap-1 flex-wrap;
 
@@ -613,7 +616,7 @@ $myLightBlue: #76b1ff;
             @apply flex flex-wrap gap-2;
             .combinationItemDiv {
               @apply flex flex-col w-[230px] 
-              sm:w-auto sm:grid sm:grid-cols-[202px_200px_144px] sm:justify-between sm:items-center
+              sm:w-auto sm:grid sm:grid-cols-[202px_197px_144px] sm:justify-between sm:items-center
               2xl:flex 2xl:items-start 2xl:flex-col 2xl:w-[230px] gap-y-1 gap-x-3 2xl:gap-x-1 py-1 px-2;
               box-shadow: 0px 0px 4px -2px #fff;
               border: 1px solid #222;
@@ -646,7 +649,7 @@ $myLightBlue: #76b1ff;
                 }
               }
               .optionDiv {
-                @apply text-xs 2xl:w-full flex gap-2;
+                @apply text-xs 2xl:w-full flex gap-1 2xl:gap-2;
                 .engraveDiv {
                   @apply 2xl:max-w-[60%];
                   .engraveNameSpan,

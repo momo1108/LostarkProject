@@ -293,7 +293,7 @@ const TripodSearchBlock: React.FC = () => {
                 </div>
               ) : (
                 <div className={styles.emptySkillDiv}>
-                  <Meteor className={styles.icon} />
+                  <Meteor className={styles.icon} fill="#222" />
                   <p className={styles.messageP}>스킬을 선택해주세요</p>
                 </div>
               )}
