@@ -1038,7 +1038,7 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 - 관리자페이지 트포데이터 업데이트 기능
 - 고대 조합으로 검색 후 유물로 필터링할 때 따로 체크해야함.
 - 메뉴바 background 이미지
-- 인덱스페이지 반응형
+- 인덱스페이지 반응형(박스 안에 담긴 파일 형태로)
 - 캐릭터 페이지 redux 쓰지말자.(charmaininfocontainer 의 getChar 부분)
 - 캐릭터, 트포페이지 배경이미지 따로 보자.
 
