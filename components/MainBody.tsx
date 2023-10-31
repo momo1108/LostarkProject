@@ -1,7 +1,7 @@
 import styles from "@/styles/main/MainBody.module.scss";
 import { MainBodyProps, nanumNeo } from "@/types/GlobalType";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import MenuIcons from "./icons/MenuIcons";
 
 const MainBody: React.FC<MainBodyProps> = ({ menu }) => {
@@ -66,29 +66,53 @@ const MainBody: React.FC<MainBodyProps> = ({ menu }) => {
           </div>
         )}
       </ul>
-      <ul className={`${styles.smallCardList} ${nanumNeo.className}`}>
+      <div className={`${styles.smallCube} ${nanumNeo.className}`}>
         {menu.map((m, i) => {
           return (
-            <li
+            <Link
+              href={m.url}
               className={`${styles.cardItem} ${
                 selectedMenu === i ? styles.selectedMenu : ""
               } ${load ? styles.showUs : ""}`}
               key={`cardItem_${i}`}
+              onMouseEnter={() => {
+                setSelectedMenu(i);
+              }}
+              onMouseLeave={() => {
+                setSelectedMenu(-1);
+              }}
             >
-              <div className={styles.cardItemTitle}>
-                <MenuIcons
-                  color="#bFa373"
-                  size={35}
-                  width={m.strokeWidth}
-                  className={styles.menuIcon}
-                  type={m.id}
-                />
-                <p className={styles.cardItemTitle}>{m.title}</p>
+              <div className={styles.cardItemHeader}>
+                <div className={styles.cardItemHeaderContent}>
+                  <MenuIcons
+                    color="#444"
+                    size={20}
+                    width={m.strokeWidth + 0.5}
+                    className={styles.menuIcon}
+                    type={m.id}
+                  />
+                  <p className={styles.cardItemTitle}>{m.title}</p>
+                </div>
               </div>
-            </li>
+              <div className={styles.cardItemDescr}>{m.desc}</div>
+            </Link>
           );
         })}
-      </ul>
+        <div className={`${styles.smFront} ${styles.smWall}`}>
+          <p>로아플</p>
+          <p>메뉴상자</p>
+        </div>
+        <div className={`${styles.smBack} ${styles.smWall}`}></div>
+        <div className={`${styles.smLeft} ${styles.smWall}`}></div>
+        <div className={`${styles.smRight} ${styles.smWall}`}></div>
+        <div className={`${styles.xsFront} ${styles.xsWall}`}>
+          <p>로아플</p>
+          <p>메뉴상자</p>
+        </div>
+        <div className={`${styles.xsBack} ${styles.xsWall}`}></div>
+        <div className={`${styles.xsLeft} ${styles.xsWall}`}></div>
+        <div className={`${styles.xsRight} ${styles.xsWall}`}></div>
+      </div>
     </div>
   );
 };

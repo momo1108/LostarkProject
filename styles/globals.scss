@@ -17,9 +17,6 @@ html {
   background-color: #010101;
   color: $basicFontColor;
 }
-body {
-  overflow: hidden;
-}
 
 .alertWrapperDiv {
   @apply gap-1 xs:gap-2 sm:gap-[14px] z-[100];
@@ -611,8 +608,9 @@ footer {
   @apply flex flex-col xl:px-32 lg:px-24 md:px-16 sm:px-8 px-2 pt-2 mb-4 gap-2;
   color: #999;
   .attribution {
-    @apply flex justify-end mt-2 text-right;
-    font-size: 10px;
+    @apply mt-2 text-right;
+    font-family: sans-serif;
+    font-size: 6px;
   }
   .copyright {
     @apply flex gap-1 md:justify-between md:text-sm md:flex-row flex-col items-center text-xs font-bold;

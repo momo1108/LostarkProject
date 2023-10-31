@@ -3,25 +3,25 @@
 
   .mainTitle {
     @apply transition duration-1000
-         my-4 text-8xl text-[#ffeecc] font-bold tracking-widest;
+         my-4 text-7xl sm:text-8xl text-[#ffeecc] font-bold tracking-widest;
     opacity: 0;
-    transform: translateX(10%);
+    transform: perspective(50px) translateX(10%);
   }
   .subTitle {
     @apply transition duration-1000 delay-300
-        my-4 text-5xl text-[#e4c897] font-bold tracking-wider;
+        my-4 text-4xl sm:text-5xl text-[#e4c897] font-bold tracking-wider;
     opacity: 0;
     transform: translateX(10%);
   }
   .description {
     @apply transition duration-1000 delay-500
-        text-lg text-[#d4b887] tracking-wide;
+        text-base sm:text-lg text-[#d4b887] tracking-wide;
     opacity: 0;
     transform: translateX(10%);
   }
 
   .showUs {
     opacity: 1;
-    transform: translateX(0);
+    transform: perspective(50px) translateX(0) rotateX(2deg);
   }
 }

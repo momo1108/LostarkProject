@@ -20,7 +20,7 @@ const Home: React.FC<MainProps> = ({ menu }) => {
         description="로스트아크 도구모음. 로아플은 세계에서 가장 작은 로스트아크 웹서비스로, 혼자 야무지게 만든 웹서비스입니다."
       />
       <Page
-        className={`${styles.container} ${roboto.className}`}
+        className={`${styles.container} ${roboto.className} hideScroll`}
         onKeyDown={(event) => {
           adminKey += event.key;
           if (adminKey === process.env.NEXT_PUBLIC_ADMIN_KEY)
@@ -33,7 +33,14 @@ const Home: React.FC<MainProps> = ({ menu }) => {
           <a href="https://www.freepik.com/free-vector/hand-drawn-2023-lunar-calendar-template_33459684.htm#page=4&query=tarot%20card%20background&position=16&from_view=search&track=ais">
             Image by pikisuperstar
           </a>{" "}
-          on Freepik
+          on Freepik.
+          <a href="https://www.freepik.com/free-photo/brown-texture_997227.htm#query=paper%20box%20surface&position=4&from_view=search&track=ais">
+            Image by tirachard
+          </a>{" "}
+          on Freepik. Sound Effect from{" "}
+          <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=14432">
+            Pixabay
+          </a>
         </Footer>
       </Page>
     </>
