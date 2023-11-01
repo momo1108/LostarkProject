@@ -1,8 +1,15 @@
 .container {
   @apply flex-auto flex justify-center items-center sm:items-start;
   .cardList {
-    @apply hidden sm:flex justify-center items-center w-full h-[500px];
+    @apply hidden sm:flex justify-center items-center w-full h-[500px] pt-[130px];
     perspective: 1500px;
+    .cardBackground {
+      @apply absolute top-1/2 left-1/2 translate-x-[-48%] translate-y-[-50%] opacity-0;
+      transition: opacity 1s ease-in-out 0.7s;
+      &.showUs {
+        opacity: 1;
+      }
+    }
     .cardItem {
       @apply relative w-[200px] h-[300px];
       margin: 0px -20px;
@@ -81,8 +88,12 @@
     }
   }
 
-  .smallCube {
-    @apply relative w-[210px] h-[175px] xs:w-[320px] xs:h-[260px] sm:hidden;
+  .smCube {
+    @apply relative w-[320px] h-[260px] hidden xs:block sm:hidden opacity-0;
+    transition: opacity 0.5s ease-in-out 0.7s;
+    &.showUs {
+      opacity: 1;
+    }
     transform-style: preserve-3d;
     perspective: 1000px;
     perspective-origin: 50% -47%;
@@ -90,28 +101,16 @@
     & > div {
       @apply absolute w-full h-full;
     }
-    .smWall {
-      @apply hidden xs:flex;
-    }
-    .xsWall {
-      @apply flex xs:hidden;
-    }
 
     // 큐브 전면부
     .smFront {
+      @apply flex flex-col justify-center items-center text-5xl font-extrabold text-[#695741] z-[1];
       transform: translateZ(160px);
-    }
-    .xsFront {
-      transform: translateZ(105px);
-    }
-    .smFront,
-    .xsFront {
-      @apply flex-col justify-center items-center text-5xl font-extrabold text-[#695741];
       font-family: 휴먼편지체;
       background-image: url("/images/brownpaperbox_texture.jpg");
       background-position: center;
       background-size: cover;
-      filter: brightness(70%);
+      filter: brightness(80%);
       border-left: 1px solid #86684c;
       border-right: 1px solid #86684c;
     }
@@ -119,12 +118,6 @@
     // 큐브 후면부
     .smBack {
       transform: rotateY(180deg) translateZ(160px);
-    }
-    .xsBack {
-      transform: rotateY(180deg) translateZ(105px);
-    }
-    .smBack,
-    .xsBack {
       background-image: url("/images/brownpaperbox_texture.jpg");
       background-position: center;
       background-size: cover;
@@ -134,12 +127,6 @@
     // 큐브 좌면부
     .smLeft {
       transform: rotateY(-90deg) translateZ(160px);
-    }
-    .xsLeft {
-      transform: rotateY(-90deg) translateZ(105px);
-    }
-    .smLeft,
-    .xsLeft {
       background-image: url("/images/brownpaperbox_texture.jpg");
       background-position: center;
       background-size: cover;
@@ -149,12 +136,6 @@
     // 큐즈 우면부
     .smRight {
       transform: rotateY(90deg) translateZ(160px);
-    }
-    .xsRight {
-      transform: rotateY(90deg) translateZ(105px);
-    }
-    .smRight,
-    .xsRight {
       background-image: url("/images/brownpaperbox_texture.jpg");
       background-position: center;
       background-size: cover;
@@ -162,8 +143,10 @@
     }
 
     .cardItem {
-      @apply absolute flex w-[196px] h-[150px] xs:w-[300px] xs:h-[260px] p-3 top-0 left-[7px] xs:left-[10px] text-[#333];
-      transition: top 0.3s ease-in-out;
+      @apply absolute flex w-[300px] h-[260px] p-3 top-0 left-[10px] text-[#333] opacity-0;
+      &.showUs {
+        opacity: 1;
+      }
       background-image: url("/images/brownpaperfile_texture3.jpg");
       background-position: center;
       background-size: cover;
@@ -176,7 +159,7 @@
         top: -90px;
       }
       &:nth-child(3).selectedMenu {
-        top: -120px;
+        top: -100px;
       }
       .cardItemHeader {
         @apply absolute top-[-29.5px] w-[150px] h-[30px] flex items-end;
@@ -188,11 +171,10 @@
         }
       }
       .cardItemDescr {
-        @apply rounded font-bold py-1 px-2 text-[#444];
+        @apply rounded font-extrabold py-1 px-2 text-[#444];
         background-image: url("/images/whitepaper_texture.jpg");
         background-position: center;
         background-size: cover;
-        font-family: 휴먼편지체;
       }
       &:nth-child(odd) {
         border-radius: 0 5px 0 0;
@@ -211,6 +193,8 @@
 
       @for $i from 1 through 3 {
         &:nth-child(#{$i}) {
+          transition: top 300ms ease-in-out,
+            opacity 500ms ease-in-out calc(1000ms + (200ms * $i));
           transform: translateZ(280px - ($i * 140px));
           .cardItemDescr {
             font-size: calc(14px + (2px * $i));
@@ -219,21 +203,119 @@
       }
     }
   }
-  .smallCardList {
-    @apply flex flex-col sm:hidden justify-center items-center min-w-[250px];
+
+  .xsCube {
+    @apply relative w-[210px] h-[175px] xs:hidden opacity-0;
+    transition: opacity 0.5s ease-in-out 0.7s;
+    &.showUs {
+      opacity: 1;
+    }
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    perspective-origin: 50% -190%;
+
+    & > div {
+      @apply absolute w-full h-full;
+    }
+
+    // 큐브 전면부
+    .xsFront {
+      @apply flex flex-col justify-center items-center text-4xl font-extrabold text-[#695741] z-[1];
+      transform: translateZ(105px);
+      font-family: 휴먼편지체;
+      background-image: url("/images/brownpaperbox_texture.jpg");
+      background-position: center;
+      background-size: cover;
+      filter: brightness(80%);
+      border-left: 1px solid #86684c;
+      border-right: 1px solid #86684c;
+    }
+
+    // 큐브 후면부
+    .xsBack {
+      transform: rotateY(180deg) translateZ(105px);
+      background-image: url("/images/brownpaperbox_texture.jpg");
+      background-position: center;
+      background-size: cover;
+      filter: brightness(50%);
+    }
+
+    // 큐브 좌면부
+    .xsLeft {
+      transform: rotateY(-90deg) translateZ(105px);
+      background-image: url("/images/brownpaperbox_texture.jpg");
+      background-position: center;
+      background-size: cover;
+      filter: brightness(60%);
+    }
+
+    // 큐즈 우면부
+    .xsRight {
+      transform: rotateY(90deg) translateZ(105px);
+      background-image: url("/images/brownpaperbox_texture.jpg");
+      background-position: center;
+      background-size: cover;
+      filter: brightness(60%);
+    }
+
     .cardItem {
-      @apply px-2 py-1;
-      border: 2px solid #d4b887;
-      border-bottom: none;
-      border-radius: 10px 10px 0 0;
+      @apply absolute flex w-[196px] h-[150px] p-3 top-0 left-[7px] text-[#333] opacity-0;
+      &.showUs {
+        opacity: 1;
+      }
+      background-image: url("/images/brownpaperfile_texture3.jpg");
+      background-position: center;
+      background-size: cover;
+      border: 1px solid #765729;
+
+      &:nth-child(1).selectedMenu {
+        top: -80px;
+      }
+      &:nth-child(2).selectedMenu {
+        top: -60px;
+      }
+      &:nth-child(3).selectedMenu {
+        top: -90px;
+      }
+      .cardItemHeader {
+        @apply absolute top-[-29.5px] w-[150px] h-[30px] flex items-end;
+        border: 1px solid #765729;
+        border-bottom: none;
+        border-radius: 15px 15px 0 0;
+        .cardItemHeaderContent {
+          @apply flex justify-center items-center h-[24px] gap-1 w-full font-extrabold;
+        }
+      }
+      .cardItemDescr {
+        @apply rounded font-extrabold py-1 px-2 text-[#444];
+        background-image: url("/images/whitepaper_texture.jpg");
+        background-position: center;
+        background-size: cover;
+      }
       &:nth-child(odd) {
-        @apply mr-auto;
+        border-radius: 0 5px 0 0;
+        .cardItemHeader {
+          @apply left-[-1px];
+          background-image: url("/images/brownpaperfile_texture3.jpg");
+        }
       }
       &:nth-child(even) {
-        @apply ml-auto;
+        border-radius: 5px 0 0 0;
+        .cardItemHeader {
+          @apply right-[-1px];
+          background: linear-gradient(90deg, #d39947, #c98e42);
+        }
       }
-      .cardItemTitle {
-        @apply flex items-center text-[#e4c897] text-lg font-bold gap-2;
+
+      @for $i from 1 through 3 {
+        &:nth-child(#{$i}) {
+          transition: top 300ms ease-in-out,
+            opacity 500ms ease-in-out calc(1000ms + (200ms * $i));
+          transform: translateZ(180px - ($i * 90px));
+          .cardItemDescr {
+            font-size: calc(13px + (1px * $i));
+          }
+        }
       }
     }
   }

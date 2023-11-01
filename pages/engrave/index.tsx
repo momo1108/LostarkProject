@@ -19,19 +19,17 @@ const Engrave: React.FC<MenuProps> = ({ menu }) => {
         <MenuBar menu={menu} />
         <EngraveBody />
         <Footer>
-          <p>
-            <a href="https://www.freepik.com/free-vector/dark-background-with-geometric-design_853799.htm#query=background%20pattern&position=28&from_view=search&track=ais">
-              Image by kjpargeter on Freepik
-            </a>
-            <a href="https://www.freepik.com/free-vector/geometric-astrological-symbols-tarot-card_3905450.htm#page=4&query=outline&position=46&from_view=search&track=sph">
-              Image by rawpixel.com
-            </a>{" "}
-            on Freepik
-            <a href="https://www.freepik.com/free-vector/black-paint-background_44156746.htm#page=12&query=dark%20background&position=17&from_view=search&track=ais">
-              Image by juicy_fish
-            </a>{" "}
-            on Freepik
-          </p>
+          <a href="https://www.freepik.com/free-vector/dark-background-with-geometric-design_853799.htm#query=background%20pattern&position=28&from_view=search&track=ais">
+            Image by kjpargeter on Freepik
+          </a>
+          <a href="https://www.freepik.com/free-vector/geometric-astrological-symbols-tarot-card_3905450.htm#page=4&query=outline&position=46&from_view=search&track=sph">
+            Image by rawpixel.com
+          </a>{" "}
+          on Freepik
+          <a href="https://www.freepik.com/free-vector/black-paint-background_44156746.htm#page=12&query=dark%20background&position=17&from_view=search&track=ais">
+            Image by juicy_fish
+          </a>{" "}
+          on Freepik
         </Footer>
       </Page>
     </>

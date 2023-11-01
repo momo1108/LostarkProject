@@ -1,4 +1,6 @@
 .container {
   @apply min-h-screen flex flex-col;
   background-color: #101318;
+  background-image: url("/images/bg_index_brighter.jpg");
+  background-size: 100% 100%;
 }

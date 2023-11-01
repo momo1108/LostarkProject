@@ -8,8 +8,8 @@ $myBlue: #4691f6;
 
 .menuContainer {
   @apply text-white w-full fixed top-0 left-1/2 translate-x-[-50%] z-[6] xs:border-b border-[#61616156];
-  background: #0d0f13;
-  backdrop-filter: blur(1px);
+  background-image: url("/images/menubar.jpg");
+  background-size: cover;
 
   .menuBar {
     @apply flex items-center min-w-[270px] w-4/5 xs:w-[420px] sm:w-[626px] md:w-[688px] lg:w-[1000px]

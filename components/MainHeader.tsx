@@ -19,7 +19,7 @@ export default function MainHeader() {
       </h2>
       <h2 className="hidden">- 로스트아크 놀이터 -</h2>
       <p className={`${styles.description} ${load ? styles.showUs : ""}`}>
-        로스트아크를 즐기기 위한 간단한 웹 도구 사이트
+        초간단 로스트아크 웹 도구 사이트
       </p>
     </div>
   );

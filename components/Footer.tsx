@@ -45,8 +45,12 @@ const Footer: React.FC<FooterProps> = ({ children, className }) => {
         </a>
         . Sound Effect from{" "}
         <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=43861">
-          Pixabay
+          Pixabay.
         </a>
+        <a href="https://www.freepik.com/free-photo/rustic-gray-concrete-textured-background_15440578.htm#query=dark%20marble&position=17&from_view=search&track=ais">
+          Image by rawpixel.com
+        </a>{" "}
+        on Freepik
       </div>
     </footer>
   );

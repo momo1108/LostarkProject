@@ -39,8 +39,12 @@ const Home: React.FC<MainProps> = ({ menu }) => {
           </a>{" "}
           on Freepik. Sound Effect from{" "}
           <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=14432">
-            Pixabay
+            Pixabay.
           </a>
+          <a href="https://www.freepik.com/free-vector/monoline-celestial-icons-frame-vector-square-frame-black_15841782.htm#page=4&query=tarot%20cards&position=0&from_view=search&track=ais#position=0&page=4&query=tarot%20cards">
+            Image by rawpixel.com
+          </a>{" "}
+          on Freepik
         </Footer>
       </Page>
     </>

@@ -468,7 +468,7 @@ $myLightBlue: #76b1ff;
           @apply hidden lg:block xl:hidden;
         }
         .headerLine {
-          @apply col-span-4 border-b border-[#aaa];
+          @apply col-span-4 border-b border-[#222222];
           &[data-sub="true"] {
             @apply hidden lg:block xl:hidden;
           }
