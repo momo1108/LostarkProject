@@ -1,17 +1,17 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useContext } from "react";
 import styles from "@/styles/character/Body.module.scss";
 import { CharSearchBarProps } from "@/types/CharacterType";
 import { Delete, Favorite } from "@/components/icons/Index";
 import useAlert from "@/hooks/useAlert";
+import CharacterContext from "@/contexts/CharacterContext";
 
 const CharSearchBar: React.FC<CharSearchBarProps> = ({
   search,
-  loading,
   shrink,
   like,
   remove,
-  searchedDataList,
 }) => {
+  const { pageStatus, searchedDataList } = useContext(CharacterContext);
   const alert = useAlert();
   const nameRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLInputElement>(null);
@@ -20,7 +20,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
   const [dropdownVisibility, setDropdownVisibility] = useState<boolean>(false);
 
   const click = useCallback(() => {
-    if (loading) {
+    if (pageStatus === "SEARCHING") {
       alert.error("아직 검색이 진행중입니다.");
       return;
     }
@@ -36,7 +36,7 @@ const CharSearchBar: React.FC<CharSearchBarProps> = ({
     buttonRef.current!.blur();
     dropdownRef.current!.scrollTop = 0;
   }, [
-    loading,
+    pageStatus,
     nameRef.current,
     divRef.current,
     buttonRef.current,

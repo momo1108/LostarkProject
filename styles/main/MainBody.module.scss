@@ -1,10 +1,10 @@
 .container {
   @apply flex-auto flex justify-center items-center sm:items-start;
   .cardList {
-    @apply hidden sm:flex justify-center items-center w-full h-[500px] pt-[130px];
+    @apply hidden sm:flex justify-center items-center w-full h-[600px] pt-[130px];
     perspective: 1500px;
     .cardBackground {
-      @apply absolute top-1/2 left-1/2 translate-x-[-48%] translate-y-[-50%] opacity-0;
+      @apply absolute top-1/2 left-1/2 translate-x-[-49%] translate-y-[-50%] opacity-0;
       transition: opacity 1s ease-in-out 0.7s;
       &.showUs {
         opacity: 1;
@@ -63,7 +63,7 @@
     }
 
     .cardListWrapper {
-      @apply absolute z-[5] top-0 left-0 right-0 bottom-0 flex justify-center items-center;
+      @apply absolute z-[5] top-0 left-0 right-0 bottom-0 flex justify-center items-center pt-[130px];
       perspective: 1500px;
       .cardItemWrapper {
         @apply relative w-[200px] h-[300px] flex items-center justify-center cursor-pointer;

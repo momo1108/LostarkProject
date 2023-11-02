@@ -1,5 +1,5 @@
 .container {
-  @apply text-center py-8 xs:py-10 flex gap-3 xs:gap-4 sm:gap-8 flex-col items-center;
+  @apply text-center py-6 xs:py-10 flex gap-3 xs:gap-4 sm:gap-4 flex-col items-center;
 
   .mainTitle {
     @apply transition duration-1000

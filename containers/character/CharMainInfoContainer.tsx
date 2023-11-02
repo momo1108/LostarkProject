@@ -33,10 +33,12 @@ const CharMainInfoContainer: React.FC<CharMainInfoContainerProps> = ({
         } else {
           result.data.ArmoryProfile.CharacterImage = url ? url : null;
           setCharacterProfile(result.data);
+          push(result.data);
         }
       } else {
         // 유효 데이터에, 이미지 링크도 있으면 데이터 세팅
         setCharacterProfile(result.data);
+        push(result.data);
       }
     } catch (error: any) {
       console.log(error);
@@ -46,7 +48,7 @@ const CharMainInfoContainer: React.FC<CharMainInfoContainerProps> = ({
         setPageStatus("ERROR");
       }
     }
-  }, [router]);
+  }, [router, push]);
 
   useEffect(() => {
     setPageStatus("SEARCHING");

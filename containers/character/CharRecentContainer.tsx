@@ -1,28 +1,26 @@
 import CharRecentBlock from "@/components/character/bodycomponent/CharRecentBlock";
 import { RootState, SearchedData } from "@/types/ReducerType";
 import { useSelector } from "react-redux";
-import { Dispatch, SetStateAction, useCallback } from "react";
+import { Dispatch, SetStateAction, useCallback, useContext } from "react";
 import { useRouter } from "next/router";
 import LostarkService from "@/service/LostarkService";
 import useAlert from "@/hooks/useAlert";
+import CharacterContext from "@/contexts/CharacterContext";
 
 type CharRecentContainerProps = {
-  searchedDataList: SearchedData[];
-  setSearchedDataList: Dispatch<SetStateAction<SearchedData[]>>;
   like: (name: string) => void;
   remove: (name: string) => void;
 };
 const CharRecentContainer: React.FC<CharRecentContainerProps> = ({
-  searchedDataList,
   like,
   remove,
-  setSearchedDataList,
 }) => {
+  const { searchedDataList, setSearchedDataList } =
+    useContext(CharacterContext);
+
   const router = useRouter();
   const alert = useAlert();
-  // const data = useSelector<RootState, SearchedData[]>(
-  //   (state) => state.searched.data
-  // );
+
   const search = useCallback((name: string) => {
     router.push("/character/" + name);
   }, []);
@@ -52,11 +50,7 @@ const CharRecentContainer: React.FC<CharRecentContainerProps> = ({
     [searchedDataList, setSearchedDataList]
   );
 
-  return (
-    <CharRecentBlock
-      {...{ searchedDataList, updateSrc, search, like, remove }}
-    />
-  );
+  return <CharRecentBlock {...{ updateSrc, search, like, remove }} />;
 };
 
 export default CharRecentContainer;

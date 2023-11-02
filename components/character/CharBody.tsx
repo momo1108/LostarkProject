@@ -13,7 +13,11 @@ export default function CharBody() {
   const router = useRouter();
   const searched = "name" in router.query;
 
+  // 컨텍스트
   const [searchedDataList, setSearchedDataList] = useState<SearchedData[]>([]);
+  const [pageStatus, setPageStatus] = useState<CharacterPageStatus>("INIT");
+  const [characterProfile, setCharacterProfile] = useState<any>({});
+
   const [loadSDL, setLoadSDL] = useState<boolean>(false);
 
   const checker = useCallback((state: SearchedData[], data: CharData) => {
@@ -65,9 +69,11 @@ export default function CharBody() {
   }, []);
 
   useEffect(() => {
-    const initData = localStorage.getItem("recentSearch");
-    if (initData) setSearchedDataList(JSON.parse(initData));
-  }, []);
+    if (pageStatus === "INIT") {
+      const initData = localStorage.getItem("recentSearch");
+      if (initData) setSearchedDataList(JSON.parse(initData));
+    }
+  }, [pageStatus]);
 
   useEffect(() => {
     // console.log(searchedDataList);
@@ -124,9 +130,6 @@ export default function CharBody() {
     [searchedDataList]
   );
 
-  const [pageStatus, setPageStatus] = useState<CharacterPageStatus>("INIT");
-  const [characterProfile, setCharacterProfile] = useState<any>({});
-
   return (
     <CharacterContext.Provider
       value={{
@@ -134,16 +137,16 @@ export default function CharBody() {
         setPageStatus,
         characterProfile,
         setCharacterProfile,
+        searchedDataList,
+        setSearchedDataList,
       }}
     >
       <div className={`${styles.container} ${nanumNeo.className}`}>
-        <CharSearchContainer {...{ searchedDataList, like, remove }} />
+        <CharSearchContainer {...{ like, remove }} />
         {searched ? (
           <CharMainInfoContainer push={push} />
         ) : (
-          <CharRecentContainer
-            {...{ searchedDataList, setSearchedDataList, like, remove }}
-          />
+          <CharRecentContainer {...{ like, remove }} />
         )}
       </div>
     </CharacterContext.Provider>

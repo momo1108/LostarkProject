@@ -1,17 +1,18 @@
 import { Delete, Empty, Favorite } from "@/components/icons/Index";
+import CharacterContext from "@/contexts/CharacterContext";
 import styles from "@/styles/character/Body.module.scss";
 import { CharRecentBlockProps } from "@/types/CharacterType";
+import { useContext } from "react";
 import Image from "next/image";
 
 const CharRecentBlock: React.FC<CharRecentBlockProps> = ({
-  searchedDataList,
   updateSrc,
   search,
   like,
   remove,
 }) => {
-  // const { dispatchWrapper } = useReduxDispatchWrapper();
-  // console.log(searchedDataList);
+  const { searchedDataList } = useContext(CharacterContext);
+
   return (
     <div className={styles.recentContainer}>
       {searchedDataList.length ? (
@@ -72,10 +73,10 @@ const CharRecentBlock: React.FC<CharRecentBlockProps> = ({
         </>
       ) : (
         <>
-          <p className={styles.iconBox}>
+          <p className={styles.emptyIconBox}>
             <Empty className={styles.emptyIcon} />
           </p>
-          <span>최근 검색 기록이 없습니다!</span>
+          <span className={styles.emptyMsg}>최근 검색 기록이 없습니다!</span>
         </>
       )}
     </div>

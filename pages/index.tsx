@@ -44,6 +44,10 @@ const Home: React.FC<MainProps> = ({ menu }) => {
           <a href="https://www.freepik.com/free-vector/monoline-celestial-icons-frame-vector-square-frame-black_15841782.htm#page=4&query=tarot%20cards&position=0&from_view=search&track=ais#position=0&page=4&query=tarot%20cards">
             Image by rawpixel.com
           </a>{" "}
+          on Freepik.
+          <a href="https://www.freepik.com/free-vector/brown-blurred-background_959255.htm#query=horizontal%20brown%20gradation&position=1&from_view=search&track=ais">
+            Image by rocketpixel
+          </a>{" "}
           on Freepik
         </Footer>
       </Page>

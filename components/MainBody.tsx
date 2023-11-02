@@ -67,8 +67,8 @@ const MainBody: React.FC<MainBodyProps> = ({ menu }) => {
           </div>
         )}
         <Image
-          width={768}
-          height={564}
+          width={896}
+          height={658}
           quality={100}
           className={`${styles.cardBackground} ${load ? styles.showUs : ""}`}
           src="/images/test4.png"

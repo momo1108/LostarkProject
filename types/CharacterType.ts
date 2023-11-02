@@ -2,7 +2,6 @@ import { CharData, SearchedData } from "./ReducerType";
 
 export type CharRecentBlockProps = {
   search: (name: string) => void;
-  searchedDataList: SearchedData[];
   like: (name: string) => void;
   remove: (name: string) => void;
   updateSrc: (index: number) => void;
@@ -11,9 +10,7 @@ export type CharRecentBlockProps = {
 
 export type CharSearchBarProps = {
   search: (name: string) => void;
-  loading: boolean;
   shrink: boolean;
-  searchedDataList: SearchedData[];
   like: (name: string) => void;
   remove: (name: string) => void;
 };

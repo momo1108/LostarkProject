@@ -92,12 +92,15 @@ $gemSlotsize: 51px;
       @apply text-base sm:text-xl xl:text-2xl font-extrabold mb-4;
     }
 
-    .iconBox {
-      @apply w-[300px] h-[300px] mb-5 relative;
-
-      .emptyIcon {
-        @apply absolute top-0 left-0;
+    .emptyIconBox {
+      @apply mb-5 relative;
+      svg {
+        @apply w-[200px] h-[200px] xs:w-[300px] xs:h-[300px];
       }
+    }
+
+    .emptyMsg {
+      @apply text-xl xs:text-3xl;
     }
 
     &:hover .emptyIcon {
