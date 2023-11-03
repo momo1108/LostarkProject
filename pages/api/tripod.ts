@@ -7,6 +7,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{ tripod: FilteredSkillType[] } | string>
 ) {
+  console.log(req);
   if (req.method === "GET") {
     try {
       const dataDirectory = path.join(process.cwd(), "data");

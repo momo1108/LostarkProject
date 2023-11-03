@@ -1066,3 +1066,15 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
     - 단점) 서버쪽에서 직접 업데이트 사항을 실시간으로 반영해야 한다.
 - 가장 긴 한 단어 스킬이름 - 6글자(ex. 이퀼리브리엄)
 - 가장 긴 트포이름 - 소서리스)천벌 - 피할 수 없는 운명
+
+#### 정리할 것
+
+- webworker
+- 한국 date
+- 환경 설치(도큐먼트기반 정리)
+- 도커로 띄우기 및 내용 정리
+- 프리즈마(https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases-typescript-mysql)
+- mysql root 비밀번호 설정
+  - sudo mysqld_safe --skip-syslog --skip-networking &
+  - sudo killall -KILL mysql mysqld_safe mysqld
+  - ALTER user 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '변경할 비밀번호';
