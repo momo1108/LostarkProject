@@ -42,3 +42,6 @@ next-env.d.ts
 
 # 테스트용파일
 test.*
+
+# prisma
+prisma/migrations

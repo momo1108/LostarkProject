@@ -11,7 +11,9 @@ datasource db {
 }
 
 model Visit {
-  id   Int                   @id @default(autoincrement())
   count Int
-  day DateTime
+  year Int                   @db.SmallInt
+  month Int                  @db.TinyInt
+  day Int                    @db.TinyInt
+  @@id([year,month,day])
 }
