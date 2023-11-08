@@ -1078,3 +1078,9 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
   - sudo mysqld_safe --skip-syslog --skip-networking &
   - sudo killall -KILL mysql mysqld_safe mysqld
   - ALTER user 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '변경할 비밀번호';
+- 왜 ec2 서버에서 npm i 를 하면 멈출까?(메모리부족? 스왑영역을 활용해보자.)
+  - https://stackoverflow.com/questions/66693201/npm-install-hangs-forever-in-ec2
+- 기존 템플릿으로 블로그 하나 만들기
+- 새 블로그 템플릿 만들기
+  - ruby 설치 후 jekyll, bundler 설치
+    - 근데 설치가 제대로 안돼서 `rdisk install` (이거 cmd는 되고 gitbash에선 못찾네?)

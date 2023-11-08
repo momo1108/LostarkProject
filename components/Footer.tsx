@@ -39,7 +39,7 @@ const Footer: React.FC<FooterProps> = ({ children, className }) => {
       axios
         .post(url)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           setVisitCount(res.data.visitCount);
         })
         .catch((error) => {
@@ -49,7 +49,7 @@ const Footer: React.FC<FooterProps> = ({ children, className }) => {
       axios
         .get(url)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           setVisitCount(res.data.visitCount);
         })
         .catch((error) => {
