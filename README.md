@@ -1043,6 +1043,7 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 - 캐릭터, 트포페이지 배경이미지 따로 보자.
 - 지금 큐브는 하나에 xs, sm 다하려고 하는데 힘들듯. tailwind를 쓰지 못하는 부분에서 반응형이 걸린다.
   - 그냥 큐브를 2개 사용하자. xs용 큐브, sm용 큐브
+- clipboard hook으로 구현하기.
 
 #### 에러 업데이트
 
