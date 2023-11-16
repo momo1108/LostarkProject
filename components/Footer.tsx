@@ -4,9 +4,11 @@ import Link from "next/link";
 import useAlert from "@/hooks/useAlert";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import useClipboard from "@/hooks/useClipboard";
 
 const Footer: React.FC<FooterProps> = ({ children, className }) => {
   const alert = useAlert();
+  const { copyToClipboard } = useClipboard();
   const [visitCount, setVisitCount] = useState<number>(0);
 
   // 방문자 카운트를 위함
@@ -72,14 +74,7 @@ const Footer: React.FC<FooterProps> = ({ children, className }) => {
           <p
             title="click to copy email address"
             onClick={() => {
-              window.navigator.clipboard
-                .writeText("banghyechan@gmail.com")
-                .then(() => {
-                  alert.success("복사 완료.");
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
+              copyToClipboard("banghyechan@gmail.com");
             }}
             className="email"
           >

@@ -8,6 +8,8 @@ import {
   Tripod,
 } from "@/components/icons/Index";
 import TripodResultContext from "@/contexts/TripodResultContext";
+import useAlert from "@/hooks/useAlert";
+import useClipboard from "@/hooks/useClipboard";
 import styles from "@/styles/tripod/Body.module.scss";
 import { TripodResType, tripodTierToStyleMap } from "@/types/TripodType";
 import { Fragment, useContext, useEffect } from "react";
@@ -27,8 +29,10 @@ const TripodResultBlock: React.FC = () => {
     totalCost,
     currentSkillTripodIndex,
     setCurrentSkillTripodIndex,
-    copyName,
   } = useContext(TripodResultContext);
+  const alert = useAlert();
+  const { copyToClipboard } = useClipboard();
+
   return (
     <div className={styles.resultContainer}>
       <div className={styles.resultHeader}>
@@ -98,7 +102,11 @@ const TripodResultBlock: React.FC = () => {
                 <div
                   className={styles.skillDescrDiv}
                   onClick={() => {
-                    copyName("스킬", skill.Name);
+                    copyToClipboard(
+                      skill.Name,
+                      `스킬 이름 (${skill.Name}) 복사 완료`,
+                      `에러 발생 : 스킬 이름 (${skill.Name}) 복사 실패`
+                    );
                   }}
                 >
                   <div className={styles.iconWrapper}>
@@ -113,7 +121,11 @@ const TripodResultBlock: React.FC = () => {
                         className={styles.tripodDiv}
                         key={`result_skill_${skill.Name}_tripod_${tripod.Name}`}
                         onClick={() => {
-                          copyName("트라이포드", tripod.Name);
+                          copyToClipboard(
+                            tripod.Name,
+                            `트라이포드 이름 (${tripod.Name}) 복사 완료`,
+                            `에러 발생 : 트라이포드 이름 (${tripod.Name}) 복사 실패`
+                          );
                         }}
                       >
                         <div

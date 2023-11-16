@@ -16,6 +16,8 @@ import styles from "@/styles/engrave/Body.module.scss";
 import { AuctionItem } from "@/types/LostarkApiType";
 import { gradeClassMap } from "@/types/GlobalType";
 import { useMemo, useState } from "react";
+import useAlert from "@/hooks/useAlert";
+import useClipboard from "@/hooks/useClipboard";
 
 type EngraveResultBlockProps = {
   combinationList: AuctionItem[][];
@@ -24,7 +26,6 @@ type EngraveResultBlockProps = {
   totalCases: number;
   currentCase: number;
   myTimer: number;
-  copyToClipboard: (text: string) => void;
 };
 const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
   combinationList,
@@ -33,9 +34,10 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
   totalCases,
   currentCase,
   myTimer,
-  copyToClipboard,
 }) => {
   const { bgClassMaker } = useCssHook();
+  const alert = useAlert();
+  const { copyToClipboard } = useClipboard();
   const initialStat = {
     치명: 0,
     특화: 0,

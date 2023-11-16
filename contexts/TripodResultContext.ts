@@ -18,7 +18,6 @@ type TripodResultContextType = {
   totalCost: number;
   currentSkillTripodIndex: [number, number];
   setCurrentSkillTripodIndex: Dispatch<SetStateAction<[number, number]>>;
-  copyName: (type: string, name: string) => void;
   includePowderCost: boolean;
 };
 const TripodResultContext = createContext<TripodResultContextType>({
@@ -33,7 +32,6 @@ const TripodResultContext = createContext<TripodResultContextType>({
   totalCost: 0,
   currentSkillTripodIndex: [0, 0],
   setCurrentSkillTripodIndex: () => {},
-  copyName: () => {},
   includePowderCost: false,
 });
 
