@@ -7,8 +7,6 @@ export default function useClipboard() {
   const [loaded, setLoaded] = useState<boolean>(false);
   useEffect(() => {
     setLoaded(true);
-    console.dir(window);
-    console.dir(window.navigator);
   }, []);
   const copyToClipboard = useCallback(
     (

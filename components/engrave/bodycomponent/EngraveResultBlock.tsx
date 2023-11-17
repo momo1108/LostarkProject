@@ -188,7 +188,10 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
                               <p
                                 className={styles.nameP}
                                 onClick={() => {
-                                  copyToClipboard(e2.Name);
+                                  copyToClipboard(
+                                    e2.Name,
+                                    `"${e2.Name}" 악세서리 이름 복사완료`
+                                  );
                                 }}
                               >
                                 {e2.Name}
@@ -229,7 +232,11 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
                                     <span
                                       className={styles.engraveNameSpan}
                                       onClick={() => {
-                                        copyToClipboard(option.OptionName);
+                                        copyToClipboard(
+                                          option.OptionName,
+
+                                          `"${option.OptionName}" 각인 이름 복사완료`
+                                        );
                                       }}
                                     >
                                       [{option.OptionName}]
@@ -247,7 +254,8 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
                                         (option) =>
                                           option.Type === "ABILITY_ENGRAVE" &&
                                           option.IsPenalty
-                                      )?.OptionName || ""
+                                      )?.OptionName || "",
+                                      `감소각인 이름 복사완료`
                                     );
                                   }}
                                 >
@@ -282,7 +290,10 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
                                     <span
                                       className={styles.statNameSpan}
                                       onClick={() => {
-                                        copyToClipboard(option.OptionName);
+                                        copyToClipboard(
+                                          option.OptionName,
+                                          `"${option.OptionName}" 특성명 복사완료`
+                                        );
                                       }}
                                     >
                                       [{option.OptionName}]
