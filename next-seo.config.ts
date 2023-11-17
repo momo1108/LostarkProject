@@ -4,7 +4,7 @@ const config: DefaultSeoProps = {
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    url: "http://loaple.site",
+    url: "https://loaple.site",
     images: [
       {
         url: "/images/loaple_seo.jpg",
