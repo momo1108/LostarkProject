@@ -12,7 +12,12 @@ export default async function handler(
     const prisma = new PrismaClient();
 
     try {
-      const nowDatetime = new Date();
+      const now = new Date();
+      const utc =
+        now.getTime() +
+        now.getTimezoneOffset() * 60 * 1000 +
+        9 * 60 * 60 * 1000;
+      const nowDatetime = new Date(utc);
 
       const visit = await prisma.visit.findUnique({
         where: {
@@ -49,7 +54,12 @@ export default async function handler(
     const prisma = new PrismaClient();
 
     try {
-      const nowDatetime = new Date();
+      const now = new Date();
+      const utc =
+        now.getTime() +
+        now.getTimezoneOffset() * 60 * 1000 +
+        9 * 60 * 60 * 1000;
+      const nowDatetime = new Date(utc);
 
       const visit = await prisma.visit.findUnique({
         where: {
