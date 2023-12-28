@@ -126,6 +126,7 @@ export default function useSkillParser() {
       }
     }
 
+    console.log(tmpClassList);
     setClassList(JSON.parse(JSON.stringify(tmpClassList)));
   }, [skillDataParser]);
 

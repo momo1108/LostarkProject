@@ -16,19 +16,24 @@ const Rhksflwk: React.FC<MenuProps> = ({ menu }) => {
     <Page className={`${styles.container} ${nanumNeo.className}`}>
       <MenuBar menu={menu} />
       관리자
+      <input type="text" ref={classNameInput} placeholder="클래스명" />
       <button
         onClick={async () => {
-          await sp.singleClassParser("버서커");
+          if (classNameInput.current!.value) {
+            await sp.singleClassParser(classNameInput.current!.value);
+          } else {
+            alert.error("제대로된 클래스명 입력");
+          }
         }}
       >
-        한 클래스 스킬데이터 갱신
+        한 클래스 스킬데이터 갱신(미입력시 버서커로 진행)(미완성)
       </button>
       <button
         onClick={async () => {
           await sp.getAuctionValueCode();
         }}
       >
-        검색옵션갱신
+        검색옵션갱신(필요없는기능)
       </button>
       <button
         onClick={async () => {
@@ -40,15 +45,14 @@ const Rhksflwk: React.FC<MenuProps> = ({ menu }) => {
           }
         }}
       >
-        모든 클래스 스킬데이터 불러오기
+        1. 모든 클래스 스킬데이터 불러오기
       </button>
-      <input type="text" ref={classNameInput} />
       <button
         onClick={() => {
           sp.updateAllClassServerData();
         }}
       >
-        서버에 데이터 전송
+        2. 서버에 데이터 전송
       </button>
     </Page>
   );

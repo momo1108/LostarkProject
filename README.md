@@ -1053,7 +1053,7 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 #### 주기적인 업데이트
 
 - 새 직업이 나왔을 때
-  - 각인 이미지, 클래스 이미지, 경매장 각인 코드
+  - 각인 이미지(engravingIconMap - GlobalType.ts), 클래스 이미지(https://lostark.game.onstove.com/Class, classImageMap - GlobalType.ts), 클래스 이름(classDetailMap - GlobalType.ts), 경매장 각인 코드(ETC_OPTION_CODE - GlobalType.ts), 트포 갱신용 랭커 닉네임 리스트(userList - TripodType.ts)
 - 새 아바타, 장비 슬롯이 추가되었을 때
   - 새 슬롯 관련 소스코드 수정
   - 새 슬롯 관련 빈칸 이미지 추가

@@ -142,6 +142,7 @@ export const classImageMap: { [key: string]: string } = {
   암살자: "class_32.png",
   스페셜리스트: "class_33.png",
   소울이터: "class_34.png",
+  브레이커: "class_35.png",
 };
 
 export const engravingIconMap: { [key: string]: string } = {
@@ -243,12 +244,14 @@ export const engravingIconMap: { [key: string]: string } = {
   포식자: "102.png",
   "만월의 집행자": "103.png",
   "그믐의 경계": "104.png",
+  "수라의 길": "105.png",
+  권왕파천무: "106.png",
 };
 
 export const classDetailMap: { [key: string]: string[] } = {
   "전사(남)": ["버서커", "워로드", "디스트로이어", "홀리나이트"],
   "전사(여)": ["슬레이어"],
-  "무도가(남)": ["스트라이커"],
+  "무도가(남)": ["스트라이커", "브레이커"],
   "무도가(여)": ["창술사", "배틀마스터", "기공사", "인파이터"],
   "헌터(남)": ["호크아이", "블래스터", "스카우터", "데빌헌터"],
   "헌터(여)": ["건슬링어"],
