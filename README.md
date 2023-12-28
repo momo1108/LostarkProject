@@ -60,7 +60,9 @@
   - `mount -orw /dev/xvdf1 /mnt`
 - 원본 키 내용에 새 서버 키 내용 덮어쓰기.
   - `cat /home/계정/.ssh/authorized_keys > /mnt/home/계정/.ssh/authorized_keys`
-  - 아니 근데 이 작업만 하는거면 힘들게 마운트 안하고 그냥 따로 접속해서 내용 복사하고 원본에 덮어쓰기 하면 되는거 아니야?
+  - ~~아니 근데 이 작업만 하는거면 힘들게 마운트 안하고 그냥 따로 접속해서 내용 복사하고 원본에 덮어쓰기 하면 되는거 아니야?~~
+  - 주의) 이상하게도 이때 뭐가 설정이 잘못된건지 아니면 덮어쓰기 할 때만 root계정을 쓰면 안되는건지 모르겠지만, ubuntu로 로그인을 해도 `Please login as the user "ubuntu" rather than the user "root".` 요런메시지가 뜨면서 로그인이 안되는데?
+    - 내가 바보같이 ubuntu 계정의 authorized_keys 를 덮어쓰기 해야되는데, root 계정의 authorized_keys 를 덮어쓰기했다 ㅡㅡ; root 계정의 경우 상단에 `no-port-forwarding,no-agent-forwarding,no-X11-forwarding,command="echo 'Please login as the user \"ubuntu\" rather than the user \"root\".';echo;sleep 10;exit 142"` 문구가 추가되기 때문에, 이런 경우가 발생한다.
 
 6. 언마운트 후 새로운 인스턴스는 정지 후 Root 볼륨 분리.
 
@@ -69,6 +71,8 @@
 - ⚠️ 연결되는데 시간이 걸린다. 새로고침으로 확인 후 진행하자.
 
 7. 원본 인스턴스에 Root 볼륨 연결 후 시작. 이제 연결이 된다.(된다!!!!!!!!!!!)
+
+8. 참조) github에 key 설정을 하고나서부터는 github에 연결하고 싶은 host와 github는 key pair를 가져야 한다. host는 private 과 public, github는 public 을 가져야 하고, 여러 호스트를 사용하는 경우에는 github에 그만큼의 public key를 등록하면 된다.
 
 ---
 
@@ -1075,6 +1079,7 @@ React Node : JSX 혹은 React Component 의 return 값에 해당하는 노드. R
 - 환경 설치(도큐먼트기반 정리)
 - 도커로 띄우기 및 내용 정리
 - 프리즈마(https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases-typescript-mysql)
+- .env 파일에 호스트 설정
 - mysql root 비밀번호 설정
   - sudo mysqld_safe --skip-syslog --skip-networking &
   - sudo killall -KILL mysql mysqld_safe mysqld
