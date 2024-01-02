@@ -349,11 +349,10 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
         JSON.stringify({
           reqData,
           apiKey,
-          subClass,
         })
       )
     );
-  }, [subClass, selectedData]);
+  }, [selectedData]);
 
   const copyClass = useCallback(
     async (charName: string, className: string) => {

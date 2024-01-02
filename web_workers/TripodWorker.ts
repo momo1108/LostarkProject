@@ -18,12 +18,11 @@ onmessage = async (e: {
       data: TripodReqType;
     }[];
     apiKey: string;
-    subClass: string;
   };
 }) => {
-  const { reqData, apiKey, subClass } = e.data;
+  const { reqData, apiKey } = e.data;
   // console.log(e.data);
-  // console.log(reqData, apiKey, subClass);
+  // console.log(reqData, apiKey, );
   let result: {
     status: "SUCCESS" | "ERROR" | "INFORMATION";
     code: number;
@@ -87,7 +86,6 @@ onmessage = async (e: {
           SkillOptions: [reqData[i].data],
           Sort: "BUY_PRICE",
           CategoryCode: 170300,
-          CharacterClass: subClass,
           PageNo: 0,
           SortCondition: "ASC",
         },
