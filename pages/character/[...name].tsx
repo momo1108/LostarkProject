@@ -24,8 +24,8 @@ const CharDetail: React.FC<MenuProps> = ({ menu }) => {
               Image by juicy_fish
             </a>{" "}
             on Freepik.
-            <a href="https://www.freepik.com/free-photo/black-brick-wall-textured-background_3475675.htm#query=dark%20brick&position=4&from_view=search&track=ais">
-              Image by rawpixel.com
+            <a href="https://www.freepik.com/free-photo/black-crossed-fabric-texture_1035043.htm#page=11&query=dark%20pattern&position=26&from_view=search&track=ais&uuid=65db674f-5876-4dea-acc2-4c3003e59478">
+              Image by kues1
             </a>{" "}
             on Freepik
           </p>
