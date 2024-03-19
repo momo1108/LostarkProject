@@ -20,12 +20,15 @@ html {
 
 .alertWrapperDiv {
   @apply gap-1 xs:gap-2 sm:gap-[14px] z-[100];
+
   .alertDiv {
     @apply w-[260px] 2xs:w-[290px] sm:w-[350px] min-h-[60px] flex px-2 sm:px-4 py-2 sm:py-3 gap-2 sm:gap-4 text-xs 2xs:text-sm sm:text-base justify-center items-center font-bold text-center bg-[#161b20];
     animation: alertShowAndHide 5s linear;
+
     svg {
       @apply w-[20px] h-[20px] sm:w-[25px] sm:h-[25px];
     }
+
     p {
       @apply w-[176px] 2xs:w-[206px] sm:w-[236px];
     }
@@ -36,69 +39,91 @@ html {
   @apply absolute top-0 left-0 right-0 bottom-0 h-screen flex flex-wrap bg-[#0009] items-center justify-center z-[7];
   color: $basicFontColor;
   backdrop-filter: blur(1px);
+
   .modalContent {
     @apply relative w-1/2 w-[480px] h-[600px] py-2 xs:py-3;
     box-shadow: 0px 0px 7px -2px #aaa;
     background-image: url("/images/bg_modal.jpg");
     background-size: 100% 100%;
+
     hr {
       @apply border-[#444] border-dashed;
     }
+
     .modalCloseButton {
       @apply absolute right-4 top-4;
+
       &:hover svg {
         stroke: #a33;
       }
     }
+
     .modalTitle {
       @apply text-xl font-bold;
     }
+
     .modalSubtitle {
       @apply text-base font-bold;
     }
+
     .modalEmptyListItem {
       @apply text-[#bbb];
     }
+
     .modalList {
       @apply flex flex-wrap gap-x-2 gap-y-1 my-1;
+
       .modalListItem {
         @apply py-1 px-2 text-xs border rounded;
       }
     }
+
     .modalVerticalList {
       @apply flex flex-col gap-1;
     }
+
     .saveModalContentDiv {
       @apply flex flex-col gap-2 pl-6 py-3 pr-4 mr-2 max-h-[576px];
+
       .saveModalCurrentDiv {
         @apply flex flex-col gap-1;
+
         .modalListItem {
           @apply border-[#444];
         }
       }
+
       .savedPresetList {
         @apply py-2 xs:py-3 flex flex-wrap gap-2;
+
         .savedPresetListItem {
           @apply flex flex-col px-2 py-1 border border-[#eee] rounded items-start w-[137px];
+
           .modalSubtitle {
             @apply w-full truncate;
           }
+
           .engraveP {
             @apply break-keep;
           }
+
           .savedPresetListItemEngraveDiv,
           .savedPresetListItemStatDiv {
             @apply px-2 py-1 border border-[#eee] rounded;
           }
+
           .myButtons {
             @apply mx-auto text-sm hover:bg-[#a22] hover:border-[#a22];
           }
         }
       }
+
       .saveModalSavingDiv {
         @apply flex flex-col gap-4;
+
         label {
           @apply flex flex-col;
+
           input {
             @apply mt-2 w-1/2 min-w-[190px] bg-transparent outline-none border-b border-[#333] focus:border-[#4691f6] p-1 text-[#eee] focus:text-[#76b1ff];
           }
@@ -107,54 +132,68 @@ html {
             @apply border-[#c66];
           }
         }
+
         label[data-valid="true"] {
           &::after {
             @apply text-[#76b1ff];
             content: "사용 가능한 이름입니다.";
           }
         }
+
         label[data-valid="false"] {
           &::after {
             @apply text-[#c66];
             content: "사용 불가능한 이름입니다.";
           }
+
           input {
             @apply border-[#c66] text-[#c66];
           }
         }
       }
     }
+
     .loadModalContentDiv {
       @apply flex flex-col h-full gap-2 pl-4 pr-2;
+
       .loadModalContentDivHeader {
         @apply flex justify-center gap-2 pr-3;
+
         .loadModalContentViewButton {
           @apply inline-flex gap-1 text-[#777];
+
           svg {
             stroke: #777;
           }
+
           &[data-selected="true"] {
             @apply text-[#eee] font-bold;
+
             svg {
               stroke: #eee;
             }
           }
         }
       }
+
       .loadModalDetailDiv {
         .modalListItem {
           @apply border-[#444];
         }
+
         .loadModalDetailList {
           @apply flex flex-col gap-4 h-[532px] px-2;
+
           .loadModalDetailListItem {
             @apply flex flex-col gap-1;
+
             .presetName {
               text-shadow: -1px -1px 0 $myDeepDarkBlue, 0 -1px 0 $myDeepDarkBlue,
                 1px -1px 0 $myDeepDarkBlue, 1px 0 0 $myDeepDarkBlue,
                 1px 1px 0 $myDeepDarkBlue, 0 1px 0 $myDeepDarkBlue,
                 -1px 1px 0 $myDeepDarkBlue, -1px 0 0 $myDeepDarkBlue;
             }
+
             .accessoryListItem {
               .accessoryTitle {
                 @apply flex items-center gap-2 font-bold;
@@ -163,8 +202,10 @@ html {
 
             .detailListItemButtonDiv {
               @apply grid grid-cols-2 gap-1 mt-2;
+
               .myButtons {
                 @apply justify-center text-base;
+
                 &:not(:first-child):hover {
                   @apply bg-[#a22] border-[#a22];
                 }
@@ -177,11 +218,14 @@ html {
           }
         }
       }
+
       .loadModalSimpleDiv {
         .loadModalSimpleList {
           @apply flex flex-wrap flex-row gap-2 justify-center max-h-[540px] pr-2 xs:pr-3;
+
           .loadModalSimpleListItem {
             @apply inline-flex flex-col gap-2 border w-[142px] border-[#555] rounded p-2;
+
             .presetName {
               @apply text-center w-full truncate;
               text-shadow: -1px -1px 0 $myDeepDarkBlue, 0 -1px 0 $myDeepDarkBlue,
@@ -189,15 +233,19 @@ html {
                 1px 1px 0 $myDeepDarkBlue, 0 1px 0 $myDeepDarkBlue,
                 -1px 1px 0 $myDeepDarkBlue, -1px 0 0 $myDeepDarkBlue;
             }
+
             .descrDiv {
               .descrP {
                 @apply text-sm ml-2;
               }
             }
+
             .simpleListItemButtonDiv {
               @apply flex flex-col gap-1 mt-auto;
+
               .myButtons {
                 @apply text-base py-[2px] justify-center;
+
                 &:not(:first-child):hover {
                   @apply bg-[#a22] border-[#a22];
                 }
@@ -206,6 +254,7 @@ html {
           }
         }
       }
+
       .loadModalEmptyDiv {
         @apply flex flex-col my-auto items-center text-lg xs:text-xl font-bold text-[#888] py-4 text-center;
       }
@@ -220,6 +269,7 @@ html {
   border: 1px solid $basicFontColor;
   margin: 1px;
   border-radius: 7px;
+
   &:hover,
   &.focus,
   &[data-active="true"] {
@@ -227,6 +277,7 @@ html {
     background: $myDarkBlue;
     border-color: $myDarkBlue;
     border-width: 1px;
+
     svg {
       stroke: $basicFontColor;
     }
@@ -236,15 +287,19 @@ html {
 .lowQ {
   background-color: $lowQ;
 }
+
 .mediumLowQ {
   background-color: $mediumLowQ;
 }
+
 .mediumQ {
   background-color: $mediumQ;
 }
+
 .highQ {
   background-color: $highQ;
 }
+
 .maxQ {
   background-color: $maxQ;
 }
@@ -268,9 +323,11 @@ html {
   0% {
     fill: rgba($color: $myBlue, $alpha: 0.8);
   }
+
   50% {
     fill: transparent;
   }
+
   100% {
     fill: rgba($color: $myBlue, $alpha: 0.8);
   }
@@ -290,8 +347,10 @@ body::-webkit-scrollbar,
 html,
 body,
 .react-horizontal-scrolling-menu--scroll-container {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .react-horizontal-scrolling-menu--wrapper {
@@ -315,18 +374,22 @@ body,
   border: 1.5px solid #363636;
   background: linear-gradient(135deg, #232323, #575757);
 }
+
 .uncommonBackground {
   border: 1.5px solid #21330b;
   background: linear-gradient(135deg, #18220b 0%, #304911 100%);
 }
+
 .rareBackground {
   border: 1.5px solid #183653;
   background: linear-gradient(135deg, #111f2c 0%, #113d5d 100%);
 }
+
 .epicBackground {
   border: 1.5px solid #391a4c;
   background: linear-gradient(135deg, #261331 0%, #480d5d 100%);
 }
+
 .legendaryBackground {
   border: 1.5px solid rgb(129, 88, 7);
   background: linear-gradient(135deg, #362003 0%, #9e5f04 100%);
@@ -348,6 +411,7 @@ body,
   border: 1.5px solid;
   background: linear-gradient(135deg, #0c2e2c 0%, #2faba8 100%);
   overflow: hidden;
+
   &::before {
     animation: siderealSlide 6s infinite;
     content: "";
@@ -363,24 +427,31 @@ body,
 .commonColor {
   color: #eee;
 }
+
 .uncommonColor {
   color: #54d31a;
 }
+
 .rareColor {
   color: #00b0fa;
 }
+
 .epicColor {
   color: #ce43fc;
 }
+
 .legendaryColor {
   color: #f18d00;
 }
+
 .relicColor {
   color: #fa5d00;
 }
+
 .ancientColor {
   color: #e3c7a1;
 }
+
 .siderealColor {
   color: #3cf2e6;
 }
@@ -388,24 +459,31 @@ body,
 .commonBgColor {
   background-color: #eee;
 }
+
 .uncommonBgColor {
   background-color: #63e925;
 }
+
 .rareBgColor {
   background-color: #0081b8;
 }
+
 .epicBgColor {
   background-color: #9a30bd;
 }
+
 .legendaryBgColor {
   background-color: #ca7600;
 }
+
 .relicBgColor {
   background-color: #fa5d00;
 }
+
 .ancientBgColor {
   background-color: #e3c7a1;
 }
+
 .siderealBgColor {
   background-color: #3cf2e6;
 }
@@ -413,24 +491,31 @@ body,
 .commonBorderColor {
   border-color: #eee;
 }
+
 .uncommonBorderColor {
   border-color: #63e925;
 }
+
 .rareBorderColor {
   border-color: #0081b8;
 }
+
 .epicBorderColor {
   border-color: #9a30bd;
 }
+
 .legendaryBorderColor {
   border-color: #ca7600;
 }
+
 .relicBorderColor {
   border-color: #fa5d00;
 }
+
 .ancientBorderColor {
   border-color: #e3c7a1;
 }
+
 .siderealBorderColor {
   border-color: #3cf2e6;
 }
@@ -438,9 +523,11 @@ body,
 .tier1Color {
   color: #56a1df;
 }
+
 .tier2Color {
   color: #81de62;
 }
+
 .tier3Color {
   color: #cfcf70;
 }
@@ -448,9 +535,11 @@ body,
 .tier1Border {
   border-color: #56a1df;
 }
+
 .tier2Border {
   border-color: #81de62;
 }
+
 .tier3Border {
   border-color: #cfcf70;
 }
@@ -458,9 +547,11 @@ body,
 .tier1Background {
   background: #1a65a2;
 }
+
 .tier2Background {
   background: #379b16;
 }
+
 .tier3Background {
   background: #c5a100;
 }
@@ -470,11 +561,13 @@ body,
     linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
     linear-gradient(360deg, #56a1dfcc 10%, #56a1df00 90.71%);
 }
+
 .tier2BackgroundLinear {
   background: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
     linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
     linear-gradient(360deg, #81de62cc 10%, #81de6200 90.71%);
 }
+
 .tier3BackgroundLinear {
   background: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
     linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
@@ -484,9 +577,11 @@ body,
 .tier1Stroke {
   stroke: #175b93;
 }
+
 .tier2Stroke {
   stroke: #297110;
 }
+
 .tier3Stroke {
   stroke: #8c7303;
 }
@@ -494,9 +589,11 @@ body,
 .tier1Fill {
   fill: #092740;
 }
+
 .tier2Fill {
   fill: #102f06;
 }
+
 .tier3Fill {
   fill: #413500;
 }
@@ -515,10 +612,10 @@ body,
 
 .triangleSpinner {
   @apply inline-block;
+
   polygon {
     stroke-dasharray: 17;
-    animation: 2.5s cubic-bezier(0.35, 0.04, 0.63, 0.95) 0s infinite normal none
-      running spinning;
+    animation: 2.5s cubic-bezier(0.35, 0.04, 0.63, 0.95) 0s infinite normal none running spinning;
   }
 }
 
@@ -530,15 +627,14 @@ body,
 
 .hideScroll {
   overflow: auto;
-  -ms-overflow-style: none; /* IE and Edge */
-  // scrollbar-width: none; /* Firefox */
-  scrollbar-color: #4a4c55 #1a1c25;
-  scrollbar-width: thin;
+  -ms-overflow-style: none;
+
   &::-webkit-scrollbar {
     width: 4px;
     height: 8px;
     background-color: #1a1c25;
   }
+
   &::-webkit-scrollbar-thumb {
     background-color: #4a4c55;
   }
@@ -546,23 +642,28 @@ body,
 
 .myInputDiv {
   @apply relative pt-6;
+
   .myInput {
     @apply w-44 bg-transparent outline-none h-8 leading-8 text-lg text-[#eee];
     border-bottom: 1px solid #333;
+
     &:focus {
       border-color: $myBlue;
       color: $myBlue;
     }
   }
+
   .placeholder {
     @apply absolute top-7 left-0 text-[#999] cursor-text;
     transition: color 150ms ease-out, top 150ms ease-out, left 150ms ease-out,
       font-size 150ms ease-out;
   }
-  .myInput:valid ~ .placeholder {
+
+  .myInput:valid~.placeholder {
     @apply text-sm top-2 left-0;
   }
-  .myInput:focus ~ .placeholder {
+
+  .myInput:focus~.placeholder {
     @apply text-sm top-2 left-0;
     color: $myBlue;
   }
@@ -574,6 +675,7 @@ body,
 
   .apiDescr {
     @apply text-xs text-red-600 font-bold break-keep w-[300px];
+
     &[data-register="true"] {
       color: $myBlue;
     }
@@ -581,19 +683,23 @@ body,
 
   button {
     @apply inline-flex text-base px-1 gap-1;
+
     &[data-px="2"] {
       @apply px-2;
     }
   }
+
   a {
     @apply inline-flex text-base cursor-pointer px-2 gap-1;
   }
 
   .apiKeyDiv {
     @apply w-44 font-bold h-8 leading-8 box-content relative overflow-hidden;
+
     &[data-valid="false"] {
       @apply text-red-800 text-center bg-[#f003] border border-red-900;
     }
+
     &[data-valid="true"]::after {
       @apply absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center;
       content: "API KEY 등록완료";
@@ -607,32 +713,41 @@ body,
 footer {
   @apply flex flex-col xl:px-32 lg:px-24 md:px-16 sm:px-8 px-2 py-4 gap-1;
   color: #999;
+
   .visitor {
     @apply text-xs md:text-sm text-center md:text-right font-bold;
   }
+
   .attribution {
     @apply mt-2 text-right;
     font-family: sans-serif;
     font-size: 6px;
   }
+
   .copyright {
     @apply flex gap-1 md:justify-between md:text-sm md:flex-row flex-col items-center text-xs font-bold;
-    .descr {
-    }
+
+    .descr {}
+
     .contact {
       @apply flex flex-wrap items-center gap-x-2 gap-y-1 justify-center;
+
       .descr {
         @apply text-xs;
       }
+
       .email {
         @apply cursor-pointer transition-all duration-200;
+
         &:hover {
           color: $myLightBlue;
         }
       }
+
       svg {
         @apply transition-all duration-200;
         fill: #999;
+
         &:hover {
           fill: $myLightBlue;
         }
@@ -643,39 +758,47 @@ footer {
 
 .tooltip {
   @apply w-[270px] xs:w-[340px] bg-[#2A2C35] px-0 z-[4] max-h-[450px] overflow-auto opacity-100 text-[14px] rounded-none border border-[#000] #{!important};
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 
   &::-webkit-scrollbar {
     width: 4px;
     height: 8px;
     background-color: #4a4c55;
   }
+
   &::-webkit-scrollbar-thumb {
     background-color: #1a1c25;
   }
 
-  & > hr {
+  &>hr {
     @apply my-1 border-[#000] #{!important};
   }
-  & > div:first-child {
+
+  &>div:first-child {
     @apply px-4 my-0 #{!important};
   }
-  & > div {
+
+  &>div {
     @apply px-4 my-3 #{!important};
   }
-  .tooltipOuterDiv > div:not(:last-child) {
+
+  .tooltipOuterDiv>div:not(:last-child) {
     @apply mb-2 #{!important};
   }
 
   .tooltipGradeDiv {
     @apply flex items-center my-2 #{!important};
+
     img {
       @apply mr-2 w-[50px] xs:w-[64px] border border-[#000] box-content #{!important};
     }
 
     .tooltipGradeInfo {
       @apply my-1 flex-auto #{!important};
+
       &:nth-child(n) {
         @apply py-[2px] #{!important};
       }
@@ -683,7 +806,7 @@ footer {
       .qualityDiv {
         @apply flex items-center #{!important};
 
-        & > div {
+        &>div {
           @apply flex-auto mx-1 bg-[#0002] border border-[#fff3] #{!important};
         }
       }
@@ -697,22 +820,29 @@ footer {
 
 #siblingsTooltip {
   @apply p-0 w-[270px] xs:w-[400px] #{!important};
+
   .siblingsTooltip {
     @apply flex flex-col gap-2 px-0 #{!important};
+
     .messageP {
       @apply flex h-[60px] items-center justify-center;
     }
+
     .serverDiv {
       @apply grid grid-cols-2 items-start gap-1;
+
       .serverNameP {
         @apply w-full text-center text-base font-bold py-[2px] col-span-2;
         background: linear-gradient(90deg, #25272f, #1b1d22, #25272f);
       }
+
       .characterDiv {
         @apply px-2 py-1 bg-[#25272f] hover:bg-[#202128] text-center;
+
         .characterNameP {
           @apply font-extrabold truncate text-[#6b9ddf];
         }
+
         .characterLevelClassP {
           @apply inline-flex flex-wrap gap-x-1;
         }
@@ -727,6 +857,7 @@ footer {
     @apply text-[12px] xs:text-[14px] #{!important};
   }
 }
+
 .engravingTooltip,
 .tripodTooltip {
   @apply p-2 #{!important};
@@ -735,15 +866,19 @@ footer {
 .gemTooltip {
   .gemTooltipBody {
     @apply flex items-center #{!important};
+
     .iconDiv {
       @apply w-[50px] xs:w-[60px] border border-[#000] #{!important};
+
       img {
         @apply w-full #{!important};
       }
     }
+
     .descrDiv {
       @apply px-4 #{!important};
-      & > p:first-child {
+
+      &>p:first-child {
         @apply text-[#facf3a] #{!important};
       }
     }
@@ -756,23 +891,30 @@ footer {
 
 .skillTooltip {
   @apply text-sm #{!important};
+
   .skillTitle {
     @apply font-bold text-center #{!important};
   }
+
   .skillEl1 {
     @apply flex #{!important};
+
     img {
       @apply mr-2 border border-[#000] #{!important};
     }
+
     .skillType {
       @apply flex flex-col w-full justify-between font-bold #{!important};
+
       .skillTypeDetail {
         @apply flex justify-between #{!important};
       }
     }
   }
+
   .skillDescr {
     @apply flex flex-col gap-2 font-bold #{!important};
+
     * {
       font-size: 12px !important;
     }
@@ -781,8 +923,10 @@ footer {
 
 .statsTooltip {
   @apply px-2 flex flex-col gap-2 #{!important};
+
   li {
     @apply pl-4 relative #{!important};
+
     &::before {
       @apply inline-block w-1 h-1 shrink-0 absolute top-2 left-1 #{!important};
       content: "";
@@ -800,9 +944,11 @@ footer {
   0% {
     box-shadow: 0px 0px 0px 3px transparent;
   }
+
   50% {
     box-shadow: 0px 0px 0px 3px #ffeb50;
   }
+
   100% {
     box-shadow: 0px 0px 0px 3px transparent;
   }
@@ -812,9 +958,11 @@ footer {
   0% {
     border-color: #2faba8;
   }
+
   50% {
     border-color: #2f33ab;
   }
+
   100% {
     border-color: #2faba8;
   }
@@ -824,9 +972,11 @@ footer {
   0% {
     left: -30%;
   }
+
   10% {
     left: 130%;
   }
+
   100% {
     left: 130%;
   }
@@ -836,12 +986,15 @@ footer {
   0% {
     opacity: 0;
   }
+
   3% {
     opacity: 1;
   }
+
   97% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }

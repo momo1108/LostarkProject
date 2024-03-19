@@ -12,10 +12,13 @@ $myLightBlue: #76b1ff;
 
     .searchHeader {
       @apply flex flex-col items-start gap-4;
+
       .presetDiv {
         @apply flex flex-wrap w-full gap-x-2 gap-y-1 items-center;
+
         button {
           @apply text-sm xs:text-lg;
+
           svg {
             @apply w-4 h-4 xs:w-5 xs:h-5;
           }
@@ -42,14 +45,17 @@ $myLightBlue: #76b1ff;
 
       .targetEngraveDiv {
         @apply flex flex-col px-2 py-4 gap-4;
+
         .targetTitle {
           @apply flex text-xl font-bold items-center justify-center gap-2;
         }
 
         .targetSearchDiv {
           @apply inline-flex relative justify-center mx-auto;
+
           .engraveIcon {
             @apply absolute left-2 top-0 bottom-0 my-auto;
+
             &.activeIcon {
               stroke: $myLightBlue;
             }
@@ -65,6 +71,7 @@ $myLightBlue: #76b1ff;
               border-color: $myLightBlue;
               color: $myLightBlue;
             }
+
             &.focused::placeholder {
               color: $myLightBlue;
             }
@@ -73,20 +80,26 @@ $myLightBlue: #76b1ff;
 
         .targetList {
           @apply inline-flex flex-col items-start mx-auto min-h-[400px];
+
           .targetListItem {
             @apply h-[86px] inline-flex xs:p-2 xs:pr-6 items-center gap-1 xs:gap-2;
+
             .targetListItemTitle {
               @apply text-xs xs:text-base break-keep w-[80px] xs:w-[134px] text-center font-bold text-[#ccc];
+
               .levelSpan {
                 @apply text-lg xs:text-2xl font-extrabold;
                 color: $myBlue;
               }
             }
+
             .engraveImgSlot {
               @apply relative inline-flex justify-center max-w-[45px] max-h-[45px] xs:w-[58px] xs:h-[58px];
+
               .engraveImg {
                 @apply absolute top-1/2 left-1/2 w-[77.7%] h-[77.7%];
                 transform: translate(-50%, -50%);
+
                 &::after {
                   @apply absolute top-0 left-0 right-0 bottom-0 block;
                   content: "";
@@ -94,12 +107,15 @@ $myLightBlue: #76b1ff;
                   box-shadow: inset 0px 0px 20px -4px #000;
                 }
               }
+
               .emptySlotImg {
                 @apply w-full h-full;
               }
             }
+
             .engraveLevelList {
               @apply flex gap-[1px] xs:gap-1 pl-1 xs:pl-3;
+
               li {
                 @apply inline-flex justify-center items-center w-5 h-5 xs:w-6 xs:h-6 font-bold cursor-pointer text-xs;
                 transition: transform 200ms ease-out;
@@ -113,25 +129,32 @@ $myLightBlue: #76b1ff;
           }
         }
       }
+
       .equipEngraveDiv {
         @apply flex flex-col px-2 xs:px-7 py-4 gap-4;
+
         .equipTitle {
           @apply text-xl font-bold flex justify-center items-center;
+
           p {
             @apply mr-2;
           }
         }
+
         .equipSearchDiv {
           @apply inline-flex relative justify-center mx-auto;
+
           .dropdownSelect {
             @apply flex justify-center gap-1 p-1 pr-2 cursor-pointer w-[130px] transition-all duration-200;
             border: 2px solid #bbb;
             border-radius: 5px;
+
             &:hover,
             &.focused {
               background: $myBlue;
               border-color: $myBlue;
               color: #fff;
+
               svg {
                 stroke: #fff;
               }
@@ -141,10 +164,13 @@ $myLightBlue: #76b1ff;
 
         .equipList {
           @apply flex flex-col items-center text-center min-h-[140px];
+
           .equipListItem {
             @apply h-[70px] items-center grid grid-cols-[40px_90px_95px] max-xs:gap-1 xs:grid-cols-[51px_150px_137px];
+
             .engraveImgSlot {
               @apply relative inline-flex justify-center my-auto;
+
               .engraveImg {
                 @apply absolute top-1/2 left-1/2 w-[77.7%] h-[77.7%];
                 transform: translate(-50%, -50%);
@@ -152,6 +178,7 @@ $myLightBlue: #76b1ff;
                 &.emptyEngraveImg {
                   @apply w-full h-full;
                 }
+
                 &::after {
                   @apply absolute top-0 left-0 right-0 bottom-0 block;
                   content: "";
@@ -160,35 +187,46 @@ $myLightBlue: #76b1ff;
                 }
               }
             }
+
             .equipListItemButtons {
               @apply inline-flex justify-center items-center gap-2;
+
               .equipListItemValue {
                 @apply text-lg xs:text-2xl font-extrabold xs:w-12 text-center;
               }
+
               .equipAbilityInputDiv {
                 @apply text-lg xs:text-2xl font-extrabold flex gap-1 xs:gap-2 items-center;
+
                 .inputArea {
                   @apply xs:w-12 flex justify-end items-center;
+
                   .equipAbilityInput {
                     @apply inline w-6 xs:w-8 font-extrabold text-right outline-none;
                     background: transparent;
                     border-bottom: 1px solid #fff;
                   }
                 }
+
                 svg {
                   @apply w-[20px] h-[20px] xs:w-[25px] xs:h-[25px];
                 }
               }
+
               .equipAbilityP {
                 @apply w-12 text-lg xs:text-2xl font-extrabold text-right;
               }
+
               .equipAbilityButtons {
                 @apply flex gap-1 font-bold items-start;
+
                 .editButton {
                   @apply hidden xs:block;
                 }
+
                 .updownButtonDiv {
                   @apply flex flex-col gap-1;
+
                   .plusMinusButtons {
                     @apply w-5 h-5 inline-flex justify-center items-center;
                     border: 1px solid #fff;
@@ -200,18 +238,23 @@ $myLightBlue: #76b1ff;
                 @apply mx-0 xs:mx-2;
               }
             }
+
             .equipListItemTitle {
               @apply text-center font-bold text-[#ccc] text-sm w-full break-keep xs:text-base;
             }
+
             .equipListItemButtonDiv {
               @apply flex flex-col gap-1;
+
               button {
                 @apply w-5 h-5 flex justify-center items-center font-bold;
                 border: 1px solid white;
               }
             }
+
             .engraveLevelList {
               @apply flex gap-1 pl-3;
+
               li {
                 @apply inline-flex justify-center items-center w-6 h-6 font-bold cursor-pointer text-xs;
                 transition: transform 200ms ease-out;
@@ -225,13 +268,17 @@ $myLightBlue: #76b1ff;
 
             .negativeDiv {
               @apply col-span-2 flex items-center justify-center;
+
               .negativeSelector {
                 @apply text-sm xs:text-base max-xs:col-span-2;
               }
+
               .negativeItemButtons {
                 @apply max-xs:w-16 justify-end xs:justify-start;
+
                 .equipAbilityInputDiv {
                   @apply max-xs:grid grid-cols-2;
+
                   .inputArea {
                     @apply max-xs:col-span-2 max-xs:justify-center;
                   }
@@ -242,14 +289,17 @@ $myLightBlue: #76b1ff;
 
           .emptyListItem {
             @apply h-[140px] relative flex justify-center items-center text-2xl font-extrabold text-[#ccc];
+
             p {
               @apply relative break-keep;
               color: #2f73cd;
             }
+
             .emptyListItemIconDiv {
               @apply absolute top-1/2 left-1/2;
               transform: translate(-50%, -50%);
               opacity: 0.3;
+
               svg {
                 transform: skew(-20deg) rotate(20deg);
                 stroke: $myLightBlue;
@@ -258,23 +308,29 @@ $myLightBlue: #76b1ff;
           }
         }
       }
+
       .targetAccessoryDiv {
         @apply flex flex-col px-2 xs:px-7 py-4 gap-4;
+
         h4 {
           @apply flex text-xl font-bold items-center justify-center gap-2;
         }
+
         h5 {
           @apply font-bold;
         }
 
         table {
           @apply max-xs:w-[240px] mx-auto;
+
           .accessoryTableCol1 {
             @apply py-2;
+
             div {
               @apply xs:px-2 pb-1 inline-flex flex-col min-w-[60px] min-h-[60px] xs:min-w-[76px] xs:min-h-[74px] justify-center items-center text-sm xs:text-base;
               border: 2px solid #fff;
               border-radius: 10px;
+
               svg {
                 @apply w-[20px] h-[20px] xs:w-[30px] xs:h-[30px];
               }
@@ -284,31 +340,38 @@ $myLightBlue: #76b1ff;
           .accessoryTableCol2 {
             .colBlock {
               @apply flex flex-col xs:w-24 items-center;
+
               h5 {
                 @apply w-12 text-base xs:text-lg;
               }
+
               div {
                 @apply relative inline-block;
+
                 .accessoryQuailityInput {
                   @apply outline-none w-12 mt-1 text-right pb-[2px] text-sm xs:text-base;
                   background: none;
                   border-bottom: 1px solid transparent;
+
                   &:focus {
                     @apply font-bold;
                     color: $myBlue;
                   }
                 }
+
                 &::before {
                   @apply absolute bottom-0 right-0 w-12;
                   content: "";
                   border-bottom: 1px solid #aaa;
                 }
+
                 &::after {
                   @apply absolute bottom-0 right-0 w-0 duration-500;
                   transition: width 0.5s;
                   content: "";
                   border-bottom: 1px solid $myBlue;
                 }
+
                 &:has(.accessoryQuailityInput:focus)::after {
                   @apply w-12;
                 }
@@ -319,17 +382,21 @@ $myLightBlue: #76b1ff;
           .accessoryTableCol3 {
             .colBlock {
               @apply max-xs:items-center flex flex-col;
+
               h5 {
                 @apply inline-flex w-[70px] justify-center text-base xs:text-lg;
               }
+
               .statSelector {
                 @apply text-sm xs:text-base w-[70px] h-[24px] xs:w-[94px] xs:h-[30px] #{!important};
               }
             }
           }
+
           .accessoryTableCol4 {
             .colBlock {
               @apply flex flex-col;
+
               h5 {
                 @apply inline-flex text-lg w-[70px] justify-center;
               }
@@ -341,6 +408,7 @@ $myLightBlue: #76b1ff;
 
     .searchFooter {
       @apply flex flex-col gap-3 items-start;
+
       .filterWrapper {
         @apply inline-flex grow-0 flex-col gap-3 p-4 pt-2;
         border-radius: 5px;
@@ -353,82 +421,105 @@ $myLightBlue: #76b1ff;
         .filterHeader {
           @apply flex text-xl font-bold items-center gap-2;
         }
+
         .filterDescr {
           @apply text-sm flex flex-col gap-[2px];
           color: #999;
         }
+
         .searchFilterSetting {
           @apply flex flex-wrap gap-x-1 gap-y-3;
+
           .statFilter {
             @apply grid gap-y-2 grid-cols-3 xs:flex xs:grid-cols-none;
+
             .filterDiv {
               @apply relative w-16 flex flex-col pt-6;
+
               input {
                 @apply w-16 pr-[1px] outline-none focus:border-[#4691f6] focus:font-bold;
                 background: transparent;
               }
+
               .borderDiv {
                 @apply absolute w-12 top-6 cursor-text;
                 content: "";
                 border-bottom: 1px solid #ddd;
+
                 .filterTitle {
                   transform: translateY(-24px);
                 }
               }
-              input:focus ~ .borderDiv {
+
+              input:focus~.borderDiv {
                 @apply font-bold;
                 color: $myBlue;
                 border-color: $myBlue;
               }
             }
           }
+
           .otherFilter {
             @apply flex flex-wrap gap-4;
+
             .filterDivInputNumber {
               @apply relative w-40 flex flex-col pt-6;
+
               &[data-disabled="true"] {
                 input {
                   @apply text-[#999];
                 }
+
                 .filterTitle {
                   @apply line-through text-[#999];
                 }
+
                 .filterSubtitle {
                   @apply text-[#999];
                 }
               }
+
               input {
                 @apply w-20 pr-[1px] outline-none focus:border-[#4691f6] focus:font-bold;
                 background: transparent;
               }
+
               .borderDiv {
                 @apply absolute box-content w-16 h-6 top-6 cursor-text;
                 content: "";
                 border-bottom: 1px solid #ddd;
+
                 .filterTitle {
                   @apply absolute w-40 top-[-24px] left-0;
                 }
+
                 .filterSubtitle {
                   @apply absolute top-1 right-0 text-sm;
                 }
               }
-              input:focus ~ .borderDiv {
+
+              input:focus~.borderDiv {
                 @apply font-bold;
                 color: $myBlue;
                 border-color: $myBlue;
               }
             }
+
             .filterDivInputRadio {
               @apply w-[212px];
+
               .radioWrapper {
                 @apply flex gap-1;
+
                 .radioLabel {
                   @apply inline-flex items-center gap-1 cursor-pointer;
+
                   .radioLabelSpan {
                     @apply py-1 px-2;
                     border: 1px solid #eee;
                     border-radius: 5px;
                   }
+
                   &[data-checked="true"],
                   &:hover {
                     .radioLabelSpan {
@@ -443,11 +534,14 @@ $myLightBlue: #76b1ff;
           }
         }
       }
+
       .searchButtons {
         @apply flex flex-wrap w-full gap-1 xs:gap-x-2 items-center;
+
         button {
           @apply text-sm xs:text-lg;
         }
+
         svg {
           @apply w-4 h-6 xs:w-5 xs:h-[30px];
         }
@@ -455,25 +549,31 @@ $myLightBlue: #76b1ff;
     }
 
     .dropdownWrapper {
-      @apply absolute top-11 left-0 w-[238px] sm:w-[438px] md:w-[640px] overflow-hidden z-[2];
+      @apply absolute top-11 left-0 w-[210px] xs:w-[410px] sm:w-[638px] overflow-hidden z-[2];
+
+      &[data-dropdown-order="0"] {
+        @apply left-1/2 translate-x-[-50%] lg:left-0 lg:translate-x-[0%];
+      }
+
       &[data-dropdown-order="1"] {
         @apply w-[216px] left-1/2;
         transform: translateX(-50%);
       }
+
       .dropdown {
         @apply w-full pt-7;
         animation: dropdown 300ms ease-out;
         box-shadow: 0px 0px 7px -3px #ababab;
+
         .dropdownHeader {
           @apply absolute top-0 text-sm w-full text-center py-1 font-bold;
-          background: linear-gradient(
-            180.2deg,
-            rgb(8, 8, 8) 6.8%,
-            rgb(30, 30, 30) 131%
-          );
+          background: linear-gradient(180.2deg,
+              rgb(8, 8, 8) 6.8%,
+              rgb(30, 30, 30) 131%);
 
           svg {
             @apply absolute right-2 top-0 bottom-0 my-auto cursor-pointer;
+
             &:hover {
               stroke: $myBlue;
             }
@@ -481,15 +581,17 @@ $myLightBlue: #76b1ff;
         }
 
         .dropdownList {
-          @apply w-full max-h-[400px] flex flex-wrap justify-start gap-2 bg-[#222] p-2;
+          @apply w-full max-h-[400px] flex flex-wrap justify-start gap-2 bg-[#222] p-2 text-sm sm:text-base;
+
           .dropdownListItem {
-            @apply relative inline-flex w-[200px] gap-2 items-center py-1 pl-3 pr-4 cursor-pointer font-bold;
+            @apply relative inline-flex w-[190px] sm:w-[200px] gap-2 items-center py-1 pl-3 pr-4 cursor-pointer font-bold;
             border: 2px solid #494949;
 
             &[data-selected="true"],
             &:hover {
               border: 2px solid $myLightBlue;
               color: $myLightBlue;
+
               .selectedItem {
                 border: 2px solid $myLightBlue;
                 color: $myLightBlue;
@@ -527,8 +629,10 @@ $myLightBlue: #76b1ff;
 
     .emptyListItem {
       @apply h-[100px] relative flex justify-center items-center text-2xl font-extrabold text-[#ccc];
+
       &[data-empty-type="1"] {
         @apply h-[400px];
+
         svg {
           animation: rotating 6s linear infinite;
           stroke: $myLightBlue;
@@ -536,15 +640,18 @@ $myLightBlue: #76b1ff;
           height: 150px;
         }
       }
+
       p {
         @apply relative break-keep text-center;
         color: #2f73cd;
       }
+
       .emptyListItemIconDiv {
         @apply absolute top-1/2 left-1/2;
         transform: translate(-50%, -50%);
         opacity: 0.3;
         perspective: 100px;
+
         svg {
           animation: rotating 6s linear infinite;
           stroke: $myLightBlue;
@@ -557,6 +664,7 @@ $myLightBlue: #76b1ff;
       background: #fff;
       color: #111;
     }
+
     .editButton:hover {
       svg {
         @apply transition-all duration-100;
@@ -567,57 +675,71 @@ $myLightBlue: #76b1ff;
 
   .resultContainer {
     @apply flex flex-col gap-3 py-8 relative;
+
     .resultHeader {
       @apply text-lg xs:text-2xl font-bold flex flex-wrap items-center;
+
       .resultPageDiv {
         @apply text-sm xs:text-lg flex items-center;
+
         .resultPageP {
           @apply min-w-[150px];
         }
+
         .nextButtonIcon {
           @apply fill-[#fff] stroke-[#fff] hover:fill-[#4691f6] hover:stroke-[#4691f6];
           transition: fill 0.2s ease-in-out, stroke 0.2s ease-in-out;
         }
+
         .skipButtonIcon {
           @apply fill-[#fff] stroke-[#fff] hover:fill-[#4691f6] hover:stroke-[#4691f6];
           transition: fill 0.2s ease-in-out, stroke 0.2s ease-in-out;
         }
       }
     }
+
     .resultBodyWrapper {
       @apply flex flex-col gap-3 relative bg-[#0005];
+
       .resultBody {
         @apply flex flex-col gap-3 items-start max-h-[660px] pl-2;
+
         .combinationDiv {
           @apply inline-flex flex-col gap-1 flex-wrap;
 
           .combinationHeader {
             @apply flex flex-col gap-x-4 font-bold text-lg;
+
             .totalCostDiv {
               @apply flex items-center gap-3;
+
               .totalCostInfoDiv {
                 @apply flex items-center gap-1;
+
                 .totalCost {
                   @apply text-[#ffffbc];
                 }
               }
             }
+
             .totalStatDiv {
               @apply flex gap-2;
+
               .totalStat {
                 @apply flex items-center;
+
                 .statEmoji {
                   @apply text-xs;
                 }
               }
             }
           }
+
           .combinationBody {
             @apply flex flex-wrap gap-2;
+
             .combinationItemDiv {
-              @apply flex flex-col w-[230px] 
-              sm:w-auto sm:grid sm:grid-cols-[202px_197px_144px] sm:justify-between sm:items-center
-              2xl:flex 2xl:items-start 2xl:flex-col 2xl:w-[230px] gap-y-1 gap-x-3 2xl:gap-x-1 py-1 px-2;
+              @apply flex flex-col w-[230px] sm:w-auto sm:grid sm:grid-cols-[202px_197px_144px] sm:justify-between sm:items-center 2xl:flex 2xl:items-start 2xl:flex-col 2xl:w-[230px] gap-y-1 gap-x-3 2xl:gap-x-1 py-1 px-2;
               box-shadow: 0px 0px 4px -2px #fff;
               border: 1px solid #222;
               border-radius: 5px;
@@ -625,22 +747,29 @@ $myLightBlue: #76b1ff;
               background-position: center;
               background-size: cover;
               background-repeat: no-repeat;
+
               .titleDiv {
                 @apply flex gap-2 items-center;
+
                 .titleInfoDiv {
                   @apply flex flex-col justify-center text-sm;
+
                   .nameP {
                     @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
                   }
+
                   .qualityP {
                     @apply text-xs;
                   }
+
                   .qualityBarDiv {
                     @apply w-[110px];
                     background-color: #fff2;
                   }
+
                   .tradeP {
                     @apply text-xs mt-[2px];
+
                     .countSpan {
                       @apply font-bold;
                       color: #9244f7;
@@ -648,29 +777,38 @@ $myLightBlue: #76b1ff;
                   }
                 }
               }
+
               .optionDiv {
                 @apply text-xs 2xl:w-full flex gap-1 2xl:gap-2;
+
                 .engraveDiv {
                   @apply 2xl:max-w-[60%];
+
                   .engraveNameSpan,
                   .negativeNameSpan {
                     @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
                   }
+
                   .negativeP {
                     @apply font-bold text-[#d33];
                   }
                 }
+
                 .statDiv {
                   @apply 2xl:max-w-[40%];
+
                   .statNameSpan {
                     @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
                   }
                 }
               }
+
               .costDiv {
                 @apply flex flex-col text-xs;
+
                 .costP {
                   @apply flex items-center gap-1;
+
                   .costSpan {
                     @apply font-bold text-[#ffffbc];
                   }
@@ -684,17 +822,22 @@ $myLightBlue: #76b1ff;
       .emptyResultBody {
         @apply flex flex-col items-center py-4;
         box-shadow: 0px 0px 10px -5px #fff;
+
         .presentationSection {
           @apply w-[94%] max-w-[1000px] relative;
+
           .padding {
             @apply pb-[37.5%];
           }
+
           .necklace {
             animation: necklaceMix 15s linear infinite;
           }
+
           .earring {
             animation: earringMix 15s linear infinite;
           }
+
           .ring {
             animation: ringMix 15s linear infinite;
           }
@@ -704,6 +847,7 @@ $myLightBlue: #76b1ff;
             transform: translate(-50%, -50%);
           }
         }
+
         .descriptionSection {
           @apply text-base xs:text-2xl text-center;
         }
@@ -712,8 +856,10 @@ $myLightBlue: #76b1ff;
       .initialResultBody {
         @apply flex flex-col justify-center items-center font-bold text-base xs:text-2xl h-[660px];
         box-shadow: 0px 0px 10px -5px #fff;
+
         .iconWrapper {
           @apply flex items-center justify-center h-64;
+
           .mgIcon {
             animation: shake 6s linear infinite;
           }
@@ -722,84 +868,106 @@ $myLightBlue: #76b1ff;
 
       .resultLoader {
         @apply justify-center items-center flex-col gap-4;
+
         .presentationSection {
           @apply flex items-center gap-4 scale-[0.3] xs:scale-[0.4] sm:scale-[0.57] md:scale-[0.6] lg:scale-[0.8] 3xl:scale-100;
+
           .apiSearch {
             @apply relative;
+
             .magnifyingGlass {
               @apply absolute top-1/2 left-1/2;
               transform: translate(-50%, -50%);
             }
+
             .floatingRound {
               animation: diagonalRotate 6s linear infinite;
             }
           }
+
           .dotsWrapper {
             @apply w-[150px] overflow-hidden;
+
             .dots {
               animation: descreteMove 4s steps(1, jump-both) infinite;
             }
           }
+
           .findCombination {
             @apply relative;
+
             .emptyBox {
               @apply absolute top-1/2 left-1/2;
               transform: translate(-50%, -45%);
             }
+
             .ring,
             .necklace,
             .earring {
               @apply absolute;
               transform: translate(-50%, -50%);
             }
+
             .ring {
               animation: throwIn 2s 0s linear infinite;
               top: 25%;
               left: 35%;
             }
+
             .necklace {
               animation: throwIn 2s 0.5s linear infinite;
               top: 20%;
               left: 50%;
             }
+
             .earring {
               animation: throwIn 2s 1s linear infinite;
               top: 25%;
               left: 65%;
             }
+
             .gearLargeWrapper {
               @apply absolute flex justify-center items-center;
               top: 61%;
               left: 47%;
+
               .gearLarge {
                 transform: translate(-50%, -50%);
               }
+
               .gearAnimate {
                 animation: gearSpin 5s linear infinite;
               }
             }
+
             .gearSmallWrapper {
               @apply absolute flex justify-center items-center;
               top: 70%;
               left: 53%;
+
               .gearSmall {
                 transform: translate(-50%, -50%);
               }
+
               .gearAnimate {
                 animation: gearSpin 5s linear infinite reverse;
               }
             }
           }
         }
+
         .descriptionSection {
           @apply text-base xs:text-2xl font-bold;
+
           .searchDiv,
           .findDiv {
             @apply flex flex-col items-center justify-center;
           }
+
           .searchDiv {
             .timeoutDiv {
               @apply text-lg text-center text-[#a77];
+
               .timerP {
                 @apply text-xl;
                 color: $myBlue;
@@ -814,55 +982,74 @@ $myLightBlue: #76b1ff;
 
 .engraveCopyModalDiv {
   @apply flex flex-col gap-2 px-4;
+
   h4 {
     @apply text-[#d6b996] pl-1;
   }
+
   .searchDiv {
     @apply flex gap-2 justify-center items-end;
+
     input {
       @apply text-base font-bold;
     }
+
     button {
       @apply text-base py-1 leading-5;
     }
   }
+
   .resultDiv {
     @apply flex flex-col gap-2;
+
     .messageDiv {
       @apply flex items-center justify-center text-lg text-[#aaa];
     }
+
     .errorDiv {
       @apply flex items-center justify-center text-lg text-[#f00];
     }
+
     .resultContentDiv {
       @apply bg-[#0009] px-2 py-4 rounded-lg border border-[#957b5c];
+
       .resultProfileDiv {
         @apply flex items-center gap-4 pl-2;
+
         .serverNameDiv {
           @apply flex flex-col;
+
           .serverSpan {
             @apply text-xs xs:text-sm;
           }
+
           .nameSpan {
             @apply text-sm xs:text-lg leading-5 font-extrabold truncate min-w-[70px] max-w-[100px] xs:min-w-[90px] xs:max-w-[115px] sm:max-w-[160px];
           }
         }
+
         .classLevelDiv {
           @apply flex flex-col;
+
           .classSpan {
             @apply text-xs xs:text-sm;
           }
+
           .levelP {
             @apply text-xs xs:text-base flex gap-1 items-center leading-4 font-bold;
+
             .levelSpan {
               @apply text-sm xs:text-lg font-extrabold leading-5;
             }
           }
         }
+
         .buttonDiv {
           @apply flex flex-auto justify-end text-sm xs:text-base;
+
           button {
             @apply px-1 xs:px-3 py-2 xs:py-1;
+
             .copyButtonSpan {
               @apply text-sm xs:text-lg break-keep shrink;
             }
@@ -876,35 +1063,47 @@ $myLightBlue: #76b1ff;
     .recentDescr {
       @apply text-[#aaa] text-sm pl-1;
     }
+
     .recentContentDiv {
       @apply flex flex-col gap-2 h-[328px] py-2 pr-2;
+
       .recentProfileDiv {
         @apply bg-[#0009] py-4 pl-4 pr-2 rounded-lg border border-[#957b5c] flex items-center gap-2 xs:gap-4;
+
         .serverNameDiv {
           @apply flex flex-col;
+
           .serverSpan {
             @apply text-xs xs:text-sm;
           }
+
           .nameSpan {
             @apply text-sm xs:text-lg leading-5 font-extrabold truncate min-w-[70px] max-w-[100px] xs:min-w-[90px] xs:max-w-[115px] sm:max-w-[160px];
           }
         }
+
         .classLevelDiv {
           @apply flex flex-col;
+
           .classSpan {
             @apply text-xs xs:text-sm;
           }
+
           .levelP {
             @apply text-xs xs:text-base flex gap-1 items-center leading-4 font-bold;
+
             .levelSpan {
               @apply text-sm xs:text-lg font-extrabold leading-5;
             }
           }
         }
+
         .buttonDiv {
           @apply flex flex-auto justify-end text-sm xs:text-base;
+
           button {
             @apply px-1 xs:px-3 py-2 xs:py-1;
+
             .copyButtonSpan {
               @apply text-sm xs:text-lg break-keep;
             }
@@ -923,15 +1122,19 @@ $myLightBlue: #76b1ff;
   0% {
     transform: rotate(0deg);
   }
+
   1% {
     transform: rotate(4deg);
   }
+
   2% {
     transform: rotate(0deg);
   }
+
   3% {
     transform: rotate(-4deg);
   }
+
   4% {
     transform: rotate(0deg);
   }
@@ -941,6 +1144,7 @@ $myLightBlue: #76b1ff;
   0% {
     transform: translateY(-100%);
   }
+
   100% {
     transform: translateY(0%);
   }
@@ -950,6 +1154,7 @@ $myLightBlue: #76b1ff;
   0% {
     transform: skew(-23deg) rotateY(0);
   }
+
   100% {
     transform: skew(-23deg) rotateY(360deg);
   }
@@ -959,33 +1164,43 @@ $myLightBlue: #76b1ff;
   0% {
     transform: translate(-50%, -50%) rotate3d(1, 1, 0, 0deg);
   }
+
   7.5% {
     transform: translate(-50%, -51.5%) rotate3d(1, 1, 0, -270deg);
   }
+
   12.5% {
     transform: translate(-50%, -52.5%) rotate3d(1, 1, 0, -90deg);
   }
+
   15% {
     transform: translate(-50%, -52%) rotate3d(1, 1, 0, 0deg);
   }
+
   25% {
     transform: translate(-50%, -50%);
   }
+
   37.5% {
     transform: translate(-50%, -47.5%);
   }
+
   50% {
     transform: translate(-50%, -50%);
   }
+
   62.5% {
     transform: translate(-50%, -52.5%);
   }
+
   75% {
     transform: translate(-50%, -50%);
   }
+
   87.5% {
     transform: translate(-50%, -47.5%);
   }
+
   100% {
     transform: translate(-50%, -50%);
   }
@@ -995,33 +1210,43 @@ $myLightBlue: #76b1ff;
   0% {
     transform: translateX(-420px);
   }
+
   2.5% {
     transform: translateX(-390px);
   }
+
   5% {
     transform: translateX(-360px);
   }
+
   7.5% {
     transform: translateX(-330px);
   }
+
   10% {
     transform: translateX(-300px);
   }
+
   12.5% {
     transform: translateX(-270px);
   }
+
   15% {
     transform: translateX(-240px);
   }
+
   17.5% {
     transform: translateX(-210px);
   }
+
   20% {
     transform: translateX(-180px);
   }
+
   22.5% {
     transform: translateX(-150px);
   }
+
   100% {
     transform: translateX(-120px);
   }
@@ -1031,6 +1256,7 @@ $myLightBlue: #76b1ff;
   0% {
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   100% {
     transform: translate(-50%, -50%) rotate(360deg);
   }
@@ -1040,9 +1266,11 @@ $myLightBlue: #76b1ff;
   30% {
     opacity: 1;
   }
+
   80% {
     opacity: 0;
   }
+
   100% {
     top: 50%;
     left: 50%;
@@ -1067,568 +1295,691 @@ $myLightBlue: #76b1ff;
     top: 40%;
     left: 50%;
   }
+
   1% {
     top: 37%;
     left: 59%;
   }
+
   2% {
     top: 35%;
     left: 66%;
   }
+
   3% {
     top: 41%;
     left: 71%;
   }
+
   4% {
     top: 50%;
     left: 75%;
   }
+
   8% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   8.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(20deg);
   }
+
   9% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   9.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(-20deg);
   }
+
   10% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   10.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(20deg);
   }
+
   11% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   11.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(-20deg);
   }
+
   12% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   16% {
     top: 50%;
     left: 75%;
   }
+
   17% {
     top: 53%;
     left: 66;
   }
+
   18% {
     top: 55%;
     left: 59;
   }
+
   19% {
     top: 49%;
     left: 54;
   }
+
   20% {
     top: 40%;
     left: 50%;
   }
+
   24% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   24.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(20deg);
   }
+
   25% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   25.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-20deg);
   }
+
   26% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   26.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(20deg);
   }
+
   27% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   27.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-20deg);
   }
+
   28% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   32% {
     top: 40%;
     left: 50%;
   }
+
   33% {
     top: 37%;
     left: 41%;
   }
+
   34% {
     top: 35%;
     left: 34%;
   }
+
   35% {
     top: 41%;
     left: 29%;
   }
+
   36% {
     top: 50%;
     left: 25%;
   }
+
   40% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   40.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(20deg);
   }
+
   41% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   41.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(-20deg);
   }
+
   42% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   42.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(20deg);
   }
+
   43% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   43.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(-20deg);
   }
+
   44% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   48% {
     top: 50%;
     left: 25%;
   }
+
   49% {
     top: 53%;
     left: 34%;
   }
+
   50% {
     top: 55%;
     left: 41%;
   }
+
   51% {
     top: 49%;
     left: 46%;
   }
+
   52% {
     top: 40%;
     left: 50%;
   }
+
   56% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   56.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(20deg);
   }
+
   57% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   57.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-20deg);
   }
+
   58% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   58.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(20deg);
   }
+
   59% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   59.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-20deg);
   }
+
   60% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   64% {
     top: 40%;
     left: 50%;
   }
+
   100% {
     top: 40%;
     left: 50%;
   }
 }
+
 @keyframes ringMix {
   0% {
     top: 50%;
     left: 75%;
   }
+
   1% {
     top: 53%;
     left: 66%;
   }
+
   2% {
     top: 55%;
     left: 59%;
   }
+
   3% {
     top: 49%;
     left: 54%;
   }
+
   4% {
     top: 40%;
     left: 50%;
   }
+
   8% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   8.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-15deg);
   }
+
   9% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   9.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(15deg);
   }
+
   10% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   10.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-15deg);
   }
+
   11% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   11.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(15deg);
   }
+
   12% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   16% {
     top: 40%;
     left: 50%;
   }
+
   17% {
     top: 37%;
     left: 59;
   }
+
   18% {
     top: 35%;
     left: 66;
   }
+
   19% {
     top: 41%;
     left: 71;
   }
+
   20% {
     top: 50%;
     left: 75%;
   }
+
   24% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   24.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(-15deg);
   }
+
   25% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   25.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(15deg);
   }
+
   26% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   26.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(-15deg);
   }
+
   27% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   27.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(15deg);
   }
+
   28% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   32% {
     top: 50%;
     left: 75%;
   }
+
   36% {
     top: 50%;
     left: 75%;
   }
+
   40% {
     top: 50%;
     left: 75%;
   }
+
   44% {
     top: 50%;
     left: 75%;
   }
+
   48% {
     top: 50%;
     left: 75%;
   }
+
   52% {
     top: 50%;
     left: 75%;
   }
+
   56% {
     top: 50%;
     left: 75%;
   }
+
   60% {
     top: 50%;
     left: 75%;
   }
+
   64% {
     top: 50%;
     left: 75%;
   }
+
   65% {
     top: 42%;
     left: 64%;
   }
+
   66% {
     top: 37%;
     left: 50%;
   }
+
   67% {
     top: 42%;
     left: 36%;
   }
+
   68% {
     top: 50%;
     left: 25%;
   }
+
   72% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   72.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(-15deg);
   }
+
   73% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   73.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(15deg);
   }
+
   74% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   74.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(-15deg);
   }
+
   75% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   75.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(15deg);
   }
+
   76% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   80% {
     top: 50%;
     left: 25%;
   }
+
   81% {
     top: 58%;
     left: 36%;
   }
+
   82% {
     top: 63%;
     left: 50%;
   }
+
   83% {
     top: 58%;
     left: 64%;
   }
+
   84% {
     top: 50%;
     left: 75%;
   }
+
   88% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   88.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(-15deg);
   }
+
   89% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   89.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(15deg);
   }
+
   90% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   90.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(-15deg);
   }
+
   91% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   91.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(15deg);
   }
+
   92% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   96% {
     top: 50%;
     left: 75%;
   }
+
   100% {
     top: 50%;
     left: 75%;
@@ -1640,270 +1991,328 @@ $myLightBlue: #76b1ff;
     top: 50%;
     left: 25%;
   }
+
   32% {
     top: 50%;
     left: 25%;
   }
+
   33% {
     top: 53%;
     left: 34%;
   }
+
   34% {
     top: 55%;
     left: 41%;
   }
+
   35% {
     top: 49%;
     left: 46%;
   }
+
   36% {
     top: 40%;
     left: 50%;
   }
+
   40% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   40.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-15deg);
   }
+
   41% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   41.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(15deg);
   }
+
   42% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   42.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-15deg);
   }
+
   43% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   43.5% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(15deg);
   }
+
   44% {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   48% {
     top: 40%;
     left: 50%;
   }
+
   49% {
     top: 37%;
     left: 41%;
   }
+
   50% {
     top: 35%;
     left: 34%;
   }
+
   51% {
     top: 41%;
     left: 29%;
   }
+
   52% {
     top: 50%;
     left: 25%;
   }
+
   56% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   56.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(-15deg);
   }
+
   57% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   57.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(15deg);
   }
+
   58% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   58.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(-15deg);
   }
+
   59% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   59.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(15deg);
   }
+
   60% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   64% {
     top: 50%;
     left: 25%;
   }
+
   65% {
     top: 58%;
     left: 36%;
   }
+
   66% {
     top: 63%;
     left: 50%;
   }
+
   67% {
     top: 58%;
     left: 64%;
   }
+
   68% {
     top: 50%;
     left: 75%;
   }
+
   72% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   72.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(20deg);
   }
+
   73% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   73.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(-20deg);
   }
+
   74% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   74.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(20deg);
   }
+
   75% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   75.5% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(-20deg);
   }
+
   76% {
     top: 50%;
     left: 75%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   80% {
     top: 50%;
     left: 75%;
   }
+
   81% {
     top: 42%;
     left: 64%;
   }
+
   82% {
     top: 37%;
     left: 50%;
   }
+
   83% {
     top: 42%;
     left: 36%;
   }
+
   84% {
     top: 50%;
     left: 25%;
   }
+
   88% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   88.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(20deg);
   }
+
   89% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   89.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(-20deg);
   }
+
   90% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   90.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(20deg);
   }
+
   91% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   91.5% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(-20deg);
   }
+
   92% {
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   96% {
     top: 50%;
     left: 25%;
   }
+
   100% {
     top: 50%;
     left: 25%;

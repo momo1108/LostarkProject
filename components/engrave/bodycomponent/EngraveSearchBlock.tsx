@@ -241,6 +241,7 @@ const EngraveSearchBlock: React.FC = () => {
               }`}
               onMouseDown={() => setPreventBlur(true)}
               onMouseUp={() => setPreventBlur(false)}
+              data-dropdown-order={0}
             >
               <div className={styles.dropdown}>
                 <h5 className={styles.dropdownHeader}>
