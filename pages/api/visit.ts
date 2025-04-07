@@ -1,16 +1,12 @@
-import { FilteredSkillType } from "@/types/TripodType";
-import { readFileSync, writeFileSync } from "fs";
 import type { NextApiRequest, NextApiResponse } from "next";
-import path from "path";
 import { PrismaClient } from "@prisma/client";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{ visitCount: number } | string>
 ) {
+  const prisma = new PrismaClient();
   if (req.method === "GET") {
-    const prisma = new PrismaClient();
-
     try {
       const now = new Date();
       const utc =
@@ -51,8 +47,6 @@ export default async function handler(
       await prisma.$disconnect();
     }
   } else if (req.method === "POST") {
-    const prisma = new PrismaClient();
-
     try {
       const now = new Date();
       const utc =
