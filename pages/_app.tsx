@@ -1,28 +1,22 @@
-import wrapper from "@/redux/init";
 import "@/styles/globals.scss";
 import { nanumNeo, roboto } from "@/types/GlobalType";
 import type { AppProps } from "next/app";
-import { Provider } from "react-redux";
 
 import { DefaultSeo } from "next-seo";
 import SEO from "../next-seo.config";
 import AlertProvider from "@/components/alert/AlertProvider";
 
-export default function App({ Component, ...rest }: AppProps) {
-  const { store, props } = wrapper.useWrappedStore(rest);
-  const { pageProps } = props;
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      <AlertProvider
-        alertWrapperClassName="alertWrapperDiv"
-        alertClassName="alertDiv"
-      >
-        <DefaultSeo {...SEO} />
-        <Component
-          className={`${nanumNeo.className} ${roboto.className}`}
-          {...pageProps}
-        />
-      </AlertProvider>
-    </Provider>
+    <AlertProvider
+      alertWrapperClassName="alertWrapperDiv"
+      alertClassName="alertDiv"
+    >
+      <DefaultSeo {...SEO} />
+      <Component
+        className={`${nanumNeo.className} ${roboto.className}`}
+        {...pageProps}
+      />
+    </AlertProvider>
   );
 }

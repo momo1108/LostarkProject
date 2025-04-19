@@ -1,8 +1,7 @@
 import { InfoPage, Menu } from "@/types/GlobalType";
 import { tripodDataType } from "@/types/TripodType";
+import { readFileSync } from "fs";
 import path from "path";
-
-const { readFileSync } = require("fs");
 
 export default class DataService {
   /**
