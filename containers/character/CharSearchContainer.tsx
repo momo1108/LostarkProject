@@ -1,9 +1,6 @@
 import CharSearchBar from "@/components/character/bodycomponent/CharSearchBar";
-import { CharState, SearchedData } from "@/types/ReducerType";
-import { RootState } from "@/types/ReducerType";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
-import { useSelector } from "react-redux";
 
 type CharSearchContainerProps = {
   like: (name: string) => void;

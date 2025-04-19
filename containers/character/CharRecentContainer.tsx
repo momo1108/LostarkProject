@@ -1,7 +1,5 @@
 import CharRecentBlock from "@/components/character/bodycomponent/CharRecentBlock";
-import { RootState, SearchedData } from "@/types/ReducerType";
-import { useSelector } from "react-redux";
-import { Dispatch, SetStateAction, useCallback, useContext } from "react";
+import { useCallback, useContext } from "react";
 import { useRouter } from "next/router";
 import LostarkService from "@/service/LostarkService";
 import useAlert from "@/hooks/useAlert";
