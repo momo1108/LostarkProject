@@ -12,122 +12,86 @@ import {
   MagnifyingGlass,
 } from "@/components/icons/Index";
 import useCssHook from "@/hooks/useBgClassMaker";
-import styles from "@/styles/engrave/Body.module.scss";
+import styles from "@/styles/accessory/Body.module.scss";
 import { AuctionItem } from "@/types/LostarkApiType";
 import { gradeClassMap } from "@/types/GlobalType";
 import { useMemo, useState } from "react";
-import useAlert from "@/hooks/useAlert";
 import useClipboard from "@/hooks/useClipboard";
+import {
+  useAccessoryResultActionContext,
+  useAccessoryResultSelectorContext,
+} from "@/contexts/accessory/AccessoryResultContext";
+import { useAccessorySearchSelectorContext } from "@/contexts/accessory/AccessorySearchContext";
 
-type EngraveResultBlockProps = {
-  combinationList: AuctionItem[][];
-  pageStatus: number;
-  progress: number;
-  totalCases: number;
-  currentCase: number;
-  myTimer: number;
+const ResultPagingBox: React.FC = () => {
+  const { combinationList } = useAccessorySearchSelectorContext();
+  const { resultPage, pageSize } = useAccessoryResultSelectorContext();
+  const { setResultPage } = useAccessoryResultActionContext();
+
+  return combinationList.length ? (
+    <div className={styles.resultPageDiv}>
+      <p className={styles.resultPageP}>
+        ( {resultPage * pageSize + 1} ~ {(resultPage + 1) * pageSize} /{" "}
+        {combinationList.length} )
+      </p>
+      <button
+        onClick={() => {
+          setResultPage(0);
+        }}
+      >
+        <Skip size={30} className={styles.skipButtonIcon} rotate={180} />
+      </button>
+      <button
+        onClick={() => {
+          setResultPage((e) => (e > 0 ? e - 1 : e));
+        }}
+      >
+        <Triangle
+          width={1}
+          size={30}
+          className={styles.nextButtonIcon}
+          rotate={-90}
+        />
+      </button>
+      <button
+        onClick={() => {
+          setResultPage((e) =>
+            e + 1 < Math.floor(combinationList.length / pageSize) ? e + 1 : e
+          );
+        }}
+      >
+        <Triangle
+          width={1}
+          size={30}
+          className={styles.nextButtonIcon}
+          rotate={90}
+        />
+      </button>
+      <button
+        onClick={() => {
+          setResultPage(Math.floor(combinationList.length / pageSize) - 1);
+        }}
+      >
+        <Skip size={30} className={styles.skipButtonIcon} />
+      </button>
+    </div>
+  ) : (
+    <></>
+  );
 };
-const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
-  combinationList,
-  pageStatus,
-  progress,
-  totalCases,
-  currentCase,
-  myTimer,
-}) => {
+
+const EngraveResultContainer: React.FC = () => {
   const { bgClassMaker } = useCssHook();
-  const alert = useAlert();
   const { copyToClipboard } = useClipboard();
-  const initialStat = {
-    치명: 0,
-    특화: 0,
-    신속: 0,
-    제압: 0,
-    인내: 0,
-    숙련: 0,
-  };
-  const [resultPage, setResultPage] = useState<number>(0);
-  const [pageSize, setPageSize] = useState<number>(5);
-  const combinationInfo = useMemo(() => {
-    setResultPage(0);
-    return combinationList.map((combination) => {
-      return combination.reduce(
-        (prev: { cost: number; stat: { [key: string]: number } }, cur) => {
-          cur.Options.forEach((option) => {
-            if (option.Type === "STAT")
-              prev.stat[option.OptionName] += option.Value;
-          });
-          return {
-            cost: prev.cost + cur.AuctionInfo.BuyPrice,
-            stat: prev.stat,
-          };
-        },
-        { cost: 0, stat: { ...initialStat } }
-      );
-    });
-  }, [combinationList]);
 
   return (
     <div className={styles.resultContainer}>
       <h3 className={styles.resultHeader}>
         <p>검색 결과</p>
-        {combinationList.length ? (
-          <div className={styles.resultPageDiv}>
-            <p className={styles.resultPageP}>
-              ( {resultPage * pageSize + 1} ~ {(resultPage + 1) * pageSize} /{" "}
-              {combinationList.length} )
-            </p>
-            <button
-              onClick={() => {
-                setResultPage(0);
-              }}
-            >
-              <Skip size={30} className={styles.skipButtonIcon} rotate={180} />
-            </button>
-            <button
-              onClick={() => {
-                setResultPage((e) => (e > 0 ? e - 1 : e));
-              }}
-            >
-              <Triangle
-                width={1}
-                size={30}
-                className={styles.nextButtonIcon}
-                rotate={-90}
-              />
-            </button>
-            <button
-              onClick={() => {
-                setResultPage((e) =>
-                  e + 1 < Math.floor(combinationList.length / pageSize)
-                    ? e + 1
-                    : e
-                );
-              }}
-            >
-              <Triangle
-                width={1}
-                size={30}
-                className={styles.nextButtonIcon}
-                rotate={90}
-              />
-            </button>
-            <button
-              onClick={() => {
-                setResultPage(
-                  Math.floor(combinationList.length / pageSize) - 1
-                );
-              }}
-            >
-              <Skip size={30} className={styles.skipButtonIcon} />
-            </button>
-          </div>
-        ) : (
-          ""
-        )}
+        <ResultPagingBox />
       </h3>
       <div className={styles.resultBodyWrapper}>
-        {pageStatus === 1 ? (
+        {/* {pageStatus === 1 ? (
           combinationList.length ? (
             <div className={`hideScroll ${styles.resultBody}`}>
               {combinationList
@@ -466,10 +430,10 @@ const EngraveResultBlock: React.FC<EngraveResultBlockProps> = ({
               </div>
             )}
           </div>
-        </MyLoader>
+        </MyLoader> */}
       </div>
     </div>
   );
 };
 
-export default EngraveResultBlock;
+export default EngraveResultContainer;
