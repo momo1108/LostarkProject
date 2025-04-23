@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ApiKeyInputProps } from "@/types/CustomType";
 import MyInput from "./custom/MyInput";
 
-const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ shine }) => {
+const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ isShining }) => {
   const [apiKey, setApiKey] = useState<string>("");
   const [editApiKey, setEditApiKey] = useState<boolean>(false);
   const apiKeyRef = useRef<HTMLInputElement>(null);
@@ -19,7 +19,7 @@ const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ shine }) => {
     <>
       <div
         className={`${editApiKey ? "apiDiv" : "hidden"}${
-          shine ? " shinyShadow" : ""
+          isShining ? " shinyShadow" : ""
         }`}
       >
         <MyInput placeholder="API 키 입력" ref={apiKeyRef} />
@@ -47,7 +47,7 @@ const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ shine }) => {
       </div>
       <div
         className={`${editApiKey ? "hidden" : "apiDiv"}${
-          shine ? " shinyShadow" : ""
+          isShining ? " shinyShadow" : ""
         }`}
       >
         <p className={"apiDescr"} data-register={!!apiKey}>

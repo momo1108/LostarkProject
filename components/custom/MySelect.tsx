@@ -1,6 +1,6 @@
 import { CustomSelectProps } from "@/types/CustomType";
 import styles from "@/styles/Custom.module.scss";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import Triangle from "../icons/Triangle";
 
 const MySelect: React.FC<CustomSelectProps> = ({

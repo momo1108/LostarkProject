@@ -51,5 +51,5 @@ export type CustomInputProps = {
 };
 
 export type ApiKeyInputProps = {
-  shine: boolean;
+  isShining: boolean;
 };

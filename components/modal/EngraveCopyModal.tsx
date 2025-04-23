@@ -10,7 +10,7 @@ import { createPortal } from "react-dom";
 import MenuIcons from "../icons/MenuIcons";
 import usePreventBodyScroll from "@/hooks/usePreventBodyScroll";
 import { ModalProps, ModalState } from "@/types/ModalType";
-import styles from "@/styles/engrave/Body.module.scss";
+import styles from "@/styles/accessory/Body.module.scss";
 import MyInput from "../custom/MyInput";
 import LostarkService from "@/service/LostarkService";
 import {
