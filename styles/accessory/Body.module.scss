@@ -51,24 +51,55 @@ $myLightBlue: #76b1ff;
         }
 
         .singleAccessoryDiv {
-          @apply flex gap-4;
-
-          &>div {
-            background: #020202;
-            border: 2px solid #333;
-            border-radius: 8px;
-          }
+          @apply flex items-center text-lg gap-4 p-2;
+          background: #020202;
+          border: 2px solid #333;
+          border-radius: 8px;
 
           .accessoryIcon {
-            @apply w-20 flex flex-col justify-center items-center text-lg font-bold p-3 box-content;
-
-            svg {
-              @apply w-2/3;
-            }
+            @apply flex justify-center items-center gap-2 font-bold p-3 box-content;
           }
 
           .settingDiv {
             @apply flex flex-col gap-2;
+
+            .tierGradeDiv {
+              @apply flex gap-4;
+
+              ol {
+                @apply flex relative pt-6;
+
+                &::before {
+                  @apply text-base absolute top-0 left-0 font-bold;
+                  content: "티어";
+                }
+
+                li>button {
+                  @apply flex justify-center items-center w-8 h-8 border;
+                }
+              }
+
+              .tierList {
+                &::before {
+                  content: "티어";
+                }
+
+                li>button {
+                  @apply flex justify-center items-center w-8 h-8 border;
+                }
+              }
+
+              .gradeList {
+                &::before {
+                  content: "등급";
+                }
+
+                li>button {
+                  @apply flex justify-center items-center w-12 h-8 border;
+                }
+              }
+            }
+
           }
         }
 

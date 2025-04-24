@@ -1,6 +1,12 @@
 import styles from "@/styles/accessory/Body.module.scss";
 import { engravingIconMap } from "@/types/GlobalType";
-import { useContext, useState } from "react";
+import {
+  ButtonHTMLAttributes,
+  cloneElement,
+  useCallback,
+  useContext,
+  useState,
+} from "react";
 import {
   AccessoryInfo,
   EngraveInfo,
@@ -32,73 +38,23 @@ import EngraveSaveModal from "@/components/modal/EngraveSaveModal";
 import EngraveLoadModal from "@/components/modal/EngraveLoadModal";
 import EngraveCopyModal from "@/components/modal/EngraveCopyModal";
 import useAlert from "@/hooks/useAlert";
+import { ModalProps } from "@/types/ModalType";
+import { IconProps } from "@/types/CustomType";
 
-const SaveModalWrapper: React.FC = () => {
-  const [saveModalIsOpen, setSaveModalIsOpen] = useState<boolean>(false);
+const ModalWrapper: React.FC<{
+  Modal: React.FC<ModalProps>;
+  Button: React.ReactElement;
+}> = ({ Modal, Button }) => {
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   return (
     <>
-      <EngraveSaveModal
-        isOpen={saveModalIsOpen}
+      <Modal
+        isOpen={modalIsOpen}
         closeFunc={() => {
-          setSaveModalIsOpen(false);
-        }}
-        data={""}
-      />
-      <button
-        className="myButtons"
-        onClick={() => {
-          setSaveModalIsOpen(true);
-        }}
-      >
-        <Save color="#ccc" size={20} />
-        <span>세팅저장</span>
-      </button>
-    </>
-  );
-};
-
-const LoadModalWrapper: React.FC = () => {
-  const [loadModalIsOpen, setLoadModalIsOpen] = useState<boolean>(false);
-  return (
-    <>
-      <EngraveLoadModal
-        isOpen={loadModalIsOpen}
-        closeFunc={() => {
-          setLoadModalIsOpen(false);
+          setModalIsOpen(false);
         }}
       />
-      <button
-        className="myButtons"
-        onClick={() => {
-          setLoadModalIsOpen(true);
-        }}
-      >
-        <Load color="#ccc" size={20} />
-        <span>불러오기</span>
-      </button>
-    </>
-  );
-};
-
-const CopyModalWrapper: React.FC = () => {
-  const [copyModalIsOpen, setCopyModalIsOpen] = useState<boolean>(false);
-  return (
-    <>
-      <EngraveCopyModal
-        isOpen={copyModalIsOpen}
-        closeFunc={() => {
-          setCopyModalIsOpen(false);
-        }}
-      />
-      <button
-        className="myButtons"
-        onClick={() => {
-          setCopyModalIsOpen(true);
-        }}
-      >
-        <Copy size={20} fill="#eee" />
-        <span>캐릭터 세팅 복사</span>
-      </button>
+      {cloneElement(Button, { onClick: () => setModalIsOpen(true) })}
     </>
   );
 };
@@ -352,7 +308,55 @@ const ApiKeyInputWrapper: React.FC = () => {
 //   );
 // };
 
-const EngraveSearchContainer: React.FC = () => {
+const TierSettingList: React.FC<React.HTMLAttributes<HTMLOListElement>> = ({
+  className,
+}) => {
+  const [selectedTier, setSelectedTier] = useState<number>(3);
+  const handleClick = useCallback((tier: number) => {
+    setSelectedTier(tier);
+  }, []);
+
+  return (
+    <ol className={styles.tierList}>
+      {[3, 4].map((tier) => (
+        <li key={`tier_${tier}`} onClick={() => {}}>
+          <button
+            className={tier === selectedTier ? "bg-white text-[#333]" : ""}
+            onClick={() => handleClick(tier)}
+          >
+            {tier}
+          </button>
+        </li>
+      ))}
+    </ol>
+  );
+};
+
+const GradeSettingList: React.FC<React.HTMLAttributes<HTMLOListElement>> = ({
+  className,
+}) => {
+  const [selectedGrade, setSelectedGrade] = useState<string>("유물");
+  const handleClick = useCallback((grade: string) => {
+    setSelectedGrade(grade);
+  }, []);
+
+  return (
+    <ol className={styles.gradeList}>
+      {["유물", "고대"].map((grade) => (
+        <li key={`tier_${grade}`} onClick={() => {}}>
+          <button
+            className={grade === selectedGrade ? "bg-white text-[#333]" : ""}
+            onClick={() => handleClick(grade)}
+          >
+            {grade}
+          </button>
+        </li>
+      ))}
+    </ol>
+  );
+};
+
+const AccessorySearchContainer: React.FC = () => {
   const alert = useAlert();
 
   return (
@@ -360,9 +364,33 @@ const EngraveSearchContainer: React.FC = () => {
       <div className={styles.searchHeader}>
         <ApiKeyInputWrapper />
         <div className={styles.presetDiv}>
-          {/* <SaveModalWrapper />
-          <LoadModalWrapper />
-          <CopyModalWrapper /> */}
+          {/* <ModalWrapper
+            Modal={EngraveLoadModal}
+            Button={
+              <button>
+                <Save size={20} fill="#eee" />
+                <span>캐릭터 세팅 복사</span>
+              </button>
+            }
+          />
+          <ModalWrapper
+            Modal={EngraveSaveModal}
+            Button={
+              <button>
+                <Load size={20} color="#ccc" />
+                <span>불러오기</span>
+              </button>
+            }
+          />
+          <ModalWrapper
+            Modal={EngraveSaveModal}
+            Button={
+              <button>
+                <Copy size={20} fill="#eee" />
+                <span>캐릭터 세팅 복사</span>
+              </button>
+            }
+          /> */}
         </div>
       </div>
       <div className={styles.searchBody}>
@@ -374,10 +402,34 @@ const EngraveSearchContainer: React.FC = () => {
 
           <div className={styles.singleAccessoryDiv}>
             <div className={styles.accessoryIcon}>
+              <Necklace size={32} fill="#fff" />
               <h5>목걸이</h5>
-              <Necklace fill="#fff" />
             </div>
-            <div className={styles.settingDiv}></div>
+            <div className={styles.settingDiv}>
+              <div className={styles.tierGradeDiv}>
+                <TierSettingList />
+                <GradeSettingList />
+              </div>
+              {/* <ol className={styles.engraveLevelList}>
+                {[1, 2, 3].map((level) => {
+                  return (
+                    <li
+                      key={`engrave_${e.name}_level_${level}`}
+                      className={
+                        e.level === level
+                          ? `${engraveLevelColorMap[level]}BgColor ${engraveLevelColorMap[level]}BorderColor`
+                          : `${engraveLevelColorMap[level]}Color ${engraveLevelColorMap[level]}BorderColor`
+                      }
+                      onClick={() => {
+                        setTargetEngraveLevel(i, level);
+                      }}
+                    >
+                      {level}
+                    </li>
+                  );
+                })}
+              </ol> */}
+            </div>
           </div>
         </div>
       </div>
@@ -618,4 +670,4 @@ const EngraveSearchContainer: React.FC = () => {
   );
 };
 
-export default EngraveSearchContainer;
+export default AccessorySearchContainer;

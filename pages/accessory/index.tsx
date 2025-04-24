@@ -8,7 +8,13 @@ import { NextSeo } from "next-seo";
 import Footer from "@/components/Footer";
 import AccessoryBody from "@/components/accessory/AccessoryBody";
 
-const Accessory: React.FC<MenuProps> = ({ menu }) => {
+type AccessoryPageProps = {
+  grindingEffect: Object;
+};
+const Accessory: React.FC<MenuProps & AccessoryPageProps> = ({
+  menu,
+  grindingEffect,
+}) => {
   return (
     <>
       <NextSeo
@@ -17,7 +23,7 @@ const Accessory: React.FC<MenuProps> = ({ menu }) => {
       />
       <Page className={`${styles.container} ${nanumNeo.className}`}>
         <MenuBar menu={menu} />
-        <AccessoryBody />
+        <AccessoryBody grindingEffect={grindingEffect} />
         <Footer>
           <a href="https://www.freepik.com/free-vector/dark-background-with-geometric-design_853799.htm#query=background%20pattern&position=28&from_view=search&track=ais">
             Image by kjpargeter on Freepik
@@ -41,15 +47,18 @@ export default Accessory;
 export async function getStaticProps() {
   try {
     const menu = await DataService.getMenu();
+    const grindingEffect = await DataService.getGrindingEffectData();
     return {
       props: {
         menu,
+        grindingEffect,
       },
     };
   } catch (error: any) {
     return {
       props: {
         menu: [],
+        grindingEffect: {},
       },
     };
   }

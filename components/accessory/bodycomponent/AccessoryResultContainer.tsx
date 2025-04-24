@@ -80,7 +80,7 @@ const ResultPagingBox: React.FC = () => {
   );
 };
 
-const EngraveResultContainer: React.FC = () => {
+const AccessoryResultContainer: React.FC = () => {
   const { bgClassMaker } = useCssHook();
   const { copyToClipboard } = useClipboard();
 
@@ -436,4 +436,4 @@ const EngraveResultContainer: React.FC = () => {
   );
 };
 
-export default EngraveResultContainer;
+export default AccessoryResultContainer;

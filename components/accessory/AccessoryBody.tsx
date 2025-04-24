@@ -4,7 +4,11 @@ import AccessorySearchContainer from "./bodycomponent/AccessorySearchContainer";
 import AccessoryResultContainer from "./bodycomponent/AccessoryResultContainer";
 import { AccessoryContextProvider } from "@/contexts/accessory/Index";
 
-export default function AccessoryBody() {
+type AccessoryBodyProps = {
+  grindingEffect: Object;
+};
+const AccessoryBody: React.FC<AccessoryBodyProps> = ({ grindingEffect }) => {
+  console.log(grindingEffect);
   return (
     <AccessoryContextProvider>
       <div className={`${styles.body} ${nanumNeo.className}`}>
@@ -13,4 +17,6 @@ export default function AccessoryBody() {
       </div>
     </AccessoryContextProvider>
   );
-}
+};
+
+export default AccessoryBody;

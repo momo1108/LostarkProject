@@ -29,12 +29,24 @@ export default class DataService {
   };
 
   /**
-   * @/data/infoPage.json 에서 page 데이터를 불러옵니다.
+   * @/data/classSkillsetData.json 에서 트라이포드 데이터를 불러옵니다.
    */
   public static getTripodInfo = async (): Promise<tripodDataType> => {
     const dataDirectory = path.join(process.cwd(), "data");
     const infoPageStr: string = await readFileSync(
       `${dataDirectory}/classSkillsetData.json`
+    ).toString();
+
+    return JSON.parse(infoPageStr);
+  };
+
+  /**
+   * @/data/infoPage.json 에서 page 데이터를 불러옵니다.
+   */
+  public static getGrindingEffectData = async (): Promise<tripodDataType> => {
+    const dataDirectory = path.join(process.cwd(), "data");
+    const infoPageStr: string = await readFileSync(
+      `${dataDirectory}/grindingEffectOptions.json`
     ).toString();
 
     return JSON.parse(infoPageStr);
