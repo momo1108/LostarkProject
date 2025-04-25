@@ -2,10 +2,10 @@ import styles from "@/styles/character/Page.module.scss";
 import { MenuProps, nanumNeo } from "@/types/GlobalType";
 import Page from "@/components/Page";
 import MenuBar from "@/components/MenuBar";
-import DataService from "@/service/DataService";
 import useSkillParser from "@/hooks/useSkillParser";
 import { useRef } from "react";
 import useAlert from "@/hooks/useAlert";
+import menu from "@/data/menu.json";
 
 const Rhksflwk: React.FC<MenuProps> = ({ menu }) => {
   const sp = useSkillParser();
@@ -60,9 +60,8 @@ const Rhksflwk: React.FC<MenuProps> = ({ menu }) => {
 
 export default Rhksflwk;
 
-export async function getStaticProps() {
+export function getStaticProps() {
   try {
-    const menu = await DataService.getMenu();
     return {
       props: {
         menu,

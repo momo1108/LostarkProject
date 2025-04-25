@@ -1,5 +1,4 @@
 import styles from "@/styles/accessory/Page.module.scss";
-import DataService from "@/service/DataService";
 import MenuBar from "@/components/MenuBar";
 import { MenuProps } from "@/types/GlobalType";
 import { nanumNeo } from "@/types/GlobalType";
@@ -7,13 +6,17 @@ import Page from "@/components/Page";
 import { NextSeo } from "next-seo";
 import Footer from "@/components/Footer";
 import AccessoryBody from "@/components/accessory/AccessoryBody";
+import menu from "@/data/menu.json";
+import grindingEffectData from "@/data/grindingEffectOptions.json";
+import { GrindingEffectData } from "@/types/EngraveType";
 
 type AccessoryPageProps = {
-  grindingEffect: Object;
+  grindingEffectData: GrindingEffectData;
 };
+
 const Accessory: React.FC<MenuProps & AccessoryPageProps> = ({
   menu,
-  grindingEffect,
+  grindingEffectData,
 }) => {
   return (
     <>
@@ -23,7 +26,7 @@ const Accessory: React.FC<MenuProps & AccessoryPageProps> = ({
       />
       <Page className={`${styles.container} ${nanumNeo.className}`}>
         <MenuBar menu={menu} />
-        <AccessoryBody grindingEffect={grindingEffect} />
+        <AccessoryBody grindingEffectData={grindingEffectData} />
         <Footer>
           <a href="https://www.freepik.com/free-vector/dark-background-with-geometric-design_853799.htm#query=background%20pattern&position=28&from_view=search&track=ais">
             Image by kjpargeter on Freepik
@@ -44,21 +47,19 @@ const Accessory: React.FC<MenuProps & AccessoryPageProps> = ({
 
 export default Accessory;
 
-export async function getStaticProps() {
+export function getStaticProps() {
   try {
-    const menu = await DataService.getMenu();
-    const grindingEffect = await DataService.getGrindingEffectData();
     return {
       props: {
         menu,
-        grindingEffect,
+        grindingEffectData,
       },
     };
   } catch (error: any) {
     return {
       props: {
         menu: [],
-        grindingEffect: {},
+        grindingEffectData: {},
       },
     };
   }

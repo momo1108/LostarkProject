@@ -2,12 +2,12 @@ import styles from "@/styles/main/MainPage.module.scss";
 import MainHeader from "@/components/MainHeader";
 import MainBody from "@/components/MainBody";
 import { MainProps } from "@/types/GlobalType";
-import DataService from "@/service/DataService";
 import { roboto } from "@/types/GlobalType";
 import Page from "@/components/Page";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import Footer from "@/components/Footer";
+import menu from "@/data/menu.json";
 
 const Home: React.FC<MainProps> = ({ menu }) => {
   const router = useRouter();
@@ -59,7 +59,6 @@ export default Home;
 
 export async function getStaticProps() {
   try {
-    const menu = await DataService.getMenu();
     return {
       props: {
         menu,

@@ -1,5 +1,4 @@
 import styles from "@/styles/tripod/Page.module.scss";
-import DataService from "@/service/DataService";
 import MenuBar from "@/components/MenuBar";
 import { nanumNeo } from "@/types/GlobalType";
 import Page from "@/components/Page";
@@ -7,6 +6,7 @@ import { NextSeo } from "next-seo";
 import TripodBody from "@/components/tripod/TripodBody";
 import Footer from "@/components/Footer";
 import { TripodPageProps } from "@/types/TripodType";
+import menu from "@/data/menu.json";
 
 const Tripod: React.FC<TripodPageProps> = ({ menu }) => {
   return (
@@ -39,9 +39,8 @@ const Tripod: React.FC<TripodPageProps> = ({ menu }) => {
 
 export default Tripod;
 
-export async function getStaticProps() {
+export function getStaticProps() {
   try {
-    const menu = await DataService.getMenu();
     return {
       props: {
         menu,

@@ -44,9 +44,9 @@ const InfoIndex: React.FC<{ pages: InfoPage[] }> = ({ pages }) => {
 
 export default InfoIndex;
 
-export async function getStaticProps() {
+export function getStaticProps() {
   try {
-    const pages = await DataService.getInfoPageList();
+    const pages = DataService.getInfoPageList();
     return {
       props: {
         pages,
