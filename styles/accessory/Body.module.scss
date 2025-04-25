@@ -57,11 +57,11 @@ $myLightBlue: #76b1ff;
           border-radius: 8px;
 
           .accessoryIcon {
-            @apply flex justify-center items-center gap-2 font-bold p-3 box-content;
+            @apply flex flex-col justify-center items-center gap-2 font-bold p-3 box-content;
           }
 
           .settingDiv {
-            @apply flex flex-col gap-2;
+            @apply flex items-end gap-4;
 
             .tierGradeDiv {
               @apply flex gap-4;
@@ -71,11 +71,10 @@ $myLightBlue: #76b1ff;
 
                 &::before {
                   @apply text-base absolute top-0 left-0 font-bold;
-                  content: "티어";
                 }
 
                 li>button {
-                  @apply flex justify-center items-center w-8 h-8 border;
+                  @apply flex justify-center items-center border;
                 }
               }
 
@@ -85,7 +84,7 @@ $myLightBlue: #76b1ff;
                 }
 
                 li>button {
-                  @apply flex justify-center items-center w-8 h-8 border;
+                  @apply w-10 h-10;
                 }
               }
 
@@ -95,11 +94,23 @@ $myLightBlue: #76b1ff;
                 }
 
                 li>button {
-                  @apply flex justify-center items-center w-12 h-8 border;
+                  @apply w-12 h-10;
                 }
               }
             }
 
+            .grindingDiv {
+              @apply flex gap-4;
+
+              .grindingOptionSelect {
+                @apply mt-6;
+
+                &::before {
+                  @apply text-base absolute top-[-24px] left-0 font-bold;
+                  content: "티어";
+                }
+              }
+            }
           }
         }
 

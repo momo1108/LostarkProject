@@ -3,12 +3,15 @@ import { nanumNeo } from "@/types/GlobalType";
 import AccessorySearchContainer from "./bodycomponent/AccessorySearchContainer";
 import AccessoryResultContainer from "./bodycomponent/AccessoryResultContainer";
 import { AccessoryContextProvider } from "@/contexts/accessory/Index";
+import { GrindingEffectData } from "@/types/EngraveType";
 
 type AccessoryBodyProps = {
-  grindingEffect: Object;
+  grindingEffectData: GrindingEffectData;
 };
-const AccessoryBody: React.FC<AccessoryBodyProps> = ({ grindingEffect }) => {
-  console.log(grindingEffect);
+const AccessoryBody: React.FC<AccessoryBodyProps> = ({
+  grindingEffectData,
+}) => {
+  console.log(grindingEffectData["공격력 %"]["3"]["유물"]);
   return (
     <AccessoryContextProvider>
       <div className={`${styles.body} ${nanumNeo.className}`}>

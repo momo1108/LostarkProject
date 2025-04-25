@@ -1,10 +1,14 @@
+import { AccessorySearchOption } from "@/types/EngraveType";
 import { AuctionItem } from "@/types/LostarkApiType";
 import {
   createContext,
   Dispatch,
+  MutableRefObject,
   SetStateAction,
+  useCallback,
   useContext,
   useMemo,
+  useRef,
   useState,
 } from "react";
 
@@ -35,6 +39,7 @@ type AccessorySearchActionContextType = {
   setTotalCases: Dispatch<SetStateAction<number>>;
   setCurrentCase: Dispatch<SetStateAction<number>>;
   setMyTimer: Dispatch<SetStateAction<number>>;
+  getAccessorySearchOptionRef: () => MutableRefObject<AccessorySearchOption[]>;
 };
 const AccessorySearchActionContext = createContext<
   AccessorySearchActionContextType | undefined
@@ -60,6 +65,30 @@ export const AccessorySearchContextProvider = ({
   const [currentCase, setCurrentCase] = useState<number>(0);
   const [myTimer, setMyTimer] = useState<number>(0);
 
+  /**
+   *  {
+        "EtcOptions": [
+          {
+            "FirstOption": 7,
+            "SecondOption": 53,
+            "MinValue": null,
+            "MaxValue": null
+          }
+        ],
+        "Sort": "BIDSTART_PRICE",
+        "ItemTier": 4,
+        "ItemGrade": "고대",
+        "CategoryCode": 200020,
+        "PageNo": 0,
+        "SortCondition": "ASC"
+      }
+   */
+  const accessorySearchOptionRef = useRef<AccessorySearchOption[]>([]);
+  const getAccessorySearchOptionRef = useCallback(
+    () => accessorySearchOptionRef,
+    [accessorySearchOptionRef]
+  );
+
   const selectorContextValue = useMemo(
     () => ({
       pageStatus,
@@ -80,6 +109,7 @@ export const AccessorySearchContextProvider = ({
       setTotalCases,
       setCurrentCase,
       setMyTimer,
+      getAccessorySearchOptionRef,
     }),
     []
   );

@@ -8,8 +8,10 @@ import {
   useState,
 } from "react";
 import {
+  ACCESSORY_GRINDINGEFFECT_MAP,
   AccessoryInfo,
   EngraveInfo,
+  GRINDING_EFFECT_VALUE,
   NEGATIVE_ENGRAVES,
   engraveLevelColorMap,
 } from "@/types/EngraveType";
@@ -40,6 +42,7 @@ import EngraveCopyModal from "@/components/modal/EngraveCopyModal";
 import useAlert from "@/hooks/useAlert";
 import { ModalProps } from "@/types/ModalType";
 import { IconProps } from "@/types/CustomType";
+import { useAccessorySearchActionContext } from "@/contexts/accessory/AccessorySearchContext";
 
 const ModalWrapper: React.FC<{
   Modal: React.FC<ModalProps>;
@@ -356,6 +359,37 @@ const GradeSettingList: React.FC<React.HTMLAttributes<HTMLOListElement>> = ({
   );
 };
 
+const GrindingSettingDiv: React.FC<{
+  accessoryType: "목걸이" | "귀걸이" | "반지";
+}> = ({ accessoryType }) => {
+  const { getAccessorySearchOptionRef } = useAccessorySearchActionContext();
+  const grindingEffects = ACCESSORY_GRINDINGEFFECT_MAP[accessoryType];
+  const optionsArray = grindingEffects.map((grindingEffect) => ({
+    label: grindingEffect,
+    value: GRINDING_EFFECT_VALUE[grindingEffect],
+  }));
+  const [selectedGrindingValue, setSelectedGrindingValue] = useState<number>(
+    optionsArray[0].value
+  );
+  const handleSelect = useCallback((value: number) => {
+    getAccessorySearchOptionRef().current[0].grindingEffectOptionValue = value;
+  }, []);
+
+  return (
+    <div className={styles.grindingDiv}>
+      <MySelect
+        className={styles.grindingOptionSelect}
+        height={40}
+        placeholder={`${accessoryType} 연마 옵션`}
+        options={optionsArray}
+        onSelect={handleSelect}
+      />
+      {/* handleSelect 로 전체 악세서리 검색 세팅 정보를 업데이트 하도록 하고,
+       여기에는 MySelect 로 선택된 연마정보에 따른 Value 들을 선택할 수 있게 구현  */}
+    </div>
+  );
+};
+
 const AccessorySearchContainer: React.FC = () => {
   const alert = useAlert();
 
@@ -402,13 +436,16 @@ const AccessorySearchContainer: React.FC = () => {
 
           <div className={styles.singleAccessoryDiv}>
             <div className={styles.accessoryIcon}>
-              <Necklace size={32} fill="#fff" />
               <h5>목걸이</h5>
+              <Necklace size={32} fill="#fff" />
             </div>
             <div className={styles.settingDiv}>
               <div className={styles.tierGradeDiv}>
                 <TierSettingList />
                 <GradeSettingList />
+              </div>
+              <div className={styles.grindingDiv}>
+                <GrindingSettingDiv accessoryType="목걸이" />
               </div>
               {/* <ol className={styles.engraveLevelList}>
                 {[1, 2, 3].map((level) => {
