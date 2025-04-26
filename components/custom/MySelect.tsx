@@ -1,5 +1,11 @@
 import styles from "@/styles/Custom.module.scss";
-import { EventHandler, KeyboardEvent, useCallback, useState } from "react";
+import {
+  EventHandler,
+  KeyboardEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import Triangle from "../icons/Triangle";
 
 type MySelectProps<T> = {
@@ -7,9 +13,10 @@ type MySelectProps<T> = {
   width?: number;
   height?: number;
   itemClassName?: string;
-  placeholder: string;
   options: { label: string; value: T }[];
-  onSelect: (arg1: T, arg2?: number) => void;
+  onSelect: (arg1: { label: string; value: T }, arg2?: number) => void;
+  placeholder?: string;
+  defaultSelectedIndex?: number;
   place?: string;
   offset?: number;
 };
@@ -33,9 +40,10 @@ type MySelectProps<T> = {
  * @prop {number} [width=100] 셀렉트 박스 너비
  * @prop {number} [height=24] 셀렉트 박스 높이
  * @prop {string} [itemClassName] 옵션 항목의 클래스
- * @prop {string} placeholder 셀렉트의 옵션을 선택하기 전 표기될 초기 텍스트
  * @prop {{ label: string; value: T }[]} options label 와 value 로 구성된 옵션 객체 배열
- * @prop {(item: any, index: number) => void} onSelect 옵션 선택 시 선택된 옵션 객체와 index 를 인자로 받아 실행될 함수
+ * @prop {(option: { label: string; value: T }, index: number) => void} onSelect 옵션 선택 시 선택된 옵션 객체와 index 를 인자로 받아 실행될 함수
+ * @prop {string} placeholder 셀렉트의 옵션을 선택하기 전 표기될 초기 텍스트
+ * @prop {number | undefined} defaultSelectedIndex 셀렉트의 초기값으로 설정될 옵션의 인덱스값
  * @prop {"top" | "bottom"} [place="bottom"] 드롭다운 위치
  * @prop {number} [offset=0] 위치 조정을 위한 오프셋
  */
@@ -44,9 +52,10 @@ const MySelect = <T,>({
   width = 100,
   height = 24,
   itemClassName,
-  placeholder,
   options,
   onSelect,
+  placeholder = "",
+  defaultSelectedIndex,
   place = "bottom",
   offset = 0,
 }: MySelectProps<T>) => {
@@ -59,6 +68,14 @@ const MySelect = <T,>({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [hovered, setHovered] = useState<number>(-1);
   const [selectedLabel, setSelectedLabel] = useState<string>("");
+
+  // 초기 선택된 옵션이 있는 경우 셀렉트에 표시될 label 도 업데이트
+  useEffect(() => {
+    if (typeof defaultSelectedIndex === "number") {
+      console.log(defaultSelectedIndex, options[defaultSelectedIndex].label);
+      setSelectedLabel(options[defaultSelectedIndex].label);
+    }
+  }, []);
 
   const handleKeydown = useCallback(
     (e: KeyboardEvent<HTMLButtonElement>) => {
@@ -78,7 +95,7 @@ const MySelect = <T,>({
         } else if (e.key === "Enter") {
           if (hovered >= 0 && hovered < options.length) {
             setSelectedLabel(options[hovered].label);
-            onSelect(options[hovered].value, hovered);
+            onSelect(options[hovered], hovered);
             setIsOpen(false);
           }
         } else if (e.key === "Escape") {
@@ -139,7 +156,7 @@ const MySelect = <T,>({
               key={`mySelect_option_${option.label}`}
               onMouseDown={() => {
                 setSelectedLabel(options[hovered].label);
-                onSelect(option.value, i);
+                onSelect(option, i);
                 setIsOpen(false);
               }}
               onMouseEnter={() => {

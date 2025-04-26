@@ -11,7 +11,6 @@ type AccessoryBodyProps = {
 const AccessoryBody: React.FC<AccessoryBodyProps> = ({
   grindingEffectData,
 }) => {
-  console.log(grindingEffectData["공격력 %"]["3"]["유물"]);
   return (
     <AccessoryContextProvider>
       <div className={`${styles.body} ${nanumNeo.className}`}>

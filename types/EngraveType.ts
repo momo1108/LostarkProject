@@ -2,7 +2,7 @@ import { Dispatch, RefObject, SetStateAction } from "react";
 import { engravingIconMap } from "./GlobalType";
 
 export const GRINDING_EFFECT_ETCOPTIONS_VALUE = 7 as const;
-export const CATEGORY_CODES = {
+export const ACCESSORY_CATEGORY_CODES = {
   장신구: 200000,
   목걸이: 200010,
   귀걸이: 200020,
@@ -10,7 +10,7 @@ export const CATEGORY_CODES = {
   팔찌: 200040,
 } as const;
 
-export const GRINDING_EFFECT_VALUE = {
+export const GRINDING_EFFECT_VALUE_MAP = {
   "공격력 %": 45,
   "공격력 +": 53,
   낙인력: 44,
@@ -90,17 +90,11 @@ export type GrindingEffectKey =
   | "파티원 보호막 효과"
   | "파티원 회복 효과";
 
-export type ItemGrade =
-  | "일반"
-  | "고급"
-  | "희귀"
-  | "영웅"
-  | "전설"
-  | "유물"
-  | "고대"
-  | "에스더";
+export type AccessoryGrade = "유물" | "고대";
 
-export type ItemTier = 1 | 2 | 3 | 4;
+export type AccessoryTier = 3 | 4;
+
+export type AccessoryCategory = "목걸이" | "귀걸이" | "반지";
 
 export type GrindingEffectValue = {
   DisplayValue: string;
@@ -108,8 +102,14 @@ export type GrindingEffectValue = {
   IsPercentage: boolean;
 };
 
-export type GrindingEffectGradeData = Record<ItemGrade, GrindingEffectValue[]>;
-export type GrindingEffectTierData = Record<ItemTier, GrindingEffectGradeData>;
+export type GrindingEffectGradeData = Record<
+  AccessoryGrade,
+  GrindingEffectValue[]
+>;
+export type GrindingEffectTierData = Record<
+  AccessoryTier,
+  GrindingEffectGradeData
+>;
 export type GrindingEffectData = Record<
   GrindingEffectKey,
   GrindingEffectTierData
@@ -119,9 +119,9 @@ export type GrindingEffectData = Record<
  * 악세서리 검색을 위해 필요한 파라미터들을 저장하기 위한 타입입니다.
  * @property {number} [grindingEffectOptionValue] 연마 효과를 식별하기위한 숫자 파라미터입니다.
  * @property {number} [grindingEffectMinValue] 연마 효과의 수치 파라미터입니다.
- * @property {@link ItemTier} [itemTier] 악세서리의 티어 파라미터입니다.
- * @property {@link ItemGrade} [itemGrade] 악세서리의 아이템 등급 파라미터입니다.
- * @property {number} [categoryCode] 악세서리의 종류를 식별하기위한 숫자 파라미터입니다.
+ * @property {@link AccessoryTier} [accessoryTier] 악세서리의 티어 파라미터입니다.
+ * @property {@link AccessoryGrade} [accessoryGrade] 악세서리의 아이템 등급 파라미터입니다.
+ * @property {@link AccessoryCategory} [accessoryCategory] 악세서리의 종류를 식별하기위한 파라미터입니다.
  */
 export type AccessorySearchOption = {
   /** 연마 효과를 식별하기위한 숫자 파라미터입니다. */
@@ -130,14 +130,14 @@ export type AccessorySearchOption = {
   /** 연마 효과의 수치 파라미터입니다. */
   grindingEffectMinValue: number;
 
-  /** 악세서리의 티어 파라미터입니다. */
-  itemTier: ItemTier;
+  /** {@link AccessoryTier} 악세서리의 티어 파라미터입니다. */
+  accessoryTier: AccessoryTier;
 
-  /** 악세서리의 아이템 등급 파라미터입니다. */
-  itemGrade: ItemGrade;
+  /** {@link AccessoryGrade} 악세서리의 아이템 등급 파라미터입니다. */
+  accessoryGrade: AccessoryGrade;
 
-  /** 악세서리의 종류를 식별하기위한 숫자 파라미터입니다. */
-  categoryCode: number;
+  /** {@link AccessoryCategory} 악세서리의 종류를 식별하기위한 숫자 파라미터입니다. */
+  accessoryCategory: AccessoryCategory;
 };
 
 export type EngraveInfo = {

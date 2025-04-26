@@ -9,9 +9,11 @@ import {
 } from "react";
 import {
   ACCESSORY_GRINDINGEFFECT_MAP,
+  AccessoryCategory,
   AccessoryInfo,
+  ACCESSORY_CATEGORY_CODES,
   EngraveInfo,
-  GRINDING_EFFECT_VALUE,
+  GRINDING_EFFECT_VALUE_MAP,
   NEGATIVE_ENGRAVES,
   engraveLevelColorMap,
 } from "@/types/EngraveType";
@@ -42,7 +44,11 @@ import EngraveCopyModal from "@/components/modal/EngraveCopyModal";
 import useAlert from "@/hooks/useAlert";
 import { ModalProps } from "@/types/ModalType";
 import { IconProps } from "@/types/CustomType";
-import { useAccessorySearchActionContext } from "@/contexts/accessory/AccessorySearchContext";
+import {
+  useAccessorySearchActionContext,
+  useAccessorySearchSelectorContext,
+  useAccessorySearchStaticContext,
+} from "@/contexts/accessory/AccessorySearchContext";
 
 const ModalWrapper: React.FC<{
   Modal: React.FC<ModalProps>;
@@ -311,6 +317,42 @@ const ApiKeyInputWrapper: React.FC = () => {
 //   );
 // };
 
+const AccessoryCategorySettingDiv: React.FC<IndexProp> = ({ index }) => {
+  const { accessorySearchOptionArrayRef } = useAccessorySearchStaticContext();
+  const [selectedAccessoryCategory, setSelectedAccessoryCategory] =
+    useState<AccessoryCategory>(
+      accessorySearchOptionArrayRef.current[index].accessoryCategory
+    );
+
+  const options = ["목걸이", "귀걸이", "반지"].map((category) => ({
+    label: category,
+    value: ACCESSORY_CATEGORY_CODES[category as AccessoryCategory],
+  }));
+  const onSelect = (option: (typeof options)[0]) => {};
+  const defaultOptionIndex = {
+    목걸이: 0,
+    귀걸이: 1,
+    반지: 2,
+  };
+
+  return (
+    <div className={styles.accessoryIcon}>
+      {selectedAccessoryCategory === "목걸이" ? (
+        <Necklace size={32} fill="#fff" />
+      ) : selectedAccessoryCategory === "귀걸이" ? (
+        <Earring size={32} />
+      ) : (
+        <Ring size={32} />
+      )}
+      <MySelect
+        defaultSelectedIndex={defaultOptionIndex[selectedAccessoryCategory]}
+        options={options}
+        onSelect={onSelect}
+      />
+    </div>
+  );
+};
+
 const TierSettingList: React.FC<React.HTMLAttributes<HTMLOListElement>> = ({
   className,
 }) => {
@@ -359,34 +401,86 @@ const GradeSettingList: React.FC<React.HTMLAttributes<HTMLOListElement>> = ({
   );
 };
 
-const GrindingSettingDiv: React.FC<{
-  accessoryType: "목걸이" | "귀걸이" | "반지";
-}> = ({ accessoryType }) => {
-  const { getAccessorySearchOptionRef } = useAccessorySearchActionContext();
-  const grindingEffects = ACCESSORY_GRINDINGEFFECT_MAP[accessoryType];
+type IndexProp = {
+  index: number;
+};
+
+const GrindingSettingDiv: React.FC<IndexProp> = ({ index }) => {
+  const { accessorySearchOptionArrayRef } = useAccessorySearchStaticContext();
+  const grindingEffects = ACCESSORY_GRINDINGEFFECT_MAP["목걸이"];
   const optionsArray = grindingEffects.map((grindingEffect) => ({
     label: grindingEffect,
-    value: GRINDING_EFFECT_VALUE[grindingEffect],
+    value: GRINDING_EFFECT_VALUE_MAP[grindingEffect],
   }));
   const [selectedGrindingValue, setSelectedGrindingValue] = useState<number>(
     optionsArray[0].value
   );
-  const handleSelect = useCallback((value: number) => {
-    getAccessorySearchOptionRef().current[0].grindingEffectOptionValue = value;
-  }, []);
+  const handleSelect = useCallback(
+    (option: { label: string; value: number }) => {
+      accessorySearchOptionArrayRef.current[index].grindingEffectOptionValue =
+        option.value;
+    },
+    []
+  );
 
   return (
     <div className={styles.grindingDiv}>
       <MySelect
         className={styles.grindingOptionSelect}
         height={40}
-        placeholder={`${accessoryType} 연마 옵션`}
+        placeholder={`${accessorySearchOptionArrayRef.current[index].accessoryCategory} 연마 옵션`}
         options={optionsArray}
         onSelect={handleSelect}
       />
       {/* handleSelect 로 전체 악세서리 검색 세팅 정보를 업데이트 하도록 하고,
        여기에는 MySelect 로 선택된 연마정보에 따른 Value 들을 선택할 수 있게 구현  */}
     </div>
+  );
+};
+
+const AccessorySearchOptionList: React.FC = () => {
+  const { accessorySearchOptionArray } = useAccessorySearchSelectorContext();
+
+  return (
+    <ul>
+      {accessorySearchOptionArray.map((option, optionIndex) => {
+        return (
+          // 초기 로딩시에 skeleton 출력하도록 수정하자.(초기에 컨텍스트가 초기화되기까지 MySelect 의 텍스트가 비어있음음)
+          <li
+            className={styles.singleAccessoryDiv}
+            key={`${option.accessoryCategory}_${optionIndex}`}
+          >
+            <AccessoryCategorySettingDiv index={optionIndex} />
+            <div className={styles.settingDiv}>
+              <div className={styles.tierGradeDiv}>
+                <TierSettingList />
+                <GradeSettingList />
+              </div>
+              <GrindingSettingDiv index={optionIndex} />
+              {/* <ol className={styles.engraveLevelList}>
+                {[1, 2, 3].map((level) => {
+                  return (
+                    <li
+                      key={`engrave_${e.name}_level_${level}`}
+                      className={
+                        e.level === level
+                          ? `${engraveLevelColorMap[level]}BgColor ${engraveLevelColorMap[level]}BorderColor`
+                          : `${engraveLevelColorMap[level]}Color ${engraveLevelColorMap[level]}BorderColor`
+                      }
+                      onClick={() => {
+                        setTargetEngraveLevel(i, level);
+                      }}
+                    >
+                      {level}
+                    </li>
+                  );
+                })}
+              </ol> */}
+            </div>
+          </li>
+        );
+      })}
+    </ul>
   );
 };
 
@@ -433,41 +527,7 @@ const AccessorySearchContainer: React.FC = () => {
             <Filter color="#ccc" size={24} />
             <span>옵션 설정</span>
           </h4>
-
-          <div className={styles.singleAccessoryDiv}>
-            <div className={styles.accessoryIcon}>
-              <h5>목걸이</h5>
-              <Necklace size={32} fill="#fff" />
-            </div>
-            <div className={styles.settingDiv}>
-              <div className={styles.tierGradeDiv}>
-                <TierSettingList />
-                <GradeSettingList />
-              </div>
-              <div className={styles.grindingDiv}>
-                <GrindingSettingDiv accessoryType="목걸이" />
-              </div>
-              {/* <ol className={styles.engraveLevelList}>
-                {[1, 2, 3].map((level) => {
-                  return (
-                    <li
-                      key={`engrave_${e.name}_level_${level}`}
-                      className={
-                        e.level === level
-                          ? `${engraveLevelColorMap[level]}BgColor ${engraveLevelColorMap[level]}BorderColor`
-                          : `${engraveLevelColorMap[level]}Color ${engraveLevelColorMap[level]}BorderColor`
-                      }
-                      onClick={() => {
-                        setTargetEngraveLevel(i, level);
-                      }}
-                    >
-                      {level}
-                    </li>
-                  );
-                })}
-              </ol> */}
-            </div>
-          </div>
+          <AccessorySearchOptionList />
         </div>
       </div>
       {/* <div className={styles.searchFooter}>
