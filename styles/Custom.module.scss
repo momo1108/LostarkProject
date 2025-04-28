@@ -1,5 +1,11 @@
 .mySelect {
-  @apply relative pr-6;
+  @apply relative pr-6 flex items-center pl-2;
+
+  .selectedLabel {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
   .indicator {
     @apply absolute right-2 top-0 bottom-0 my-auto transition-all duration-300;
@@ -22,6 +28,9 @@
   .optionItem {
     @apply p-2;
     border-bottom: 1px solid;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     &:last-child {
       border: none;

@@ -8,12 +8,14 @@ import {
 } from "react";
 import Triangle from "../icons/Triangle";
 
+type Option<T> = { label: string; value: T };
+
 type MySelectProps<T> = {
   className?: string;
   width?: number;
   height?: number;
   itemClassName?: string;
-  options: { label: string; value: T }[];
+  options: Option<T>[];
   onSelect: (arg1: { label: string; value: T }, arg2?: number) => void;
   placeholder?: string;
   defaultSelectedIndex?: number;
@@ -40,8 +42,8 @@ type MySelectProps<T> = {
  * @prop {number} [width=100] 셀렉트 박스 너비
  * @prop {number} [height=24] 셀렉트 박스 높이
  * @prop {string} [itemClassName] 옵션 항목의 클래스
- * @prop {{ label: string; value: T }[]} options label 와 value 로 구성된 옵션 객체 배열
- * @prop {(option: { label: string; value: T }, index: number) => void} onSelect 옵션 선택 시 선택된 옵션 객체와 index 를 인자로 받아 실행될 함수
+ * @prop {{@link Option}[]} options label 와 value 로 구성된 옵션 객체 배열
+ * @prop {(option: {@link Option}, index: number) => void} onSelect 옵션 선택 시 선택된 옵션 객체와 index 를 인자로 받아 실행될 함수
  * @prop {string} placeholder 셀렉트의 옵션을 선택하기 전 표기될 초기 텍스트
  * @prop {number | undefined} defaultSelectedIndex 셀렉트의 초기값으로 설정될 옵션의 인덱스값
  * @prop {"top" | "bottom"} [place="bottom"] 드롭다운 위치
@@ -77,6 +79,12 @@ const MySelect = <T,>({
     }
   }, []);
 
+  const handleSelect = useCallback((options: Option<T>[], index: number) => {
+    setSelectedLabel(options[index].label);
+    onSelect(options[index], index);
+    setIsOpen(false);
+  }, []);
+
   const handleKeydown = useCallback(
     (e: KeyboardEvent<HTMLButtonElement>) => {
       if (
@@ -94,9 +102,7 @@ const MySelect = <T,>({
           setHovered((prev) => Math.max(prev - 1, 0));
         } else if (e.key === "Enter") {
           if (hovered >= 0 && hovered < options.length) {
-            setSelectedLabel(options[hovered].label);
-            onSelect(options[hovered], hovered);
-            setIsOpen(false);
+            handleSelect(options, hovered);
           }
         } else if (e.key === "Escape") {
           setIsOpen(false);
@@ -111,6 +117,7 @@ const MySelect = <T,>({
     <button
       tabIndex={0}
       className={`${styles.mySelect} ${className}`}
+      title={selectedLabel}
       style={{
         width: width + 24,
         height,
@@ -125,7 +132,9 @@ const MySelect = <T,>({
       onKeyDown={handleKeydown}
       data-show={isOpen}
     >
-      {selectedLabel ? selectedLabel : placeholder}
+      <span className={styles.selectedLabel}>
+        {selectedLabel ? selectedLabel : placeholder}
+      </span>
       <Triangle
         className={styles.indicator}
         color={style.color}
@@ -154,10 +163,9 @@ const MySelect = <T,>({
                 itemClassName ? itemClassName : ""
               }`}
               key={`mySelect_option_${option.label}`}
+              title={option.label}
               onMouseDown={() => {
-                setSelectedLabel(options[hovered].label);
-                onSelect(option, i);
-                setIsOpen(false);
+                handleSelect(options, i);
               }}
               onMouseEnter={() => {
                 setHovered(i);
