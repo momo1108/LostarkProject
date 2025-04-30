@@ -1,11 +1,11 @@
 import styles from "@/styles/accessory/Body.module.scss";
 import { cloneElement, useState } from "react";
 import { Filter } from "@/components/icons/Index";
-import { Tooltip } from "react-tooltip";
+// import { Tooltip } from "react-tooltip";
 import ApiKeyInput from "@/components/ApiKeyInput";
-import EngraveSaveModal from "@/components/modal/EngraveSaveModal";
-import EngraveLoadModal from "@/components/modal/EngraveLoadModal";
-import EngraveCopyModal from "@/components/modal/EngraveCopyModal";
+// import EngraveSaveModal from "@/components/modal/EngraveSaveModal";
+// import EngraveLoadModal from "@/components/modal/EngraveLoadModal";
+// import EngraveCopyModal from "@/components/modal/EngraveCopyModal";
 import useAlert from "@/hooks/useAlert";
 import { ModalProps } from "@/types/ModalType";
 import AccessorySearchOptionList from "./AccessorySearchOptionList";
@@ -496,7 +496,7 @@ const AccessorySearchContainer: React.FC = () => {
           </button>
         </div>
       </div> */}
-      <Tooltip
+      {/* <Tooltip
         id="apiKeySettingInfo"
         place="bottom"
         clickable={true}
@@ -555,7 +555,7 @@ const AccessorySearchContainer: React.FC = () => {
         <p>
           🔹 목걸이의 경우 2개의 특성을 선택해야하고, 중복 특성은 불가능합니다.
         </p>
-      </Tooltip>
+      </Tooltip> */}
     </div>
   );
 };

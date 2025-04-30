@@ -1,23 +1,23 @@
-import {
-  useAccessorySearchActionContext,
-  useAccessorySearchStaticContext,
-} from "@/contexts/accessory/AccessorySearchContext";
+import { useAccessorySearchActionContext } from "@/contexts/accessory/AccessorySearchContext";
 import styles from "@/styles/accessory/Body.module.scss";
-import { AccessoryGrade, AccessorySearchOption } from "@/types/EngraveType";
+import {
+  AccessorySearchOption,
+  AccessoryUpgradeLevel,
+} from "@/types/EngraveType";
 import { useCallback } from "react";
 
-const GradeSettingList: React.FC<{
+const LevelSettingList: React.FC<{
   option: AccessorySearchOption;
   optionIndex: number;
 }> = ({ option, optionIndex }) => {
   const { setAccessorySearchOptionArray } = useAccessorySearchActionContext();
-  const handleClick = useCallback((grade: AccessoryGrade) => {
+  const handleClick = useCallback((level: AccessoryUpgradeLevel) => {
     setAccessorySearchOptionArray((prev) => {
       return prev.map((accessorySearchOption, accessorySearchOptionIndex) => {
         if (accessorySearchOptionIndex === optionIndex)
           return {
             ...accessorySearchOption,
-            accessoryGrade: grade,
+            accessoryUpgradeLevel: level,
           };
         return accessorySearchOption;
       });
@@ -25,16 +25,18 @@ const GradeSettingList: React.FC<{
   }, []);
 
   return (
-    <ol className={styles.gradeList}>
-      {["유물", "고대"].map((grade) => (
-        <li key={`tier_${grade}`} onClick={() => {}}>
+    <ol className={styles.levelList}>
+      {[0, 1, 2, 3].map((level) => (
+        <li key={`level_${level}`} onClick={() => {}}>
           <button
             className={
-              grade === option.accessoryGrade ? "bg-white text-[#333]" : ""
+              level === option.accessoryUpgradeLevel
+                ? "bg-white text-[#333]"
+                : ""
             }
-            onClick={() => handleClick(grade as AccessoryGrade)}
+            onClick={() => handleClick(level as AccessoryUpgradeLevel)}
           >
-            {grade}
+            {level}
           </button>
         </li>
       ))}
@@ -42,4 +44,4 @@ const GradeSettingList: React.FC<{
   );
 };
 
-export default GradeSettingList;
+export default LevelSettingList;

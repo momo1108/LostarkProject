@@ -96,6 +96,40 @@ export type AccessoryTier = 3 | 4;
 
 export type AccessoryCategory = "목걸이" | "귀걸이" | "반지";
 
+export type AccessoryUpgradeLevel = 0 | 1 | 2 | 3;
+
+export type GrindingEffectLevel = 0 | 1 | 2;
+
+/**
+ * 악세서리 검색을 위해 필요한 파라미터들을 저장하기 위한 타입입니다.
+ * @property {@link AccessoryCategory} [accessoryCategory] 악세서리의 종류를 식별하기위한 파라미터입니다.
+ * @property {@link AccessoryTier} [accessoryTier] 악세서리의 티어 파라미터입니다.
+ * @property {@link AccessoryGrade} [accessoryGrade] 악세서리의 아이템 등급 파라미터입니다.
+ * @property {@link AccessoryUpgradeLevel} [accessoryUpgradeLevel] 악세서리의 연마 횟수 파라미터입니다.
+ * @property {{name: {@link GrindingEffectKey}; level: {@link GrindingEffectLevel};}[]} [accessoryGrindingEffectArray]  연마 효과 정보를 최대 3개까지 저장하는 배열 파라미터입니다.
+ */
+export type AccessorySearchOption = {
+  /** {@link AccessoryCategory} 악세서리의 종류를 식별하기위한 숫자 파라미터입니다. */
+  accessoryCategory: AccessoryCategory;
+
+  /** {@link AccessoryTier} 악세서리의 티어 파라미터입니다. */
+  accessoryTier: AccessoryTier;
+
+  /** {@link AccessoryGrade} 악세서리의 아이템 등급 파라미터입니다. */
+  accessoryGrade: AccessoryGrade;
+
+  /** {@link AccessoryUpgradeLevel} 악세서리의 연마 횟수 파라미터입니다. */
+  accessoryUpgradeLevel: AccessoryUpgradeLevel;
+
+  accessoryGrindingEffectArray: {
+    effectName: { name: GrindingEffectKey; value: number };
+    effectValue: {
+      level: GrindingEffectLevel;
+      valueArray: GrindingEffectValue[];
+    };
+  }[];
+};
+
 export type GrindingEffectValue = {
   DisplayValue: string;
   Value: number;
@@ -114,31 +148,6 @@ export type GrindingEffectData = Record<
   GrindingEffectKey,
   GrindingEffectTierData
 >;
-
-/**
- * 악세서리 검색을 위해 필요한 파라미터들을 저장하기 위한 타입입니다.
- * @property {number} [grindingEffectOptionValue] 연마 효과를 식별하기위한 숫자 파라미터입니다.
- * @property {number} [grindingEffectMinValue] 연마 효과의 수치 파라미터입니다.
- * @property {@link AccessoryTier} [accessoryTier] 악세서리의 티어 파라미터입니다.
- * @property {@link AccessoryGrade} [accessoryGrade] 악세서리의 아이템 등급 파라미터입니다.
- * @property {@link AccessoryCategory} [accessoryCategory] 악세서리의 종류를 식별하기위한 파라미터입니다.
- */
-export type AccessorySearchOption = {
-  /** 연마 효과를 식별하기위한 숫자 파라미터입니다. */
-  grindingEffectOptionValue: number;
-
-  /** 연마 효과의 수치 파라미터입니다. */
-  grindingEffectMinValue: number;
-
-  /** {@link AccessoryTier} 악세서리의 티어 파라미터입니다. */
-  accessoryTier: AccessoryTier;
-
-  /** {@link AccessoryGrade} 악세서리의 아이템 등급 파라미터입니다. */
-  accessoryGrade: AccessoryGrade;
-
-  /** {@link AccessoryCategory} 악세서리의 종류를 식별하기위한 숫자 파라미터입니다. */
-  accessoryCategory: AccessoryCategory;
-};
 
 export type EngraveInfo = {
   name: string;
@@ -159,14 +168,14 @@ export const CASES_RELIC: number[][] = [
   [5, 3],
   [4, 3],
   [3, 3],
-] as const;
+];
 
 export const CASES_ANCIENT: number[][] = [
   [6, 3],
   [5, 3],
   [4, 3],
   [3, 3],
-] as const;
+];
 
 // export const CASES_RELIC: number[][] = [
 //   [5, 3],

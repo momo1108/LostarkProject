@@ -1,12 +1,6 @@
 .mySelect {
   @apply relative pr-6 flex items-center pl-2;
 
-  .selectedLabel {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
   .indicator {
     @apply absolute right-2 top-0 bottom-0 my-auto transition-all duration-300;
   }
@@ -22,15 +16,14 @@
 
 .optionList {
   @apply absolute flex-col z-[2];
+  max-height: 320px;
+  overflow-y: auto;
   border: 2px solid;
   border-radius: 5px;
 
   .optionItem {
-    @apply p-2;
+    @apply p-2 truncate;
     border-bottom: 1px solid;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 
     &:last-child {
       border: none;

@@ -62,7 +62,7 @@ const MySelect = <T,>({
   offset = 0,
 }: MySelectProps<T>) => {
   const style = {
-    color: "#C33838",
+    color: "#FFFFFF",
     backgroundColor: "#020e1e",
     borderColor: "#092344",
     hoverBackgroundcolor: "#061831",
@@ -74,16 +74,18 @@ const MySelect = <T,>({
   // 초기 선택된 옵션이 있는 경우 셀렉트에 표시될 label 도 업데이트
   useEffect(() => {
     if (typeof defaultSelectedIndex === "number") {
-      console.log(defaultSelectedIndex, options[defaultSelectedIndex].label);
       setSelectedLabel(options[defaultSelectedIndex].label);
     }
-  }, []);
+  }, [options]);
 
-  const handleSelect = useCallback((options: Option<T>[], index: number) => {
-    setSelectedLabel(options[index].label);
-    onSelect(options[index], index);
-    setIsOpen(false);
-  }, []);
+  const handleSelect = useCallback(
+    (options: Option<T>[], index: number) => {
+      setSelectedLabel(options[index].label);
+      onSelect(options[index], index);
+      setIsOpen(false);
+    },
+    [onSelect]
+  );
 
   const handleKeydown = useCallback(
     (e: KeyboardEvent<HTMLButtonElement>) => {
@@ -132,7 +134,7 @@ const MySelect = <T,>({
       onKeyDown={handleKeydown}
       data-show={isOpen}
     >
-      <span className={styles.selectedLabel}>
+      <span className="truncate">
         {selectedLabel ? selectedLabel : placeholder}
       </span>
       <Triangle

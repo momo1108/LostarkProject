@@ -97,12 +97,6 @@ export const AccessorySearchContextProvider = ({
         "SortCondition": "ASC"
       }
    */
-  const grindingEffectOptionValue =
-    GRINDING_EFFECT_VALUE_MAP[ACCESSORY_GRINDINGEFFECT_MAP["목걸이"][0]];
-  const grindingEffectMinValue =
-    GRINDING_EFFECT_DATA[ACCESSORY_GRINDINGEFFECT_MAP["목걸이"][0]][4][
-      "고대"
-    ][0]["Value"];
   const [
     accessorySearchOptionArray,
     setAccessorySearchOptionArray,
@@ -112,8 +106,29 @@ export const AccessorySearchContextProvider = ({
       accessoryCategory: "목걸이",
       accessoryGrade: "고대",
       accessoryTier: 4,
-      grindingEffectOptionValue,
-      grindingEffectMinValue,
+      accessoryUpgradeLevel: 3,
+      accessoryGrindingEffectArray: [],
+    },
+    {
+      accessoryCategory: "목걸이",
+      accessoryGrade: "고대",
+      accessoryTier: 4,
+      accessoryUpgradeLevel: 3,
+      accessoryGrindingEffectArray: [],
+    },
+    {
+      accessoryCategory: "목걸이",
+      accessoryGrade: "고대",
+      accessoryTier: 4,
+      accessoryUpgradeLevel: 3,
+      accessoryGrindingEffectArray: [],
+    },
+    {
+      accessoryCategory: "목걸이",
+      accessoryGrade: "고대",
+      accessoryTier: 4,
+      accessoryUpgradeLevel: 3,
+      accessoryGrindingEffectArray: [],
     },
   ]);
 

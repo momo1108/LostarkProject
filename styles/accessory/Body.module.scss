@@ -27,7 +27,7 @@ $myLightBlue: #76b1ff;
     }
 
     .searchBody {
-      @apply flex flex-col w-full border border-[#333] mx-auto;
+      @apply flex flex-col border border-[#333] mx-auto;
       box-shadow: 0px 0px 8px -5px #fff;
       background-image: url("/images/bg_engrave.jpg");
       background-position: center;
@@ -44,7 +44,7 @@ $myLightBlue: #76b1ff;
       }
 
       .accessoryOptionDiv {
-        @apply flex flex-col px-2 py-4 gap-4 w-full;
+        @apply flex flex-col p-4 gap-4 w-full;
 
         h4 {
           @apply flex text-xl font-bold items-center justify-center gap-2;
@@ -115,13 +115,31 @@ $myLightBlue: #76b1ff;
             .grindingDiv {
               @apply flex gap-4;
 
+              .levelList {
+                @apply flex relative pt-6;
+
+                &::before {
+                  @apply text-base absolute top-0 left-0 font-bold;
+                  content: "연마 횟수";
+                }
+
+                li>button {
+                  @apply w-10 h-10 flex justify-center items-center border;
+                }
+              }
+
               .grindingOptionSelect {
                 @apply mt-6;
 
                 &::before {
                   @apply text-base absolute top-[-24px] left-0 font-bold;
-                  content: "티어";
+                  content: "옵션";
                 }
+              }
+
+              .grindingValueSelect {
+                border-width: 0;
+                border-bottom-width: 1px;
               }
             }
           }

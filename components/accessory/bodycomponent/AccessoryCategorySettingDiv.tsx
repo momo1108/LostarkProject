@@ -3,28 +3,38 @@ import MySelect from "@/components/custom/MySelect";
 import Earring from "@/components/icons/Earring";
 import Necklace from "@/components/icons/Necklace";
 import Ring2 from "@/components/icons/Ring2";
-import { useAccessorySearchStaticContext } from "@/contexts/accessory/AccessorySearchContext";
+import {
+  useAccessorySearchActionContext,
+  useAccessorySearchStaticContext,
+} from "@/contexts/accessory/AccessorySearchContext";
 import {
   ACCESSORY_CATEGORY_CODES,
   AccessoryCategory,
+  AccessorySearchOption,
 } from "@/types/EngraveType";
-import { useState } from "react";
 
-const AccessoryCategorySettingDiv: React.FC<{ index: number }> = ({
-  index,
-}) => {
-  const { accessorySearchOptionArrayRef } = useAccessorySearchStaticContext();
-  const [selectedAccessoryCategory, setSelectedAccessoryCategory] =
-    useState<AccessoryCategory>(
-      accessorySearchOptionArrayRef.current[index].accessoryCategory
-    );
+const AccessoryCategorySettingDiv: React.FC<{
+  option: AccessorySearchOption;
+  optionIndex: number;
+}> = ({ option, optionIndex }) => {
+  const { setAccessorySearchOptionArray } = useAccessorySearchActionContext();
 
   const options = ["목걸이", "귀걸이", "반지"].map((category) => ({
     label: category,
     value: ACCESSORY_CATEGORY_CODES[category as AccessoryCategory],
   }));
-  const onSelect = (option: { label: string; value: number }) => {
-    setSelectedAccessoryCategory(option.label as AccessoryCategory);
+  const onSelect = (selectedOption: { label: string; value: number }) => {
+    setAccessorySearchOptionArray((prev) => {
+      return prev.map((accessorySearchOption, accessorySearchOptionIndex) => {
+        if (accessorySearchOptionIndex === optionIndex)
+          return {
+            ...accessorySearchOption,
+            accessoryCategory: selectedOption.label as AccessoryCategory,
+            accessoryGrindingEffectArray: [],
+          };
+        return accessorySearchOption;
+      });
+    });
   };
   const defaultOptionIndex = {
     목걸이: 0,
@@ -34,16 +44,16 @@ const AccessoryCategorySettingDiv: React.FC<{ index: number }> = ({
 
   return (
     <div className={styles.accessoryCategorySettingDiv}>
-      {selectedAccessoryCategory === "목걸이" ? (
+      {option.accessoryCategory === "목걸이" ? (
         <Necklace fill="#fff" />
-      ) : selectedAccessoryCategory === "귀걸이" ? (
+      ) : option.accessoryCategory === "귀걸이" ? (
         <Earring fill="#fff" fill2="#fff" />
       ) : (
         <Ring2 fill="#fff" fill2="#fff" />
       )}
       <MySelect
         className={styles.accessoryCategorySelect}
-        defaultSelectedIndex={defaultOptionIndex[selectedAccessoryCategory]}
+        defaultSelectedIndex={defaultOptionIndex[option.accessoryCategory]}
         width={80}
         height={40}
         options={options}

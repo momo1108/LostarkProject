@@ -5,12 +5,7 @@ import AccessoryResultContainer from "./bodycomponent/AccessoryResultContainer";
 import { AccessoryContextProvider } from "@/contexts/accessory/Index";
 import { GrindingEffectData } from "@/types/EngraveType";
 
-type AccessoryBodyProps = {
-  grindingEffectData: GrindingEffectData;
-};
-const AccessoryBody: React.FC<AccessoryBodyProps> = ({
-  grindingEffectData,
-}) => {
+const AccessoryBody: React.FC = () => {
   return (
     <AccessoryContextProvider>
       <div className={`${styles.body} ${nanumNeo.className}`}>
