@@ -5,11 +5,13 @@ const Info: React.FC<IconProps> = ({
   className,
   size,
   fill,
+  svgAttributes = {},
 }) => {
   return (
     <svg
       data-tooltip-id={dataTooltipId}
       className={className}
+      {...svgAttributes}
       fill={fill}
       viewBox="0 0 1920 1920"
       xmlns="http://www.w3.org/2000/svg"

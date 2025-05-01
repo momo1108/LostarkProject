@@ -1,10 +1,16 @@
 import { IconProps } from "@/types/CustomType";
 
-const Meteor: React.FC<IconProps> = ({ className, size, fill }) => {
+const Meteor: React.FC<IconProps> = ({
+  className,
+  size,
+  fill,
+  svgAttributes = {},
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      {...svgAttributes}
       width={size}
       height={size}
       viewBox="0 0 512 512"

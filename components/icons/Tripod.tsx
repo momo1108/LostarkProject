@@ -1,8 +1,13 @@
 import { IconProps } from "@/types/CustomType";
 
-const Tripod: React.FC<IconProps> = ({ className, size = 16 }) => (
+const Tripod: React.FC<IconProps> = ({
+  className,
+  size = 16,
+  svgAttributes = {},
+}) => (
   <svg
     className={className}
+    {...svgAttributes}
     data-type="2"
     xmlns="http://www.w3.org/2000/svg"
     version="1.0"

@@ -5,11 +5,13 @@ const Filter: React.FC<IconProps> = ({
   size,
   color = "#eee",
   width = 2,
+  svgAttributes = {},
 }) => {
   return (
     <svg
       viewBox="0 0 24 24"
       className={className}
+      {...svgAttributes}
       width={size}
       height={size}
       fill="none"

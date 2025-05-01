@@ -7,10 +7,12 @@ const Ring2: React.FC<PairIconProps> = ({
   fill2,
   first = true,
   rotate = 0,
+  svgAttributes = {},
 }) => {
   return (
     <svg
       className={className}
+      {...svgAttributes}
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}

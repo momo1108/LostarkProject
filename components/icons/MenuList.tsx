@@ -5,10 +5,12 @@ const MenuList: React.FC<IconProps> = ({
   size,
   color,
   width = 3,
+  svgAttributes = {},
 }) => {
   return (
     <svg
       className={className}
+      {...svgAttributes}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"

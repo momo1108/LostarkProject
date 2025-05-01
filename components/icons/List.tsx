@@ -1,9 +1,15 @@
 import { IconProps } from "@/types/CustomType";
 
-const List: React.FC<IconProps> = ({ className, size, fill }) => {
+const List: React.FC<IconProps> = ({
+  className,
+  size,
+  fill,
+  svgAttributes = {},
+}) => {
   return (
     <svg
       className={className}
+      {...svgAttributes}
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
       width={size}

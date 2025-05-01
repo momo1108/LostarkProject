@@ -6,9 +6,11 @@ const Gear: React.FC<IconProps> = ({
   fill = "#000000",
   color = "#000000",
   width = 0.00512,
+  svgAttributes = {},
 }) => (
   <svg
     className={className}
+    {...svgAttributes}
     width={size}
     height={size}
     version="1.1"

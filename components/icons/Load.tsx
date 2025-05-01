@@ -5,9 +5,11 @@ const Load: React.FC<IconProps> = ({
   size = 16,
   color = "#000000",
   width = 3,
+  svgAttributes = {},
 }) => (
   <svg
     className={className}
+    {...svgAttributes}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}

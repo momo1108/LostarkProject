@@ -6,9 +6,11 @@ const Github: React.FC<IconProps> = ({
   fill = "#eee",
   color = "#000000",
   width = 0.00512,
+  svgAttributes = {},
 }) => (
   <svg
     className={className}
+    {...svgAttributes}
     height={size}
     width={size}
     viewBox="0 0 16 16"

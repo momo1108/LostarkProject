@@ -1,8 +1,10 @@
 import { IconProps } from "@/types/CustomType";
 
-const Ring: React.FC<IconProps> = ({ className, size }) => {
+const Ring: React.FC<IconProps> = ({ className, size, svgAttributes = {} }) => {
   return (
     <svg
+      className={className}
+      {...svgAttributes}
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}

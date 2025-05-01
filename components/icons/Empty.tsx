@@ -6,9 +6,11 @@ const Empty: React.FC<IconProps> = ({
   width = 2.5,
   fill = "none",
   className = "",
+  svgAttributes = {},
 }) => (
   <svg
     className={className}
+    {...svgAttributes}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}

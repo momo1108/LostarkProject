@@ -5,10 +5,12 @@ const Box: React.FC<IconProps> = ({
   size,
   color = "#eee",
   width = 1.5,
+  svgAttributes = {},
 }) => {
   return (
     <svg
       className={className}
+      {...svgAttributes}
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}

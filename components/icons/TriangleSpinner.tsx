@@ -4,9 +4,11 @@ const TriangleSpinner: React.FC<IconProps> = ({
   size = 180,
   width = 2,
   className,
+  svgAttributes = {},
 }) => (
   <svg
     id="triangle"
+    {...svgAttributes}
     width={size}
     height={size}
     viewBox="0 0 40 40"
