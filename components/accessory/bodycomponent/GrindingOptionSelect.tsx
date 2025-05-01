@@ -63,7 +63,7 @@ const GrindingOptionSelect: React.FC<{
                           ],
                       },
                       effectValue: {
-                        level: 0,
+                        level: 2,
                         valueArray:
                           GRINDING_EFFECT_DATA[
                             selectedOption.label as GrindingEffectKey

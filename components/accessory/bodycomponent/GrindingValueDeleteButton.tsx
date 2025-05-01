@@ -1,17 +1,12 @@
-import Delete from "@/components/icons/Delete";
+import Close from "@/components/icons/Close";
 import { useAccessorySearchActionContext } from "@/contexts/accessory/AccessorySearchContext";
-import styles from "@/styles/accessory/Body.module.scss";
-import {
-  AccessorySearchOption,
-  AccessoryUpgradeLevel,
-} from "@/types/EngraveType";
+import { AccessorySearchOption } from "@/types/EngraveType";
 import { useCallback } from "react";
 
 const GrindingValueDeleteButton: React.FC<{
-  option: AccessorySearchOption;
   optionIndex: number;
-  effectIndex: number;
-}> = ({ option, optionIndex, effectIndex }) => {
+  effectName: string;
+}> = ({ optionIndex, effectName }) => {
   const { setAccessorySearchOptionArray } = useAccessorySearchActionContext();
   const handleClick = useCallback(() => {
     setAccessorySearchOptionArray((prev) => {
@@ -21,7 +16,7 @@ const GrindingValueDeleteButton: React.FC<{
             ...accessorySearchOption,
             accessoryGrindingEffectArray:
               accessorySearchOption.accessoryGrindingEffectArray.filter(
-                (_, prevEffectIndex) => prevEffectIndex !== effectIndex
+                (effect) => effect.effectName.name !== effectName
               ),
           };
         return accessorySearchOption;
@@ -31,7 +26,7 @@ const GrindingValueDeleteButton: React.FC<{
 
   return (
     <button onClick={() => handleClick()}>
-      <Delete size={16} color="#fff" width={1.5} />
+      <Close size={16} color="#fff" width={1.5} />
     </button>
   );
 };

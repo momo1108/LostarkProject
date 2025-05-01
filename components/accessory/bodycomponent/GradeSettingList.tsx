@@ -11,6 +11,8 @@ const GradeSettingList: React.FC<{
   optionIndex: number;
 }> = ({ option, optionIndex }) => {
   const { setAccessorySearchOptionArray } = useAccessorySearchActionContext();
+  const { GRINDING_EFFECT_DATA } = useAccessorySearchStaticContext();
+
   const handleClick = useCallback((grade: AccessoryGrade) => {
     setAccessorySearchOptionArray((prev) => {
       return prev.map((accessorySearchOption, accessorySearchOptionIndex) => {
@@ -18,6 +20,21 @@ const GradeSettingList: React.FC<{
           return {
             ...accessorySearchOption,
             accessoryGrade: grade,
+            accessoryGrindingEffectArray:
+              accessorySearchOption.accessoryGrindingEffectArray.map(
+                ({ effectName, effectValue }) => {
+                  return {
+                    effectName,
+                    effectValue: {
+                      ...effectValue,
+                      valueArray:
+                        GRINDING_EFFECT_DATA[effectName.name][
+                          accessorySearchOption.accessoryTier
+                        ][grade],
+                    },
+                  };
+                }
+              ),
           };
         return accessorySearchOption;
       });

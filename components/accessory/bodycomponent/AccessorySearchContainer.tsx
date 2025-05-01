@@ -9,6 +9,7 @@ import ApiKeyInput from "@/components/ApiKeyInput";
 import useAlert from "@/hooks/useAlert";
 import { ModalProps } from "@/types/ModalType";
 import AccessorySearchOptionList from "./AccessorySearchOptionList";
+import OptionItemAddButtonList from "./OptionItemAddButtonList";
 
 const ModalWrapper: React.FC<{
   Modal: React.FC<ModalProps>;
@@ -320,6 +321,10 @@ const AccessorySearchContainer: React.FC = () => {
             <Filter color="#ccc" size={24} />
             <span>옵션 설정</span>
           </h4>
+          <div className="flex items-center gap-4">
+            <span className="text-lg font-bold">악세서리 추가</span>
+            <OptionItemAddButtonList />
+          </div>
           <AccessorySearchOptionList />
         </div>
       </div>

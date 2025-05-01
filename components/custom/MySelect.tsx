@@ -4,9 +4,11 @@ import {
   KeyboardEvent,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import Triangle from "../icons/Triangle";
+import { createPortal } from "react-dom";
 
 type Option<T> = { label: string; value: T };
 
@@ -61,6 +63,8 @@ const MySelect = <T,>({
   place = "bottom",
   offset = 0,
 }: MySelectProps<T>) => {
+  const selectRef = useRef<HTMLButtonElement | null>(null);
+  const dropdownRef = useRef<HTMLUListElement | null>(null);
   const style = {
     color: "#FFFFFF",
     backgroundColor: "#020e1e",
@@ -84,7 +88,7 @@ const MySelect = <T,>({
       onSelect(options[index], index);
       setIsOpen(false);
     },
-    [onSelect]
+    [onSelect, options]
   );
 
   const handleKeydown = useCallback(
@@ -112,11 +116,102 @@ const MySelect = <T,>({
       }
       e.preventDefault();
     },
-    [hovered]
+    [isOpen, hovered, options, handleSelect]
   );
+
+  /**
+   * 드롭다운의 위치 설정 관련된 코드입니다
+   * dropdownStyle : 출력될 위치를 기억할 상태
+   * useEffect : 스크롤과 리사이즈 이벤트 핸들러를 통해 dropdownStyle 상태를 현재 위치에 맞게 수정합니다.
+   *             getBoundingClientRect 메서드를 사용해 selectRef 의 현재 위치 정보를 찾아냅니다.
+   */
+  const [dropdownStyle, setDropdownStyle] = useState<{
+    top: number;
+    left: number;
+  }>({ top: 0, left: 0 });
+
+  useEffect(() => {
+    if (selectRef === null || selectRef.current === null || !isOpen) return;
+
+    const updatePosition = () => {
+      const rect = selectRef.current!.getBoundingClientRect();
+      if (rect) {
+        const dropdownHeight = 320; // 예상 드롭다운 높이
+        const shouldOpenUp = window.innerHeight - rect.bottom < dropdownHeight;
+        const top = shouldOpenUp ? rect.top - dropdownHeight : rect.bottom;
+        const left = rect.left + window.scrollX;
+        setDropdownStyle({
+          top,
+          left,
+        });
+      }
+    };
+
+    updatePosition(); // 초기 위치
+    window.addEventListener("scroll", updatePosition, true); // true는 캡처링 단계에서 감지
+    window.addEventListener("resize", updatePosition);
+
+    return () => {
+      window.removeEventListener("scroll", updatePosition, true);
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [isOpen, selectRef]);
+
+  /**
+   * React Portal 을 사용해 dropdown 을 body 의 자식 요소로 렌더링합니다.
+   */
+  const renderDropdown = () => {
+    return createPortal(
+      <ul
+        ref={dropdownRef}
+        className={`hideScroll max-h-[320px] border-[2px] rounded`}
+        style={{
+          top: dropdownStyle.top,
+          left: dropdownStyle.left,
+          position: "absolute",
+          width: selectRef.current?.clientWidth,
+          borderColor: style.borderColor,
+          backgroundColor: style.backgroundColor,
+        }}
+        role="listbox"
+        onMouseLeave={() => {
+          setHovered(-1);
+        }}
+      >
+        {options?.map((option, i: number) => {
+          return (
+            <li
+              className={`${styles.optionItem} ${
+                itemClassName ? itemClassName : ""
+              } p-2 truncate cursor-pointer`}
+              key={`mySelect_option_${option.label}`}
+              title={option.label}
+              onMouseDown={() => {
+                handleSelect(options, i);
+              }}
+              onMouseEnter={() => {
+                setHovered(i);
+              }}
+              style={{
+                borderColor: style.borderColor,
+                backgroundColor:
+                  hovered === i
+                    ? style.hoverBackgroundcolor
+                    : style.backgroundColor,
+              }}
+            >
+              {option.label}
+            </li>
+          );
+        })}
+      </ul>,
+      document.body
+    );
+  };
 
   return (
     <button
+      ref={selectRef}
       tabIndex={0}
       className={`${styles.mySelect} ${className}`}
       title={selectedLabel}
@@ -143,48 +238,7 @@ const MySelect = <T,>({
         fill={style.color}
         size={12}
       />
-      <ul
-        className={`${styles.optionList} ${styles[place]}${
-          isOpen ? " block" : " hidden"
-        }`}
-        role="listbox"
-        style={{
-          [place]: -offset,
-          width: width + 16,
-          borderColor: style.borderColor,
-          backgroundColor: style.backgroundColor,
-        }}
-        onMouseLeave={() => {
-          setHovered(-1);
-        }}
-      >
-        {options?.map((option, i: number) => {
-          return (
-            <li
-              className={`${styles.optionItem} ${
-                itemClassName ? itemClassName : ""
-              }`}
-              key={`mySelect_option_${option.label}`}
-              title={option.label}
-              onMouseDown={() => {
-                handleSelect(options, i);
-              }}
-              onMouseEnter={() => {
-                setHovered(i);
-              }}
-              style={{
-                borderColor: style.borderColor,
-                backgroundColor:
-                  hovered === i
-                    ? style.hoverBackgroundcolor
-                    : style.backgroundColor,
-              }}
-            >
-              {option.label}
-            </li>
-          );
-        })}
-      </ul>
+      {isOpen && renderDropdown()}
     </button>
   );
 };

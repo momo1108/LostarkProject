@@ -64,83 +64,79 @@ $myLightBlue: #76b1ff;
             }
 
             .accessoryCategorySelect {
-              @apply mt-6;
+              @apply mt-7;
 
               &::before {
-                @apply text-base absolute top-[-24px] left-0 font-bold;
+                @apply text-base absolute top-[-28px] left-0 font-bold;
                 content: "부위";
               }
             }
           }
 
-          .settingDiv {
-            @apply flex items-end gap-4;
+          .tierGradeDiv {
+            @apply flex gap-4;
 
-            .tierGradeDiv {
-              @apply flex gap-4;
+            ol {
+              @apply flex relative pt-7;
 
-              ol {
-                @apply flex relative pt-6;
-
-                &::before {
-                  @apply text-base absolute top-0 left-0 font-bold;
-                }
-
-                li>button {
-                  @apply flex justify-center items-center border;
-                }
+              &::before {
+                @apply text-base absolute top-0 left-0 font-bold;
               }
 
-              .tierList {
-                &::before {
-                  content: "티어";
-                }
-
-                li>button {
-                  @apply w-10 h-10;
-                }
-              }
-
-              .gradeList {
-                &::before {
-                  content: "등급";
-                }
-
-                li>button {
-                  @apply w-12 h-10;
-                }
+              li>button {
+                @apply flex justify-center items-center border;
               }
             }
 
-            .grindingDiv {
-              @apply flex gap-4;
-
-              .levelList {
-                @apply flex relative pt-6;
-
-                &::before {
-                  @apply text-base absolute top-0 left-0 font-bold;
-                  content: "연마 횟수";
-                }
-
-                li>button {
-                  @apply w-10 h-10 flex justify-center items-center border;
-                }
+            .tierList {
+              &::before {
+                content: "티어";
               }
 
-              .grindingOptionSelect {
-                @apply mt-6;
+              li>button {
+                @apply w-10 h-10;
+              }
+            }
 
-                &::before {
-                  @apply text-base absolute top-[-24px] left-0 font-bold;
-                  content: "옵션";
-                }
+            .gradeList {
+              &::before {
+                content: "등급";
               }
 
-              .grindingValueSelect {
-                border-width: 0;
-                border-bottom-width: 1px;
+              li>button {
+                @apply w-12 h-10;
               }
+            }
+          }
+
+          .grindingDiv {
+            @apply flex gap-4;
+
+            .levelList {
+              @apply flex relative pt-7;
+
+              &::before {
+                @apply text-base absolute top-0 left-0 font-bold;
+                content: "연마 횟수";
+              }
+
+              li>button {
+                @apply w-10 h-10 flex justify-center items-center border;
+              }
+            }
+
+            .grindingOptionSelect {
+              @apply mt-7;
+
+              &::before {
+                @apply text-base absolute top-[-28px] left-0 font-bold;
+                content: "옵션";
+              }
+            }
+
+            .grindingValueSelect {
+              border-width: 0;
+              border-bottom-width: 1px;
             }
           }
         }

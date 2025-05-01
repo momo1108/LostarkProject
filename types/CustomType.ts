@@ -1,3 +1,5 @@
+import { SVGAttributes } from "react";
+
 export interface PairIconProps extends IconProps {
   first?: boolean;
   fill2?: string;
@@ -17,6 +19,7 @@ export interface IconProps {
   className?: string;
   type?: number;
   onClick?: React.MouseEventHandler<SVGSVGElement>;
+  svgAttributes?: SVGAttributes<HTMLOrSVGElement>;
 }
 
 export type CustomLoaderProps = {
