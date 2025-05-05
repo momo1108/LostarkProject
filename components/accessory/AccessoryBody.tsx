@@ -1,9 +1,8 @@
 import styles from "@/styles/accessory/Body.module.scss";
 import { nanumNeo } from "@/types/GlobalType";
-import AccessorySearchContainer from "./bodycomponent/AccessorySearchContainer";
-import AccessoryResultContainer from "./bodycomponent/AccessoryResultContainer";
+import AccessorySearchContainer from "./search/AccessorySearchContainer";
+import AccessoryResultContainer from "./result/AccessoryResultContainer";
 import { AccessoryContextProvider } from "@/contexts/accessory/Index";
-import { GrindingEffectData } from "@/types/EngraveType";
 
 const AccessoryBody: React.FC = () => {
   return (

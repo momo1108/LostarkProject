@@ -5,7 +5,6 @@ import Necklace from "@/components/icons/Necklace";
 import Ring2 from "@/components/icons/Ring2";
 import {
   useAccessorySearchActionContext,
-  useAccessorySearchStaticContext,
 } from "@/contexts/accessory/AccessorySearchContext";
 import {
   ACCESSORY_CATEGORY_CODES,
@@ -13,7 +12,7 @@ import {
   AccessorySearchOption,
 } from "@/types/EngraveType";
 
-const AccessoryCategorySettingDiv: React.FC<{
+const CategorySelect: React.FC<{
   option: AccessorySearchOption;
   optionIndex: number;
 }> = ({ option, optionIndex }) => {
@@ -63,4 +62,4 @@ const AccessoryCategorySettingDiv: React.FC<{
   );
 };
 
-export default AccessoryCategorySettingDiv;
+export default CategorySelect;

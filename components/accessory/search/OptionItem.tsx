@@ -1,22 +1,22 @@
 import styles from "@/styles/accessory/Body.module.scss";
-import AccessoryCategorySettingDiv from "./AccessoryCategorySettingDiv";
-import TierSettingList from "./TierSettingList";
-import GradeSettingList from "./GradeSettingList";
+import CategorySelect from "./optionitem/CategorySelect";
 import { memo } from "react";
+import TierSettingList from "./optionitem/TierSettingList";
+import GradeSettingList from "./optionitem/GradeSettingList";
 import { AccessorySearchOption } from "@/types/EngraveType";
-import GrindingOptionSelect from "./GrindingOptionSelect";
-import GrindingValueSelect from "./GrindingValueSelect";
-import LevelSettingList from "./LevelSettingList";
-import GrindingValueDeleteButton from "./GrindingValueDeleteButton";
-import OptionItemDeleteButton from "./OptionItemDeleteButton";
+import GrindingOptionSelect from "./optionitem/GrindingOptionSelect";
+import GrindingValueSelect from "./optionitem/GrindingValueSelect";
+import LevelSettingList from "./optionitem/LevelSettingList";
+import GrindingValueDeleteButton from "./optionitem/GrindingValueDeleteButton";
+import OptionItemDeleteButton from "./optionitem/OptionItemDeleteButton";
 
-const AccessorySearchOptionItem: React.FC<{
+const OptionItem: React.FC<{
   option: AccessorySearchOption;
   optionIndex: number;
 }> = ({ option, optionIndex }) => {
   return (
     <li className={styles.singleAccessoryDiv}>
-      <AccessoryCategorySettingDiv option={option} optionIndex={optionIndex} />
+      <CategorySelect option={option} optionIndex={optionIndex} />
       <div className="flex items-end gap-4">
         <div className={styles.tierGradeDiv}>
           <TierSettingList option={option} optionIndex={optionIndex} />
@@ -64,4 +64,4 @@ const AccessorySearchOptionItem: React.FC<{
   );
 };
 
-export default memo(AccessorySearchOptionItem);
+export default memo(OptionItem);

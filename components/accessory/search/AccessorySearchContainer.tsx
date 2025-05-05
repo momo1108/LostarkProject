@@ -8,8 +8,8 @@ import ApiKeyInput from "@/components/ApiKeyInput";
 // import EngraveCopyModal from "@/components/modal/EngraveCopyModal";
 import useAlert from "@/hooks/useAlert";
 import { ModalProps } from "@/types/ModalType";
-import AccessorySearchOptionList from "./AccessorySearchOptionList";
-import OptionItemAddButtonList from "./OptionItemAddButtonList";
+import OptionItemAddButtonList from "./optionitem/OptionItemAddButtonList";
+import OptionList from "./OptionList";
 
 const ModalWrapper: React.FC<{
   Modal: React.FC<ModalProps>;
@@ -325,7 +325,7 @@ const AccessorySearchContainer: React.FC = () => {
             <span className="text-lg font-bold">악세서리 추가</span>
             <OptionItemAddButtonList />
           </div>
-          <AccessorySearchOptionList />
+          <OptionList />
         </div>
       </div>
       {/* <div className={styles.searchFooter}>
