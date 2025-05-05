@@ -6,9 +6,11 @@ const Skip: React.FC<IconProps> = ({
   fill = "#000000",
   className = "",
   rotate = 0,
+  svgAttributes = {},
 }) => (
   <svg
     className={className}
+    {...svgAttributes}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}

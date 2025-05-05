@@ -2,7 +2,7 @@ export type ModalProps = {
   children?: React.ReactNode;
   className?: string;
   isOpen: boolean;
-  data: string;
+  data?: string;
   closeFunc?: () => void;
 };
 

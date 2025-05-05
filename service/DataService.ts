@@ -7,9 +7,9 @@ export default class DataService {
   /**
    * @/data/menu.json 에서 메뉴 데이터를 불러옵니다.
    */
-  public static getMenu = async (): Promise<Menu[]> => {
+  public static getMenu = (): Menu[] => {
     const dataDirectory = path.join(process.cwd(), "data");
-    const menuStr: string = await readFileSync(
+    const menuStr: string = readFileSync(
       `${dataDirectory}/menu.json`
     ).toString();
 
@@ -19,10 +19,22 @@ export default class DataService {
   /**
    * @/data/infoPage.json 에서 page 데이터를 불러옵니다.
    */
-  public static getInfoPageList = async (): Promise<InfoPage[]> => {
+  public static getInfoPageList = (): InfoPage[] => {
     const dataDirectory = path.join(process.cwd(), "data");
-    const infoPageStr: string = await readFileSync(
+    const infoPageStr: string = readFileSync(
       `${dataDirectory}/info.json`
+    ).toString();
+
+    return JSON.parse(infoPageStr);
+  };
+
+  /**
+   * @/data/classSkillsetData.json 에서 트라이포드 데이터를 불러옵니다.
+   */
+  public static getTripodInfo = (): tripodDataType => {
+    const dataDirectory = path.join(process.cwd(), "data");
+    const infoPageStr: string = readFileSync(
+      `${dataDirectory}/classSkillsetData.json`
     ).toString();
 
     return JSON.parse(infoPageStr);
@@ -31,10 +43,10 @@ export default class DataService {
   /**
    * @/data/infoPage.json 에서 page 데이터를 불러옵니다.
    */
-  public static getTripodInfo = async (): Promise<tripodDataType> => {
+  public static getGrindingEffectData = (): Object => {
     const dataDirectory = path.join(process.cwd(), "data");
-    const infoPageStr: string = await readFileSync(
-      `${dataDirectory}/classSkillsetData.json`
+    const infoPageStr: string = readFileSync(
+      `${dataDirectory}/grindingEffectOptions.json`
     ).toString();
 
     return JSON.parse(infoPageStr);

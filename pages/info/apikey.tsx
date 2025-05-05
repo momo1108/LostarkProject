@@ -148,10 +148,10 @@ const ApiPage: React.FC<{ pages: InfoPage[]; pageInfo: InfoPage }> = ({
 
 export default ApiPage;
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = (context) => {
   console.log(context);
   try {
-    const pages = await DataService.getInfoPageList();
+    const pages = DataService.getInfoPageList();
     return {
       props: {
         pages,

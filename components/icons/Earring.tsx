@@ -1,9 +1,16 @@
 import { PairIconProps } from "@/types/CustomType";
 
-const Earring: React.FC<PairIconProps> = ({ className, size, fill, fill2 }) => {
+const Earring: React.FC<PairIconProps> = ({
+  className,
+  size,
+  fill,
+  fill2,
+  svgAttributes = {},
+}) => {
   return (
     <svg
       className={className}
+      {...svgAttributes}
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}

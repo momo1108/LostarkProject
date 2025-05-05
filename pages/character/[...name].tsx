@@ -2,11 +2,11 @@ import styles from "@/styles/character/Page.module.scss";
 import MenuBar from "@/components/MenuBar";
 import { MenuProps } from "@/types/GlobalType";
 import CharBody from "@/components/character/CharBody";
-import DataService from "@/service/DataService";
 import { nanumNeo } from "@/types/GlobalType";
 import Page from "@/components/Page";
 import { NextSeo } from "next-seo";
 import Footer from "@/components/Footer";
+import menu from "@/data/menu.json";
 
 const CharDetail: React.FC<MenuProps> = ({ menu }) => {
   return (
@@ -37,9 +37,8 @@ const CharDetail: React.FC<MenuProps> = ({ menu }) => {
 
 export default CharDetail;
 
-export async function getStaticProps() {
+export function getStaticProps() {
   try {
-    const menu = await DataService.getMenu();
     // const data: any = await LostarkService.getCharacterSummary(
     //   params.name[0]
     // );
@@ -58,7 +57,7 @@ export async function getStaticProps() {
   }
 }
 
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return {
     paths: [],
     fallback: "blocking",

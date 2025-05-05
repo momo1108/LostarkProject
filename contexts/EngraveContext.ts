@@ -7,7 +7,7 @@ import {
   EngraveInfo,
 } from "@/types/EngraveType";
 import { AuctionItem } from "@/types/LostarkApiType";
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { Dispatch, SetStateAction, RefObject } from "react";
 
 type EngraveContextType = {
@@ -218,4 +218,42 @@ const EngraveContext = createContext<EngraveContextType>({
   applyFilter: () => {},
 });
 
-export default EngraveContext;
+type AccessorySearchSelectorContextType = {
+  pageStatus: number;
+  combinationList: AuctionItem[][];
+  progress: number;
+  totalCases: number;
+  currentCase: number;
+  myTimer: number;
+};
+const AccessorySearchSelectorContext = createContext<
+  AccessorySearchSelectorContextType | undefined
+>(undefined);
+const useAccessorySearchSelectorContext = () => {
+  const context = useContext(AccessorySearchSelectorContext);
+  if (!context)
+    throw new Error(
+      "useAccessorySearchSelectorContext must be used within a AccessorySearchSelectorContext"
+    );
+  return context;
+};
+
+type AccessorySearchActionContextType = {
+  setPageStatus: Dispatch<SetStateAction<number>>;
+  setCombinationList: Dispatch<SetStateAction<AuctionItem[][]>>;
+  setProgress: Dispatch<SetStateAction<number>>;
+  setTotalCases: Dispatch<SetStateAction<number>>;
+  setCurrentCase: Dispatch<SetStateAction<number>>;
+  setMyTimer: Dispatch<SetStateAction<number>>;
+};
+const AccessorySearchActionContext = createContext<
+  AccessorySearchActionContextType | undefined
+>(undefined);
+const useEngravePageActionContext = () => {
+  const context = useContext(AccessorySearchActionContext);
+  if (!context)
+    throw new Error(
+      "useAccessorySearchActionContext must be used within a AccessorySearchActionContext"
+    );
+  return context;
+};

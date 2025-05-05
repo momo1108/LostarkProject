@@ -1,8 +1,13 @@
 import { IconProps } from "@/types/CustomType";
 
-const Gem: React.FC<IconProps> = ({ className, size = 16 }) => (
+const Gem: React.FC<IconProps> = ({
+  className,
+  size = 16,
+  svgAttributes = {},
+}) => (
   <svg
     className={className}
+    {...svgAttributes}
     width={size}
     height={size}
     version="1.1"

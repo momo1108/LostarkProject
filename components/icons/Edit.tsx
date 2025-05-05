@@ -5,9 +5,11 @@ const Edit: React.FC<IconProps> = ({
   size = 24,
   color = "#fff",
   width = 2,
+  svgAttributes = {},
 }) => (
   <svg
     className={className}
+    {...svgAttributes}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}

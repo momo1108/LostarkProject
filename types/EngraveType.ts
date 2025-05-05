@@ -1,6 +1,154 @@
 import { Dispatch, RefObject, SetStateAction } from "react";
 import { engravingIconMap } from "./GlobalType";
 
+export const GRINDING_EFFECT_ETCOPTIONS_VALUE = 7 as const;
+export const ACCESSORY_CATEGORY_CODES = {
+  장신구: 200000,
+  목걸이: 200010,
+  귀걸이: 200020,
+  반지: 200030,
+  팔찌: 200040,
+} as const;
+
+export const GRINDING_EFFECT_VALUE_MAP = {
+  "공격력 %": 45,
+  "공격력 +": 53,
+  낙인력: 44,
+  "무기 공격력 %": 46,
+  "무기 공격력 +": 54,
+  "상태이상 공격 지속시간": 57,
+  "세레나데, 신성, 조화 게이지 획득량 증가": 43,
+  "아군 공격력 강화 효과": 51,
+  "아군 피해량 강화 효과": 52,
+  "적에게 주는 피해 증가": 42,
+  "전투 중 생명력 회복량": 58,
+  "최대 마나": 56,
+  "최대 생명력": 55,
+  "추가 피해": 41,
+  "치명타 적중률": 49,
+  "치명타 피해": 50,
+  "파티원 보호막 효과": 48,
+  "파티원 회복 효과": 47,
+} as const;
+
+export const ACCESSORY_GRINDINGEFFECT_MAP = {
+  목걸이: [
+    "공격력 +",
+    "낙인력",
+    "무기 공격력 +",
+    "상태이상 공격 지속시간",
+    "세레나데, 신성, 조화 게이지 획득량 증가",
+    "적에게 주는 피해 증가",
+    "전투 중 생명력 회복량",
+    "최대 마나",
+    "최대 생명력",
+    "추가 피해",
+  ],
+  귀걸이: [
+    "공격력 %",
+    "공격력 +",
+    "무기 공격력 %",
+    "무기 공격력 +",
+    "상태이상 공격 지속시간",
+    "전투 중 생명력 회복량",
+    "최대 마나",
+    "최대 생명력",
+    "파티원 보호막 효과",
+    "파티원 회복 효과",
+  ],
+  반지: [
+    "공격력 +",
+    "무기 공격력 +",
+    "상태이상 공격 지속시간",
+    "아군 공격력 강화 효과",
+    "아군 피해량 강화 효과",
+    "전투 중 생명력 회복량",
+    "최대 마나",
+    "최대 생명력",
+    "치명타 적중률",
+    "치명타 피해",
+  ],
+} as const;
+
+export type GrindingEffectKey =
+  | "공격력 %"
+  | "공격력 +"
+  | "낙인력"
+  | "무기 공격력 %"
+  | "무기 공격력 +"
+  | "상태이상 공격 지속시간"
+  | "세레나데, 신성, 조화 게이지 획득량 증가"
+  | "아군 공격력 강화 효과"
+  | "아군 피해량 강화 효과"
+  | "적에게 주는 피해 증가"
+  | "전투 중 생명력 회복량"
+  | "최대 마나"
+  | "최대 생명력"
+  | "추가 피해"
+  | "치명타 적중률"
+  | "치명타 피해"
+  | "파티원 보호막 효과"
+  | "파티원 회복 효과";
+
+export type AccessoryGrade = "유물" | "고대";
+
+export type AccessoryTier = 3 | 4;
+
+export type AccessoryCategory = "목걸이" | "귀걸이" | "반지";
+
+export type AccessoryUpgradeLevel = 0 | 1 | 2 | 3;
+
+export type GrindingEffectLevel = 0 | 1 | 2;
+
+/**
+ * 악세서리 검색을 위해 필요한 파라미터들을 저장하기 위한 타입입니다.
+ * @property {@link AccessoryCategory} [accessoryCategory] 악세서리의 종류를 식별하기위한 파라미터입니다.
+ * @property {@link AccessoryTier} [accessoryTier] 악세서리의 티어 파라미터입니다.
+ * @property {@link AccessoryGrade} [accessoryGrade] 악세서리의 아이템 등급 파라미터입니다.
+ * @property {@link AccessoryUpgradeLevel} [accessoryUpgradeLevel] 악세서리의 연마 횟수 파라미터입니다.
+ * @property {{name: {@link GrindingEffectKey}; level: {@link GrindingEffectLevel};}[]} [accessoryGrindingEffectArray]  연마 효과 정보를 최대 3개까지 저장하는 배열 파라미터입니다.
+ */
+export type AccessorySearchOption = {
+  /** {@link AccessoryCategory} 악세서리의 종류를 식별하기위한 숫자 파라미터입니다. */
+  accessoryCategory: AccessoryCategory;
+
+  /** {@link AccessoryTier} 악세서리의 티어 파라미터입니다. */
+  accessoryTier: AccessoryTier;
+
+  /** {@link AccessoryGrade} 악세서리의 아이템 등급 파라미터입니다. */
+  accessoryGrade: AccessoryGrade;
+
+  /** {@link AccessoryUpgradeLevel} 악세서리의 연마 횟수 파라미터입니다. */
+  accessoryUpgradeLevel: AccessoryUpgradeLevel;
+
+  accessoryGrindingEffectArray: {
+    effectName: { name: GrindingEffectKey; value: number };
+    effectValue: {
+      level: GrindingEffectLevel;
+      valueArray: GrindingEffectValue[];
+    };
+  }[];
+};
+
+export type GrindingEffectValue = {
+  DisplayValue: string;
+  Value: number;
+  IsPercentage: boolean;
+};
+
+export type GrindingEffectGradeData = Record<
+  AccessoryGrade,
+  GrindingEffectValue[]
+>;
+export type GrindingEffectTierData = Record<
+  AccessoryTier,
+  GrindingEffectGradeData
+>;
+export type GrindingEffectData = Record<
+  GrindingEffectKey,
+  GrindingEffectTierData
+>;
+
 export type EngraveInfo = {
   name: string;
   level?: number;
@@ -119,7 +267,7 @@ export const NEGATIVE_ENGRAVES = [
     inputValue: "0",
     enableInput: false,
   },
-];
+] as const;
 
 export const engraveLevelColorMap: { [key: number]: string } = {
   0: "uncommon",

@@ -7,9 +7,11 @@ const Loader: React.FC<LoaderIconProps> = ({
   fill = "none",
   className = "",
   progress,
+  svgAttributes = {},
 }) => (
   <svg
     className={className}
+    {...svgAttributes}
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}

@@ -1,14 +1,11 @@
 .mySelect {
-  @apply relative font-extrabold pr-6;
+  @apply relative pr-6 flex items-center pl-2;
 
   .indicator {
     @apply absolute right-2 top-0 bottom-0 my-auto transition-all duration-300;
   }
-  border: 2px solid;
 
-  &:focus {
-    border: 2px solid;
-  }
+  border: 1px solid;
 
   &[data-show="true"] {
     .indicator {
@@ -17,16 +14,12 @@
   }
 }
 
-.optionList {
-  @apply absolute flex-col z-[2];
-  border: 2px solid;
-  border-radius: 5px;
-  .optionItem {
-    @apply p-2;
-    border-bottom: 1px solid;
-    &:last-child {
-      border: none;
-    }
+
+.optionItem {
+  border-bottom: 1px solid;
+
+  &:last-child {
+    border: none;
   }
 }
 
@@ -34,14 +27,17 @@
   @apply bottom-0 left-1/2;
   transform: translate(-50%, 100%);
 }
+
 .top {
   @apply top-0 left-1/2;
   transform: translate(-50%, -100%);
 }
+
 .right {
   @apply right-0 top-1/2;
   transform: translate(100%, -50%);
 }
+
 .left {
   @apply left-0 top-1/2;
   transform: translate(-100%, -50%);

@@ -48,7 +48,7 @@ const TripodSearchBlock: React.FC = () => {
 
   return (
     <div className={styles.searchContainer}>
-      <ApiKeyInput shine={apiShine} />
+      <ApiKeyInput isShining={apiShine} />
       <TripodCopyModal
         isOpen={copyModalIsOpen}
         closeFunc={() => {

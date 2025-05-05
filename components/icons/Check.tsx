@@ -5,10 +5,12 @@ const Check: React.FC<IconProps> = ({
   color = "#000000",
   width = 3,
   className,
+  svgAttributes = {},
 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={className}
+    {...svgAttributes}
     width={size}
     height={size}
     viewBox="0 0 24 24"

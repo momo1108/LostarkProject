@@ -1,5 +1,4 @@
 import styles from "@/styles/character/Page.module.scss";
-import DataService from "@/service/DataService";
 import MenuBar from "@/components/MenuBar";
 import { MenuProps } from "@/types/GlobalType";
 import CharBody from "@/components/character/CharBody";
@@ -7,6 +6,7 @@ import { nanumNeo } from "@/types/GlobalType";
 import Page from "@/components/Page";
 import { NextSeo } from "next-seo";
 import Footer from "@/components/Footer";
+import menu from "@/data/menu.json";
 
 const Character: React.FC<MenuProps> = ({ menu }) => {
   return (
@@ -35,9 +35,8 @@ const Character: React.FC<MenuProps> = ({ menu }) => {
 
 export default Character;
 
-export async function getStaticProps() {
+export function getStaticProps() {
   try {
-    const menu = await DataService.getMenu();
     return {
       props: {
         menu,

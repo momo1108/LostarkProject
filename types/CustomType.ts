@@ -1,3 +1,5 @@
+import { SVGAttributes } from "react";
+
 export interface PairIconProps extends IconProps {
   first?: boolean;
   fill2?: string;
@@ -17,24 +19,8 @@ export interface IconProps {
   className?: string;
   type?: number;
   onClick?: React.MouseEventHandler<SVGSVGElement>;
+  svgAttributes?: SVGAttributes<HTMLOrSVGElement>;
 }
-
-export type CustomSelectProps = {
-  className?: string;
-  width?: number;
-  height?: number;
-  color?: string;
-  backgroundColor?: string;
-  hoverBackgroundcolor?: string;
-  borderColor?: string;
-  itemClassName?: string;
-  title: string;
-  data: any[];
-  mapFunction: (arg1: any, arg2?: number) => JSX.Element;
-  onClickFunction: (arg1: any, arg2?: number) => void;
-  place?: string;
-  offset?: number;
-};
 
 export type CustomLoaderProps = {
   className?: string;
@@ -51,5 +37,5 @@ export type CustomInputProps = {
 };
 
 export type ApiKeyInputProps = {
-  shine: boolean;
+  isShining: boolean;
 };

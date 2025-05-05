@@ -7,6 +7,7 @@ const MenuIcons: React.FC<IconProps> = ({
   fill = "none",
   className = "",
   type = 0,
+  svgAttributes = {},
 }) => {
   if (type === 0)
     return (
@@ -50,6 +51,7 @@ const MenuIcons: React.FC<IconProps> = ({
     return (
       <svg
         className={className}
+        {...svgAttributes}
         data-type="2"
         xmlns="http://www.w3.org/2000/svg"
         version="1.0"

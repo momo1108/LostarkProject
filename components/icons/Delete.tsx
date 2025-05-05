@@ -7,9 +7,11 @@ const Delete: React.FC<IconProps> = ({
   fill = "none",
   className = "",
   onClick,
+  svgAttributes = {},
 }) => (
   <svg
     className={`deleteIcon ${className}`}
+    {...svgAttributes}
     onClick={onClick}
     xmlns="http://www.w3.org/2000/svg"
     width={size}

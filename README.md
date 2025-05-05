@@ -16,22 +16,6 @@
   </p>
 </div>
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#프로젝트-소개">프로젝트 소개</a>
-    </li>
-    <li>
-      <a href="#프로젝트-기술-스택">프로젝트 기술 스택</a>
-    </li>
-    <li>
-      <a href="#프로젝트-폴더-구조">프로젝트 폴더 구조</a>
-    </li>
-  </ol>
-</details>
-
 <br />
 
 ---

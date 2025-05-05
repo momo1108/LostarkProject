@@ -1,9 +1,15 @@
 import { IconProps } from "@/types/CustomType";
 
-const Necklace: React.FC<IconProps> = ({ className, size, fill }) => {
+const Necklace: React.FC<IconProps> = ({
+  className,
+  size,
+  fill,
+  svgAttributes = {},
+}) => {
   return (
     <svg
       className={className}
+      {...svgAttributes}
       xmlns="http://www.w3.org/2000/svg"
       fill={fill}
       width={size}

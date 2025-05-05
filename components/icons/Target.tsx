@@ -1,10 +1,15 @@
 import { IconProps } from "@/types/CustomType";
 
-const Target: React.FC<IconProps> = ({ className, size }) => {
+const Target: React.FC<IconProps> = ({
+  className,
+  size,
+  svgAttributes = {},
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      {...svgAttributes}
       width={size}
       height={size}
       viewBox="0 0 501.551 501.551"
