@@ -12,7 +12,7 @@ import usePreventBodyScroll from "@/hooks/usePreventBodyScroll";
 import { ModalProps, ModalState } from "@/types/ModalType";
 import styles from "@/styles/tripod/Body.module.scss";
 import MyInput from "../custom/MyInput";
-import LostarkService from "@/service/LostarkService";
+import { getCharacterProfile } from "@/service/LostarkService";
 import { ArmoryProfileType } from "@/types/LostarkApiType";
 import { Copy, TriangleSpinner } from "../icons/Index";
 import TripodSearchContext from "@/contexts/TripodSearchContext";
@@ -42,7 +42,7 @@ const TripodCopyModal: React.FC<ModalProps> = ({
       if (nameRef.current.value) {
         console.log(nameRef.current.value);
         try {
-          const { data } = await LostarkService.getCharacterProfile(
+          const data = await getCharacterProfile(
             nameRef.current.value
           );
           if (data) setProfile(data);

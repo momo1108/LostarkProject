@@ -40,7 +40,7 @@ import { TripodType } from "@/types/TripodType";
 import SkillTooltip from "../tooltips/SkillTooltip";
 import RuneTooltip from "../tooltips/RuneTooltip";
 import { Copy, Gem, Tripod } from "@/components/icons/Index";
-import LostarkService from "@/service/LostarkService";
+import { getCharacterSiblings } from "@/service/LostarkService";
 import Link from "next/link";
 import { EngravingType } from "@/types/LostarkApiType";
 
@@ -117,11 +117,11 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
 
     // 원정대
     setPageStatus("LOADING_SIBLINGS");
-    LostarkService.getCharacterSiblings(data.ArmoryProfile.CharacterName)
+    getCharacterSiblings(data.ArmoryProfile.CharacterName)
       .then((res) => {
         // console.log(res);
         const tmp_siblingsInfo: { [key: string]: SiblingType[] } = {};
-        res.data.forEach((sibling) => {
+        res.forEach((sibling) => {
           if (tmp_siblingsInfo.hasOwnProperty(sibling.ServerName)) {
             tmp_siblingsInfo[sibling.ServerName] = [
               ...tmp_siblingsInfo[sibling.ServerName],

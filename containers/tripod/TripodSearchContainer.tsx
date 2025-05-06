@@ -1,7 +1,7 @@
 import TripodSearchBlock from "@/components/tripod/bodycomponent/TripodSearchBlock";
 import TripodSearchContext from "@/contexts/TripodSearchContext";
 import useAlert from "@/hooks/useAlert";
-import LostarkService from "@/service/LostarkService";
+import { getCharacterSkills } from "@/service/LostarkService";
 import { classDetailMap } from "@/types/GlobalType";
 import {
   FilteredSkillType,
@@ -358,7 +358,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
     async (charName: string, className: string) => {
       try {
         setPageStatus("BEFORE_COPY");
-        const { data } = await LostarkService.getCharacterSkills(charName);
+        const data = await getCharacterSkills(charName);
         setCopyData(data);
         setSelectedSkillIndex(0);
         if (subClass !== className) {

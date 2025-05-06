@@ -1,7 +1,7 @@
 import CharRecentBlock from "@/components/character/bodycomponent/CharRecentBlock";
 import { useCallback, useContext } from "react";
 import { useRouter } from "next/router";
-import LostarkService from "@/service/LostarkService";
+import { getCharacterProfile } from "@/service/LostarkService";
 import useAlert from "@/hooks/useAlert";
 import CharacterContext from "@/contexts/CharacterContext";
 
@@ -26,7 +26,7 @@ const CharRecentContainer: React.FC<CharRecentContainerProps> = ({
   const updateSrc = useCallback(
     async (index: number) => {
       try {
-        const { data } = await LostarkService.getCharacterProfile(
+        const data = await getCharacterProfile(
           searchedDataList[index].name
         );
         setSearchedDataList((e) => [

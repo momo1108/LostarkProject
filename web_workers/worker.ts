@@ -1,4 +1,4 @@
-import LostarkService from "@/service/LostarkService";
+import { postAuctionItems } from "@/service/LostarkService";
 import { AccessoryInfo } from "@/types/EngraveType";
 import { AuctionItem, AuctionOption } from "@/types/LostarkApiType";
 import { Dispatch, SetStateAction } from "react";
@@ -245,7 +245,7 @@ async function apiSearching(
       while (true) {
         try {
           // console.log(u, ap);
-          single_res = await LostarkService.getAuctionItems(
+          single_res = await postAuctionItems(
             {
               CategoryCode: CATEGORY_CODE[accessoryList.getter[ap].type],
               EtcOptions: [
@@ -286,8 +286,7 @@ async function apiSearching(
               PageNo: 1,
               Sort: "BUY_PRICE",
               SortCondition: "ASC",
-            },
-            apiKey
+            }
           );
           // 해당 악세가 없으면 Items 가 null 로 반환됨
           if (single_res.data.Items)

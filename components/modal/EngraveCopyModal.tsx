@@ -12,7 +12,7 @@
 // import { ModalProps, ModalState } from "@/types/ModalType";
 // import styles from "@/styles/accessory/Body.module.scss";
 // import MyInput from "../custom/MyInput";
-// import LostarkService from "@/service/LostarkService";
+// import { getCharacterProfile, getCharacterSummary } from "@/service/LostarkService";
 // import {
 //   ArmoryEquipmentType,
 //   ArmoryProfileType,
@@ -59,7 +59,7 @@
 //       if (nameRef.current.value) {
 //         // console.log(nameRef.current.value);
 //         try {
-//           const { data } = await LostarkService.getCharacterProfile(
+//           const data = await getCharacterProfile(
 //             nameRef.current.value
 //           );
 //           if (data) setProfile(data);
@@ -79,7 +79,7 @@
 
 //   const copyEngraveSetting = useCallback(async (name: string) => {
 //     try {
-//       const result = await LostarkService.getCharacterSummary(name);
+//       const result = await getCharacterSummary(name);
 //       // console.log(result.data);
 //       const { ArmoryEngraving: ae, ArmoryEquipment: ae2 } = result.data;
 //       // 총 각인 정보, 각인서, 어빌리티스톤, 악세부위별 특성

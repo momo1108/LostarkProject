@@ -1,6 +1,6 @@
 import CharMainInfoBlock from "@/components/character/bodycomponent/CharMainInfoBlock";
 import CharacterContext from "@/contexts/CharacterContext";
-import LostarkService from "@/service/LostarkService";
+import { getCharacterImageUrl, getCharacterSummary } from "@/service/LostarkService";
 import { SearchedData } from "@/types/ReducerType";
 import { useRouter } from "next/router";
 import { useCallback, useContext, useEffect, useState } from "react";
@@ -17,7 +17,7 @@ const CharMainInfoContainer: React.FC<CharMainInfoContainerProps> = ({
 
   const getCharacterProfile = useCallback(async () => {
     try {
-      const result = await LostarkService.getCharacterSummary(
+      const result = await getCharacterSummary(
         router.query.name![0]
       );
 
@@ -27,7 +27,7 @@ const CharMainInfoContainer: React.FC<CharMainInfoContainerProps> = ({
       } else if (!result.data.ArmoryProfile.CharacterImage) {
         // 유효 데이터인 경우, 이미지 링크가 있는지 체크
         const url: string | undefined =
-          await LostarkService.getCharacterImageUrl(router.query.name![0]);
+          await getCharacterImageUrl(router.query.name![0]);
         if (!url) {
           setPageStatus("NODATA");
         } else {

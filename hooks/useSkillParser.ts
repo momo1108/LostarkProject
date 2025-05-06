@@ -1,4 +1,4 @@
-import LostarkService from "@/service/LostarkService";
+import { getAuctionOptions, getCharacterSkills } from "@/service/LostarkService";
 import { AuctionSkillOption } from "@/types/LostarkApiType";
 import { FilteredSkillType, SkillType, userList } from "@/types/TripodType";
 import axios from "axios";
@@ -21,7 +21,7 @@ export default function useSkillParser() {
 
   const getAuctionValueCode = useCallback(async () => {
     try {
-      const { data } = await LostarkService.getAuctionOptions();
+      const data = await getAuctionOptions();
       setAuctionSearchOptions(data.SkillOptions);
       console.log(data.SkillOptions);
     } catch (error) {
@@ -81,10 +81,10 @@ export default function useSkillParser() {
       let singleSkillData: FilteredSkillType[] | null = null;
       for (let user = 0; user < userList[className].length; user++) {
         try {
-          const { data: skillData } = await LostarkService.getCharacterSkills(
+          const data: SkillType[] = await getCharacterSkills(
             userList[className][user]
           );
-          singleSkillData = skillDataParser(className, skillData);
+          singleSkillData = skillDataParser(className, data);
           console.log(singleSkillData);
           break;
         } catch (err) {
@@ -110,7 +110,7 @@ export default function useSkillParser() {
       let singleSkillData: FilteredSkillType[] | null = null;
       for (let user = 0; user < userList[cls].length; user++) {
         try {
-          const { data: skillData } = await LostarkService.getCharacterSkills(
+          const skillData: SkillType[] = await getCharacterSkills(
             userList[cls][user]
           );
           singleSkillData = skillDataParser(cls, skillData);

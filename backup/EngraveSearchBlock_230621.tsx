@@ -1859,7 +1859,7 @@ const EngraveSearchBlock: React.FC = () => {
     EtcOptions: EtcOption[],
     ItemGradeQuality: number
   ) {
-    const res = await EngraveService.getAuctionItems({
+    const res = await EngraveService.postAuctionItems({
       CategoryCode,
       EtcOptions,
       ItemGrade: "고대",

@@ -53,12 +53,12 @@ function* getCharSaga(action: Action<string>) {
   try {
     yield put(pending());
     const { data } = yield call(
-      LostarkService.getCharacterSummary,
+      getCharacterSummary,
       action.payload
     );
     if (!data.ArmoryProfile.CharacterImage) {
       const url: string | undefined = yield call(
-        LostarkService.getCharacterImageUrl,
+        getCharacterImageUrl,
         action.payload
       );
       data.ArmoryProfile.CharacterImage = url ? url : null;

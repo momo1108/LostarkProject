@@ -39,7 +39,7 @@ export default CharDetail;
 
 export function getStaticProps() {
   try {
-    // const data: any = await LostarkService.getCharacterSummary(
+    // const data: any = await getCharacterSummary(
     //   params.name[0]
     // );
     // console.log(data);

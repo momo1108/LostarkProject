@@ -8,141 +8,93 @@ import {
 } from "@/types/LostarkApiType";
 import { CharData } from "@/types/ReducerType";
 import { SkillType } from "@/types/TripodType";
-import axios, { AxiosResponse } from "axios";
 import { parse } from "node-html-parser";
+import axios from "axios";
+import { lostarkApi } from "./axiosInstance";
 
-export default class LostarkService {
-  private static _url: string = "https://developer-lostark.game.onstove.com/";
+/**
+ * 공식 홈페이지의 전투정보실의 img 태그를 찾아서
+ * src 속성을 반환합니다.
+ * 못찾을 경우 undefined 를 반환합니다.
+ */
+export const getCharacterImageUrl = async (
+  name: string
+): Promise<string | undefined> => {
+  const res = await axios.get(`/reqimg/${name}`);
+  const dom = parse(res.data);
+  const img = dom.querySelector(".profile-equipment__character img");
+  return img?.attributes.src;
+};
 
-  /**
-   * 공식 홈페이지의 전투정보실의 img 태그를 찾아서
-   * src 속성을 반환합니다.
-   * 못찾을 경우 undefined 를 반환합니다.
-   */
-  public static getCharacterImageUrl = async (
-    name: string
-  ): Promise<string | undefined> => {
-    const res = await axios.get(`/reqimg/${name}`);
-    const dom = parse(res.data);
-    const img = dom.querySelector(".profile-equipment__character img");
+/**
+ * GET /characters/{characterName}/siblings
+ * Returns all character profiles for an account.
+ */
+export const getCharacterSiblings = async (
+  name: string,
+): Promise<SiblingType[]> => {
+  const res = await lostarkApi.get(`characters/${name}/siblings`);
+  return res.data;
+};
 
-    return img?.attributes.src;
-  };
+/**
+ * GET /armories/characters/{characterName}
+ * Returns a summary of profile information by a character name.
+ */
+export const getCharacterSummary = async (
+  name: string,
+): Promise<CharData> => {
+  const res = await lostarkApi.get(`armories/characters/${name}`);
+  return res.data;
+};
 
-  /**
-   * GET
-   * /characters/{characterName}/siblings
-   * Returns all character profiles for an account.
-   */
-  public static getCharacterSiblings = async (
-    name: string
-  ): Promise<AxiosResponse<SiblingType[]>> => {
-    return await axios.get(`${this.url}characters/${name}/siblings`, {
-      headers: {
-        Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
-        Accept: "application/json",
-      },
-    });
-  };
+/**
+ * GET /armories/characters/{characterName}/profiles
+ * Returns a summary of basic stats by a character name.
+ */
+export const getCharacterProfile = async (
+  name: string,
+): Promise<ArmoryProfileType> => {
+  const res = await lostarkApi.get(`armories/characters/${name}/profiles`);
+  return res.data;
+};
 
-  /**
-   * GET
-   * /armories/characters/{characterName}
-   * Returns a summary of profile information by a character name.
-   */
-  public static getCharacterSummary = async (
-    name: string
-  ): Promise<AxiosResponse<CharData, any>> => {
-    return await axios.get(`${this.url}armories/characters/${name}`, {
-      headers: {
-        Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
-        Accept: "application/json",
-      },
-    });
-  };
+/**
+ * GET /armories/characters/{characterName}/combat-skills
+ * Returns a summary of combat skills by a character name.
+ */
+export const getCharacterSkills = async (
+  name: string,
+): Promise<SkillType[]> => {
+  const res = await lostarkApi.get(`armories/characters/${name}/combat-skills`);
+  return res.data;
+};
 
-  /**
-   * GET
-   * /armories/characters/{characterName}/profiles
-   * Returns a summary of basic stats by a character name.
-   */
-  public static getCharacterProfile = async (
-    name: string
-  ): Promise<AxiosResponse<ArmoryProfileType, any>> => {
-    return await axios.get(`${this.url}armories/characters/${name}/profiles`, {
-      headers: {
-        Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
-        Accept: "application/json",
-      },
-    });
-  };
+/**
+ * auction api를 이용해 검색합니다.
+ */
+export const postAuctionItems = async (
+  req: AuctionItemSearchReq,
+): Promise<any> => {
+  const res = await lostarkApi.post("auctions/items", req);
+  return res.data;
+};
 
-  /**
-   * GET
-   * /armories/characters/{characterName}/combat-skills
-   * Returns a summary of combat skills by a character name.
-   */
-  public static getCharacterSkills = async (
-    name: string
-  ): Promise<AxiosResponse<SkillType[], any>> => {
-    return await axios.get(
-      `${this.url}armories/characters/${name}/combat-skills`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
-          Accept: "application/json",
-        },
-      }
-    );
-  };
+/**
+ * market api를 이용해 검색합니다.
+ */
+export const getMarketItems = async (
+  req: MarketItemSearchReq,
+): Promise<MarketItemSearchResult> => {
+  const res = await lostarkApi.post("markets/items", req);
+  return res.data;
+};
 
-  /**
-   * auction api를 이용해 검색합니다.
-   */
-  public static getAuctionItems = async (
-    req: AuctionItemSearchReq,
-    apiKey: string
-  ): Promise<AxiosResponse> => {
-    return await axios.post(`${this.url}auctions/items`, req, {
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        Accept: "application/json",
-      },
-    });
-  };
-
-  /**
-   * market api를 이용해 검색합니다.
-   */
-  public static getMarketItems = async (
-    req: MarketItemSearchReq,
-    apiKey: string
-  ): Promise<AxiosResponse> => {
-    return await axios.post(`${this.url}markets/items`, req, {
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        Accept: "application/json",
-      },
-    });
-  };
-
-  /**
-   * GET
-   * /characters/{characterName}/siblings
-   * Returns all character profiles for an account.
-   */
-  public static getAuctionOptions = async (): Promise<
-    AxiosResponse<AuctionSearchOption>
-  > => {
-    return await axios.get(`${this.url}auctions/options`, {
-      headers: {
-        Authorization: `Bearer ${process.env.CLIENT_TOKEN}`,
-        Accept: "application/json",
-      },
-    });
-  };
-
-  static get url(): string {
-    return this._url;
-  }
-}
+/**
+ * GET /auctions/options
+ * Returns auction search options.
+ */
+export const getAuctionOptions = async (): Promise<AuctionSearchOption> => {
+  const res = await lostarkApi.get("auctions/options");
+  return res.data;
+};

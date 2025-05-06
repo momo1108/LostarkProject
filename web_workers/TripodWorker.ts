@@ -1,4 +1,4 @@
-import LostarkService from "@/service/LostarkService";
+import { getMarketItems, postAuctionItems } from "@/service/LostarkService";
 import { AuctionItem, AuctionItemSearchResult } from "@/types/LostarkApiType";
 import { TripodReqType, TripodResType } from "@/types/TripodType";
 
@@ -35,7 +35,7 @@ onmessage = async (e: {
 
   let powderOfSage = 0;
   try {
-    const res = await LostarkService.getMarketItems(
+    const res = await getMarketItems(
       {
         Sort: "CURRENT_MIN_PRICE",
         SortCondition: "ASC",
@@ -45,11 +45,10 @@ onmessage = async (e: {
         ItemGrade: "",
         ItemTier: null,
         PageNo: 0,
-      },
-      apiKey
+      }
     );
 
-    powderOfSage = res.data.Items[0].CurrentMinPrice;
+    powderOfSage = res.Items[0].CurrentMinPrice;
   } catch (err: any) {
     console.error(err);
     result.status = "ERROR";
@@ -81,15 +80,14 @@ onmessage = async (e: {
 
   while (i < reqData.length) {
     try {
-      const res = await LostarkService.getAuctionItems(
+      const res = await postAuctionItems(
         {
           SkillOptions: [reqData[i].data],
           Sort: "BUY_PRICE",
           CategoryCode: 170300,
           PageNo: 0,
           SortCondition: "ASC",
-        },
-        apiKey
+        }
       );
       res.data.Items = res.data.TotalCount === 0 ? [] : res.data.Items;
 
