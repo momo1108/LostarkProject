@@ -1,11 +1,10 @@
 import { useStateWithRef } from "@/hooks/useStateWithRef";
 import {
-  ACCESSORY_GRINDINGEFFECT_MAP,
+  ACCESSORY_CATEGORY_CODES,
   AccessorySearchOption,
-  GRINDING_EFFECT_VALUE_MAP,
   GrindingEffectData,
 } from "@/types/EngraveType";
-import { AuctionItem } from "@/types/LostarkApiType";
+import { AuctionItem, Sort, SortCondition } from "@/types/LostarkApiType";
 import {
   createContext,
   Dispatch,
@@ -13,10 +12,12 @@ import {
   SetStateAction,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
 import GRINDING_EFFECT_DATA from "@/data/grindingEffectOptions.json";
+import { postMultipleAuctionItems } from "@/service/LostarkService";
 
 /** ---------------------- 타입 정의 ---------------------- **/
 
@@ -78,59 +79,79 @@ export const AccessorySearchContextProvider = ({
   const [currentCase, setCurrentCase] = useState<number>(0);
   const [myTimer, setMyTimer] = useState<number>(0);
 
-  /**
-   * 악세서리 검색을 수행할 post 메서드에 필요한 최소한의 파라미터들 입니다.
-   *  {
-        "EtcOptions": [
-          {
-            "FirstOption": 7,
-            "SecondOption": 53,
-            "MinValue": null,
-            "MaxValue": null
-          }
-        ],
-        "Sort": "BIDSTART_PRICE",
-        "ItemTier": 4,
-        "ItemGrade": "고대",
-        "CategoryCode": 200020,
-        "PageNo": 0,
-        "SortCondition": "ASC"
-      }
-   */
   const [
     accessorySearchOptionArray,
     setAccessorySearchOptionArray,
     accessorySearchOptionArrayRef,
-  ] = useStateWithRef<AccessorySearchOption[]>([
-    {
-      accessoryCategory: "목걸이",
-      accessoryGrade: "고대",
-      accessoryTier: 4,
-      accessoryUpgradeLevel: 3,
-      accessoryGrindingEffectArray: [],
-    },
-    {
-      accessoryCategory: "목걸이",
-      accessoryGrade: "고대",
-      accessoryTier: 4,
-      accessoryUpgradeLevel: 3,
-      accessoryGrindingEffectArray: [],
-    },
-    {
-      accessoryCategory: "목걸이",
-      accessoryGrade: "고대",
-      accessoryTier: 4,
-      accessoryUpgradeLevel: 3,
-      accessoryGrindingEffectArray: [],
-    },
-    {
-      accessoryCategory: "목걸이",
-      accessoryGrade: "고대",
-      accessoryTier: 4,
-      accessoryUpgradeLevel: 3,
-      accessoryGrindingEffectArray: [],
-    },
-  ]);
+  ] = useStateWithRef<AccessorySearchOption[]>([]);
+
+  useEffect(() => {
+    const recentSearchOptionHistory = localStorage.getItem("recentSearchOptionHistory");
+    if (recentSearchOptionHistory) {
+      const parsedRecentSearchOptionHistory = JSON.parse(recentSearchOptionHistory);
+      setAccessorySearchOptionArray(parsedRecentSearchOptionHistory);
+    } else {
+      setAccessorySearchOptionArray([
+        {
+          accessoryCategory: "목걸이",
+          accessoryGrade: "고대",
+          accessoryTier: 4,
+          accessoryUpgradeLevel: 3,
+          accessoryGrindingEffectArray: [],
+        },
+        {
+          accessoryCategory: "귀걸이",
+          accessoryGrade: "고대",
+          accessoryTier: 4,
+          accessoryUpgradeLevel: 3,
+          accessoryGrindingEffectArray: [],
+        },
+        {
+          accessoryCategory: "반지",
+          accessoryGrade: "고대",
+          accessoryTier: 4,
+          accessoryUpgradeLevel: 3,
+          accessoryGrindingEffectArray: [],
+        },
+      ]);
+    }
+  }, []);
+
+  const loadSearchOptionPreset = (presetName:string) => {
+    const searchOptionHistory = localStorage.getItem(`${presetName}_searchOptionHistory`);
+    if (searchOptionHistory) {
+      const parsedSearchOptionHistory = JSON.parse(searchOptionHistory);
+      setAccessorySearchOptionArray(parsedSearchOptionHistory);
+    }
+  };
+  
+  // 선택된 조건 배열을 경매장 악세서리 검색 메서드(postMultipleAuctionItems)의 파라미터로 가공한 후 검색 메서드를 호출합니다.
+  const postSearchOptionArray = useCallback(async () => {
+    try {
+    const requests = accessorySearchOptionArray.map((option) => {
+      return ({
+        "EtcOptions": option.accessoryGrindingEffectArray.map((effect) => {
+          return {
+            "FirstOption": 7,
+            "SecondOption": effect.effectName.value,
+            "MinValue": effect.effectValue.valueArray[effect.effectValue.level].Value,
+            "MaxValue": effect.effectValue.valueArray[effect.effectValue.level].Value
+          }
+        }),
+        "Sort": "BUY_PRICE" as Sort,
+        "ItemTier": option.accessoryTier,
+        "ItemGrade": option.accessoryGrade,
+        "CategoryCode": ACCESSORY_CATEGORY_CODES[option.accessoryCategory],
+        "PageNo": 0,
+        "SortCondition": "ASC" as SortCondition
+      })
+    })
+    const res = await postMultipleAuctionItems(requests);
+    console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [accessorySearchOptionArray]);
 
   const staticContextValue = useMemo(
     () => ({
@@ -170,6 +191,8 @@ export const AccessorySearchContextProvider = ({
       setCurrentCase,
       setMyTimer,
       setAccessorySearchOptionArray,
+      loadSearchOptionPreset,
+      postSearchOptionArray
     }),
     []
   );

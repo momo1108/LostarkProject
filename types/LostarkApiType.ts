@@ -201,7 +201,7 @@ export type MarketItem = {
   CurrentMinPrice: number;
 };
 
-type Sort =
+export type Sort =
   | "BIDSTART_PRICE"
   | "BUY_PRICE"
   | "EXPIREDATE"
@@ -213,4 +213,4 @@ type Sort =
   | "RECENT_PRICE"
   | "CURRENT_MIN_PRICE";
 
-type SortCondition = "ASC" | "DESC";
+export type SortCondition = "ASC" | "DESC";

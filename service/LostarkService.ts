@@ -71,13 +71,33 @@ export const getCharacterSkills = async (
 };
 
 /**
- * auction api를 이용해 검색합니다.
+ * 경매장에서 하나의 상품을 검색합니다.
  */
 export const postAuctionItems = async (
   req: AuctionItemSearchReq,
 ): Promise<any> => {
   const res = await lostarkApi.post("auctions/items", req);
   return res.data;
+};
+
+/**
+ * 경매장에서 여러개의 상품을 동시에 검색합니다.
+ * Promise.all 을 사용해 구현합니다.
+ */
+export const postMultipleAuctionItems = async (
+  requests: Array<AuctionItemSearchReq>
+): Promise<any[]> => {
+  try {
+    const promises = requests.map((req) => 
+      lostarkApi.post("auctions/items", req)
+    );
+
+    const responses = await Promise.all(promises);
+    return responses.map(response => response.data);
+  } catch (error) {
+    console.error("Error fetching multiple auction items:", error);
+    throw error;
+  }
 };
 
 /**
