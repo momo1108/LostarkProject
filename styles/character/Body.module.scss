@@ -1,9 +1,7 @@
+@use '../variables.scss' as *;
+
 $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
 $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
-$basicFontColor: #eee;
-$myBlue: #4691f6;
-$myLightBlue: #76b1ff;
-$myDarkBlue: #2a5996;
 $gemSlotsize: 51px;
 @function getEmptySlotBackground($num) {
   @return url(/images/empty_equipment_#{$num}.png);

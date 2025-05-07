@@ -1,6 +1,4 @@
-$myDarkBlue: #2a5996;
-$myBlue: #4691f6;
-$myLightBlue: #76b1ff;
+@use '../variables.scss' as *;
 
 .container {
   @apply text-white flex flex-col sm:flex-row h-screen;
