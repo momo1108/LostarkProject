@@ -1,6 +1,6 @@
 import styles from "@/styles/accessory/Body.module.scss";
 import { cloneElement, useState } from "react";
-import { Filter } from "@/components/icons/Index";
+import { Filter, Search } from "@/components/icons/Index";
 // import { Tooltip } from "react-tooltip";
 import ApiKeyInput from "@/components/ApiKeyInput";
 // import EngraveSaveModal from "@/components/modal/EngraveSaveModal";
@@ -10,6 +10,8 @@ import useAlert from "@/hooks/useAlert";
 import { ModalProps } from "@/types/ModalType";
 import OptionItemAddButtonList from "./optionitem/OptionItemAddButtonList";
 import OptionList from "./OptionList";
+import StatTradeCountFilter from "./StatTradeCountFilter";
+import { useAccessorySearchActionContext } from "@/contexts/accessory/AccessorySearchContext";
 
 const ModalWrapper: React.FC<{
   Modal: React.FC<ModalProps>;
@@ -280,6 +282,7 @@ const ApiKeyInputWrapper: React.FC = () => {
 
 const AccessorySearchContainer: React.FC = () => {
   const alert = useAlert();
+  const { searchAccessories } = useAccessorySearchActionContext();
 
   return (
     <div className={styles.searchContainer}>
@@ -328,162 +331,31 @@ const AccessorySearchContainer: React.FC = () => {
           <OptionList />
         </div>
       </div>
-      {/* <div className={styles.searchFooter}>
-        <div className={styles.filterWrapper}>
-          <h4 className={styles.filterHeader}>
+      <div className={styles.searchFooter}>
+        <div
+          className={`${styles.filterWrapper} inline-flex grow-0 flex-col gap-3 p-4 pt-2`}
+        >
+          <h4 className="flex text-xl font-bold items-center gap-2">
             <Filter color="#ccc" size={24} />
             <span>필터</span>
           </h4>
-          <div className={styles.filterDescr}>
+          <div className="text-sm flex flex-col gap-[2px] text-[#999]">
             <p>🔹 "검색" 사용 시 자동 적용됩니다.</p>
             <p>
               🔹 "검색 결과 필터링" 버튼을 통해, 검색 후 결과에 따로 적용
               가능합니다.
             </p>
           </div>
-          <div className={styles.searchFilterSetting}>
-            <div className={styles.statFilter}>
-              {Object.keys(statFilterValue).map((e) => {
-                return (
-                  <div className={styles.filterDiv} key={`filter_${e}`}>
-                    <label>
-                      <input
-                        type="number"
-                        value={statFilterValue[e]}
-                        max={1500}
-                        min={0}
-                        onFocus={(event) => {
-                          event.target.select();
-                        }}
-                        onChange={(event) => {
-                          let stat_tmp = parseInt(event.target.value);
-                          stat_tmp = stat_tmp
-                            ? stat_tmp > 1500
-                              ? 1500
-                              : stat_tmp < 0
-                              ? 0
-                              : stat_tmp
-                            : 0;
-                          setStatFilterValue({
-                            ...statFilterValue,
-                            [e]: stat_tmp,
-                          });
-                        }}
-                      />
-                      <div className={styles.borderDiv}>
-                        <p className={styles.filterTitle}>{e}</p>{" "}
-                      </div>
-                    </label>
-                  </div>
-                );
-              })}
-            </div>
-            <div className={styles.otherFilter}>
-              <div className={styles.filterDivInputNumber}>
-                <label>
-                  <input
-                    type="number"
-                    value={otherFilterValue["거래 가능 횟수"]}
-                    max={2}
-                    min={0}
-                    onFocus={(event) => {
-                      event.target.select();
-                    }}
-                    onChange={(event) => {
-                      let count = parseInt(event.target.value);
-                      count = count
-                        ? count > 2
-                          ? 2
-                          : count < 0
-                          ? 0
-                          : count
-                        : 0;
-                      setOtherFilterValue({
-                        ...otherFilterValue,
-                        "거래 가능 횟수": count,
-                      });
-                    }}
-                  />
-                  <div className={styles.borderDiv}>
-                    <p className={styles.filterTitle}>구매 후 거래 가능 횟수</p>
-                    <p className={styles.filterSubtitle}>회 이상</p>
-                  </div>
-                </label>
-              </div>
-              <div className={styles.filterDivInputRadio}>
-                <p>악세서리 등급</p>
-                <div className={styles.radioWrapper}>
-                  {["고대", "유물", "고대+유물"].map((e, i) => {
-                    return (
-                      <label
-                        key={`accessory_grade_radio_${i}`}
-                        className={styles.radioLabel}
-                        data-checked={i === otherFilterValue["악세서리 등급"]}
-                      >
-                        <input
-                          className="hidden"
-                          type="radio"
-                          value={i}
-                          name="accessoryGradeRadio"
-                          checked={i === otherFilterValue["악세서리 등급"]}
-                          onChange={(event) => {
-                            setOtherFilterValue({
-                              ...otherFilterValue,
-                              "악세서리 등급": parseInt(event.target.value),
-                            });
-                          }}
-                        />
-                        <span className={styles.radioLabelSpan}>{e}</span>
-                      </label>
-                    );
-                  })}
-                </div>
-              </div>
-              <div
-                className={styles.filterDivInputNumber}
-                data-disabled={otherFilterValue["악세서리 등급"] !== 2}
-              >
-                <label>
-                  <input
-                    type="number"
-                    value={otherFilterValue["고대등급 악세서리 개수"]}
-                    max={5}
-                    min={0}
-                    onFocus={(event) => {
-                      event.target.select();
-                    }}
-                    onChange={(event) => {
-                      let count = parseInt(event.target.value);
-                      count = count
-                        ? count > 5
-                          ? 5
-                          : count < 1
-                          ? 1
-                          : count
-                        : 1;
-                      setOtherFilterValue({
-                        ...otherFilterValue,
-                        "고대등급 악세서리 개수": count,
-                      });
-                    }}
-                    disabled={otherFilterValue["악세서리 등급"] !== 2}
-                  />
-                  <div className={styles.borderDiv}>
-                    <p className={styles.filterTitle}>고대등급 악세서리 개수</p>
-                    <p className={styles.filterSubtitle}>개 이상</p>
-                  </div>
-                </label>
-              </div>
-            </div>
+          <div className="flex flex-wrap gap-x-1 gap-y-3">
+            <StatTradeCountFilter />
           </div>
         </div>
         <div className={styles.searchButtons}>
           <button
             className="myButtons"
             onClick={() => {
-              searchSetting();
+              searchAccessories();
             }}
-            disabled={usingWebWorker[0]}
           >
             <Search color="#ccc" size={20} />
             <span>검색</span>
@@ -492,15 +364,14 @@ const AccessorySearchContainer: React.FC = () => {
           <button
             className="myButtons"
             onClick={() => {
-              applyFilter();
+              //   applyFilter();
             }}
-            disabled={usingWebWorker[0]}
           >
             <Filter color="#ccc" size={24} />
             <span>검색 결과 필터링</span>
           </button>
         </div>
-      </div> */}
+      </div>
       {/* <Tooltip
         id="apiKeySettingInfo"
         place="bottom"

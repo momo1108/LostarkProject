@@ -31,8 +31,8 @@ const GrindingValueSelect: React.FC<{
                       return {
                         ...prevEffect,
                         effectValue: {
+                          ...prevEffect.effectValue,
                           level: selectedOption.value as GrindingEffectLevel,
-                          valueArray: prevEffect.effectValue.valueArray,
                         },
                       };
                     return prevEffect;

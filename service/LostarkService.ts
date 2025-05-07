@@ -88,6 +88,7 @@ export const postMultipleAuctionItems = async (
   requests: Array<AuctionItemSearchReq>
 ): Promise<any[]> => {
   try {
+    console.log(requests);
     const promises = requests.map((req) => 
       lostarkApi.post("auctions/items", req)
     );
