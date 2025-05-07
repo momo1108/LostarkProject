@@ -1,4 +1,26 @@
 {
+  // 저장 시 포매팅
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+
+  // Prettier를 기본 포매터로 지정
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // ESLint가 린트할 파일 확장자
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "javascriptreact" // JSX도 사용하는 경우 필요
+  ],
+
+  // 저장 시 ESLint가 자동 고침
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // Prettier 관련 권장 옵션
+  "prettier.semi": true,
+  "prettier.singleQuote": false,
+  "prettier.trailingComma": "es5",
+  "prettier.tabWidth": 2
 }
