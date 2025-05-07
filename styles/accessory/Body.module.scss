@@ -1,7 +1,4 @@
-$basicFontColor: #eee;
-$myDarkBlue: #2a5996;
-$myBlue: #4691f6;
-$myLightBlue: #76b1ff;
+@use '../variables.scss' as *;
 
 .body {
   @apply flex-auto min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1352px] pt-2 mx-auto;
@@ -137,6 +134,13 @@ $myLightBlue: #76b1ff;
             .grindingValueSelect {
               border-width: 0;
               border-bottom-width: 1px;
+
+              $colors: red, blue, green;
+              @for $i from 1 through 3 {
+                li:nth-child(#{$i}) {
+                  color: nth($colors, $i);
+                }
+              }
             }
           }
         }

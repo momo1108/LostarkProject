@@ -1,17 +1,8 @@
+@use 'variables.scss' as *;
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-$lowQ: #ffd200;
-$mediumLowQ: #61ce02;
-$mediumQ: #00b5ff;
-$highQ: #ce43fc;
-$maxQ: #fe9600;
-$basicFontColor: #eee;
-$myDeepDarkBlue: #19375d;
-$myDarkBlue: #2a5996;
-$myBlue: #4691f6;
-$myLightBlue: #76b1ff;
 
 html {
   background-color: #010101;
@@ -371,45 +362,45 @@ body,
 }
 
 .normalBackground {
-  border: 1.5px solid #363636;
-  background: linear-gradient(135deg, #232323, #575757);
+  border: 1.5px solid $normalBorder;
+  background: $normalGradient;
 }
 
 .uncommonBackground {
-  border: 1.5px solid #21330b;
-  background: linear-gradient(135deg, #18220b 0%, #304911 100%);
+  border: 1.5px solid $uncommonBorder;
+  background: $uncommonGradient;
 }
 
 .rareBackground {
-  border: 1.5px solid #183653;
-  background: linear-gradient(135deg, #111f2c 0%, #113d5d 100%);
+  border: 1.5px solid $rareBorder;
+  background: $rareGradient;
 }
 
 .epicBackground {
-  border: 1.5px solid #391a4c;
-  background: linear-gradient(135deg, #261331 0%, #480d5d 100%);
+  border: 1.5px solid $epicBorder;
+  background: $epicGradient;
 }
 
 .legendaryBackground {
-  border: 1.5px solid rgb(129, 88, 7);
-  background: linear-gradient(135deg, #362003 0%, #9e5f04 100%);
+  border: 1.5px solid $legendaryBorder;
+  background: $legendaryGradient;
 }
 
 .relicBackground {
-  border: 1.5px solid rgb(117, 47, 12);
-  background: linear-gradient(135deg, #341a09 0%, #a24006 100%);
+  border: 1.5px solid $relicBorder;
+  background: $relicGradient;
 }
 
 .ancientBackground {
-  border: 1.5px solid rgb(148, 116, 29);
-  background: linear-gradient(135deg, #3d3325 0%, #dcc999 100%);
+  border: 1.5px solid $ancientBorder;
+  background: $ancientGradient;
 }
 
 .siderealBackground {
   position: relative;
   animation: siderealBlink 3s infinite;
   border: 1.5px solid;
-  background: linear-gradient(135deg, #0c2e2c 0%, #2faba8 100%);
+  background: $siderealGradient;
   overflow: hidden;
 
   &::before {
@@ -425,177 +416,171 @@ body,
 }
 
 .commonColor {
-  color: #eee;
+  color: $commonColor;
 }
 
 .uncommonColor {
-  color: #54d31a;
+  color: $uncommonColor;
 }
 
 .rareColor {
-  color: #00b0fa;
+  color: $rareColor;
 }
 
 .epicColor {
-  color: #ce43fc;
+  color: $epicColor;
 }
 
 .legendaryColor {
-  color: #f18d00;
+  color: $legendaryColor;
 }
 
 .relicColor {
-  color: #fa5d00;
+  color: $relicColor;
 }
 
 .ancientColor {
-  color: #e3c7a1;
+  color: $ancientColor;
 }
 
 .siderealColor {
-  color: #3cf2e6;
+  color: $siderealColor;
 }
 
 .commonBgColor {
-  background-color: #eee;
+  background-color: $commonBackgroundColor;
 }
 
 .uncommonBgColor {
-  background-color: #63e925;
+  background-color: $uncommonBackgroundColor;
 }
 
 .rareBgColor {
-  background-color: #0081b8;
+  background-color: $rareBackgroundColor;
 }
 
 .epicBgColor {
-  background-color: #9a30bd;
+  background-color: $epicBackgroundColor;
 }
 
 .legendaryBgColor {
-  background-color: #ca7600;
+  background-color: $legendaryBackgroundColor;
 }
 
 .relicBgColor {
-  background-color: #fa5d00;
+  background-color: $relicBackgroundColor;
 }
 
 .ancientBgColor {
-  background-color: #e3c7a1;
+  background-color: $ancientBackgroundColor;
 }
 
 .siderealBgColor {
-  background-color: #3cf2e6;
+  background-color: $siderealBackgroundColor;
 }
 
 .commonBorderColor {
-  border-color: #eee;
+  border-color: $commonBorderColor;
 }
 
 .uncommonBorderColor {
-  border-color: #63e925;
+  border-color: $uncommonBorderColor;
 }
 
 .rareBorderColor {
-  border-color: #0081b8;
+  border-color: $rareBorderColor;
 }
 
 .epicBorderColor {
-  border-color: #9a30bd;
+  border-color: $epicBorderColor;
 }
 
 .legendaryBorderColor {
-  border-color: #ca7600;
+  border-color: $legendaryBorderColor;
 }
 
 .relicBorderColor {
-  border-color: #fa5d00;
+  border-color: $relicBorderColor;
 }
 
 .ancientBorderColor {
-  border-color: #e3c7a1;
+  border-color: $ancientBorderColor;
 }
 
 .siderealBorderColor {
-  border-color: #3cf2e6;
+  border-color: $siderealBorderColor;
 }
 
 .tier1Color {
-  color: #56a1df;
+  color: $tier1Color;
 }
 
 .tier2Color {
-  color: #81de62;
+  color: $tier2Color;
 }
 
 .tier3Color {
-  color: #cfcf70;
+  color: $tier3Color;
 }
 
 .tier1Border {
-  border-color: #56a1df;
+  border-color: $tier1BorderColor;
 }
 
 .tier2Border {
-  border-color: #81de62;
+  border-color: $tier2BorderColor;
 }
 
 .tier3Border {
-  border-color: #cfcf70;
+  border-color: $tier3BorderColor;
 }
 
 .tier1Background {
-  background: #1a65a2;
+  background: $tier1BackgroundColor;
 }
 
 .tier2Background {
-  background: #379b16;
+  background: $tier2BackgroundColor;
 }
 
 .tier3Background {
-  background: #c5a100;
+  background: $tier3BackgroundColor;
 }
 
 .tier1BackgroundLinear {
-  background: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
-    linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
-    linear-gradient(360deg, #56a1dfcc 10%, #56a1df00 90.71%);
+  background: $tier1Gradient;
 }
 
 .tier2BackgroundLinear {
-  background: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
-    linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
-    linear-gradient(360deg, #81de62cc 10%, #81de6200 90.71%);
+  background: $tier2Gradient;
 }
 
 .tier3BackgroundLinear {
-  background: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
-    linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
-    linear-gradient(360deg, #cfcf70cc 10%, #cfcf7000 90.71%);
+  background: $tier3Gradient;
 }
 
 .tier1Stroke {
-  stroke: #175b93;
+  stroke: $tier1StrokeColor;
 }
 
 .tier2Stroke {
-  stroke: #297110;
+  stroke: $tier2StrokeColor;
 }
 
 .tier3Stroke {
-  stroke: #8c7303;
+  stroke: $tier3StrokeColor;
 }
 
 .tier1Fill {
-  fill: #092740;
+  fill: $tier1FillColor;
 }
 
 .tier2Fill {
-  fill: #102f06;
+  fill: $tier2FillColor;
 }
 
 .tier3Fill {
-  fill: #413500;
+  fill: $tier3FillColor;
 }
 
 .react-tooltip-arrow {

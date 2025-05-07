@@ -1,0 +1,84 @@
+$lowQ: #ffd200;
+$mediumLowQ: #61ce02;
+$mediumQ: #00b5ff;
+$highQ: #ce43fc;
+$maxQ: #fe9600;
+$basicFontColor: #eee;
+$myDeepDarkBlue: #19375d;
+$myDarkBlue: #2a5996;
+$myBlue: #4691f6;
+$myLightBlue: #76b1ff;
+
+$normalBorder: #363636;
+$uncommonBorder: #21330b;
+$rareBorder: #183653;
+$epicBorder: #391a4c;
+$legendaryBorder: rgb(129, 88, 7);
+$relicBorder: rgb(117, 47, 12);
+$ancientBorder: rgb(148, 116, 29);
+
+$normalGradient: linear-gradient(135deg, #232323, #575757);
+$uncommonGradient: linear-gradient(135deg, #18220b 0%, #304911 100%);
+$rareGradient: linear-gradient(135deg, #111f2c 0%, #113d5d 100%);
+$epicGradient: linear-gradient(135deg, #261331 0%, #480d5d 100%);
+$legendaryGradient: linear-gradient(135deg, #362003 0%, #9e5f04 100%);
+$relicGradient: linear-gradient(135deg, #341a09 0%, #a24006 100%);
+$ancientGradient: linear-gradient(135deg, #3d3325 0%, #dcc999 100%);
+$siderealGradient: linear-gradient(135deg, #0c2e2c 0%, #2faba8 100%);
+
+$commonColor: #eee;
+$uncommonColor: #54d31a;
+$rareColor: #00b0fa;
+$epicColor: #ce43fc;
+$legendaryColor: #f18d00;
+$relicColor: #fa5d00;
+$ancientColor: #e3c7a1;
+$siderealColor: #3cf2e6;
+
+$commonBackgroundColor: #eee;
+$uncommonBackgroundColor: #63e925;
+$rareBackgroundColor: #0081b8;
+$epicBackgroundColor: #9a30bd;
+$legendaryBackgroundColor: #ca7600;
+$relicBackgroundColor: #fa5d00;
+$ancientBackgroundColor: #e3c7a1;
+$siderealBackgroundColor: #3cf2e6;
+
+$commonBorderColor: #eee;
+$uncommonBorderColor: #63e925;
+$rareBorderColor: #0081b8;
+$epicBorderColor: #9a30bd;
+$legendaryBorderColor: #ca7600;
+$relicBorderColor: #fa5d00;
+$ancientBorderColor: #e3c7a1;
+$siderealBorderColor: #3cf2e6;
+
+$tier1Color: #56a1df;
+$tier2Color: #81de62;
+$tier3Color: #cfcf70;
+
+$tier1BorderColor: #56a1df;
+$tier2BorderColor: #81de62;
+$tier3BorderColor: #cfcf70;
+
+$tier1BackgroundColor: #1a65a2;
+$tier2BackgroundColor: #379b16;
+$tier3BackgroundColor: #c5a100;
+
+$tier1Gradient: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
+    linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
+    linear-gradient(360deg, #56a1dfcc 10%, #56a1df00 90.71%);
+$tier2Gradient: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
+    linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
+    linear-gradient(360deg, #81de62cc 10%, #81de6200 90.71%);
+$tier3Gradient: linear-gradient(280deg, #0d1117cc, #0d111700 70.71%),
+    linear-gradient(80deg, #0d1117cc, #0d111700 70.71%),
+    linear-gradient(360deg, #cfcf70cc 10%, #cfcf7000 90.71%);
+
+$tier1StrokeColor: #175b93;
+$tier2StrokeColor: #297110;
+$tier3StrokeColor: #8c7303;
+
+$tier1FillColor: #092740;
+$tier2FillColor: #102f06;
+$tier3FillColor: #413500;
