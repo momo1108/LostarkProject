@@ -1,6 +1,5 @@
 import styles from "@/styles/Custom.module.scss";
 import {
-  EventHandler,
   KeyboardEvent,
   useCallback,
   useEffect,
@@ -16,13 +15,12 @@ type MySelectProps<T> = {
   className?: string;
   width?: number;
   height?: number;
-  itemClassName?: string;
+  dropdownListClassName?: string;
+  dropdownListItemClassName?: string;
   options: Option<T>[];
   onSelect: (arg1: { label: string; value: T }, arg2?: number) => void;
   placeholder?: string;
   defaultSelectedIndex?: number;
-  place?: string;
-  offset?: number;
 };
 
 /**
@@ -43,25 +41,23 @@ type MySelectProps<T> = {
  * @prop {string} [className] 외부에서 전달할 추가 클래스
  * @prop {number} [width=100] 셀렉트 박스 너비
  * @prop {number} [height=24] 셀렉트 박스 높이
- * @prop {string} [itemClassName] 옵션 항목의 클래스
+ * @prop {string} [dropdownListClassName] 드롭다운 리스트의 클래스
+ * @prop {string} [dropdownListItemClassName] 드롭다운 리스트 항목의 클래스
  * @prop {{@link Option}[]} options label 와 value 로 구성된 옵션 객체 배열
  * @prop {(option: {@link Option}, index: number) => void} onSelect 옵션 선택 시 선택된 옵션 객체와 index 를 인자로 받아 실행될 함수
  * @prop {string} placeholder 셀렉트의 옵션을 선택하기 전 표기될 초기 텍스트
  * @prop {number | undefined} defaultSelectedIndex 셀렉트의 초기값으로 설정될 옵션의 인덱스값
- * @prop {"top" | "bottom"} [place="bottom"] 드롭다운 위치
- * @prop {number} [offset=0] 위치 조정을 위한 오프셋
  */
 const MySelect = <T,>({
   className,
   width = 100,
   height = 24,
-  itemClassName,
+  dropdownListClassName = "",
+  dropdownListItemClassName = "",
   options,
   onSelect,
   placeholder = "",
   defaultSelectedIndex,
-  place = "bottom",
-  offset = 0,
 }: MySelectProps<T>) => {
   const selectRef = useRef<HTMLButtonElement | null>(null);
   const dropdownRef = useRef<HTMLUListElement | null>(null);
@@ -164,7 +160,7 @@ const MySelect = <T,>({
     return createPortal(
       <ul
         ref={dropdownRef}
-        className={`hideScroll max-h-[320px] border-[2px] rounded`}
+        className={`${dropdownListClassName} hideScroll max-h-[320px] border-[2px] rounded`}
         style={{
           top: dropdownStyle.top,
           left: dropdownStyle.left,
@@ -181,9 +177,7 @@ const MySelect = <T,>({
         {options?.map((option, i: number) => {
           return (
             <li
-              className={`${styles.optionItem} ${
-                itemClassName ? itemClassName : ""
-              } p-2 truncate cursor-pointer`}
+              className={`${styles.optionItem} ${dropdownListItemClassName} p-2 truncate cursor-pointer`}
               key={`mySelect_option_${option.label}`}
               title={option.label}
               onMouseDown={() => {
