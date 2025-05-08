@@ -36,6 +36,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.3.2",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8",
     "prisma": "^5.5.2",
     "request": "^2.88.2"
   }
