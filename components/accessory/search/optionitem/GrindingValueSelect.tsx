@@ -17,8 +17,13 @@ const GrindingValueSelect: React.FC<{
 }> = ({ option, optionIndex, effectIndex }) => {
   const { setAccessorySearchOptionArray } = useAccessorySearchActionContext();
 
-  const handleSelectGrindingEffectValue = useCallback(
+  const onSelect = useCallback(
     (selectedOption: { label: string; value: number }) => {
+      if (
+        selectedOption.value ===
+        option.accessoryGrindingEffectArray[effectIndex].effectValue.level
+      )
+        return;
       setAccessorySearchOptionArray((prev) => {
         return prev.map((accessorySearchOption, accessorySearchOptionIndex) => {
           if (accessorySearchOptionIndex === optionIndex)
@@ -60,7 +65,7 @@ const GrindingValueSelect: React.FC<{
         label: DisplayValue,
         value: effectValueIndex,
       }))}
-      onSelect={handleSelectGrindingEffectValue}
+      onSelect={onSelect}
     />
   );
 };

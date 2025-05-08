@@ -3,9 +3,7 @@ import MySelect from "@/components/custom/MySelect";
 import Earring from "@/components/icons/Earring";
 import Necklace from "@/components/icons/Necklace";
 import Ring2 from "@/components/icons/Ring2";
-import {
-  useAccessorySearchActionContext,
-} from "@/contexts/accessory/AccessorySearchContext";
+import { useAccessorySearchActionContext } from "@/contexts/accessory/AccessorySearchContext";
 import {
   ACCESSORY_CATEGORY_CODES,
   AccessoryCategory,
@@ -23,6 +21,7 @@ const CategorySelect: React.FC<{
     value: ACCESSORY_CATEGORY_CODES[category as AccessoryCategory],
   }));
   const onSelect = (selectedOption: { label: string; value: number }) => {
+    if (selectedOption.label === option.accessoryCategory) return;
     setAccessorySearchOptionArray((prev) => {
       return prev.map((accessorySearchOption, accessorySearchOptionIndex) => {
         if (accessorySearchOptionIndex === optionIndex)

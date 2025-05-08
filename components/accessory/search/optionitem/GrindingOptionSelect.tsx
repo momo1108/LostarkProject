@@ -42,10 +42,10 @@ const GrindingOptionSelect: React.FC<{
    * option 객체의 값이 함수가 맨 처음 정의될 당시의 값으로 고정되는 문제가 발생.
    * 이는 클로저의 기본 동작에 의한 문제로 판단됨.
    */
-  const isSelectDone = option.accessoryGrindingEffectArray.length < 3;
-  const handleSelectGrindingEffect = useCallback(
+  const isSelectDone = option.accessoryGrindingEffectArray.length >= 3;
+  const onSelect = useCallback(
     (selectedOption: { label: string; value: number }) => {
-      if (isSelectDone) {
+      if (!isSelectDone) {
         setAccessorySearchOptionArray((prev) => {
           return prev.map(
             (accessorySearchOption, accessorySearchOptionIndex) => {
@@ -74,7 +74,7 @@ const GrindingOptionSelect: React.FC<{
                     },
                   ],
                 };
-              else return accessorySearchOption;
+              return accessorySearchOption;
             }
           );
         });
@@ -92,7 +92,7 @@ const GrindingOptionSelect: React.FC<{
       height={40}
       placeholder="옵션 선택"
       options={categoryOptionsArray}
-      onSelect={handleSelectGrindingEffect}
+      onSelect={onSelect}
     />
   );
 };

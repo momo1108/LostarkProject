@@ -14,6 +14,7 @@ const GradeSettingList: React.FC<{
   const { GRINDING_EFFECT_DATA } = useAccessorySearchStaticContext();
 
   const handleClick = useCallback((grade: AccessoryGrade) => {
+    if (grade === option.accessoryGrade) return;
     setAccessorySearchOptionArray((prev) => {
       return prev.map((accessorySearchOption, accessorySearchOptionIndex) => {
         if (accessorySearchOptionIndex === optionIndex)
@@ -44,12 +45,14 @@ const GradeSettingList: React.FC<{
   return (
     <ol className={styles.gradeList}>
       {["유물", "고대"].map((grade) => (
-        <li key={`tier_${grade}`} onClick={() => {}}>
+        <li
+          key={`tier_${grade}`}
+          onClick={() => handleClick(grade as AccessoryGrade)}
+        >
           <button
             className={
               grade === option.accessoryGrade ? "bg-white text-[#333]" : ""
             }
-            onClick={() => handleClick(grade as AccessoryGrade)}
           >
             {grade}
           </button>

@@ -14,6 +14,7 @@ const TierSettingList: React.FC<{
   const { GRINDING_EFFECT_DATA } = useAccessorySearchStaticContext();
 
   const handleClick = useCallback((tier: AccessoryTier) => {
+    if (tier === option.accessoryTier) return;
     setAccessorySearchOptionArray((prev) => {
       return prev.map((accessorySearchOption, accessorySearchOptionIndex) => {
         if (accessorySearchOptionIndex === optionIndex)
@@ -44,12 +45,14 @@ const TierSettingList: React.FC<{
   return (
     <ol className={styles.tierList}>
       {[3, 4].map((tier) => (
-        <li key={`tier_${tier}`} onClick={() => {}}>
+        <li
+          key={`tier_${tier}`}
+          onClick={() => handleClick(tier as AccessoryTier)}
+        >
           <button
             className={
               tier === option.accessoryTier ? "bg-white text-[#333]" : ""
             }
-            onClick={() => handleClick(tier as AccessoryTier)}
           >
             {tier}
           </button>

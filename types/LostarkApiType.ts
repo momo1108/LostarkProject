@@ -158,6 +158,7 @@ export type AuctionItem = {
     BidStartPrice: number;
     IsCompetitive: boolean;
     TradeAllowCount: number;
+    UpgradeLevel: number;
   };
   Options: AuctionOption[];
 };
@@ -168,6 +169,7 @@ export type AuctionOption = {
   OptionNameTripod: string;
   Value: number;
   IsPenalty: boolean;
+  IsValuePercentage: boolean;
   ClassName: string | null;
 };
 

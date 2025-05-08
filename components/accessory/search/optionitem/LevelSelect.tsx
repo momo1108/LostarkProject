@@ -1,47 +1,48 @@
+import MySelect from "@/components/custom/MySelect";
 import { useAccessorySearchActionContext } from "@/contexts/accessory/AccessorySearchContext";
 import styles from "@/styles/accessory/Body.module.scss";
 import {
   AccessorySearchOption,
   AccessoryUpgradeLevel,
 } from "@/types/EngraveType";
-import { useCallback } from "react";
 
-const LevelSettingList: React.FC<{
+const LevelSelect: React.FC<{
   option: AccessorySearchOption;
   optionIndex: number;
 }> = ({ option, optionIndex }) => {
   const { setAccessorySearchOptionArray } = useAccessorySearchActionContext();
-  const handleClick = useCallback((level: AccessoryUpgradeLevel) => {
+  const levelOptionsArray = [
+    { label: "0", value: 0 },
+    { label: "1", value: 1 },
+    { label: "2", value: 2 },
+    { label: "3", value: 3 },
+  ];
+
+  const onSelect = (selectedOption: { label: string; value: number }) => {
+    if (selectedOption.value === option.accessoryUpgradeLevel) return;
     setAccessorySearchOptionArray((prev) => {
       return prev.map((accessorySearchOption, accessorySearchOptionIndex) => {
         if (accessorySearchOptionIndex === optionIndex)
           return {
             ...accessorySearchOption,
-            accessoryUpgradeLevel: level,
+            accessoryUpgradeLevel:
+              selectedOption.value as AccessoryUpgradeLevel,
           };
         return accessorySearchOption;
       });
     });
-  }, []);
+  };
 
   return (
-    <ol className={styles.levelList}>
-      {[0, 1, 2, 3].map((level) => (
-        <li key={`level_${level}`} onClick={() => {}}>
-          <button
-            className={
-              level === option.accessoryUpgradeLevel
-                ? "bg-white text-[#333]"
-                : ""
-            }
-            onClick={() => handleClick(level as AccessoryUpgradeLevel)}
-          >
-            {level}
-          </button>
-        </li>
-      ))}
-    </ol>
+    <MySelect
+      className={styles.levelSelect}
+      width={50}
+      height={40}
+      defaultSelectedIndex={option.accessoryUpgradeLevel}
+      options={levelOptionsArray}
+      onSelect={onSelect}
+    />
   );
 };
 
-export default LevelSettingList;
+export default LevelSelect;

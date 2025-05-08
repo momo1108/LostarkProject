@@ -5,6 +5,8 @@ import {
   MarketItemSearchResult,
   ArmoryProfileType,
   AuctionSearchOption,
+  AuctionItem,
+  AuctionItemSearchResult,
 } from "@/types/LostarkApiType";
 import { CharData } from "@/types/ReducerType";
 import { SkillType } from "@/types/TripodType";
@@ -31,7 +33,7 @@ export const getCharacterImageUrl = async (
  * Returns all character profiles for an account.
  */
 export const getCharacterSiblings = async (
-  name: string,
+  name: string
 ): Promise<SiblingType[]> => {
   const res = await lostarkApi.get(`characters/${name}/siblings`);
   return res.data;
@@ -41,9 +43,7 @@ export const getCharacterSiblings = async (
  * GET /armories/characters/{characterName}
  * Returns a summary of profile information by a character name.
  */
-export const getCharacterSummary = async (
-  name: string,
-): Promise<CharData> => {
+export const getCharacterSummary = async (name: string): Promise<CharData> => {
   const res = await lostarkApi.get(`armories/characters/${name}`);
   return res.data;
 };
@@ -53,7 +53,7 @@ export const getCharacterSummary = async (
  * Returns a summary of basic stats by a character name.
  */
 export const getCharacterProfile = async (
-  name: string,
+  name: string
 ): Promise<ArmoryProfileType> => {
   const res = await lostarkApi.get(`armories/characters/${name}/profiles`);
   return res.data;
@@ -64,7 +64,7 @@ export const getCharacterProfile = async (
  * Returns a summary of combat skills by a character name.
  */
 export const getCharacterSkills = async (
-  name: string,
+  name: string
 ): Promise<SkillType[]> => {
   const res = await lostarkApi.get(`armories/characters/${name}/combat-skills`);
   return res.data;
@@ -74,8 +74,8 @@ export const getCharacterSkills = async (
  * 경매장에서 하나의 상품을 검색합니다.
  */
 export const postAuctionItems = async (
-  req: AuctionItemSearchReq,
-): Promise<any> => {
+  req: AuctionItemSearchReq
+): Promise<AuctionItemSearchResult> => {
   const res = await lostarkApi.post("auctions/items", req);
   return res.data;
 };
@@ -86,15 +86,14 @@ export const postAuctionItems = async (
  */
 export const postMultipleAuctionItems = async (
   requests: Array<AuctionItemSearchReq>
-): Promise<any[]> => {
+): Promise<AuctionItemSearchResult[]> => {
   try {
-    console.log(requests);
-    const promises = requests.map((req) => 
+    const promises = requests.map((req) =>
       lostarkApi.post("auctions/items", req)
     );
 
     const responses = await Promise.all(promises);
-    return responses.map(response => response.data);
+    return responses.map((response) => response.data);
   } catch (error) {
     console.error("Error fetching multiple auction items:", error);
     throw error;
@@ -105,7 +104,7 @@ export const postMultipleAuctionItems = async (
  * market api를 이용해 검색합니다.
  */
 export const getMarketItems = async (
-  req: MarketItemSearchReq,
+  req: MarketItemSearchReq
 ): Promise<MarketItemSearchResult> => {
   const res = await lostarkApi.post("markets/items", req);
   return res.data;

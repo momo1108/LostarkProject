@@ -5,10 +5,15 @@ import {
   AccessoryGrade,
   AccessorySearchOption,
   AccessoryTier,
+  AccessoryTradeCount,
   AccessoryUpgradeLevel,
   GrindingEffectData,
 } from "@/types/EngraveType";
-import { AuctionItem, Sort, SortCondition } from "@/types/LostarkApiType";
+import {
+  AuctionItemSearchResult,
+  Sort,
+  SortCondition,
+} from "@/types/LostarkApiType";
 import {
   createContext,
   Dispatch,
@@ -34,7 +39,7 @@ type AccessorySearchStaticContextType = {
 // 상태 데이터만 담는 SelectorContext
 type AccessorySearchSelectorContextType = {
   pageStatus: number;
-  combinationList: AuctionItem[][];
+  accessorySearchResult: AuctionItemSearchResult[];
   progress: number;
   totalCases: number;
   currentCase: number;
@@ -45,7 +50,7 @@ type AccessorySearchSelectorContextType = {
 // 상태 조작과 검색 기능에 관련된 함수를 담는 ActionContext
 type AccessorySearchActionContextType = {
   setPageStatus: Dispatch<SetStateAction<number>>;
-  setCombinationList: Dispatch<SetStateAction<AuctionItem[][]>>;
+  setAccessorySearchResult: Dispatch<SetStateAction<AuctionItemSearchResult[]>>;
   setProgress: Dispatch<SetStateAction<number>>;
   setTotalCases: Dispatch<SetStateAction<number>>;
   setCurrentCase: Dispatch<SetStateAction<number>>;
@@ -78,7 +83,9 @@ export const AccessorySearchContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [pageStatus, setPageStatus] = useState<number>(0);
-  const [combinationList, setCombinationList] = useState<AuctionItem[][]>([]);
+  const [accessorySearchResult, setAccessorySearchResult] = useState<
+    AuctionItemSearchResult[]
+  >([]);
   const [progress, setProgress] = useState<number>(0);
   const [totalCases, setTotalCases] = useState<number>(1);
   const [currentCase, setCurrentCase] = useState<number>(0);
@@ -90,6 +97,7 @@ export const AccessorySearchContextProvider = ({
       accessoryGrade: "고대" as AccessoryGrade,
       accessoryTier: 4 as AccessoryTier,
       accessoryUpgradeLevel: 3 as AccessoryUpgradeLevel,
+      accessoryTradeCount: 0 as AccessoryTradeCount,
       accessoryGrindingEffectArray: [],
     },
     {
@@ -97,6 +105,7 @@ export const AccessorySearchContextProvider = ({
       accessoryGrade: "고대" as AccessoryGrade,
       accessoryTier: 4 as AccessoryTier,
       accessoryUpgradeLevel: 3 as AccessoryUpgradeLevel,
+      accessoryTradeCount: 0 as AccessoryTradeCount,
       accessoryGrindingEffectArray: [],
     },
     {
@@ -104,6 +113,7 @@ export const AccessorySearchContextProvider = ({
       accessoryGrade: "고대" as AccessoryGrade,
       accessoryTier: 4 as AccessoryTier,
       accessoryUpgradeLevel: 3 as AccessoryUpgradeLevel,
+      accessoryTradeCount: 0 as AccessoryTradeCount,
       accessoryGrindingEffectArray: [],
     },
   ];
@@ -112,50 +122,60 @@ export const AccessorySearchContextProvider = ({
     accessorySearchOptionArray,
     setAccessorySearchOptionArray,
     accessorySearchOptionArrayRef,
-  ] = useStateWithRef<AccessorySearchOption[]>(INITIAL_ACCESSORY_SEARCH_OPTION_ARRAY);
+  ] = useStateWithRef<AccessorySearchOption[]>(
+    INITIAL_ACCESSORY_SEARCH_OPTION_ARRAY
+  );
 
   useEffect(() => {
-    const recentSearchOptionHistory = localStorage.getItem("recentSearchOptionHistory");
+    const recentSearchOptionHistory = localStorage.getItem(
+      "recentSearchOptionHistory"
+    );
     if (recentSearchOptionHistory) {
-      const parsedRecentSearchOptionHistory = JSON.parse(recentSearchOptionHistory);
+      const parsedRecentSearchOptionHistory = JSON.parse(
+        recentSearchOptionHistory
+      );
       setAccessorySearchOptionArray(parsedRecentSearchOptionHistory);
     } else {
       console.log("recentSearchOptionHistory not found");
     }
   }, []);
 
-  const loadSearchOptionPreset = (presetName:string) => {
-    const searchOptionHistory = localStorage.getItem(`${presetName}_searchOptionHistory`);
+  const loadSearchOptionPreset = (presetName: string) => {
+    const searchOptionHistory = localStorage.getItem(
+      `${presetName}_searchOptionHistory`
+    );
     if (searchOptionHistory) {
       const parsedSearchOptionHistory = JSON.parse(searchOptionHistory);
       setAccessorySearchOptionArray(parsedSearchOptionHistory);
     }
   };
-  
+
   // 선택된 조건 배열을 경매장 악세서리 검색 메서드(postMultipleAuctionItems)의 파라미터로 가공한 후 검색 메서드를 호출합니다.
   const searchAccessories = useCallback(async () => {
     try {
       const requests = accessorySearchOptionArrayRef.current.map((option) => {
-        return ({
-          "EtcOptions": option.accessoryGrindingEffectArray.map((effect) => {
+        return {
+          EtcOptions: option.accessoryGrindingEffectArray.map((effect) => {
             return {
-              "FirstOption": 7,
-              "SecondOption": effect.effectName.value,
-              "MinValue": effect.effectValue.valueArray[effect.effectValue.level].Value,
-              "MaxValue": effect.effectValue.valueArray[effect.effectValue.level].Value
-            }
+              FirstOption: 7,
+              SecondOption: effect.effectName.value,
+              MinValue:
+                effect.effectValue.valueArray[effect.effectValue.level].Value,
+              MaxValue:
+                effect.effectValue.valueArray[effect.effectValue.level].Value,
+            };
           }),
-          "Sort": "BUY_PRICE" as Sort,
-          "ItemTier": option.accessoryTier,
-          "ItemGrade": option.accessoryGrade,
-          "ItemUpgradeLevel": option.accessoryUpgradeLevel,
-          "CategoryCode": ACCESSORY_CATEGORY_CODES[option.accessoryCategory],
-          "PageNo": 0,
-          "SortCondition": "ASC" as SortCondition
-        })
-      })
+          Sort: "BUY_PRICE" as Sort,
+          ItemTier: option.accessoryTier,
+          ItemGrade: option.accessoryGrade,
+          ItemUpgradeLevel: option.accessoryUpgradeLevel,
+          CategoryCode: ACCESSORY_CATEGORY_CODES[option.accessoryCategory],
+          PageNo: 0,
+          SortCondition: "ASC" as SortCondition,
+        };
+      });
       const res = await postMultipleAuctionItems(requests);
-      console.log(res);
+      setAccessorySearchResult(res);
     } catch (error) {
       console.error(error);
     }
@@ -177,7 +197,7 @@ export const AccessorySearchContextProvider = ({
   const selectorContextValue = useMemo(
     () => ({
       pageStatus,
-      combinationList,
+      accessorySearchResult,
       progress,
       totalCases,
       currentCase,
@@ -186,7 +206,7 @@ export const AccessorySearchContextProvider = ({
     }),
     [
       pageStatus,
-      combinationList,
+      accessorySearchResult,
       progress,
       totalCases,
       currentCase,
@@ -198,14 +218,14 @@ export const AccessorySearchContextProvider = ({
   const actionContextValue = useMemo(
     () => ({
       setPageStatus,
-      setCombinationList,
+      setAccessorySearchResult,
       setProgress,
       setTotalCases,
       setCurrentCase,
       setMyTimer,
       setAccessorySearchOptionArray,
       loadSearchOptionPreset,
-      searchAccessories
+      searchAccessories,
     }),
     []
   );

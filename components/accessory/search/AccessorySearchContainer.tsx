@@ -330,8 +330,17 @@ const AccessorySearchContainer: React.FC = () => {
           </div>
           <OptionList />
         </div>
+        <button
+          className="myButtons w-48 justify-center !pr-5"
+          onClick={() => {
+            searchAccessories();
+          }}
+        >
+          <Search color="#ccc" size={20} />
+          <span>검색</span>
+        </button>
       </div>
-      <div className={styles.searchFooter}>
+      {/* <div className={styles.searchFooter}>
         <div
           className={`${styles.filterWrapper} inline-flex grow-0 flex-col gap-3 p-4 pt-2`}
         >
@@ -350,28 +359,16 @@ const AccessorySearchContainer: React.FC = () => {
             <StatTradeCountFilter />
           </div>
         </div>
-        <div className={styles.searchButtons}>
-          <button
-            className="myButtons"
-            onClick={() => {
-              searchAccessories();
-            }}
-          >
-            <Search color="#ccc" size={20} />
-            <span>검색</span>
-          </button>
-
-          <button
-            className="myButtons"
-            onClick={() => {
-              //   applyFilter();
-            }}
-          >
-            <Filter color="#ccc" size={24} />
-            <span>검색 결과 필터링</span>
-          </button>
-        </div>
-      </div>
+        <button
+          className="myButtons"
+          onClick={() => {
+            searchAccessories();
+          }}
+        >
+          <Search color="#ccc" size={20} />
+          <span>검색</span>
+        </button>
+      </div> */}
       {/* <Tooltip
         id="apiKeySettingInfo"
         place="bottom"

@@ -1,94 +1,40 @@
 import MyLoader from "@/components/custom/MyLoader";
-import {
-  Box,
-  Earring,
-  Gear,
-  Necklace,
-  Ring2,
-  Skip,
-  Loader,
-  Triangle,
-  Dots,
-  MagnifyingGlass,
-} from "@/components/icons/Index";
 import useCssHook from "@/hooks/useBgClassMaker";
 import styles from "@/styles/accessory/Body.module.scss";
-import { AuctionItem } from "@/types/LostarkApiType";
-import { gradeClassMap } from "@/types/GlobalType";
-import { useMemo, useState } from "react";
 import useClipboard from "@/hooks/useClipboard";
-import {
-  useAccessoryResultActionContext,
-  useAccessoryResultSelectorContext,
-} from "@/contexts/accessory/AccessoryResultContext";
 import { useAccessorySearchSelectorContext } from "@/contexts/accessory/AccessorySearchContext";
-
-const ResultPagingBox: React.FC = () => {
-  const { combinationList } = useAccessorySearchSelectorContext();
-  const { resultPage, pageSize } = useAccessoryResultSelectorContext();
-  const { setResultPage } = useAccessoryResultActionContext();
-
-  return combinationList.length ? (
-    <div className={styles.resultPageDiv}>
-      <p className={styles.resultPageP}>
-        ( {resultPage * pageSize + 1} ~ {(resultPage + 1) * pageSize} /{" "}
-        {combinationList.length} )
-      </p>
-      <button
-        onClick={() => {
-          setResultPage(0);
-        }}
-      >
-        <Skip size={30} className={styles.skipButtonIcon} rotate={180} />
-      </button>
-      <button
-        onClick={() => {
-          setResultPage((e) => (e > 0 ? e - 1 : e));
-        }}
-      >
-        <Triangle
-          width={1}
-          size={30}
-          className={styles.nextButtonIcon}
-          rotate={-90}
-        />
-      </button>
-      <button
-        onClick={() => {
-          setResultPage((e) =>
-            e + 1 < Math.floor(combinationList.length / pageSize) ? e + 1 : e
-          );
-        }}
-      >
-        <Triangle
-          width={1}
-          size={30}
-          className={styles.nextButtonIcon}
-          rotate={90}
-        />
-      </button>
-      <button
-        onClick={() => {
-          setResultPage(Math.floor(combinationList.length / pageSize) - 1);
-        }}
-      >
-        <Skip size={30} className={styles.skipButtonIcon} />
-      </button>
-    </div>
-  ) : (
-    <></>
-  );
-};
 
 const AccessoryResultContainer: React.FC = () => {
   const { bgClassMaker } = useCssHook();
   const { copyToClipboard } = useClipboard();
+  const { accessorySearchResult } = useAccessorySearchSelectorContext();
 
+  return (
+    <div className={styles.resultContainer}>
+      {accessorySearchResult.length ? (
+        <div className={styles.resultHeader}>
+          {accessorySearchResult.map((e, i) => {
+            return (
+              <p key={`result_${i}`}>
+                {e.Items.length
+                  ? e.Items.map((item) => <div>{item.Name}</div>)
+                  : "검색 조건을 만족하는 매물이 없습니다."}
+              </p>
+            );
+          })}
+        </div>
+      ) : (
+        <></>
+      )}
+    </div>
+  );
+};
+
+const original: React.FC = () => {
   return (
     <div className={styles.resultContainer}>
       <h3 className={styles.resultHeader}>
         <p>검색 결과</p>
-        <ResultPagingBox />
       </h3>
       <div className={styles.resultBodyWrapper}>
         {/* {pageStatus === 1 ? (
