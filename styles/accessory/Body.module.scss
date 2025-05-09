@@ -128,7 +128,7 @@ $grindingValueSelectColors: $rareColor, $epicColor, $legendaryColor;
 
               &::before {
                 @apply text-base absolute top-[-28px] left-0 font-bold;
-                content: "거래 횟수";
+                content: "거래 가능 횟수";
               }
             }
 
@@ -212,302 +212,256 @@ $grindingValueSelectColors: $rareColor, $epicColor, $legendaryColor;
   .resultContainer {
     @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1152px] mt-4 pt-2 mx-auto gap-4;
 
-    .resultHeader {
-      @apply text-lg xs:text-2xl font-bold flex flex-wrap items-center;
+    .resultBody {
+      @apply flex flex-col p-4 gap-4 w-full items-center border border-[#333] mx-auto;
+      box-shadow: 0px 0px 8px -5px #fff;
+      background-image: url("/images/bg_engrave.jpg");
+      background-position: center;
+      background-size: 450px 450px;
 
-      .resultPageDiv {
-        @apply text-sm xs:text-lg flex items-center;
+      .singleResultDiv {
+        @apply flex flex-col w-full gap-1 flex-wrap;
 
-        .resultPageP {
-          @apply min-w-[150px];
+        .singleResultHeader {
+          @apply flex flex-col gap-x-4 font-bold text-lg;
         }
 
-        .nextButtonIcon {
-          @apply fill-[#fff] stroke-[#fff] hover:fill-[#4691f6] hover:stroke-[#4691f6];
-          transition: fill 0.2s ease-in-out, stroke 0.2s ease-in-out;
-        }
+        .singleResultList {
+          @apply flex w-full gap-2 pb-2;
 
-        .skipButtonIcon {
-          @apply fill-[#fff] stroke-[#fff] hover:fill-[#4691f6] hover:stroke-[#4691f6];
-          transition: fill 0.2s ease-in-out, stroke 0.2s ease-in-out;
+          .accessoryItemDiv {
+            @apply flex flex-col flex-shrink-0 w-[230px] gap-y-1 gap-x-3 py-1 px-2;
+            box-shadow: 0px 0px 4px -2px #fff;
+            border: 1px solid #222;
+            border-radius: 5px;
+            background-image: url("/images/bg_engrave_sm.jpg");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            .titleDiv {
+              @apply flex gap-2 items-center;
+
+              .titleInfoDiv {
+                @apply flex flex-col justify-center text-sm;
+
+                .nameP {
+                  @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
+                }
+
+                .qualityP {
+                  @apply text-xs;
+                }
+
+                .qualityBarDiv {
+                  @apply w-[110px];
+                  background-color: #fff2;
+                }
+
+                .tradeP {
+                  @apply text-xs mt-[2px];
+
+                  .countSpan {
+                    @apply font-bold;
+                    color: #9244f7;
+                  }
+                }
+              }
+            }
+
+            .optionDiv {
+              @apply text-xs 2xl:w-full flex gap-1 2xl:gap-2;
+
+              .engraveDiv {
+                @apply 2xl:max-w-[60%];
+
+                .engraveNameSpan,
+                .negativeNameSpan {
+                  @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
+                }
+
+                .negativeP {
+                  @apply font-bold text-[#d33];
+                }
+              }
+
+              .statDiv {
+                @apply 2xl:max-w-[40%];
+
+                .statNameSpan {
+                  @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
+                }
+              }
+            }
+
+            .costDiv {
+              @apply flex flex-col text-xs;
+
+              .costP {
+                @apply flex items-center gap-1;
+
+                .costSpan {
+                  @apply font-bold text-[#ffffbc];
+                }
+              }
+            }
+          }
         }
       }
     }
 
-    .resultBodyWrapper {
-      @apply flex flex-col gap-3 relative bg-[#0005];
+    .emptyResultBody {
+      @apply flex flex-col items-center py-4;
+      box-shadow: 0px 0px 10px -5px #fff;
 
-      .resultBody {
-        @apply flex flex-col gap-3 items-start max-h-[660px] pl-2;
+      .presentationSection {
+        @apply w-[94%] max-w-[1000px] relative;
 
-        .combinationDiv {
-          @apply inline-flex flex-col gap-1 flex-wrap;
+        .padding {
+          @apply pb-[37.5%];
+        }
 
-          .combinationHeader {
-            @apply flex flex-col gap-x-4 font-bold text-lg;
+        .necklace {
+          animation: necklaceMix 15s linear infinite;
+        }
 
-            .totalCostDiv {
-              @apply flex items-center gap-3;
+        .earring {
+          animation: earringMix 15s linear infinite;
+        }
 
-              .totalCostInfoDiv {
-                @apply flex items-center gap-1;
+        .ring {
+          animation: ringMix 15s linear infinite;
+        }
 
-                .totalCost {
-                  @apply text-[#ffffbc];
-                }
-              }
-            }
-
-            .totalStatDiv {
-              @apply flex gap-2;
-
-              .totalStat {
-                @apply flex items-center;
-
-                .statEmoji {
-                  @apply text-xs;
-                }
-              }
-            }
-          }
-
-          .combinationBody {
-            @apply flex flex-wrap gap-2;
-
-            .combinationItemDiv {
-              @apply flex flex-col w-[230px] sm:w-auto sm:grid sm:grid-cols-[202px_197px_144px] sm:justify-between sm:items-center 2xl:flex 2xl:items-start 2xl:flex-col 2xl:w-[230px] gap-y-1 gap-x-3 2xl:gap-x-1 py-1 px-2;
-              box-shadow: 0px 0px 4px -2px #fff;
-              border: 1px solid #222;
-              border-radius: 5px;
-              background-image: url("/images/bg_engrave_sm.jpg");
-              background-position: center;
-              background-size: cover;
-              background-repeat: no-repeat;
-
-              .titleDiv {
-                @apply flex gap-2 items-center;
-
-                .titleInfoDiv {
-                  @apply flex flex-col justify-center text-sm;
-
-                  .nameP {
-                    @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
-                  }
-
-                  .qualityP {
-                    @apply text-xs;
-                  }
-
-                  .qualityBarDiv {
-                    @apply w-[110px];
-                    background-color: #fff2;
-                  }
-
-                  .tradeP {
-                    @apply text-xs mt-[2px];
-
-                    .countSpan {
-                      @apply font-bold;
-                      color: #9244f7;
-                    }
-                  }
-                }
-              }
-
-              .optionDiv {
-                @apply text-xs 2xl:w-full flex gap-1 2xl:gap-2;
-
-                .engraveDiv {
-                  @apply 2xl:max-w-[60%];
-
-                  .engraveNameSpan,
-                  .negativeNameSpan {
-                    @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
-                  }
-
-                  .negativeP {
-                    @apply font-bold text-[#d33];
-                  }
-                }
-
-                .statDiv {
-                  @apply 2xl:max-w-[40%];
-
-                  .statNameSpan {
-                    @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
-                  }
-                }
-              }
-
-              .costDiv {
-                @apply flex flex-col text-xs;
-
-                .costP {
-                  @apply flex items-center gap-1;
-
-                  .costSpan {
-                    @apply font-bold text-[#ffffbc];
-                  }
-                }
-              }
-            }
-          }
+        svg {
+          @apply absolute w-1/5;
+          transform: translate(-50%, -50%);
         }
       }
 
-      .emptyResultBody {
-        @apply flex flex-col items-center py-4;
-        box-shadow: 0px 0px 10px -5px #fff;
+      .descriptionSection {
+        @apply text-base xs:text-2xl text-center;
+      }
+    }
 
-        .presentationSection {
-          @apply w-[94%] max-w-[1000px] relative;
+    .initialResultBody {
+      @apply flex flex-col justify-center items-center font-bold text-base xs:text-2xl h-[660px];
+      box-shadow: 0px 0px 10px -5px #fff;
 
-          .padding {
-            @apply pb-[37.5%];
+      .iconWrapper {
+        @apply flex items-center justify-center h-64;
+
+        .mgIcon {
+          animation: shake 6s linear infinite;
+        }
+      }
+    }
+
+    .resultLoader {
+      @apply justify-center items-center flex-col gap-4;
+
+      .presentationSection {
+        @apply flex items-center gap-4 scale-[0.3] xs:scale-[0.4] sm:scale-[0.57] md:scale-[0.6] lg:scale-[0.8] 3xl:scale-100;
+
+        .apiSearch {
+          @apply relative;
+
+          .magnifyingGlass {
+            @apply absolute top-1/2 left-1/2;
+            transform: translate(-50%, -50%);
           }
 
-          .necklace {
-            animation: necklaceMix 15s linear infinite;
+          .floatingRound {
+            animation: diagonalRotate 6s linear infinite;
+          }
+        }
+
+        .dotsWrapper {
+          @apply w-[150px] overflow-hidden;
+
+          .dots {
+            animation: descreteMove 4s steps(1, jump-both) infinite;
+          }
+        }
+
+        .findCombination {
+          @apply relative;
+
+          .emptyBox {
+            @apply absolute top-1/2 left-1/2;
+            transform: translate(-50%, -45%);
           }
 
+          .ring,
+          .necklace,
           .earring {
-            animation: earringMix 15s linear infinite;
+            @apply absolute;
+            transform: translate(-50%, -50%);
           }
 
           .ring {
-            animation: ringMix 15s linear infinite;
+            animation: throwIn 2s 0s linear infinite;
+            top: 25%;
+            left: 35%;
           }
 
-          svg {
-            @apply absolute w-1/5;
-            transform: translate(-50%, -50%);
+          .necklace {
+            animation: throwIn 2s 0.5s linear infinite;
+            top: 20%;
+            left: 50%;
           }
-        }
 
-        .descriptionSection {
-          @apply text-base xs:text-2xl text-center;
-        }
-      }
-
-      .initialResultBody {
-        @apply flex flex-col justify-center items-center font-bold text-base xs:text-2xl h-[660px];
-        box-shadow: 0px 0px 10px -5px #fff;
-
-        .iconWrapper {
-          @apply flex items-center justify-center h-64;
-
-          .mgIcon {
-            animation: shake 6s linear infinite;
+          .earring {
+            animation: throwIn 2s 1s linear infinite;
+            top: 25%;
+            left: 65%;
           }
-        }
-      }
 
-      .resultLoader {
-        @apply justify-center items-center flex-col gap-4;
+          .gearLargeWrapper {
+            @apply absolute flex justify-center items-center;
+            top: 61%;
+            left: 47%;
 
-        .presentationSection {
-          @apply flex items-center gap-4 scale-[0.3] xs:scale-[0.4] sm:scale-[0.57] md:scale-[0.6] lg:scale-[0.8] 3xl:scale-100;
-
-          .apiSearch {
-            @apply relative;
-
-            .magnifyingGlass {
-              @apply absolute top-1/2 left-1/2;
+            .gearLarge {
               transform: translate(-50%, -50%);
             }
 
-            .floatingRound {
-              animation: diagonalRotate 6s linear infinite;
+            .gearAnimate {
+              animation: gearSpin 5s linear infinite;
             }
           }
 
-          .dotsWrapper {
-            @apply w-[150px] overflow-hidden;
+          .gearSmallWrapper {
+            @apply absolute flex justify-center items-center;
+            top: 70%;
+            left: 53%;
 
-            .dots {
-              animation: descreteMove 4s steps(1, jump-both) infinite;
-            }
-          }
-
-          .findCombination {
-            @apply relative;
-
-            .emptyBox {
-              @apply absolute top-1/2 left-1/2;
-              transform: translate(-50%, -45%);
-            }
-
-            .ring,
-            .necklace,
-            .earring {
-              @apply absolute;
+            .gearSmall {
               transform: translate(-50%, -50%);
             }
 
-            .ring {
-              animation: throwIn 2s 0s linear infinite;
-              top: 25%;
-              left: 35%;
-            }
-
-            .necklace {
-              animation: throwIn 2s 0.5s linear infinite;
-              top: 20%;
-              left: 50%;
-            }
-
-            .earring {
-              animation: throwIn 2s 1s linear infinite;
-              top: 25%;
-              left: 65%;
-            }
-
-            .gearLargeWrapper {
-              @apply absolute flex justify-center items-center;
-              top: 61%;
-              left: 47%;
-
-              .gearLarge {
-                transform: translate(-50%, -50%);
-              }
-
-              .gearAnimate {
-                animation: gearSpin 5s linear infinite;
-              }
-            }
-
-            .gearSmallWrapper {
-              @apply absolute flex justify-center items-center;
-              top: 70%;
-              left: 53%;
-
-              .gearSmall {
-                transform: translate(-50%, -50%);
-              }
-
-              .gearAnimate {
-                animation: gearSpin 5s linear infinite reverse;
-              }
+            .gearAnimate {
+              animation: gearSpin 5s linear infinite reverse;
             }
           }
         }
+      }
 
-        .descriptionSection {
-          @apply text-base xs:text-2xl font-bold;
+      .descriptionSection {
+        @apply text-base xs:text-2xl font-bold;
 
-          .searchDiv,
-          .findDiv {
-            @apply flex flex-col items-center justify-center;
-          }
+        .searchDiv,
+        .findDiv {
+          @apply flex flex-col items-center justify-center;
+        }
 
-          .searchDiv {
-            .timeoutDiv {
-              @apply text-lg text-center text-[#a77];
+        .searchDiv {
+          .timeoutDiv {
+            @apply text-lg text-center text-[#a77];
 
-              .timerP {
-                @apply text-xl;
-                color: $myBlue;
-              }
+            .timerP {
+              @apply text-xl;
+              color: $myBlue;
             }
           }
         }
