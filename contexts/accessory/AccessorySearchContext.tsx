@@ -175,16 +175,12 @@ export const AccessorySearchContextProvider = ({
         };
       });
       const res = await postMultipleAuctionItems(requests);
+      console.log(res);
       setAccessorySearchResult(res);
     } catch (error) {
       console.error(error);
     }
   }, []);
-
-  // generate useeffect depend on accessorySearchOptionArray
-  // useEffect(() => {
-  //   console.log(accessorySearchOptionArray);
-  // }, [accessorySearchOptionArray]);
 
   const staticContextValue = useMemo(
     () => ({

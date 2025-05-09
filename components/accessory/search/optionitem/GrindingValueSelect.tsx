@@ -1,9 +1,6 @@
 import styles from "@/styles/accessory/Body.module.scss";
 import MySelect from "@/components/custom/MySelect";
-import {
-  useAccessorySearchActionContext,
-  useAccessorySearchStaticContext,
-} from "@/contexts/accessory/AccessorySearchContext";
+import { useAccessorySearchActionContext } from "@/contexts/accessory/AccessorySearchContext";
 import {
   AccessorySearchOption,
   GrindingEffectLevel,
@@ -16,6 +13,13 @@ const GrindingValueSelect: React.FC<{
   effectIndex: number;
 }> = ({ option, optionIndex, effectIndex }) => {
   const { setAccessorySearchOptionArray } = useAccessorySearchActionContext();
+
+  const grindingValueOptionsArray = option.accessoryGrindingEffectArray[
+    effectIndex
+  ].effectValue.valueArray.map(({ DisplayValue }, effectValueIndex) => ({
+    label: DisplayValue,
+    value: effectValueIndex,
+  }));
 
   const onSelect = useCallback(
     (selectedOption: { label: string; value: number }) => {
@@ -48,7 +52,7 @@ const GrindingValueSelect: React.FC<{
         });
       });
     },
-    []
+    [option, optionIndex, effectIndex]
   );
 
   return (
@@ -59,12 +63,7 @@ const GrindingValueSelect: React.FC<{
       defaultSelectedIndex={
         option.accessoryGrindingEffectArray[effectIndex].effectValue.level
       }
-      options={option.accessoryGrindingEffectArray[
-        effectIndex
-      ].effectValue.valueArray.map(({ DisplayValue }, effectValueIndex) => ({
-        label: DisplayValue,
-        value: effectValueIndex,
-      }))}
+      options={grindingValueOptionsArray}
       onSelect={onSelect}
     />
   );

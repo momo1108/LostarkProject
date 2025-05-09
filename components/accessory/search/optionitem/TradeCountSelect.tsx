@@ -34,7 +34,7 @@ const TradeCountSelect: React.FC<{
   return (
     <MySelect
       className={styles.tradeCountSelect}
-      width={50}
+      width={80}
       height={40}
       defaultSelectedIndex={option.accessoryTradeCount}
       options={tradeCountOptionsArray}

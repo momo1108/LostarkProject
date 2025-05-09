@@ -77,7 +77,10 @@ export const postAuctionItems = async (
   req: AuctionItemSearchReq
 ): Promise<AuctionItemSearchResult> => {
   const res = await lostarkApi.post("auctions/items", req);
-  return res.data;
+  return {
+    ...res.data,
+    Items: res.data.Items ? res.data.Items : [],
+  };
 };
 
 /**
@@ -93,7 +96,10 @@ export const postMultipleAuctionItems = async (
     );
 
     const responses = await Promise.all(promises);
-    return responses.map((response) => response.data);
+    return responses.map((response) => ({
+      ...response.data,
+      Items: response.data.Items ? response.data.Items : [],
+    }));
   } catch (error) {
     console.error("Error fetching multiple auction items:", error);
     throw error;
