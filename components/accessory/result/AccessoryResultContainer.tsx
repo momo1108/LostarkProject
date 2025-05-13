@@ -1,14 +1,9 @@
-import MyLoader from "@/components/custom/MyLoader";
-import useCssHook from "@/hooks/useBgClassMaker";
 import styles from "@/styles/accessory/Body.module.scss";
-import useClipboard from "@/hooks/useClipboard";
 import { useAccessorySearchSelectorContext } from "@/contexts/accessory/AccessorySearchContext";
-import { gradeClassMap } from "@/types/GlobalType";
 import List from "@/components/icons/List";
+import PartialResultDiv from "./PartialResultDiv";
 
 const AccessoryResultContainer: React.FC = () => {
-  const { bgClassMaker } = useCssHook();
-  const { copyToClipboard } = useClipboard();
   const { accessorySearchResult } = useAccessorySearchSelectorContext();
 
   return (
@@ -19,169 +14,14 @@ const AccessoryResultContainer: React.FC = () => {
           <span>검색 결과</span>
         </h4>
         {accessorySearchResult.length ? (
-          <div className={styles.singleResultDiv}>
-            <div className={styles.singleResultHeader}>
-              <p>힘/민/지</p>
-              <p>체력</p>
-            </div>
-            <ul className={`${styles.singleResultList} hideScroll`}>
-              {accessorySearchResult.map((e, i) => {
-                return e.Items.map((e2, i2) => (
-                  <li
-                    className={styles.accessoryItemDiv}
-                    key={`combination_${i}_item_${i2}`}
-                  >
-                    <div className={styles.titleDiv}>
-                      <img
-                        width={54}
-                        src={e2.Icon.replace(
-                          "/EFUI_IconAtlas/efui_iconatlas",
-                          "/efui_iconatlas"
-                        )}
-                        className={gradeClassMap[e2.Grade]}
-                        alt=""
-                      />
-                      <div className={styles.titleInfoDiv}>
-                        <p
-                          className={styles.nameP}
-                          onClick={() => {
-                            copyToClipboard(
-                              e2.Name,
-                              `"${e2.Name}" 악세서리 이름 복사완료`
-                            );
-                          }}
-                        >
-                          {e2.Name}
-                        </p>
-                        <p className={styles.qualityP}>
-                          품질 : {e2.GradeQuality}
-                        </p>
-                        <div className={styles.qualityBarDiv}>
-                          <p
-                            style={{
-                              width: `${e2.GradeQuality}%`,
-                            }}
-                            className={`h-2 ${bgClassMaker(e2.GradeQuality)}`}
-                          ></p>
-                        </div>
-                        <p className={styles.tradeP}>
-                          구매 후{" "}
-                          <span className={styles.countSpan}>
-                            {e2.AuctionInfo.TradeAllowCount}회
-                          </span>{" "}
-                          거래 가능
-                        </p>
-                      </div>
-                    </div>
-                    <div className={styles.optionDiv}>
-                      <div className={styles.engraveDiv}>
-                        {e2.Options.filter(
-                          (option) =>
-                            option.Type === "ABILITY_ENGRAVE" &&
-                            !option.IsPenalty
-                        ).map((option, i3) => {
-                          return (
-                            <p key={`combination_${i}_item_${i2}_eng_${i3}`}>
-                              <span
-                                className={styles.engraveNameSpan}
-                                onClick={() => {
-                                  copyToClipboard(
-                                    option.OptionName,
-
-                                    `"${option.OptionName}" 각인 이름 복사완료`
-                                  );
-                                }}
-                              >
-                                [{option.OptionName}]
-                              </span>{" "}
-                              +{option.Value}
-                            </p>
-                          );
-                        })}
-                        <p className={styles.negativeP}>
-                          <span
-                            className={styles.negativeNameSpan}
-                            onClick={() => {
-                              copyToClipboard(
-                                e2.Options.find(
-                                  (option) =>
-                                    option.Type === "ABILITY_ENGRAVE" &&
-                                    option.IsPenalty
-                                )?.OptionName || "",
-                                `감소각인 이름 복사완료`
-                              );
-                            }}
-                          >
-                            [
-                            {
-                              e2.Options.find(
-                                (option) =>
-                                  option.Type === "ABILITY_ENGRAVE" &&
-                                  option.IsPenalty
-                              )?.OptionName
-                            }
-                            ]
-                          </span>{" "}
-                          +
-                          {
-                            e2.Options.find(
-                              (option) =>
-                                option.Type === "ABILITY_ENGRAVE" &&
-                                option.IsPenalty
-                            )?.Value
-                          }
-                        </p>
-                      </div>
-                      <div className={styles.statDiv}>
-                        {e2.Options.filter(
-                          (option) => option.Type === "STAT"
-                        ).map((option, i3) => {
-                          return (
-                            <p key={`combination_${i}_item_${i2}_stat_${i3}`}>
-                              <span
-                                className={styles.statNameSpan}
-                                onClick={() => {
-                                  copyToClipboard(
-                                    option.OptionName,
-                                    `"${option.OptionName}" 특성명 복사완료`
-                                  );
-                                }}
-                              >
-                                [{option.OptionName}]
-                              </span>{" "}
-                              +{option.Value}
-                            </p>
-                          );
-                        })}
-                      </div>
-                    </div>
-                    <div className={styles.costDiv}>
-                      <p className={styles.costP}>
-                        <span>최소입찰가</span>{" "}
-                        <img width={15} src="/images/gold.png" alt="" />
-                        <span className={styles.costSpan}>
-                          {new Intl.NumberFormat().format(
-                            e2.AuctionInfo.BidStartPrice
-                          )}
-                        </span>
-                      </p>
-                      <p className={styles.costP}>
-                        <span>즉시구매가</span>{" "}
-                        <img width={15} src="/images/gold.png" alt="" />
-                        <span className={styles.costSpan}>
-                          {new Intl.NumberFormat().format(
-                            e2.AuctionInfo.BuyPrice
-                          )}
-                        </span>
-                      </p>
-                    </div>
-                  </li>
-                ));
-              })}
-            </ul>
-          </div>
+          accessorySearchResult.map((partialResult, partialIndex) => (
+            <PartialResultDiv
+              partialResult={partialResult}
+              key={`partial_${partialIndex}`}
+            />
+          ))
         ) : (
-          <></>
+          <p>검색 결과가 없습니다.</p>
         )}
       </div>
     </div>

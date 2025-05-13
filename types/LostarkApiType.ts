@@ -164,7 +164,7 @@ export type AuctionItem = {
 };
 
 export type AuctionOption = {
-  Type: string;
+  Type: string | number;
   OptionName: string;
   OptionNameTripod: string;
   Value: number;

@@ -1,12 +1,13 @@
 @use "../variables.scss" as *;
 $grindingValueSelectColors: $rareColor, $epicColor, $legendaryColor;
+$accessoryCountColor: #9244f7;
 
 .body {
   @apply flex-auto;
   color: $basicFontColor;
 
   .searchContainer {
-    @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1152px] pt-2 mx-auto gap-4;
+    @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1188px] pt-2 mx-auto gap-4;
 
     .searchHeader {
       @apply flex flex-col items-start gap-4;
@@ -210,7 +211,7 @@ $grindingValueSelectColors: $rareColor, $epicColor, $legendaryColor;
   }
 
   .resultContainer {
-    @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1152px] mt-4 pt-2 mx-auto gap-4;
+    @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1188px] mt-4 pt-2 mx-auto gap-4;
 
     .resultBody {
       @apply flex flex-col p-4 gap-4 w-full items-center border border-[#333] mx-auto;
@@ -222,14 +223,10 @@ $grindingValueSelectColors: $rareColor, $epicColor, $legendaryColor;
       .singleResultDiv {
         @apply flex flex-col w-full gap-1 flex-wrap;
 
-        .singleResultHeader {
-          @apply flex flex-col gap-x-4 font-bold text-lg;
-        }
-
         .singleResultList {
           @apply flex w-full gap-2 pb-2;
 
-          .accessoryItemDiv {
+          .accessoryItem {
             @apply flex flex-col flex-shrink-0 w-[230px] gap-y-1 gap-x-3 py-1 px-2;
             box-shadow: 0px 0px 4px -2px #fff;
             border: 1px solid #222;
@@ -239,34 +236,9 @@ $grindingValueSelectColors: $rareColor, $epicColor, $legendaryColor;
             background-size: cover;
             background-repeat: no-repeat;
 
-            .titleDiv {
-              @apply flex gap-2 items-center;
-
-              .titleInfoDiv {
-                @apply flex flex-col justify-center text-sm;
-
-                .nameP {
-                  @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
-                }
-
-                .qualityP {
-                  @apply text-xs;
-                }
-
-                .qualityBarDiv {
-                  @apply w-[110px];
-                  background-color: #fff2;
-                }
-
-                .tradeP {
-                  @apply text-xs mt-[2px];
-
-                  .countSpan {
-                    @apply font-bold;
-                    color: #9244f7;
-                  }
-                }
-              }
+            .countSpan {
+              @apply font-bold;
+              color: $accessoryCountColor;
             }
 
             .optionDiv {

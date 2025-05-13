@@ -1,4 +1,4 @@
-import { SVGAttributes } from "react";
+import { HTMLInputTypeAttribute, SVGAttributes } from "react";
 
 export interface PairIconProps extends IconProps {
   first?: boolean;
@@ -34,6 +34,9 @@ export type CustomInputProps = {
   className?: string;
   onKeyEnter?: () => void;
   placeholder: string;
+  type?: HTMLInputTypeAttribute | undefined;
+  min?: number;
+  max?: number;
 };
 
 export type ApiKeyInputProps = {
