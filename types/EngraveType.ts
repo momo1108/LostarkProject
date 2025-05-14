@@ -98,8 +98,6 @@ export type AccessoryCategory = "목걸이" | "귀걸이" | "반지";
 
 export type AccessoryUpgradeLevel = 0 | 1 | 2 | 3;
 
-export type AccessoryTradeCount = 0 | 1 | 2;
-
 export type GrindingEffectLevel = 0 | 1 | 2;
 
 /**
@@ -108,7 +106,7 @@ export type GrindingEffectLevel = 0 | 1 | 2;
  * @property {@link AccessoryTier} [accessoryTier] 악세서리의 티어 파라미터입니다.
  * @property {@link AccessoryGrade} [accessoryGrade] 악세서리의 아이템 등급 파라미터입니다.
  * @property {@link AccessoryUpgradeLevel} [accessoryUpgradeLevel] 악세서리의 연마 횟수 파라미터입니다.
- * @property {@link AccessoryTradeCount} [accessoryTradeCount] 악세서리의 거래 횟수 파라미터입니다.
+ * @property {number} [accessoryQuality] 악세서리의 품질 파라미터입니다.
  * @property {{name: {@link GrindingEffectKey}; level: {@link GrindingEffectLevel};}[]} [accessoryGrindingEffectArray]  연마 효과 정보를 최대 3개까지 저장하는 배열 파라미터입니다.
  */
 export type AccessorySearchOption = {
@@ -124,8 +122,8 @@ export type AccessorySearchOption = {
   /** {@link AccessoryUpgradeLevel} 악세서리의 연마 횟수 파라미터입니다. */
   accessoryUpgradeLevel: AccessoryUpgradeLevel;
 
-  /** {@link AccessoryTradeCount} 악세서리의 거래 횟수 파라미터입니다. */
-  accessoryTradeCount: AccessoryTradeCount;
+  /** @type {number} 악세서리의 품질 파라미터입니다. */
+  accessoryQuality: number;
 
   accessoryGrindingEffectArray: {
     effectName: { name: GrindingEffectKey; value: number };

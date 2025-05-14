@@ -1,13 +1,18 @@
 import Close from "@/components/icons/Close";
-import { useAccessorySearchActionContext } from "@/contexts/accessory/AccessorySearchContext";
+import {
+  useAccessorySearchActionContext,
+  useAccessorySearchStaticContext,
+} from "@/contexts/accessory/AccessorySearchContext";
 import { AccessorySearchOption } from "@/types/EngraveType";
 import { useCallback } from "react";
 
 const OptionItemDeleteButton: React.FC<{
   optionIndex: number;
 }> = ({ optionIndex }) => {
+  const { accessorySearchOptionArrayRef } = useAccessorySearchStaticContext();
   const { setAccessorySearchOptionArray } = useAccessorySearchActionContext();
   const handleClick = useCallback(() => {
+    if (accessorySearchOptionArrayRef.current.length <= 1) return;
     setAccessorySearchOptionArray((prev) => {
       return prev.filter((_, index) => index !== optionIndex);
     });

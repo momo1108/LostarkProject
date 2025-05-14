@@ -9,7 +9,7 @@ import GrindingOptionSelect from "./optionitem/GrindingOptionSelect";
 import GrindingValueSelect from "./optionitem/GrindingValueSelect";
 import GrindingValueDeleteButton from "./optionitem/GrindingValueDeleteButton";
 import OptionItemDeleteButton from "./optionitem/OptionItemDeleteButton";
-import TradeCountSelect from "./optionitem/TradeCountSelect";
+import QualitySelect from "./optionitem/QualitySelect";
 
 const OptionItem: React.FC<{
   option: AccessorySearchOption;
@@ -25,8 +25,7 @@ const OptionItem: React.FC<{
         </div>
         <div className={styles.grindingDiv}>
           <LevelSelect option={option} optionIndex={optionIndex} />
-          <TradeCountSelect option={option} optionIndex={optionIndex} />
-          {/* 드롭다운에 헤더로는 "연마효과 선택" 이라 써놓고 설정해놓은 연마 횟수를 초과하지 않도록 드롭다운 선택시마다 배열 요소 추가 */}
+          <QualitySelect option={option} optionIndex={optionIndex} />
           <div className="flex gap-4">
             <GrindingOptionSelect option={option} optionIndex={optionIndex} />
             {option.accessoryGrindingEffectArray.length ? (

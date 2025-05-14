@@ -5,7 +5,6 @@ import {
   AccessoryGrade,
   AccessorySearchOption,
   AccessoryTier,
-  AccessoryTradeCount,
   AccessoryUpgradeLevel,
   GrindingEffectData,
 } from "@/types/EngraveType";
@@ -36,10 +35,9 @@ type AccessorySearchStaticContextType = {
   accessorySearchOptionArrayRef: MutableRefObject<AccessorySearchOption[]>;
 };
 
-// 상태 데이터만 담는 SelectorContext
+// 검색 조건 상태 데이터만 담는 SelectorContext
 type AccessorySearchSelectorContextType = {
   pageStatus: number;
-  accessorySearchResult: AuctionItemSearchResult[];
   progress: number;
   totalCases: number;
   currentCase: number;
@@ -63,6 +61,11 @@ type AccessorySearchActionContextType = {
   searchAccessories: () => void;
 };
 
+// 검색 결과 상태 데이터만 담는 SelectorContext
+type AccessoryResultSelectorContextType = {
+  accessorySearchResult: AuctionItemSearchResult[];
+};
+
 /** ---------------------- Context 생성 ---------------------- **/
 
 const AccessorySearchStaticContext = createContext<
@@ -73,6 +76,9 @@ const AccessorySearchSelectorContext = createContext<
 >(undefined);
 const AccessorySearchActionContext = createContext<
   AccessorySearchActionContextType | undefined
+>(undefined);
+const AccessoryResultSelectorContext = createContext<
+  AccessoryResultSelectorContextType | undefined
 >(undefined);
 
 /** ---------------------- Provider ---------------------- **/
@@ -97,7 +103,7 @@ export const AccessorySearchContextProvider = ({
       accessoryGrade: "고대" as AccessoryGrade,
       accessoryTier: 4 as AccessoryTier,
       accessoryUpgradeLevel: 3 as AccessoryUpgradeLevel,
-      accessoryTradeCount: 0 as AccessoryTradeCount,
+      accessoryQuality: 70,
       accessoryGrindingEffectArray: [],
     },
     {
@@ -105,7 +111,7 @@ export const AccessorySearchContextProvider = ({
       accessoryGrade: "고대" as AccessoryGrade,
       accessoryTier: 4 as AccessoryTier,
       accessoryUpgradeLevel: 3 as AccessoryUpgradeLevel,
-      accessoryTradeCount: 0 as AccessoryTradeCount,
+      accessoryQuality: 70,
       accessoryGrindingEffectArray: [],
     },
     {
@@ -113,7 +119,7 @@ export const AccessorySearchContextProvider = ({
       accessoryGrade: "고대" as AccessoryGrade,
       accessoryTier: 4 as AccessoryTier,
       accessoryUpgradeLevel: 3 as AccessoryUpgradeLevel,
-      accessoryTradeCount: 0 as AccessoryTradeCount,
+      accessoryQuality: 70,
       accessoryGrindingEffectArray: [],
     },
   ];
@@ -169,6 +175,7 @@ export const AccessorySearchContextProvider = ({
           ItemTier: option.accessoryTier,
           ItemGrade: option.accessoryGrade,
           ItemUpgradeLevel: option.accessoryUpgradeLevel,
+          ItemGradeQuality: option.accessoryQuality,
           CategoryCode: ACCESSORY_CATEGORY_CODES[option.accessoryCategory],
           PageNo: 0,
           SortCondition: "ASC" as SortCondition,
@@ -193,7 +200,6 @@ export const AccessorySearchContextProvider = ({
   const selectorContextValue = useMemo(
     () => ({
       pageStatus,
-      accessorySearchResult,
       progress,
       totalCases,
       currentCase,
@@ -202,13 +208,19 @@ export const AccessorySearchContextProvider = ({
     }),
     [
       pageStatus,
-      accessorySearchResult,
       progress,
       totalCases,
       currentCase,
       myTimer,
       accessorySearchOptionArray,
     ]
+  );
+
+  const resultSelectorContextValue = useMemo(
+    () => ({
+      accessorySearchResult,
+    }),
+    [accessorySearchResult]
   );
 
   const actionContextValue = useMemo(
@@ -229,9 +241,13 @@ export const AccessorySearchContextProvider = ({
   return (
     <AccessorySearchStaticContext.Provider value={staticContextValue}>
       <AccessorySearchSelectorContext.Provider value={selectorContextValue}>
-        <AccessorySearchActionContext.Provider value={actionContextValue}>
-          {children}
-        </AccessorySearchActionContext.Provider>
+        <AccessoryResultSelectorContext.Provider
+          value={resultSelectorContextValue}
+        >
+          <AccessorySearchActionContext.Provider value={actionContextValue}>
+            {children}
+          </AccessorySearchActionContext.Provider>
+        </AccessoryResultSelectorContext.Provider>
       </AccessorySearchSelectorContext.Provider>
     </AccessorySearchStaticContext.Provider>
   );
@@ -260,6 +276,15 @@ export const useAccessorySearchActionContext = () => {
   if (!context)
     throw new Error(
       "useAccessorySearchActionContext must be used within a AccessorySearchActionContext"
+    );
+  return context;
+};
+
+export const useAccessoryResultSelectorContext = () => {
+  const context = useContext(AccessoryResultSelectorContext);
+  if (!context)
+    throw new Error(
+      "useAccessoryResultSelectorContext must be used within a AccessoryResultSelectorContext"
     );
   return context;
 };
