@@ -7,7 +7,7 @@ $accessoryCountColor: #9244f7;
   color: $basicFontColor;
 
   .searchContainer {
-    @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1188px] pt-2 mx-auto gap-4;
+    @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1158px] pt-2 mx-auto gap-4;
 
     .searchHeader {
       @apply flex flex-col items-start gap-4;
@@ -124,6 +124,15 @@ $accessoryCountColor: #9244f7;
               }
             }
 
+            .qualitySelect {
+              @apply flex relative mt-7;
+
+              &::before {
+                @apply text-base absolute top-[-28px] left-0 font-bold;
+                content: "품질";
+              }
+            }
+
             .tradeCountSelect {
               @apply flex relative mt-7;
 
@@ -211,7 +220,7 @@ $accessoryCountColor: #9244f7;
   }
 
   .resultContainer {
-    @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1188px] mt-4 pt-2 mx-auto gap-4;
+    @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1158px] mt-4 pt-2 mx-auto gap-4;
 
     .resultBody {
       @apply flex flex-col p-4 gap-4 w-full items-center border border-[#333] mx-auto;
@@ -227,7 +236,7 @@ $accessoryCountColor: #9244f7;
           @apply flex w-full gap-2 pb-2;
 
           .accessoryItem {
-            @apply flex flex-col flex-shrink-0 w-[230px] gap-y-1 gap-x-3 py-1 px-2;
+            @apply flex flex-col flex-shrink-0 min-w-[230px] max-w-[240px] gap-y-1 gap-x-3 py-1 px-2;
             box-shadow: 0px 0px 4px -2px #fff;
             border: 1px solid #222;
             border-radius: 5px;
@@ -242,10 +251,10 @@ $accessoryCountColor: #9244f7;
             }
 
             .optionDiv {
-              @apply text-xs 2xl:w-full flex gap-1 2xl:gap-2;
+              @apply text-xs flex gap-2;
 
               .engraveDiv {
-                @apply 2xl:max-w-[60%];
+                @apply max-w-[138px];
 
                 .engraveNameSpan,
                 .negativeNameSpan {
@@ -258,8 +267,6 @@ $accessoryCountColor: #9244f7;
               }
 
               .statDiv {
-                @apply 2xl:max-w-[40%];
-
                 .statNameSpan {
                   @apply cursor-pointer hover:font-bold hover:bg-[#fff2];
                 }

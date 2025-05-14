@@ -1,3 +1,7 @@
+- 검색 도중 프로세스 완료율을 표시하는 UI 추가해야함.(기존의 MyLoader 를 활용 가능한가?)
+- LostarkService 에서 경매장, 거래소 검색에 apiKey 추가필요.
+- onWheel 이벤트는 리액트의 synthetic event 로서 passive: true 이기 때문에 preventDefault 메서드를 사용할 수가 없다.(VM5803 PartialResultDiv.tsx:178 Unable to preventDefault inside passive event listener invocation.)
+  - 따라서 스크롤 이벤트에서 preventDefault 메서드를 사용해 바깥쪽 스크롤을 방지하기 위해선 직접 해당 엘레멘트에 ref 를 설정하고, WheelEvent 이벤트 핸들러에서 preventDefault 를 사용하고 해당 엘레멘트의 scrollLeft 값을 변경하는 방식을 사용해야 한다.
 - 검색 결과의 각 리스트마다 필터 기능 추가. 검색 결과 출력 ui 개선(가운데정렬?)
 - props 로 전달된 객체를 useCallback 으로 생성한 메서드에서 사용 시 클로저 관련 문제로 인해 메서드 내부에서 props 로 전달된 객체가 변경되지 않는 문제가 발생한다. 이를 해결하기 위해 메서드 밖에서 props 로 전달된 객체를 가공하여 메서드 내에서 사용하는 방식을 채택했다.
 - Container 관련 코드 리팩토링(컨텍스트, state 등 검수해서 분리하기)

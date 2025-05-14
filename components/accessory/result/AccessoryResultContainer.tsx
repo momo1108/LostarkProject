@@ -1,10 +1,11 @@
 import styles from "@/styles/accessory/Body.module.scss";
-import { useAccessorySearchSelectorContext } from "@/contexts/accessory/AccessorySearchContext";
+import { useAccessoryResultSelectorContext } from "@/contexts/accessory/AccessorySearchContext";
 import List from "@/components/icons/List";
 import PartialResultDiv from "./PartialResultDiv";
 
 const AccessoryResultContainer: React.FC = () => {
-  const { accessorySearchResult } = useAccessorySearchSelectorContext();
+  const { accessorySearchResult } = useAccessoryResultSelectorContext();
+  console.log(accessorySearchResult);
 
   return (
     <div className={styles.resultContainer}>
@@ -17,7 +18,12 @@ const AccessoryResultContainer: React.FC = () => {
           accessorySearchResult.map((partialResult, partialIndex) => (
             <PartialResultDiv
               partialResult={partialResult}
-              key={`partial_${partialIndex}`}
+              key={`partial_${
+                partialResult.TotalCount
+              }_${partialResult.Items.reduce(
+                (acc, item) => acc + item.AuctionInfo.EndDate,
+                ""
+              )}_${partialIndex}`}
             />
           ))
         ) : (

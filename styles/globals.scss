@@ -1,4 +1,4 @@
-@use 'variables.scss' as *;
+@use "variables.scss" as *;
 
 @tailwind base;
 @tailwind components;
@@ -600,7 +600,8 @@ body,
 
   polygon {
     stroke-dasharray: 17;
-    animation: 2.5s cubic-bezier(0.35, 0.04, 0.63, 0.95) 0s infinite normal none running spinning;
+    animation: 2.5s cubic-bezier(0.35, 0.04, 0.63, 0.95) 0s infinite normal none
+      running spinning;
   }
 }
 
@@ -629,7 +630,7 @@ body,
   @apply relative pt-6;
 
   .myInput {
-    @apply w-44 bg-transparent outline-none h-8 leading-8 text-lg text-[#eee];
+    @apply w-44 bg-transparent outline-none h-8 leading-8 text-base text-[#eee];
     border-bottom: 1px solid #333;
 
     &:focus {
@@ -639,16 +640,16 @@ body,
   }
 
   .placeholder {
-    @apply absolute top-7 left-0 text-[#999] cursor-text;
+    @apply absolute top-7 left-0 text-[#999] cursor-text text-base;
     transition: color 150ms ease-out, top 150ms ease-out, left 150ms ease-out,
       font-size 150ms ease-out;
   }
 
-  .myInput:valid~.placeholder {
+  .myInput:valid ~ .placeholder {
     @apply text-sm top-2 left-0;
   }
 
-  .myInput:focus~.placeholder {
+  .myInput:focus ~ .placeholder {
     @apply text-sm top-2 left-0;
     color: $myBlue;
   }
@@ -712,7 +713,8 @@ footer {
   .copyright {
     @apply flex gap-1 md:justify-between md:text-sm md:flex-row flex-col items-center text-xs font-bold;
 
-    .descr {}
+    .descr {
+    }
 
     .contact {
       @apply flex flex-wrap items-center gap-x-2 gap-y-1 justify-center;
@@ -758,19 +760,19 @@ footer {
     background-color: #1a1c25;
   }
 
-  &>hr {
+  & > hr {
     @apply my-1 border-[#000] #{!important};
   }
 
-  &>div:first-child {
+  & > div:first-child {
     @apply px-4 my-0 #{!important};
   }
 
-  &>div {
+  & > div {
     @apply px-4 my-3 #{!important};
   }
 
-  .tooltipOuterDiv>div:not(:last-child) {
+  .tooltipOuterDiv > div:not(:last-child) {
     @apply mb-2 #{!important};
   }
 
@@ -791,7 +793,7 @@ footer {
       .qualityDiv {
         @apply flex items-center #{!important};
 
-        &>div {
+        & > div {
           @apply flex-auto mx-1 bg-[#0002] border border-[#fff3] #{!important};
         }
       }
@@ -863,7 +865,7 @@ footer {
     .descrDiv {
       @apply px-4 #{!important};
 
-      &>p:first-child {
+      & > p:first-child {
         @apply text-[#facf3a] #{!important};
       }
     }
