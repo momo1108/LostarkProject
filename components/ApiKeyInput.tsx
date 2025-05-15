@@ -3,17 +3,32 @@ import { MenuIcons, Edit, Check, Info } from "@/components/icons/Index";
 import Link from "next/link";
 import { ApiKeyInputProps } from "@/types/CustomType";
 import MyInput from "./custom/MyInput";
+import {
+  useApiKeyActionContext,
+  useApiKeySelectorContext,
+  useApiKeyStaticContext,
+} from "@/contexts/ApiKeyContext";
 
 const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ isShining }) => {
-  const [apiKey, setApiKey] = useState<string>("");
+  const { apiKey } = useApiKeySelectorContext();
+  const { setApiKey } = useApiKeyActionContext();
+  const { apiKeyRef } = useApiKeyStaticContext();
   const [editApiKey, setEditApiKey] = useState<boolean>(false);
-  const apiKeyRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    const key = localStorage.getItem("loapleApiKey");
-    if (key === null) localStorage.setItem("loapleApiKey", "");
-    else setApiKey(key);
-  }, []);
+  const handleClickRegister = () => {
+    setApiKey(inputRef!.current!.value);
+    setEditApiKey(false);
+    localStorage.setItem("loapleApiKey", inputRef!.current!.value);
+  };
+  const handleClickEdit = () => {
+    inputRef!.current!.value = apiKey;
+    setEditApiKey(true);
+  };
+  const handleClickCancel = () => {
+    inputRef!.current!.value = apiKeyRef.current;
+    setEditApiKey(false);
+  };
 
   return (
     <>
@@ -22,25 +37,12 @@ const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ isShining }) => {
           isShining ? " shinyShadow" : ""
         }`}
       >
-        <MyInput placeholder="API 키 입력" ref={apiKeyRef} />
+        <MyInput placeholder="API 키 입력" ref={inputRef} />
         <div className="flex gap-1 items-center">
-          <button
-            className="myButtons"
-            onClick={() => {
-              setApiKey(apiKeyRef!.current!.value);
-              setEditApiKey(false);
-              localStorage.setItem("loapleApiKey", apiKeyRef!.current!.value);
-            }}
-          >
+          <button className="myButtons" onClick={handleClickRegister}>
             <Check size={16} color="#fff" />
           </button>
-          <button
-            className="myButtons"
-            onClick={() => {
-              apiKeyRef!.current!.value = apiKey;
-              setEditApiKey(false);
-            }}
-          >
+          <button className="myButtons" onClick={handleClickCancel}>
             <MenuIcons type={3} color="#fff" size={16} />
           </button>
         </div>
@@ -59,14 +61,7 @@ const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ isShining }) => {
           {apiKey ? apiKey : "API Key 가 없습니다."}
         </div>
         <div className="flex gap-1">
-          <button
-            className="myButtons"
-            data-px="2"
-            onClick={() => {
-              apiKeyRef!.current!.value = apiKey;
-              setEditApiKey(true);
-            }}
-          >
+          <button className="myButtons" data-px="2" onClick={handleClickEdit}>
             <Edit size={16} />
             <span>{apiKey ? "재등록" : "등록"}</span>
           </button>

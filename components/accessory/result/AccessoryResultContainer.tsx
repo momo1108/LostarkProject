@@ -1,5 +1,5 @@
 import styles from "@/styles/accessory/Body.module.scss";
-import { useAccessoryResultSelectorContext } from "@/contexts/accessory/AccessorySearchContext";
+import { useAccessoryResultSelectorContext } from "@/contexts/AccessoryContext";
 import List from "@/components/icons/List";
 import PartialResultDiv from "./PartialResultDiv";
 

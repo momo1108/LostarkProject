@@ -2,7 +2,7 @@ import Close from "@/components/icons/Close";
 import {
   useAccessorySearchActionContext,
   useAccessorySearchStaticContext,
-} from "@/contexts/accessory/AccessorySearchContext";
+} from "@/contexts/AccessoryContext";
 import { AccessorySearchOption } from "@/types/EngraveType";
 import { useCallback } from "react";
 

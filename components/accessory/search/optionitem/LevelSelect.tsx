@@ -1,5 +1,5 @@
 import MySelect from "@/components/custom/MySelect";
-import { useAccessorySearchActionContext } from "@/contexts/accessory/AccessorySearchContext";
+import { useAccessorySearchActionContext } from "@/contexts/AccessoryContext";
 import styles from "@/styles/accessory/Body.module.scss";
 import {
   AccessorySearchOption,

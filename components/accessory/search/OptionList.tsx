@@ -1,4 +1,4 @@
-import { useAccessorySearchSelectorContext } from "@/contexts/accessory/AccessorySearchContext";
+import { useAccessorySearchSelectorContext } from "@/contexts/AccessoryContext";
 import OptionItem from "./OptionItem";
 
 const OptionList: React.FC = () => {

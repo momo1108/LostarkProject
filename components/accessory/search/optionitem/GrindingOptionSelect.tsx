@@ -3,7 +3,7 @@ import MySelect from "@/components/custom/MySelect";
 import {
   useAccessorySearchActionContext,
   useAccessorySearchStaticContext,
-} from "@/contexts/accessory/AccessorySearchContext";
+} from "@/contexts/AccessoryContext";
 import {
   ACCESSORY_GRINDINGEFFECT_MAP,
   AccessorySearchOption,

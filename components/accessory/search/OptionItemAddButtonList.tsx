@@ -1,5 +1,10 @@
-import { useAccessorySearchActionContext } from "@/contexts/accessory/AccessorySearchContext";
-import { AccessoryCategory } from "@/types/EngraveType";
+import { useAccessorySearchActionContext } from "@/contexts/AccessoryContext";
+import {
+  AccessoryCategory,
+  AccessoryGrade,
+  AccessoryTier,
+  AccessoryUpgradeLevel,
+} from "@/types/EngraveType";
 import { useCallback } from "react";
 
 const OptionItemAddButtonList: React.FC = () => {
@@ -9,9 +14,10 @@ const OptionItemAddButtonList: React.FC = () => {
       ...prev,
       {
         accessoryCategory,
-        accessoryGrade: "고대",
-        accessoryTier: 4,
-        accessoryUpgradeLevel: 3,
+        accessoryGrade: "고대" as AccessoryGrade,
+        accessoryTier: 4 as AccessoryTier,
+        accessoryUpgradeLevel: 3 as AccessoryUpgradeLevel,
+        accessoryQuality: 70,
         accessoryGrindingEffectArray: [],
       },
     ]);

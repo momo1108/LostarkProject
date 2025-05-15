@@ -1,13 +1,16 @@
-import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import axios, {
+  AxiosError,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 
 export const lostarkApi = axios.create({
-    baseURL: "https://developer-lostark.game.onstove.com/",
-    headers: {
-      Accept: "application/json",
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_LOSTARK_API_KEY}`
-    },
-  });
-  
+  baseURL: "https://developer-lostark.game.onstove.com/",
+  headers: {
+    Accept: "application/json",
+  },
+});
+
 // 요청 인터셉터
 lostarkApi.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
@@ -35,31 +38,37 @@ lostarkApi.interceptors.response.use(
         `[Response Error] Status: ${error.response.status}, URL: ${error.config?.url}`,
         error.response.data
       );
-      
+
       // 상태 코드에 따른 커스텀 에러 처리
       switch (error.response.status) {
         case 401:
           // 인증 실패 처리 (예: 토큰 갱신)
           console.error("인증 실패: 유효하지 않은 API 키입니다.");
+          error.message = "인증 실패: 유효하지 않은 API 키입니다.";
           break;
         case 429:
           // 요청 한도 초과
-          console.error("요청 한도 초과: 잠시 후 다시 시도해주세요.");
+          console.error("요청 한도 초과: 1분 후에 다시 시도해주세요.");
+          error.message = "요청 한도 초과: 1분 후에 다시 시도해주세요.";
           break;
         case 500:
           console.error("서버 내부 오류가 발생했습니다.");
+          error.message = "서버 내부 오류가 발생했습니다.";
           break;
         default:
           console.error("알 수 없는 오류가 발생했습니다.");
+          error.message = "알 수 없는 오류가 발생했습니다.";
       }
     } else if (error.request) {
       // 요청이 전송되었지만 응답을 받지 못한 경우
       console.error("서버로부터 응답을 받지 못했습니다.", error.request);
+      error.message = "서버로부터 응답을 받지 못했습니다.";
     } else {
       // 요청 설정 중에 오류가 발생한 경우
       console.error("요청 설정 중 오류가 발생했습니다.", error.message);
+      error.message = "요청 설정 중 오류가 발생했습니다.";
     }
-    
+
     return Promise.reject(error);
   }
 );

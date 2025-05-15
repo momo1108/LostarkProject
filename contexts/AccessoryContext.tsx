@@ -26,6 +26,8 @@ import {
 } from "react";
 import GRINDING_EFFECT_DATA from "@/data/grindingEffectOptions.json";
 import { postMultipleAuctionItems } from "@/service/LostarkService";
+import { AxiosError } from "axios";
+import useAlert from "@/hooks/useAlert";
 
 /** ---------------------- 타입 정의 ---------------------- **/
 
@@ -83,7 +85,7 @@ const AccessoryResultSelectorContext = createContext<
 
 /** ---------------------- Provider ---------------------- **/
 
-export const AccessorySearchContextProvider = ({
+export const AccessoryContextProvider = ({
   children,
 }: {
   children: React.ReactNode;
@@ -156,6 +158,7 @@ export const AccessorySearchContextProvider = ({
     }
   };
 
+  const alert = useAlert();
   // 선택된 조건 배열을 경매장 악세서리 검색 메서드(postMultipleAuctionItems)의 파라미터로 가공한 후 검색 메서드를 호출합니다.
   const searchAccessories = useCallback(async () => {
     try {
@@ -167,8 +170,7 @@ export const AccessorySearchContextProvider = ({
               SecondOption: effect.effectName.value,
               MinValue:
                 effect.effectValue.valueArray[effect.effectValue.level].Value,
-              MaxValue:
-                effect.effectValue.valueArray[effect.effectValue.level].Value,
+              MaxValue: effect.effectValue.valueArray[2].Value,
             };
           }),
           Sort: "BUY_PRICE" as Sort,
@@ -186,7 +188,14 @@ export const AccessorySearchContextProvider = ({
       setAccessorySearchResult(res);
     } catch (error) {
       console.error(error);
+      if (error instanceof AxiosError) {
+        alert.error(error.message);
+      }
     }
+    localStorage.setItem(
+      "recentSearchOptionHistory",
+      JSON.stringify(accessorySearchOptionArrayRef.current)
+    );
   }, []);
 
   const staticContextValue = useMemo(

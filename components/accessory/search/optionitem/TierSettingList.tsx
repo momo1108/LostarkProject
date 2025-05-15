@@ -1,7 +1,7 @@
 import {
   useAccessorySearchActionContext,
   useAccessorySearchStaticContext,
-} from "@/contexts/accessory/AccessorySearchContext";
+} from "@/contexts/AccessoryContext";
 import styles from "@/styles/accessory/Body.module.scss";
 import { AccessorySearchOption, AccessoryTier } from "@/types/EngraveType";
 import { useCallback } from "react";

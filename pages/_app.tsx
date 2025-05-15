@@ -5,6 +5,7 @@ import type { AppProps } from "next/app";
 import { DefaultSeo } from "next-seo";
 import SEO from "../next-seo.config";
 import AlertProvider from "@/components/alert/AlertProvider";
+import { ApiKeyContextProvider } from "@/contexts/ApiKeyContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -12,11 +13,13 @@ export default function App({ Component, pageProps }: AppProps) {
       alertWrapperClassName="alertWrapperDiv"
       alertClassName="alertDiv"
     >
-      <DefaultSeo {...SEO} />
-      <Component
-        className={`${nanumNeo.className} ${roboto.className}`}
-        {...pageProps}
-      />
+      <ApiKeyContextProvider>
+        <DefaultSeo {...SEO} />
+        <Component
+          className={`${nanumNeo.className} ${roboto.className}`}
+          {...pageProps}
+        />
+      </ApiKeyContextProvider>
     </AlertProvider>
   );
 }

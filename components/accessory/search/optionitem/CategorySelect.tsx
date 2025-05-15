@@ -3,7 +3,7 @@ import MySelect from "@/components/custom/MySelect";
 import Earring from "@/components/icons/Earring";
 import Necklace from "@/components/icons/Necklace";
 import Ring2 from "@/components/icons/Ring2";
-import { useAccessorySearchActionContext } from "@/contexts/accessory/AccessorySearchContext";
+import { useAccessorySearchActionContext } from "@/contexts/AccessoryContext";
 import {
   ACCESSORY_CATEGORY_CODES,
   AccessoryCategory,
