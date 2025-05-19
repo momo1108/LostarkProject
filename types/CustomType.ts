@@ -38,7 +38,3 @@ export type CustomInputProps = {
   min?: number;
   max?: number;
 };
-
-export type ApiKeyInputProps = {
-  isShining: boolean;
-};

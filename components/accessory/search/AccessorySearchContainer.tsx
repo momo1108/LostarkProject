@@ -11,7 +11,10 @@ import { ModalProps } from "@/types/ModalType";
 import OptionItemAddButtonList from "./OptionItemAddButtonList";
 import OptionList from "./OptionList";
 import StatTradeCountFilter from "./StatTradeCountFilter";
-import { useAccessorySearchActionContext } from "@/contexts/AccessoryContext";
+import {
+  useAccessorySearchActionContext,
+  useAccessorySearchSelectorContext,
+} from "@/contexts/AccessoryContext";
 
 const ModalWrapper: React.FC<{
   Modal: React.FC<ModalProps>;
@@ -29,11 +32,6 @@ const ModalWrapper: React.FC<{
       {cloneElement(Button, { onClick: () => setModalIsOpen(true) })}
     </>
   );
-};
-
-const ApiKeyInputWrapper: React.FC = () => {
-  const [isShining, setIsShining] = useState<boolean>(false);
-  return <ApiKeyInput isShining={isShining} />;
 };
 
 // const EngraveInputWithDropdown: React.FC = () => {
@@ -281,13 +279,13 @@ const ApiKeyInputWrapper: React.FC = () => {
 // };
 
 const AccessorySearchContainer: React.FC = () => {
-  const alert = useAlert();
+  const { isSearching } = useAccessorySearchSelectorContext();
   const { searchAccessories } = useAccessorySearchActionContext();
 
   return (
     <div className={styles.searchContainer}>
       <div className={styles.searchHeader}>
-        <ApiKeyInputWrapper />
+        <ApiKeyInput />
         <div className={styles.presetDiv}>
           {/* <ModalWrapper
             Modal={EngraveLoadModal}
@@ -332,6 +330,7 @@ const AccessorySearchContainer: React.FC = () => {
         </div>
         <button
           className="myButtons w-48 justify-center !pr-5"
+          disabled={isSearching}
           onClick={() => {
             searchAccessories();
           }}

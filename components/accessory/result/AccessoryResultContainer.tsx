@@ -1,9 +1,14 @@
 import styles from "@/styles/accessory/Body.module.scss";
-import { useAccessoryResultSelectorContext } from "@/contexts/AccessoryContext";
+import {
+  useAccessoryResultSelectorContext,
+  useAccessorySearchSelectorContext,
+} from "@/contexts/AccessoryContext";
 import List from "@/components/icons/List";
 import PartialResultDiv from "./PartialResultDiv";
+import MagnifyingGlass from "@/components/icons/MagnifyingGlass";
 
 const AccessoryResultContainer: React.FC = () => {
+  const { isSearching } = useAccessorySearchSelectorContext();
   const { accessorySearchResult } = useAccessoryResultSelectorContext();
   console.log(accessorySearchResult);
 
@@ -27,8 +32,21 @@ const AccessoryResultContainer: React.FC = () => {
             />
           ))
         ) : (
-          <p>검색 결과가 없습니다.</p>
+          <p className="my-auto text-lg">
+            검색이 완료되면 이곳에 결과가 출력됩니다.
+          </p>
         )}
+        <div className={isSearching ? styles.searchingResultBody : "hidden"}>
+          <div className={styles.iconWrapper}>
+            <MagnifyingGlass
+              className={styles.mgIcon}
+              size={200}
+              color="none"
+              fill="#ddd"
+            />
+          </div>
+          <p>검색이 완료되면 결과가 출력됩니다.</p>
+        </div>
       </div>
     </div>
   );

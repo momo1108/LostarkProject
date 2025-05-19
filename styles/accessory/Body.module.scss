@@ -32,16 +32,6 @@ $accessoryCountColor: #9244f7;
       background-position: center;
       background-size: 450px 450px;
 
-      .bodyBoxShadow {
-        border-radius: 10px;
-        border: 1px solid #333;
-        box-shadow: 0px 0px 10px -5px #fff;
-        background-image: url("/images/bg_engrave.jpg");
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-
       .accessoryOptionDiv {
         @apply flex flex-col gap-4 w-full;
 
@@ -223,7 +213,7 @@ $accessoryCountColor: #9244f7;
     @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1158px] mt-4 pt-2 mx-auto gap-4;
 
     .resultBody {
-      @apply flex flex-col p-4 gap-4 w-full items-center border border-[#333] mx-auto;
+      @apply relative flex flex-col p-4 gap-4 w-full items-center border border-[#333] mx-auto min-h-[330px];
       box-shadow: 0px 0px 8px -5px #fff;
       background-image: url("/images/bg_engrave.jpg");
       background-position: center;
@@ -287,6 +277,22 @@ $accessoryCountColor: #9244f7;
           }
         }
       }
+
+      .searchingResultBody {
+        @apply flex flex-col justify-center items-center font-bold text-base xs:text-2xl absolute top-0 left-0 right-0 bottom-0 pb-5;
+        background-image: url("/images/bg_engrave.jpg");
+        background-position: center;
+        background-size: 450px 450px;
+        z-index: 1;
+
+        .iconWrapper {
+          @apply flex items-center justify-center h-64;
+
+          .mgIcon {
+            animation: shake 6s linear infinite;
+          }
+        }
+      }
     }
 
     .emptyResultBody {
@@ -320,19 +326,6 @@ $accessoryCountColor: #9244f7;
 
       .descriptionSection {
         @apply text-base xs:text-2xl text-center;
-      }
-    }
-
-    .initialResultBody {
-      @apply flex flex-col justify-center items-center font-bold text-base xs:text-2xl h-[660px];
-      box-shadow: 0px 0px 10px -5px #fff;
-
-      .iconWrapper {
-        @apply flex items-center justify-center h-64;
-
-        .mgIcon {
-          animation: shake 6s linear infinite;
-        }
       }
     }
 

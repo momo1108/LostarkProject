@@ -8,6 +8,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useState,
 } from "react";
 
 /** ---------------------- 타입 정의 ---------------------- **/
@@ -15,9 +16,11 @@ import {
 // 고정 데이터만 담는 StaticContext
 type ApiKeySelectorContextType = {
   apiKey: string;
+  isShining: boolean;
 };
 type ApiKeyActionContextType = {
   setApiKey: Dispatch<SetStateAction<string>>;
+  setIsShining: Dispatch<SetStateAction<boolean>>;
 };
 type ApiKeyStaticContextType = {
   apiKeyRef: MutableRefObject<string>;
@@ -43,6 +46,7 @@ export const ApiKeyContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [apiKey, setApiKey, apiKeyRef] = useStateWithRef<string>("");
+  const [isShining, setIsShining] = useState<boolean>(false);
 
   useEffect(() => {
     const key = localStorage.getItem("loapleApiKey");
@@ -54,13 +58,20 @@ export const ApiKeyContextProvider = ({
     lostarkApi.defaults.headers.common["Authorization"] = `Bearer ${apiKey}`;
   }, [apiKey]);
 
-  const apiKeySelectorContextValue = useMemo(() => ({ apiKey }), [apiKey]);
-  const apiKeyActionContextValue = useMemo(() => ({ setApiKey }), []);
+  const apiKeySelectorContextValue = useMemo(
+    () => ({ apiKey, isShining }),
+    [apiKey, isShining]
+  );
+  const apiKeyActionContextValue = useMemo(
+    () => ({ setApiKey, setIsShining }),
+    []
+  );
+  const apiKeyStaticContextValue = useMemo(() => ({ apiKeyRef }), []);
 
   return (
     <ApiKeySelectorContext.Provider value={apiKeySelectorContextValue}>
       <ApiKeyActionContext.Provider value={apiKeyActionContextValue}>
-        <ApiKeyStaticContext.Provider value={{ apiKeyRef }}>
+        <ApiKeyStaticContext.Provider value={apiKeyStaticContextValue}>
           {children}
         </ApiKeyStaticContext.Provider>
       </ApiKeyActionContext.Provider>

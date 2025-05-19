@@ -1,3 +1,6 @@
+- 악세서리 검색 결과에 출력되는 옵션의 순서를 내가 설정한 옵션순서대로 정렬하고, 매칭되는 옵션은 다른 색으로 출력.
+- 악세서리 검색 기능에 1초 쓰로틀링 추가.
+- 과연 ApiKeyContext 가 필요한가? 어차피 ApiKeyInput 컴포넌트와 axiosInstance 에만 사용되는데...
 - 검색 도중 프로세스 완료율을 표시하는 UI 추가해야함.(기존의 MyLoader 를 활용 가능한가?)
 - LostarkService 에서 경매장, 거래소 검색에 apiKey 추가필요.
 - onWheel 이벤트는 리액트의 synthetic event 로서 passive: true 이기 때문에 preventDefault 메서드를 사용할 수가 없다.(VM5803 PartialResultDiv.tsx:178 Unable to preventDefault inside passive event listener invocation.)

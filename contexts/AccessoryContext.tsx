@@ -28,6 +28,7 @@ import GRINDING_EFFECT_DATA from "@/data/grindingEffectOptions.json";
 import { postMultipleAuctionItems } from "@/service/LostarkService";
 import { AxiosError } from "axios";
 import useAlert from "@/hooks/useAlert";
+import { useApiKeyActionContext } from "./ApiKeyContext";
 
 /** ---------------------- 타입 정의 ---------------------- **/
 
@@ -37,21 +38,18 @@ type AccessorySearchStaticContextType = {
   accessorySearchOptionArrayRef: MutableRefObject<AccessorySearchOption[]>;
 };
 
-// 검색 조건 상태 데이터만 담는 SelectorContext
+// 검색 관련 상태 데이터만 담는 SelectorContext
 type AccessorySearchSelectorContextType = {
-  pageStatus: number;
-  progress: number;
+  isSearching: boolean;
   totalCases: number;
   currentCase: number;
   myTimer: number;
   accessorySearchOptionArray: AccessorySearchOption[];
 };
 
-// 상태 조작과 검색 기능에 관련된 함수를 담는 ActionContext
+// 검색 조건 상태 세터와 검색 기능을 담는 ActionContext
 type AccessorySearchActionContextType = {
-  setPageStatus: Dispatch<SetStateAction<number>>;
-  setAccessorySearchResult: Dispatch<SetStateAction<AuctionItemSearchResult[]>>;
-  setProgress: Dispatch<SetStateAction<number>>;
+  setIsSearching: Dispatch<SetStateAction<boolean>>;
   setTotalCases: Dispatch<SetStateAction<number>>;
   setCurrentCase: Dispatch<SetStateAction<number>>;
   setMyTimer: Dispatch<SetStateAction<number>>;
@@ -68,6 +66,11 @@ type AccessoryResultSelectorContextType = {
   accessorySearchResult: AuctionItemSearchResult[];
 };
 
+// 검색 결과 세터 함수를 담는 ActionContext
+type AccessoryResultActionContextType = {
+  setAccessorySearchResult: Dispatch<SetStateAction<AuctionItemSearchResult[]>>;
+};
+
 /** ---------------------- Context 생성 ---------------------- **/
 
 const AccessorySearchStaticContext = createContext<
@@ -82,6 +85,9 @@ const AccessorySearchActionContext = createContext<
 const AccessoryResultSelectorContext = createContext<
   AccessoryResultSelectorContextType | undefined
 >(undefined);
+const AccessoryResultActionContext = createContext<
+  AccessoryResultActionContextType | undefined
+>(undefined);
 
 /** ---------------------- Provider ---------------------- **/
 
@@ -90,15 +96,12 @@ export const AccessoryContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [pageStatus, setPageStatus] = useState<number>(0);
-  const [accessorySearchResult, setAccessorySearchResult] = useState<
-    AuctionItemSearchResult[]
-  >([]);
-  const [progress, setProgress] = useState<number>(0);
-  const [totalCases, setTotalCases] = useState<number>(1);
-  const [currentCase, setCurrentCase] = useState<number>(0);
-  const [myTimer, setMyTimer] = useState<number>(0);
+  // 1. 검색 기능 관련 컨텍스트
 
+  /**
+   * 검색 조건 초기값
+   * 로컬 스토리지에 저장된 최근 검색 조건이 없으면 기본값으로 초기화
+   */
   const INITIAL_ACCESSORY_SEARCH_OPTION_ARRAY = [
     {
       accessoryCategory: "목걸이" as AccessoryCategory,
@@ -126,6 +129,13 @@ export const AccessoryContextProvider = ({
     },
   ];
 
+  /**
+   * 현재 설정된 검색 조건 상태.
+   * 렌더링 최적화를 위해 useStateWithRef를 사용하여 ref를 함께 반환합니다.
+   * 초기값은 아래와 같은 우선순위로 설정됩니다.
+   * 1. 로컬 스토리지에 저장된 최근 검색 조건
+   * 2. INITIAL_ACCESSORY_SEARCH_OPTION_ARRAY
+   */
   const [
     accessorySearchOptionArray,
     setAccessorySearchOptionArray,
@@ -133,7 +143,6 @@ export const AccessoryContextProvider = ({
   ] = useStateWithRef<AccessorySearchOption[]>(
     INITIAL_ACCESSORY_SEARCH_OPTION_ARRAY
   );
-
   useEffect(() => {
     const recentSearchOptionHistory = localStorage.getItem(
       "recentSearchOptionHistory"
@@ -148,6 +157,11 @@ export const AccessoryContextProvider = ({
     }
   }, []);
 
+  /**
+   * 검색 조건 프리셋을 불러오기 위한 메서드입니다.
+   * Todo) 검색 조건 프리셋 CRUD 모달 구현
+   * @param presetName 프리셋 이름 로컬 스토리지에 저장될 이름의 프리픽스로 활용됩니다.
+   */
   const loadSearchOptionPreset = (presetName: string) => {
     const searchOptionHistory = localStorage.getItem(
       `${presetName}_searchOptionHistory`
@@ -158,10 +172,16 @@ export const AccessoryContextProvider = ({
     }
   };
 
-  const alert = useAlert();
+  // 검색 메서드를 위해 필요한 훅들을 호출합니다.
+  const alert = useAlert(); // 알림 훅
+  const { setIsShining } = useApiKeyActionContext(); // API 입력란 강조 표시용 세터
+  // 검색 여부를 관리하는 상태
+  const [isSearching, setIsSearching] = useState<boolean>(false);
   // 선택된 조건 배열을 경매장 악세서리 검색 메서드(postMultipleAuctionItems)의 파라미터로 가공한 후 검색 메서드를 호출합니다.
   const searchAccessories = useCallback(async () => {
+    if (isSearching) return;
     try {
+      setIsSearching(true);
       const requests = accessorySearchOptionArrayRef.current.map((option) => {
         return {
           EtcOptions: option.accessoryGrindingEffectArray.map((effect) => {
@@ -186,11 +206,15 @@ export const AccessoryContextProvider = ({
       const res = await postMultipleAuctionItems(requests);
       console.log(res);
       setAccessorySearchResult(res);
+      alert.success("검색이 완료되었습니다.");
+      setIsSearching(false);
     } catch (error) {
       console.error(error);
       if (error instanceof AxiosError) {
+        if (error.response?.status === 401) setIsShining(true);
         alert.error(error.message);
       }
+      setIsSearching(false);
     }
     localStorage.setItem(
       "recentSearchOptionHistory",
@@ -198,7 +222,15 @@ export const AccessoryContextProvider = ({
     );
   }, []);
 
-  const staticContextValue = useMemo(
+  // 2. 검색 결과 관련 컨텍스트
+  const [accessorySearchResult, setAccessorySearchResult] = useState<
+    AuctionItemSearchResult[]
+  >([]);
+  const [totalCases, setTotalCases] = useState<number>(1);
+  const [currentCase, setCurrentCase] = useState<number>(0);
+  const [myTimer, setMyTimer] = useState<number>(0);
+
+  const searchStaticContextValue = useMemo(
     () => ({
       GRINDING_EFFECT_DATA,
       accessorySearchOptionArrayRef,
@@ -206,37 +238,20 @@ export const AccessoryContextProvider = ({
     []
   );
 
-  const selectorContextValue = useMemo(
+  const searchSelectorContextValue = useMemo(
     () => ({
-      pageStatus,
-      progress,
+      isSearching,
       totalCases,
       currentCase,
       myTimer,
       accessorySearchOptionArray,
     }),
-    [
-      pageStatus,
-      progress,
-      totalCases,
-      currentCase,
-      myTimer,
-      accessorySearchOptionArray,
-    ]
+    [isSearching, totalCases, currentCase, myTimer, accessorySearchOptionArray]
   );
 
-  const resultSelectorContextValue = useMemo(
+  const searchActionContextValue = useMemo(
     () => ({
-      accessorySearchResult,
-    }),
-    [accessorySearchResult]
-  );
-
-  const actionContextValue = useMemo(
-    () => ({
-      setPageStatus,
-      setAccessorySearchResult,
-      setProgress,
+      setIsSearching,
       setTotalCases,
       setCurrentCase,
       setMyTimer,
@@ -246,16 +261,37 @@ export const AccessoryContextProvider = ({
     }),
     []
   );
+  const resultSelectorContextValue = useMemo(
+    () => ({
+      accessorySearchResult,
+    }),
+    [accessorySearchResult]
+  );
+
+  const resultActionContextValue = useMemo(
+    () => ({
+      setAccessorySearchResult,
+    }),
+    []
+  );
 
   return (
-    <AccessorySearchStaticContext.Provider value={staticContextValue}>
-      <AccessorySearchSelectorContext.Provider value={selectorContextValue}>
+    <AccessorySearchStaticContext.Provider value={searchStaticContextValue}>
+      <AccessorySearchSelectorContext.Provider
+        value={searchSelectorContextValue}
+      >
         <AccessoryResultSelectorContext.Provider
           value={resultSelectorContextValue}
         >
-          <AccessorySearchActionContext.Provider value={actionContextValue}>
-            {children}
-          </AccessorySearchActionContext.Provider>
+          <AccessoryResultActionContext.Provider
+            value={resultActionContextValue}
+          >
+            <AccessorySearchActionContext.Provider
+              value={searchActionContextValue}
+            >
+              {children}
+            </AccessorySearchActionContext.Provider>
+          </AccessoryResultActionContext.Provider>
         </AccessoryResultSelectorContext.Provider>
       </AccessorySearchSelectorContext.Provider>
     </AccessorySearchStaticContext.Provider>
@@ -294,6 +330,15 @@ export const useAccessoryResultSelectorContext = () => {
   if (!context)
     throw new Error(
       "useAccessoryResultSelectorContext must be used within a AccessoryResultSelectorContext"
+    );
+  return context;
+};
+
+export const useAccessoryResultActionContext = () => {
+  const context = useContext(AccessoryResultActionContext);
+  if (!context)
+    throw new Error(
+      "useAccessoryResultActionContext must be used within a AccessoryResultActionContext"
     );
   return context;
 };

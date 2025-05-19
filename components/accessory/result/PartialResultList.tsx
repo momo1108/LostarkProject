@@ -171,7 +171,7 @@ const PartialResultList: React.FC<{
         ))
       ) : (
         <li className="flex justify-center items-center w-60 h-40 mb-2 border border-[#333] rounded">
-          검색 결과가 없습니다.
+          조건에 맞는 매물이 없습니다.
         </li>
       )}
     </ul>

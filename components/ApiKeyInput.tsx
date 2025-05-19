@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { MenuIcons, Edit, Check, Info } from "@/components/icons/Index";
 import Link from "next/link";
-import { ApiKeyInputProps } from "@/types/CustomType";
 import MyInput from "./custom/MyInput";
 import {
   useApiKeyActionContext,
@@ -9,24 +8,28 @@ import {
   useApiKeyStaticContext,
 } from "@/contexts/ApiKeyContext";
 
-const ApiKeyInput: React.FC<ApiKeyInputProps> = ({ isShining }) => {
-  const { apiKey } = useApiKeySelectorContext();
-  const { setApiKey } = useApiKeyActionContext();
+const ApiKeyInput: React.FC = () => {
+  const { apiKey, isShining } = useApiKeySelectorContext();
+  const { setApiKey, setIsShining } = useApiKeyActionContext();
   const { apiKeyRef } = useApiKeyStaticContext();
   const [editApiKey, setEditApiKey] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClickRegister = () => {
+    inputRef!.current!.value = inputRef!.current!.value.trim();
     setApiKey(inputRef!.current!.value);
+    setIsShining(false);
     setEditApiKey(false);
     localStorage.setItem("loapleApiKey", inputRef!.current!.value);
   };
   const handleClickEdit = () => {
     inputRef!.current!.value = apiKey;
+    setIsShining(false);
     setEditApiKey(true);
   };
   const handleClickCancel = () => {
     inputRef!.current!.value = apiKeyRef.current;
+    setIsShining(false);
     setEditApiKey(false);
   };
 
