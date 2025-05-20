@@ -143,6 +143,7 @@ export const classImageMap: { [key: string]: string } = {
   스페셜리스트: "class_33.png",
   소울이터: "class_34.png",
   브레이커: "class_35.png",
+  환수사: "class_36.png",
 };
 
 export const engravingIconMap: { [key: string]: string } = {
@@ -257,7 +258,7 @@ export const classDetailMap: { [key: string]: string[] } = {
   "헌터(여)": ["건슬링어"],
   마법사: ["소서리스", "서머너", "아르카나", "바드"],
   암살자: ["블레이드", "리퍼", "데모닉", "소울이터"],
-  스페셜리스트: ["기상술사", "도화가"],
+  스페셜리스트: ["기상술사", "도화가", "환수사"],
 };
 
 export const CATEGORY_CODE: { [key: string | number]: number } = {

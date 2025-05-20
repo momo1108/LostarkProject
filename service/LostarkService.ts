@@ -133,9 +133,12 @@ export const postMultipleAuctionItems = async (
 /**
  * market api를 이용해 검색합니다.
  */
-export const getMarketItems = async (
-  req: MarketItemSearchReq
+export const postMarketItems = async (
+  req: MarketItemSearchReq,
+  apiKey?: string
 ): Promise<MarketItemSearchResult> => {
+  if (apiKey)
+    lostarkApi.defaults.headers.common.Authorization = `Bearer ${apiKey}`;
   const res = await lostarkApi.post("markets/items", req);
   return res.data;
 };

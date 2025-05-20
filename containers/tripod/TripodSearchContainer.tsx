@@ -121,17 +121,19 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
       .then((res) => {
         // console.log(res.data);
         setTripodData(
-          res.data.tripod.map((skill: FilteredSkillType) => {
-            return {
-              ...skill,
-              Tooltip: JSON.parse(skill.Tooltip),
-              Tripods: skill.Tripods.map((tripod) => ({
-                ...tripod,
-                IsSelected: false,
-                Level: 5,
-              })),
-            };
-          })
+          res.data.tripod
+            .map((skill: FilteredSkillType) => {
+              return {
+                ...skill,
+                Tooltip: JSON.parse(skill.Tooltip),
+                Tripods: skill.Tripods.map((tripod) => ({
+                  ...tripod,
+                  IsSelected: false,
+                  Level: 5,
+                })),
+              };
+            })
+            .filter(({ Value }: { Value: number }) => Value !== -1) // 초각성, 각성기, 초각성기기 제외
         );
       })
       .catch((err) => {

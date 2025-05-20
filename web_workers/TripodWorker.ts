@@ -1,4 +1,4 @@
-import { getMarketItems, postAuctionItems } from "@/service/LostarkService";
+import { postMarketItems, postAuctionItems } from "@/service/LostarkService";
 import { AuctionItem, AuctionItemSearchResult } from "@/types/LostarkApiType";
 import { TripodReqType, TripodResType } from "@/types/TripodType";
 
@@ -21,8 +21,6 @@ onmessage = async (e: {
   };
 }) => {
   const { reqData, apiKey } = e.data;
-  // console.log(e.data);
-  // console.log(reqData, apiKey, );
   let result: {
     status: "SUCCESS" | "ERROR" | "INFORMATION";
     code: number;
@@ -35,17 +33,15 @@ onmessage = async (e: {
 
   let powderOfSage = 0;
   try {
-    const res = await getMarketItems(
+    const res = await postMarketItems(
       {
         Sort: "CURRENT_MIN_PRICE",
         SortCondition: "ASC",
         CategoryCode: 50000,
         ItemName: "현자의 가루",
-        CharacterClass: "",
-        ItemGrade: "",
-        ItemTier: null,
         PageNo: 0,
-      }
+      },
+      apiKey
     );
 
     powderOfSage = res.Items[0].CurrentMinPrice;
@@ -80,16 +76,14 @@ onmessage = async (e: {
 
   while (i < reqData.length) {
     try {
-      const res = await postAuctionItems(
-        {
-          SkillOptions: [reqData[i].data],
-          Sort: "BUY_PRICE",
-          CategoryCode: 170300,
-          PageNo: 0,
-          SortCondition: "ASC",
-        }
-      );
-      res.data.Items = res.data.TotalCount === 0 ? [] : res.data.Items;
+      const data = await postAuctionItems({
+        SkillOptions: [reqData[i].data],
+        Sort: "BUY_PRICE",
+        CategoryCode: 170300,
+        PageNo: 0,
+        SortCondition: "ASC",
+      });
+      data.Items = data.TotalCount === 0 ? [] : data.Items;
 
       const index = tmpData.findIndex((data) => data.Name === reqData[i].skill);
       if (index < 0) {
@@ -97,7 +91,7 @@ onmessage = async (e: {
         const [Possibility, Total] = calcPrice(
           powderOfSage,
           reqData[i].data.MinValue,
-          res.data
+          data
         );
         tripods[reqData[i].tier] = {
           Name: reqData[i].tripod,
@@ -105,7 +99,7 @@ onmessage = async (e: {
           Tier: reqData[i].tier,
           Possibility,
           Price: {
-            All: res.data.Items.filter(
+            All: data.Items.filter(
               (item: AuctionItem) => item.AuctionInfo.BuyPrice
             ).map((item: AuctionItem) => item.AuctionInfo.BuyPrice),
             Total,
@@ -121,7 +115,7 @@ onmessage = async (e: {
         const [Possibility, Total] = calcPrice(
           powderOfSage,
           reqData[i].data.MinValue,
-          res.data
+          data
         );
         tmpData[index].Tripods[reqData[i].tier] = {
           Name: reqData[i].tripod,
@@ -129,7 +123,7 @@ onmessage = async (e: {
           Tier: reqData[i].tier,
           Possibility,
           Price: {
-            All: res.data.Items.filter(
+            All: data.Items.filter(
               (item: AuctionItem) => item.AuctionInfo.BuyPrice
             ).map((item: AuctionItem) => item.AuctionInfo.BuyPrice),
             Total,

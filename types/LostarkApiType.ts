@@ -176,10 +176,10 @@ export type AuctionOption = {
 export type MarketItemSearchReq = {
   Sort: Sort;
   CategoryCode: number;
-  CharacterClass: string;
-  ItemTier: number | null;
-  ItemGrade: string;
-  ItemName: string;
+  CharacterClass?: string;
+  ItemTier?: number | null;
+  ItemGrade?: string;
+  ItemName?: string;
   PageNo: number;
   SortCondition: SortCondition;
 };
