@@ -5,7 +5,7 @@ const OptionList: React.FC = () => {
   const { accessorySearchOptionArray } = useAccessorySearchSelectorContext();
 
   return (
-    <ul className="max-h-[520px] hideScroll !overflow-y-scroll">
+    <ul className="flex flex-col gap-1 max-h-[520px] hideScroll !overflow-y-scroll">
       {accessorySearchOptionArray.map((option, optionIndex) => {
         return (
           // 초기 로딩시에 skeleton 출력하도록 수정하자.(초기에 컨텍스트가 초기화되기까지 MySelect 의 텍스트가 비어있음)

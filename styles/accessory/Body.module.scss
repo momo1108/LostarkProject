@@ -7,7 +7,7 @@ $accessoryCountColor: #9244f7;
   color: $basicFontColor;
 
   .searchContainer {
-    @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1158px] pt-2 mx-auto gap-4;
+    @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1200px] pt-2 mx-auto gap-4;
 
     .searchHeader {
       @apply flex flex-col items-start gap-4;
@@ -26,109 +26,114 @@ $accessoryCountColor: #9244f7;
     }
 
     .searchBody {
-      @apply flex flex-col p-4 gap-4 items-center border border-[#333] mx-auto;
+      @apply w-full flex flex-col p-4 gap-4 items-center border border-[#333] mx-auto;
       box-shadow: 0px 0px 8px -5px #fff;
       background-image: url("/images/bg_engrave.jpg");
       background-position: center;
       background-size: 450px 450px;
 
       .accessoryOptionDiv {
-        @apply flex flex-col gap-4 w-full;
+        @apply flex flex-col items-center gap-4 w-full;
 
         h4 {
           @apply flex text-xl font-bold items-center justify-center gap-2;
         }
 
-        .singleAccessoryDiv {
-          @apply flex items-center text-lg gap-4 p-4;
-          background: #020202;
-          border: 2px solid #333;
-          border-radius: 8px;
+        .optionContainer {
+          @apply flex flex-col gap-4 w-[260px] xs:w-[340px] sm:w-[520px] lg:w-[700px] 3xl:w-full;
 
-          .accessoryCategorySettingDiv {
-            @apply flex justify-center items-center gap-4 font-bold box-content;
+          .optionItem {
+            @apply flex flex-col xs:flex-row gap-2 py-4 pl-4 pr-2;
 
-            & > svg {
-              @apply w-14 p-2 rounded-lg border border-white;
-            }
+            background: #020202;
+            border: 2px solid #333;
+            border-radius: 8px;
 
-            .accessoryCategorySelect {
-              @apply mt-7;
+            .accessoryCategorySettingDiv {
+              @apply flex justify-center items-center gap-4 font-bold box-content;
 
-              &::before {
-                @apply text-base absolute top-[-28px] left-0 font-bold;
-                content: "부위";
-              }
-            }
-          }
-
-          .tierGradeDiv {
-            @apply flex gap-4;
-
-            ol {
-              @apply flex relative pt-7;
-
-              &::before {
-                @apply text-base absolute top-0 left-0 font-bold;
+              & > svg {
+                @apply w-14 p-2 rounded-lg border border-white;
               }
 
-              li > button {
-                @apply flex justify-center items-center border;
+              .accessoryCategorySelect {
+                @apply mt-7;
+
+                &::before {
+                  @apply text-base absolute top-[-28px] left-0 font-bold;
+                  content: "부위";
+                }
               }
             }
 
-            .tierList {
-              &::before {
-                content: "티어";
+            .tierGradeDiv {
+              @apply flex gap-4;
+
+              ol {
+                @apply flex relative pt-7;
+
+                &::before {
+                  @apply text-base absolute top-0 left-0 font-bold;
+                }
+
+                li > button {
+                  @apply flex justify-center items-center border;
+                }
               }
 
-              li > button {
-                @apply w-10 h-10;
-              }
-            }
+              .tierList {
+                &::before {
+                  content: "티어";
+                }
 
-            .gradeList {
-              &::before {
-                content: "등급";
-              }
-
-              li > button {
-                @apply w-12 h-10;
-              }
-            }
-          }
-
-          .grindingDiv {
-            @apply flex gap-4;
-
-            .levelSelect {
-              @apply flex relative mt-7;
-
-              &::before {
-                @apply text-base absolute top-[-28px] left-0 font-bold;
-                content: "연마 횟수";
+                li > button {
+                  @apply w-10 h-10;
+                }
               }
 
-              li > button {
-                @apply w-10 h-10 flex justify-center items-center border;
-              }
-            }
+              .gradeList {
+                &::before {
+                  content: "등급";
+                }
 
-            .qualitySelect {
-              @apply flex relative mt-7;
-
-              &::before {
-                @apply text-base absolute top-[-28px] left-0 font-bold;
-                content: "품질";
+                li > button {
+                  @apply w-12 h-10;
+                }
               }
             }
 
-            .tradeCountSelect {
-              @apply flex relative mt-7;
+            .levelQualityDiv {
+              @apply flex gap-4;
 
-              &::before {
-                @apply text-base absolute top-[-28px] left-0 font-bold;
-                content: "거래 가능 횟수";
+              .levelSelect {
+                @apply flex relative mt-7;
+
+                &::before {
+                  @apply text-base absolute top-[-28px] left-0 font-bold;
+                  content: "연마 횟수";
+                }
+
+                li > button {
+                  @apply w-10 h-10 flex justify-center items-center border;
+                }
+              }
+
+              .qualitySelect {
+                @apply flex relative mt-7;
+
+                &::before {
+                  @apply text-base absolute top-[-28px] left-0 font-bold;
+                  content: "품질";
+                }
+              }
+
+              .tradeCountSelect {
+                @apply flex relative mt-7;
+
+                &::before {
+                  @apply text-base absolute top-[-28px] left-0 font-bold;
+                  content: "거래 가능 횟수";
+                }
               }
             }
 
@@ -210,10 +215,10 @@ $accessoryCountColor: #9244f7;
   }
 
   .resultContainer {
-    @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1158px] mt-4 pt-2 mx-auto gap-4;
+    @apply flex flex-col min-w-[275px] w-[90%] sm:w-[600px] lg:w-[902px] 3xl:w-[1200px] mt-4 pt-2 mx-auto gap-4;
 
     .resultBody {
-      @apply relative flex flex-col p-4 gap-4 w-full items-center border border-[#333] mx-auto min-h-[330px];
+      @apply relative flex flex-col p-4 xs:gap-4 w-full items-center border border-[#333] mx-auto min-h-[330px];
       box-shadow: 0px 0px 8px -5px #fff;
       background-image: url("/images/bg_engrave.jpg");
       background-position: center;

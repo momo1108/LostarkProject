@@ -47,8 +47,8 @@ const PartialResultDiv: React.FC<{
 
   return (
     <div className={styles.singleResultDiv}>
-      <div className="flex p-2 mr-auto items-end gap-x-4 font-bold text-lg">
-        <h5 className="flex items-center gap-1">
+      <div className="flex flex-wrap gap-y-2 sm:flex-nowrap pb-2 xs:p-2 mr-auto items-end gap-x-4 font-bold text-lg">
+        <h5 className="hidden sm:flex items-center gap-1">
           <Filter size={20} />
           필터
         </h5>

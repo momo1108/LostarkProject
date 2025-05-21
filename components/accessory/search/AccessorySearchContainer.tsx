@@ -322,11 +322,13 @@ const AccessorySearchContainer: React.FC = () => {
             <Filter color="#ccc" size={24} />
             <span>옵션 설정</span>
           </h4>
-          <div className="flex items-center gap-4">
-            <span className="text-lg font-bold">악세서리 추가</span>
-            <OptionItemAddButtonList />
+          <div className={styles.optionContainer}>
+            <div className="flex flex-col xs:flex-row items-center gap-1 xs:gap-4">
+              <span className="text-lg font-bold">악세서리 추가</span>
+              <OptionItemAddButtonList />
+            </div>
+            <OptionList />
           </div>
-          <OptionList />
         </div>
         <button
           className="myButtons w-48 justify-center !pr-5"

@@ -10,7 +10,7 @@ import MagnifyingGlass from "@/components/icons/MagnifyingGlass";
 const AccessoryResultContainer: React.FC = () => {
   const { isSearching } = useAccessorySearchSelectorContext();
   const { accessorySearchResult } = useAccessoryResultSelectorContext();
-  console.log(accessorySearchResult);
+  // console.log(accessorySearchResult);
 
   return (
     <div className={styles.resultContainer}>

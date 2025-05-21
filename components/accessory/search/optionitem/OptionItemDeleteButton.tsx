@@ -19,8 +19,11 @@ const OptionItemDeleteButton: React.FC<{
   }, []);
 
   return (
-    <button onClick={() => handleClick()}>
-      <Close size={48} color="#fff" width={1} />
+    <button
+      className="myButtons shrink-0 xs:w-16 lg:w-20 3xl:w-[102px] justify-center"
+      onClick={() => handleClick()}
+    >
+      삭제
     </button>
   );
 };

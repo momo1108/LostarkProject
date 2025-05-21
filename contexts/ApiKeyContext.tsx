@@ -55,7 +55,8 @@ export const ApiKeyContextProvider = ({
   }, []);
 
   useEffect(() => {
-    lostarkApi.defaults.headers.common["Authorization"] = `Bearer ${apiKey}`;
+    if (apiKey.trim())
+      lostarkApi.defaults.headers.common["Authorization"] = `Bearer ${apiKey}`;
   }, [apiKey]);
 
   const apiKeySelectorContextValue = useMemo(

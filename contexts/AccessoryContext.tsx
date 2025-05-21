@@ -29,6 +29,7 @@ import { postMultipleAuctionItems } from "@/service/LostarkService";
 import { AxiosError } from "axios";
 import useAlert from "@/hooks/useAlert";
 import { useApiKeyActionContext } from "./ApiKeyContext";
+import { throttle } from "@/utils/functionUtils";
 
 /** ---------------------- 타입 정의 ---------------------- **/
 
@@ -176,51 +177,55 @@ export const AccessoryContextProvider = ({
   const alert = useAlert(); // 알림 훅
   const { setIsShining } = useApiKeyActionContext(); // API 입력란 강조 표시용 세터
   // 검색 여부를 관리하는 상태
-  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [isSearching, setIsSearching, isSearchingRef] =
+    useStateWithRef<boolean>(false);
   // 선택된 조건 배열을 경매장 악세서리 검색 메서드(postMultipleAuctionItems)의 파라미터로 가공한 후 검색 메서드를 호출합니다.
-  const searchAccessories = useCallback(async () => {
-    if (isSearching) return;
-    try {
-      setIsSearching(true);
-      const requests = accessorySearchOptionArrayRef.current.map((option) => {
-        return {
-          EtcOptions: option.accessoryGrindingEffectArray.map((effect) => {
-            return {
-              FirstOption: 7,
-              SecondOption: effect.effectName.value,
-              MinValue:
-                effect.effectValue.valueArray[effect.effectValue.level].Value,
-              MaxValue: effect.effectValue.valueArray[2].Value,
-            };
-          }),
-          Sort: "BUY_PRICE" as Sort,
-          ItemTier: option.accessoryTier,
-          ItemGrade: option.accessoryGrade,
-          ItemUpgradeLevel: option.accessoryUpgradeLevel,
-          ItemGradeQuality: option.accessoryQuality,
-          CategoryCode: ACCESSORY_CATEGORY_CODES[option.accessoryCategory],
-          PageNo: 0,
-          SortCondition: "ASC" as SortCondition,
-        };
-      });
-      const res = await postMultipleAuctionItems(requests);
-      console.log(res);
-      setAccessorySearchResult(res);
-      alert.success("검색이 완료되었습니다.");
-      setIsSearching(false);
-    } catch (error) {
-      console.error(error);
-      if (error instanceof AxiosError) {
-        if (error.response?.status === 401) setIsShining(true);
-        alert.error(error.message);
+  const searchAccessories = useMemo(() => {
+    // throttle을 사용하여 2초 이내의 중복 검색을 방지합니다. isSearching 이 변하는 경우 throttle이 초기화됩니다.
+    if (isSearchingRef.current) return async () => {};
+    return throttle(async () => {
+      try {
+        setIsSearching(true);
+        const requests = accessorySearchOptionArrayRef.current.map((option) => {
+          return {
+            EtcOptions: option.accessoryGrindingEffectArray.map((effect) => {
+              return {
+                FirstOption: 7,
+                SecondOption: effect.effectName.value,
+                MinValue:
+                  effect.effectValue.valueArray[effect.effectValue.level].Value,
+                MaxValue: effect.effectValue.valueArray[2].Value,
+              };
+            }),
+            Sort: "BUY_PRICE" as Sort,
+            ItemTier: option.accessoryTier,
+            ItemGrade: option.accessoryGrade,
+            ItemUpgradeLevel: option.accessoryUpgradeLevel,
+            ItemGradeQuality: option.accessoryQuality,
+            CategoryCode: ACCESSORY_CATEGORY_CODES[option.accessoryCategory],
+            PageNo: 0,
+            SortCondition: "ASC" as SortCondition,
+          };
+        });
+        const res = await postMultipleAuctionItems(requests);
+        // console.log(res);
+        setAccessorySearchResult(res);
+        alert.success("검색이 완료되었습니다.");
+        setIsSearching(false);
+      } catch (error) {
+        console.error(error);
+        if (error instanceof AxiosError) {
+          if (error.response?.status === 401) setIsShining(true);
+          alert.error(error.message);
+        }
+        setIsSearching(false);
       }
-      setIsSearching(false);
-    }
-    localStorage.setItem(
-      "recentSearchOptionHistory",
-      JSON.stringify(accessorySearchOptionArrayRef.current)
-    );
-  }, []);
+      localStorage.setItem(
+        "recentSearchOptionHistory",
+        JSON.stringify(accessorySearchOptionArrayRef.current)
+      );
+    }, 1000);
+  }, [isSearching]);
 
   // 2. 검색 결과 관련 컨텍스트
   const [accessorySearchResult, setAccessorySearchResult] = useState<
