@@ -25,6 +25,7 @@ import {
 type TripodSearchContainerProps = {
   setResponseData: Dispatch<SetStateAction<TripodResType[]>>;
   pageStatus: TripodPageStatus;
+  pageStatusRef: React.MutableRefObject<TripodPageStatus>;
   setPageStatus: Dispatch<SetStateAction<TripodPageStatus>>;
   setCurrentCase: Dispatch<SetStateAction<number>>;
   setTotalCases: Dispatch<SetStateAction<number>>;
@@ -33,6 +34,7 @@ type TripodSearchContainerProps = {
 const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   setResponseData,
   pageStatus,
+  pageStatusRef,
   setPageStatus,
   setCurrentCase,
   setTotalCases,
@@ -99,7 +101,10 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   }, [myWorker]);
 
   useEffect(() => {
-    if (pageStatus !== "COPYING" && pageStatus !== "BEFORE_COPY")
+    if (
+      pageStatusRef.current !== "COPYING" &&
+      pageStatusRef.current !== "BEFORE_COPY"
+    )
       setPageStatus("LOADING_SKILL");
     // setLoadingSkillset(true);
     setSelectedSkillIndex(0);
@@ -145,22 +150,22 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
 
   useEffect(() => {
     // console.log(tripodData);
-    // console.log(pageStatus);
-    if (pageStatus === "SELECTING_TRIPOD") {
+    // console.log(pageStatusRef.current);
+    if (pageStatusRef.current === "SELECTING_TRIPOD") {
       setTimeout(() => {
         setPageStatus("DONE");
         // setSelectingTripod(false);
       }, 500);
-    } else if (pageStatus === "LOADING_SKILL") {
+    } else if (pageStatusRef.current === "LOADING_SKILL") {
       setSelectedSkills(Array(tripodData.length).fill(false));
       setTimeout(() => {
         setPageStatus("DONE");
         // setLoadingSkillset(false);
       }, 500);
-    } else if (pageStatus === "BEFORE_COPY") {
+    } else if (pageStatusRef.current === "BEFORE_COPY") {
       setPageStatus("COPYING");
       copyTripod();
-    } else if (pageStatus === "COPYING") {
+    } else if (pageStatusRef.current === "COPYING") {
       setCopyData([]);
       setTimeout(() => {
         setPageStatus("DONE");
@@ -170,7 +175,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
   }, [tripodData]);
 
   useEffect(() => {
-    if (pageStatus !== "COPYING") {
+    if (pageStatusRef.current !== "COPYING") {
       setTimeout(() => {
         setPageStatus("DONE");
         // setSelectingSkill(false);
@@ -185,7 +190,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
 
   const selectSkill = useCallback(
     (i: number) => {
-      if (pageStatus === "SELECTING_SKILL") {
+      if (pageStatusRef.current === "SELECTING_SKILL") {
         alert.info("선택 작업을 진행중입니다.");
         return;
       }
@@ -225,7 +230,7 @@ const TripodSearchContainer: React.FC<TripodSearchContainerProps> = ({
         ]);
       }
     },
-    [selectedSkills, pageStatus, selectedSkillIndex]
+    [selectedSkills, selectedSkillIndex]
   );
 
   const selectTripod = useCallback(

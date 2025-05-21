@@ -1,3 +1,11 @@
+- 트라이포드 페이지 스킬 선택 시 첫번째 스킬부터 순서대로 선택되는 버그 발견
+- 트포 업데이트 시 자동 업데이트하는 관리자 기능 만들것
+  1. TripodType.ts - userList 에 새로운 직업의 랭커 닉네임 배열 추가.
+  2. 관리자 페이지에서 데이터 파일 export 기능 실행
+  3. GlobalType.ts
+  - classDetailMap 에 새로운 직업을 {상위직업(Key): 하위직업(Value)} 형태로 추가.
+  - classImageMap 에 새로운 직업에 대한 이미지 파일명을 {직업명(Key): 이미지파일명(Value)} 형태로 추가.
+  - public/images 경로에 클래스 이미지를 class\_번호.png 형태로 저장.(이미지는 https://cdn-lostark.game.onstove.com/2018/obt/assets/images/pc/sprite/sprite_information.png?a425f9bbd1bded550200 참고 / 혹은 https://lostark.game.onstove.com/Class?detail=wildsoul 페이지에서 클래스 이미지 링크를 확인)
 - 악세서리 검색 결과에 출력되는 옵션의 순서를 내가 설정한 옵션순서대로 정렬하고, 매칭되는 옵션은 다른 색으로 출력.
 - 악세서리 검색 기능에 1초 쓰로틀링 추가.
 - 과연 ApiKeyContext 가 필요한가? 어차피 ApiKeyInput 컴포넌트와 axiosInstance 에만 사용되는데...

@@ -207,7 +207,7 @@ const TripodResultBlock: React.FC = () => {
                         key={`result_skill_${skill.Name}_tripod_${tripod.Name}_list`}
                       >
                         {tripod.Price.All.length ? (
-                          tripod.Price.All.map((bp, bpIndex) => (
+                          tripod.Price.All.slice(0, 10).map((bp, bpIndex) => (
                             <li
                               className={styles.tripodPriceItem}
                               key={`result_skill_${skill.Name}_tripod_${tripod.Name}_${bpIndex}`}

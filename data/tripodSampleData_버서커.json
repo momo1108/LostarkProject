@@ -1,0 +1,430 @@
+[
+  {
+    "Name": "피니쉬 스트라이크",
+    "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bk_skill/bk_skill_01_14.png",
+    "Tripods": [
+      {
+        "Name": "강화된 일격",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_1_0.png",
+        "Tier": 0,
+        "Possibility": {
+          "Before": false,
+          "After": true
+        },
+        "Price": {
+          "All": [1, 300, 322, 400, 5000],
+          "Total": {
+            "Exclude": 6023,
+            "IncludeWithCost": 6063,
+            "IncludeWithoutCost": 6023
+          }
+        }
+      },
+      {
+        "Name": "약점 포착",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_2_33.png",
+        "Tier": 1,
+        "Possibility": {
+          "Before": true,
+          "After": true
+        },
+        "Price": {
+          "All": [
+            50, 299, 299, 300, 300, 300, 300, 300, 300, 300, 311, 311, 311, 388,
+            1000
+          ],
+          "Total": {
+            "Exclude": 2748,
+            "IncludeWithCost": 1288,
+            "IncludeWithoutCost": 1248
+          }
+        }
+      },
+      {
+        "Name": "확인사살",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_3_40.png",
+        "Tier": 2,
+        "Possibility": {
+          "Before": true,
+          "After": true
+        },
+        "Price": {
+          "All": [
+            50, 50, 150, 150, 200, 223, 250, 300, 300, 300, 300, 300, 300, 300,
+            300, 300, 300, 300, 355, 400, 500
+          ],
+          "Total": {
+            "Exclude": 1973,
+            "IncludeWithCost": 640,
+            "IncludeWithoutCost": 600
+          }
+        }
+      }
+    ]
+  },
+  {
+    "Name": "파워 브레이크",
+    "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bk_skill/bk_skill_01_6.png",
+    "Tripods": [
+      null,
+      {
+        "Name": "예리한 일격",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_2_49.png",
+        "Tier": 1,
+        "Possibility": {
+          "Before": true,
+          "After": true
+        },
+        "Price": {
+          "All": [1, 50, 300, 300, 300, 300, 300, 300, 300, 500, 1000],
+          "Total": {
+            "Exclude": 2651,
+            "IncludeWithCost": 991,
+            "IncludeWithoutCost": 951
+          }
+        }
+      },
+      {
+        "Name": "소용돌이",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_3_39.png",
+        "Tier": 2,
+        "Possibility": {
+          "Before": false,
+          "After": false
+        },
+        "Price": {
+          "All": [386, 2000],
+          "Total": {
+            "Exclude": 2386,
+            "IncludeWithCost": 2402,
+            "IncludeWithoutCost": 2386
+          }
+        }
+      }
+    ]
+  },
+  {
+    "Name": "템페스트 슬래쉬",
+    "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bk_skill/bk_skill_01_12.png",
+    "Tripods": [
+      {
+        "Name": "빠른 준비",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_1_56.png",
+        "Tier": 0,
+        "Possibility": {
+          "Before": false,
+          "After": true
+        },
+        "Price": {
+          "All": [10, 50, 199, 199, 250, 311, 400],
+          "Total": {
+            "Exclude": 1419,
+            "IncludeWithCost": 748,
+            "IncludeWithoutCost": 708
+          }
+        }
+      },
+      {
+        "Name": "폭주 강화",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_2_5.png",
+        "Tier": 1,
+        "Possibility": {
+          "Before": false,
+          "After": false
+        },
+        "Price": {
+          "All": [250, 3500],
+          "Total": {
+            "Exclude": 3750,
+            "IncludeWithCost": 3766,
+            "IncludeWithoutCost": 3750
+          }
+        }
+      },
+      {
+        "Name": "폭풍 베기",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_3_8.png",
+        "Tier": 2,
+        "Possibility": {
+          "Before": false,
+          "After": true
+        },
+        "Price": {
+          "All": [200, 211, 220, 300, 300, 400, 400],
+          "Total": {
+            "Exclude": 2031,
+            "IncludeWithCost": 1271,
+            "IncludeWithoutCost": 1231
+          }
+        }
+      }
+    ]
+  },
+  {
+    "Name": "마운틴 크래쉬",
+    "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bk_skill/bk_skill_01_16.png",
+    "Tripods": [
+      {
+        "Name": "집중",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_1_37.png",
+        "Tier": 0,
+        "Possibility": {
+          "Before": false,
+          "After": true
+        },
+        "Price": {
+          "All": [50, 111, 123, 222, 270, 300, 400, 400, 400],
+          "Total": {
+            "Exclude": 2276,
+            "IncludeWithCost": 816,
+            "IncludeWithoutCost": 776
+          }
+        }
+      },
+      null,
+      {
+        "Name": "지진파",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_3_8.png",
+        "Tier": 2,
+        "Possibility": {
+          "Before": true,
+          "After": true
+        },
+        "Price": {
+          "All": [250, 300, 300, 5000],
+          "Total": {
+            "Exclude": 5850,
+            "IncludeWithCost": 566,
+            "IncludeWithoutCost": 550
+          }
+        }
+      }
+    ]
+  },
+  {
+    "Name": "헬 블레이드",
+    "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bk_skill/bk_skill_01_0.png",
+    "Tripods": [
+      {
+        "Name": "도약",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_1_10.png",
+        "Tier": 0,
+        "Possibility": {
+          "Before": false,
+          "After": true
+        },
+        "Price": {
+          "All": [32, 123, 300, 400, 400, 400, 400, 500],
+          "Total": {
+            "Exclude": 2555,
+            "IncludeWithCost": 1295,
+            "IncludeWithoutCost": 1255
+          }
+        }
+      },
+      {
+        "Name": "폭주 강화",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_2_5.png",
+        "Tier": 1,
+        "Possibility": {
+          "Before": true,
+          "After": true
+        },
+        "Price": {
+          "All": [
+            50, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 400,
+            400, 400, 400
+          ],
+          "Total": {
+            "Exclude": 2750,
+            "IncludeWithCost": 1290,
+            "IncludeWithoutCost": 1250
+          }
+        }
+      },
+      {
+        "Name": "블러드 이럽션",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_3_13.png",
+        "Tier": 2,
+        "Possibility": {
+          "Before": true,
+          "After": true
+        },
+        "Price": {
+          "All": [
+            123, 150, 250, 300, 300, 300, 300, 300, 400, 400, 400, 400, 400,
+            2000
+          ],
+          "Total": {
+            "Exclude": 2823,
+            "IncludeWithCost": 1163,
+            "IncludeWithoutCost": 1123
+          }
+        }
+      }
+    ]
+  },
+  {
+    "Name": "윈드 블레이드",
+    "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bk_skill/bk_skill_01_21.png",
+    "Tripods": [
+      {
+        "Name": "속공 준비",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_1_48.png",
+        "Tier": 0,
+        "Possibility": {
+          "Before": true,
+          "After": true
+        },
+        "Price": {
+          "All": [10, 111, 300, 300, 300, 300, 300, 300, 311, 400, 400, 977],
+          "Total": {
+            "Exclude": 2632,
+            "IncludeWithCost": 1061,
+            "IncludeWithoutCost": 1021
+          }
+        }
+      },
+      {
+        "Name": "집중",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_2_37.png",
+        "Tier": 1,
+        "Possibility": {
+          "Before": true,
+          "After": true
+        },
+        "Price": {
+          "All": [
+            98, 198, 200, 220, 250, 299, 300, 321, 400, 400, 400, 1000, 4800
+          ],
+          "Total": {
+            "Exclude": 2686,
+            "IncludeWithCost": 1006,
+            "IncludeWithoutCost": 966
+          }
+        }
+      },
+      {
+        "Name": "멈추지 않는 공격",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_3_40.png",
+        "Tier": 2,
+        "Possibility": {
+          "Before": false,
+          "After": true
+        },
+        "Price": {
+          "All": [223, 250, 300, 300, 300, 300, 400, 400, 400],
+          "Total": {
+            "Exclude": 2873,
+            "IncludeWithCost": 1413,
+            "IncludeWithoutCost": 1373
+          }
+        }
+      }
+    ]
+  },
+  {
+    "Name": "레드 더스트",
+    "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bk_skill/bk_skill_01_8.png",
+    "Tripods": [
+      null,
+      {
+        "Name": "강화된 일격",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_2_0.png",
+        "Tier": 1,
+        "Possibility": {
+          "Before": true,
+          "After": true
+        },
+        "Price": {
+          "All": [
+            32, 50, 100, 111, 111, 270, 300, 300, 300, 300, 300, 311, 311, 400,
+            400, 400, 400
+          ],
+          "Total": {
+            "Exclude": 1874,
+            "IncludeWithCost": 444,
+            "IncludeWithoutCost": 404
+          }
+        }
+      },
+      {
+        "Name": "붉은 충격",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_3_8.png",
+        "Tier": 2,
+        "Possibility": {
+          "Before": false,
+          "After": false
+        },
+        "Price": {
+          "All": [],
+          "Total": {
+            "Exclude": 0,
+            "IncludeWithCost": 0,
+            "IncludeWithoutCost": 0
+          }
+        }
+      }
+    ]
+  },
+  {
+    "Name": "오버드라이브",
+    "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bk_skill/bk_skill_01_45.png",
+    "Tripods": [
+      {
+        "Name": "재빠른 손놀림",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_1_41.png",
+        "Tier": 0,
+        "Possibility": {
+          "Before": false,
+          "After": true
+        },
+        "Price": {
+          "All": [50, 50, 311, 900, 900, 999],
+          "Total": {
+            "Exclude": 3210,
+            "IncludeWithCost": 2251,
+            "IncludeWithoutCost": 2211
+          }
+        }
+      },
+      {
+        "Name": "폭주 강화",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_2_5.png",
+        "Tier": 1,
+        "Possibility": {
+          "Before": true,
+          "After": true
+        },
+        "Price": {
+          "All": [
+            50, 50, 100, 100, 198, 200, 250, 300, 300, 300, 300, 300, 400, 400,
+            988
+          ],
+          "Total": {
+            "Exclude": 1848,
+            "IncludeWithCost": 538,
+            "IncludeWithoutCost": 498
+          }
+        }
+      },
+      {
+        "Name": "돌풍베기",
+        "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/tripod_tier/tripod_tier_3_8.png",
+        "Tier": 2,
+        "Possibility": {
+          "Before": true,
+          "After": true
+        },
+        "Price": {
+          "All": [50, 399, 400, 400, 400, 500, 888, 1000, 1555, 2000],
+          "Total": {
+            "Exclude": 7592,
+            "IncludeWithCost": 1689,
+            "IncludeWithoutCost": 1649
+          }
+        }
+      }
+    ]
+  }
+]

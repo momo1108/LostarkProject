@@ -1,13 +1,12 @@
 import TripodResultBlock from "@/components/tripod/bodycomponent/TripodResultBlock";
 import TripodResultContext from "@/contexts/TripodResultContext";
-import useAlert from "@/hooks/useAlert";
 import {
   ButtonDivStatus,
   TotalStatus,
   TripodPageStatus,
   TripodResType,
 } from "@/types/TripodType";
-import { useState, useEffect, useCallback, useMemo, useContext } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 type TripodResultContainerProps = {
   responseData: TripodResType[];
@@ -23,7 +22,6 @@ const TripodResultContainer: React.FC<TripodResultContainerProps> = ({
   totalCases,
   myTimer,
 }) => {
-  const alert = useAlert();
   const [usePowder, setUsePowder] = useState<boolean>(false);
   const [includePowderCost, setIncludePowderCost] = useState<boolean>(false);
   const [buttonDivStatus, setButtonDivStatus] =
