@@ -1,8 +1,7 @@
-import useApiTagParser from "@/hooks/useApiTagParser";
+import { parseApiDataToHtmlString as parse } from "@/utils/apiParseUtils";
 import { RuneTooltipProps } from "@/types/STType";
 
 const RuneTooltip: React.FC<RuneTooltipProps> = ({ data }) => {
-  const { parseApiDataToHtmlString: parse } = useApiTagParser();
   // console.log(data);
 
   return (

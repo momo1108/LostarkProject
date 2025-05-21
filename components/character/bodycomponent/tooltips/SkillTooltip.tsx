@@ -1,8 +1,7 @@
-import useApiTagParser from "@/hooks/useApiTagParser";
+import { parseApiDataToHtmlString as parse } from "@/utils/apiParseUtils";
 import { SkillTooltipProps } from "@/types/STType";
 
 const SkillTooltip: React.FC<SkillTooltipProps> = ({ data }) => {
-  const { parseApiDataToHtmlString: parse } = useApiTagParser();
   // console.log(data);
 
   return (

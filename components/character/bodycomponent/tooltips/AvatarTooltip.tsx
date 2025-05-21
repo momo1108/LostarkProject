@@ -1,10 +1,8 @@
 import { gradeClassMap } from "@/types/GlobalType";
-import useApiTagParser from "@/hooks/useApiTagParser";
+import { parseApiDataToHtmlString as parse } from "@/utils/apiParseUtils";
 import { EquipmentTooltipProps } from "@/types/EAAType";
 
 const AvatarTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
-  const { parseApiDataToHtmlString: parse } = useApiTagParser();
-
   return (
     <>
       <div>{parse(data.Tooltip.Element_000.value)}</div>

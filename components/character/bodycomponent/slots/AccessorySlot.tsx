@@ -21,7 +21,7 @@ const AccessorySlot: React.FC<AccessorySlotProps> = ({
         className={`${showQuality ? styles.profileAccessoryOption : "hidden"}`}
       >
         {option?.split("<BR>").map((e, i) => (
-          <p key={`accOptions${i}`}>{e.substring(0, 1) + e.substring(2)}</p>
+          <p key={`accOptions${i}`}>{e}</p>
         ))}
       </div>
       <img

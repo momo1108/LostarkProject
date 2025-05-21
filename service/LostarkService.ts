@@ -35,7 +35,12 @@ export const getCharacterImageUrl = async (
 export const getCharacterSiblings = async (
   name: string
 ): Promise<SiblingType[]> => {
-  const res = await lostarkApi.get(`characters/${name}/siblings`);
+  const res = await lostarkApi.get(`characters/${name}/siblings`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_LOSTARK_API_KEY}`,
+    },
+  });
   return res.data;
 };
 
@@ -44,7 +49,12 @@ export const getCharacterSiblings = async (
  * Returns a summary of profile information by a character name.
  */
 export const getCharacterSummary = async (name: string): Promise<CharData> => {
-  const res = await lostarkApi.get(`armories/characters/${name}`);
+  const res = await lostarkApi.get(`armories/characters/${name}`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_LOSTARK_API_KEY}`,
+    },
+  });
   return res.data;
 };
 
@@ -55,7 +65,12 @@ export const getCharacterSummary = async (name: string): Promise<CharData> => {
 export const getCharacterProfile = async (
   name: string
 ): Promise<ArmoryProfileType> => {
-  const res = await lostarkApi.get(`armories/characters/${name}/profiles`);
+  const res = await lostarkApi.get(`armories/characters/${name}/profiles`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_LOSTARK_API_KEY}`,
+    },
+  });
   return res.data;
 };
 
@@ -66,7 +81,15 @@ export const getCharacterProfile = async (
 export const getCharacterSkills = async (
   name: string
 ): Promise<SkillType[]> => {
-  const res = await lostarkApi.get(`armories/characters/${name}/combat-skills`);
+  const res = await lostarkApi.get(
+    `armories/characters/${name}/combat-skills`,
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_LOSTARK_API_KEY}`,
+      },
+    }
+  );
   return res.data;
 };
 

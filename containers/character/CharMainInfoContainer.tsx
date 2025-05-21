@@ -20,13 +20,13 @@ const CharMainInfoContainer: React.FC<CharMainInfoContainerProps> = ({
 
   const getCharacterProfile = useCallback(async () => {
     try {
-      const result = await getCharacterSummary(router.query.name![0]);
-      console.log(result);
+      const data = await getCharacterSummary(router.query.name![0]);
+      console.log(data);
 
-      if (!result.data || !result.data.ArmoryProfile) {
+      if (!data || !data.ArmoryProfile) {
         // 유효 데이터인지 먼저 체크
         setPageStatus("NODATA");
-      } else if (!result.data.ArmoryProfile.CharacterImage) {
+      } else if (!data.ArmoryProfile.CharacterImage) {
         // 유효 데이터인 경우, 이미지 링크가 있는지 체크
         const url: string | undefined = await getCharacterImageUrl(
           router.query.name![0]
@@ -34,14 +34,14 @@ const CharMainInfoContainer: React.FC<CharMainInfoContainerProps> = ({
         if (!url) {
           setPageStatus("NODATA");
         } else {
-          result.data.ArmoryProfile.CharacterImage = url ? url : null;
-          setCharacterProfile(result.data);
-          push(result.data);
+          data.ArmoryProfile.CharacterImage = url ? url : null;
+          setCharacterProfile(data);
+          push(data);
         }
       } else {
         // 유효 데이터에, 이미지 링크도 있으면 데이터 세팅
-        setCharacterProfile(result.data);
-        push(result.data);
+        setCharacterProfile(data);
+        push(data);
       }
     } catch (error: any) {
       console.log(error);

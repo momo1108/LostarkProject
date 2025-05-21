@@ -8,7 +8,7 @@ import {
 } from "@/components/icons/Index";
 import TripodCopyModal from "@/components/modal/TripodCopyModal";
 import TripodSearchContext from "@/contexts/TripodSearchContext";
-import useApiTagParser from "@/hooks/useApiTagParser";
+import { parseApiDataToHtmlString as parse } from "@/utils/apiParseUtils";
 import styles from "@/styles/tripod/Body.module.scss";
 import { classDetailMap, classImageMap } from "@/types/GlobalType";
 import {
@@ -44,7 +44,6 @@ const TripodSearchBlock: React.FC = () => {
     searchTripod,
     pageStatus,
   } = useContext(TripodSearchContext);
-  const { parseApiDataToHtmlString: parse } = useApiTagParser();
 
   return (
     <div className={styles.searchContainer}>

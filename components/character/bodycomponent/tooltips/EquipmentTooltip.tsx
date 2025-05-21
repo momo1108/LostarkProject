@@ -1,10 +1,9 @@
 import { gradeClassMap } from "@/types/GlobalType";
-import useApiTagParser from "@/hooks/useApiTagParser";
+import { parseApiDataToHtmlString as parse } from "@/utils/apiParseUtils";
 import useCssHook from "@/hooks/useBgClassMaker";
 import { EquipmentTooltipProps } from "@/types/EAAType";
 
 const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
-  const { parseApiDataToHtmlString: parse } = useApiTagParser();
   const { bgClassMaker } = useCssHook();
   const elements = [
     "_007",

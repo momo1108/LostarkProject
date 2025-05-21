@@ -18,12 +18,10 @@ import AccessorySlot from "../slots/AccessorySlot";
 import AvatarSlot from "../slots/AvatarSlot";
 import { useState, Fragment, useEffect, useCallback } from "react";
 import { classImageMap } from "@/types/GlobalType";
-import Image from "next/image";
 import { Tooltip } from "react-tooltip";
 import EquipmentTooltip from "../tooltips/EquipmentTooltip";
 import AccessoryTooltip from "../tooltips/AccessoryTooltip";
 import AvatarTooltip from "../tooltips/AvatarTooltip";
-import useApiTagParser from "@/hooks/useApiTagParser";
 import {
   GemData,
   StatData,
@@ -43,6 +41,14 @@ import { Copy, Gem, Tripod } from "@/components/icons/Index";
 import { getCharacterSiblings } from "@/service/LostarkService";
 import Link from "next/link";
 import { EngravingType } from "@/types/LostarkApiType";
+import {
+  parseApiDataToHtmlString as parse,
+  parseAccessoryData,
+  parseEngravingPointNumber,
+  parseGemName,
+  parseSkillPoint,
+  parseTextformat,
+} from "@/utils/apiParseUtils";
 
 /*
 아바타 왼쪽 : 무기, 무기
@@ -65,13 +71,6 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
   accessory,
   avatar,
 }) => {
-  const {
-    parseEngravingPointNumber,
-    parseGemName,
-    parseApiDataToHtmlString: parse,
-    parseTextformat,
-    parseSkillPoint,
-  } = useApiTagParser();
   const [menu, setMenu] = useState<number>(0);
   const [siblingsInfo, setSiblingsInfo] = useState<{
     [key: string]: SiblingType[];
@@ -483,23 +482,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                       accessory[e] ? (
                         <AccessorySlot
                           key={`accessorySlot${e}`}
-                          grade={gradeClassMap[accessory[e].Grade]}
-                          iconUrl={accessory[e].Icon}
-                          qualityValue={
-                            accessory[e].Tooltip.Element_001.value.qualityValue
-                          }
-                          showQuality={
-                            !(
-                              accessory[e].Type == "팔찌" ||
-                              accessory[e].Type == "어빌리티 스톤"
-                            ) &&
-                            parseFloat(
-                              data.ArmoryProfile.ItemAvgLevel.replace(",", "")
-                            ) >= 1415
-                          }
-                          option={
-                            accessory[e].Tooltip.Element_005.value.Element_001
-                          }
+                          {...parseAccessoryData(accessory[e])}
                           contentSetter={() => {
                             setAccessoryTooltipContent(accessory[e]);
                           }}
