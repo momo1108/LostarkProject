@@ -1,0 +1,139 @@
+{
+  "Element_000": {
+    "type": "NameTagBox",
+    "value": "<P ALIGN='CENTER'><FONT COLOR='#3CF2E6'>+9 패룡 : 극</FONT></P>"
+  },
+  "Element_001": {
+    "type": "ItemTitle",
+    "value": {
+      "bEquip": 0,
+      "leftStr0": "<FONT SIZE='12'><FONT COLOR='#3CF2E6'>에스더 헤비 건틀릿</FONT></FONT>",
+      "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+      "leftStr2": "<FONT SIZE='14'>아이템 레벨 1785 (티어 4)</FONT>",
+      "qualityValue": 100,
+      "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+      "slotData": {
+        "advBookIcon": 0,
+        "battleItemTypeIcon": 0,
+        "blackListIcon": 0,
+        "cardIcon": false,
+        "friendship": 0,
+        "iconGrade": 7,
+        "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_item/ifm_item_91.png",
+        "imagePath": "",
+        "islandIcon": 0,
+        "petBorder": 0,
+        "rtString": "",
+        "seal": false,
+        "temporary": 0,
+        "town": 0,
+        "trash": 0
+      }
+    }
+  },
+  "Element_002": {
+    "type": "SingleTextBox",
+    "value": "<FONT SIZE='12'>브레이커 전용</FONT>"
+  },
+  "Element_003": {
+    "type": "SingleTextBox",
+    "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+  },
+  "Element_004": {
+    "type": "MultiTextBox",
+    "value": "|<font color='#C24B46'>거래 불가</font>"
+  },
+  "Element_005": {
+    "type": "SingleTextBox",
+    "value": "<FONT SIZE='14'><FONT COLOR='#A8EA6C'>[상급 재련]</FONT> <FONT COLOR='#FFD200'>40</FONT>단계</FONT>\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>30</font>단계 - 기본 효과 +2%\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>40</font>단계 - 기본 효과 +3%"
+  },
+  "Element_006": {
+    "type": "ItemPartBox",
+    "value": {
+      "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+      "Element_001": "무기 공격력 +177946"
+    }
+  },
+  "Element_007": {
+    "type": "ItemPartBox",
+    "value": {
+      "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+      "Element_001": "추가 피해 +30.00%"
+    }
+  },
+  "Element_008": {
+    "type": "IndentStringGroup",
+    "value": {
+      "Element_000": {
+        "contentStr": {
+          "Element_000": {
+            "bPoint": true,
+            "contentStr": "<FONT COLOR='#FFD200'>엘라 부여 <FONT COLOR='#73DC04'>2 단계</FONT> </FONT><FONT COLOR='#FFD200'>(최종)</FONT>",
+            "pointType": 0
+          },
+          "Element_001": {
+            "bPoint": true,
+            "contentStr": "특정 시간 이후 공격 적중 시 확률에 따라 '<FONT COLOR='#33ffcc'>기사의 긍지</FONT>'가 활성화 된다. 활성화 확률은 시간에 따라 점차 증가한다.<BR>사용 시 <FONT COLOR='#ffff99'>10</FONT>초 동안 자신의 힘, 민첩, 지능이 <FONT COLOR='#99ff99'>257503</FONT> 증가한다.",
+            "pointType": 0
+          },
+          "Element_002": {
+            "bPoint": true,
+            "contentStr": "특정 시간 이후 공격 적중 시 확률에 따라 '<FONT COLOR='#33ffcc'>여명의 빛</FONT>'이 활성화 된다. 활성화 확률은 시간에 따라 점차 증가한다.<BR>사용 시 <FONT COLOR='#ffff99'>20</FONT>초 동안 <FONT COLOR='#ffff99'>16</FONT>m 이내의 파티원에게 용기를 복돋아 자신 및 파티원의 공격력을 <FONT COLOR='#99ff99'>7250</FONT> 증가시킨다.",
+            "pointType": 0
+          }
+        },
+        "topStr": "<FONT COLOR='#A9D0F5'>에스더 효과</FONT><FONT COLOR='#f7d290'> [실리안]</FONT>"
+      }
+    }
+  },
+  "Element_009": {
+    "type": "IndentStringGroup",
+    "value": {
+      "Element_000": {
+        "contentStr": {
+          "Element_000": {
+            "bPoint": false,
+            "contentStr": "무기 공격력 +2940"
+          },
+          "Element_001": {
+            "bPoint": false,
+            "contentStr": "<FONT COLOR='#FFD200'>모든 장비에 적용된 총 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>126개</FONT>"
+          },
+          "Element_002": {
+            "bPoint": false,
+            "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>5</font> - <font color='#ffffff'>공격력이 <FONT COLOR='#99ff99'>800</FONT> 증가하며, 낙인력이 <FONT COLOR='#99ff99'>2%</FONT> 증가합니다.</font>"
+          },
+          "Element_003": {
+            "bPoint": false,
+            "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>10</font> - <font color='#ffffff'>공격력이 <FONT COLOR='#99ff99'>800</FONT> 추가로 증가하며, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>2%</FONT> 증가합니다.</font>"
+          },
+          "Element_004": {
+            "bPoint": false,
+            "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>15</font> - <font color='#ffffff'>공격력이 <FONT COLOR='#99ff99'>800</FONT> 추가로 증가하며, 낙인력이 <FONT COLOR='#99ff99'>2%</FONT> 추가로 증가합니다.</font>"
+          },
+          "Element_005": {
+            "bPoint": false,
+            "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>20</font> - <font color='#ffffff'>공격력이 <FONT COLOR='#99ff99'>1125</FONT> 추가로 증가하며, 낙인력이 <FONT COLOR='#99ff99'>4%</FONT> 추가로 증가합니다.</font>"
+          }
+        },
+        "topStr": "<FONT SIZE='12' COLOR='#A9D0F5'>슬롯 효과</FONT><BR><FONT COLOR='#FF9632'>[초월]</FONT> <FONT COLOR='#FFD200'>7</FONT>단계 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>21"
+      }
+    }
+  },
+  "Element_010": {
+    "type": "IndentStringGroup",
+    "value": null
+  },
+  "Element_011": {
+    "type": "SingleTextBox",
+    "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT>, <FONT COLOR='#C24B46'>파괴불가</FONT>, <FONT COLOR='#C24B46'>분해불가</FONT>, <FONT COLOR='#C24B46'>품질 업그레이드 불가</FONT></FONT>"
+  },
+  "Element_012": {
+    "type": "SingleTextBox",
+    "value": "<Font color='#5FD3F1'>[엘라 부여] 위대한 성 - 바훈투르</font>"
+  },
+  "Element_013": {
+    "type": "ShowMeTheMoney",
+    "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>128 / 175</FONT></FONT></FONT>|"
+  }
+}

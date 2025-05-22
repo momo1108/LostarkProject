@@ -1,0 +1,827 @@
+[
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>+25 신념의 업화 머리장식</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 머리 방어구</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1755 (티어 4)</FONT>",
+        "qualityValue": 100,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/sm_item/sm_item_01_182.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>바드 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='14'><FONT COLOR='#A8EA6C'>[상급 재련]</FONT> <FONT COLOR='#FFD200'>40</FONT>단계</FONT>\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>30</font>단계 - 기본 효과 +2%\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>40</font>단계 - 기본 효과 +3%"
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +9041<BR>마법 방어력 +10045<BR>지능 +93371<BR>체력 +9076"
+      }
+    },
+    "Element_007": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "생명 활성력 +1400"
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": false,
+              "contentStr": "지능 +5880"
+            },
+            "Element_001": {
+              "bPoint": false,
+              "contentStr": "<FONT COLOR='#FFD200'>모든 장비에 적용된 총 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>126개</FONT>"
+            },
+            "Element_002": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>5</font> - <font color='#ffffff'>장착중인 모든 장비의 초월 등급 당 최대 생명력이 <FONT COLOR='#99ff99'>80</FONT>씩, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>0.01%</FONT>씩 증가합니다.</font>"
+            },
+            "Element_003": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>10</font> - <font color='#ffffff'>장착중인 모든 장비의 초월 등급 당 힘, 민첩, 지능이 <FONT COLOR='#99ff99'>55</FONT>씩, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>0.01%</FONT>씩 증가합니다.</font>"
+            },
+            "Element_004": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>15</font> - <font color='#ffffff'>장착중인 모든 장비의 초월 등급 당 무기 공격력이 <FONT COLOR='#99ff99'>14</FONT>씩, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>0.01%</FONT>씩 증가합니다.</font>"
+            },
+            "Element_005": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>20</font> - <font color='#ffffff'>장착중인 모든 장비의 초월 등급 당 공격력이 <FONT COLOR='#99ff99'>6</FONT>씩, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>0.01%</FONT>씩 증가합니다.</font>"
+            }
+          },
+          "topStr": "<FONT SIZE='12' COLOR='#A9D0F5'>슬롯 효과</FONT><BR><FONT COLOR='#FF9632'>[초월]</FONT> <FONT COLOR='#FFD200'>7</FONT>단계 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>21"
+        }
+      }
+    },
+    "Element_009": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": true,
+              "contentStr": "<FONT color='#FFD200'>[공용]</FONT> 지능 <FONT color='#FFD200'>Lv.5</FONT><br>지능 +5400"
+            },
+            "Element_001": {
+              "bPoint": true,
+              "contentStr": "<FONT color='#FFD200'>[투구]</FONT> 선각자 (질서) <FONT color='#FFD200'>Lv.5</FONT><br>아군 공격력 강화 효과 +4%<BR>최대 생명력 +5000<BR>'선각자 (혼돈)' 효과와 함께 활성화 시, '선각자' 연성 추가 효과 발동\t"
+            }
+          },
+          "topStr": "<FONT COLOR='#FFE65A'>[엘릭서]</FONT><br><font color='#91fe02'><FONT size='12'>지혜의 엘릭서</FONT></font>"
+        }
+      }
+    },
+    "Element_010": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": true,
+              "contentStr": "<font color='#ffffff'><font color='#FFD200'>1단계 : <FONT size='12'>지혜의 엘릭서</FONT> 레벨 합 35</font><br>이동기 및 기상기를 제외한 스킬 사용 시, <FONT color='#FFFFAC'>8</FONT>초간 '통찰' 중첩을 획득한다. (최대 <FONT color='#FFFFAC'>5</FONT>중첩)<BR>통찰: 아군 공격력 강화 효과 <FONT color='#D4FF88'>1.6%</FONT> 증가</font>"
+            },
+            "Element_001": {
+              "bPoint": true,
+              "contentStr": "<font color='#ffffff'><font color='#FFD200'>2단계 : <FONT size='12'>지혜의 엘릭서</FONT> 레벨 합 40</font><br>'통찰' 중첩이 최대에 도달하면 아군 공격력 강화 효과가 <FONT color='#D4FF88'>6%</FONT> 추가로 증가하며,<BR>이동기, 기상기 및 각성기를 제외한 스킬의 재사용 대기시간이 <FONT color='#D4FF88'>5%</FONT> 감소한다.</font>"
+            }
+          },
+          "topStr": "<FONT SIZE='12' COLOR='#A9D0F5'>연성 추가 효과</FONT><br><FONT SIZE='12' color='#91FE02'>선각자 (2단계)</FONT>"
+        }
+      }
+    },
+    "Element_011": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#c5e58b'>[장비 업그레이드 효과]</FONT>",
+        "Element_001": "<FONT COLOR='#787878'>Lv.1&nbsp;/&nbsp;Lv.2&nbsp;/&nbsp;<FONT COLOR='#ffd200'>Lv.3</FONT></FONT><BR>진화 +&nbsp;<FONT COLOR='#787878'>16&nbsp;/&nbsp;18&nbsp;/&nbsp;<FONT COLOR='#c5e58b'>20</FONT></FONT>"
+      }
+    },
+    "Element_012": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT>, <FONT COLOR='#C24B46'>품질 업그레이드 불가</FONT></FONT>"
+    },
+    "Element_013": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[장비 업그레이드] 대도시</font>"
+    },
+    "Element_014": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>66 / 66</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>+25 신념의 업화 어깨장식</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 어깨 방어구</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1755 (티어 4)</FONT>",
+        "qualityValue": 99,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/sm_item/sm_item_01_180.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>바드 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='14'><FONT COLOR='#A8EA6C'>[상급 재련]</FONT> <FONT COLOR='#FFD200'>40</FONT>단계</FONT>\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>30</font>단계 - 기본 효과 +2%\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>40</font>단계 - 기본 효과 +3%"
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +10045<BR>마법 방어력 +9041<BR>지능 +99374<BR>체력 +7866"
+      }
+    },
+    "Element_007": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "생명 활성력 +1373"
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": false,
+              "contentStr": "지능 +5880"
+            },
+            "Element_001": {
+              "bPoint": false,
+              "contentStr": "<FONT COLOR='#FFD200'>모든 장비에 적용된 총 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>126개</FONT>"
+            },
+            "Element_002": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>5</font> - <font color='#ffffff'>무기 공격력이 <FONT COLOR='#99ff99'>1200</FONT> 증가하며, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>1%</FONT> 증가합니다.</font>"
+            },
+            "Element_003": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>10</font> - <font color='#ffffff'>마법 방어력이 <FONT COLOR='#99ff99'>1800</FONT> 증가합니다.</font>"
+            },
+            "Element_004": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>15</font> - <font color='#ffffff'>무기 공격력이 <FONT COLOR='#99ff99'>1200</FONT> 추가로 증가하며, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>1%</FONT> 추가로 증가합니다.</font>"
+            },
+            "Element_005": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>20</font> - <font color='#ffffff'>무기 공격력이 <FONT COLOR='#99ff99'>1200</FONT> 추가로 증가하며, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>1%</FONT> 추가로 증가합니다.</font>"
+            }
+          },
+          "topStr": "<FONT SIZE='12' COLOR='#A9D0F5'>슬롯 효과</FONT><BR><FONT COLOR='#FF9632'>[초월]</FONT> <FONT COLOR='#FFD200'>7</FONT>단계 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>21"
+        }
+      }
+    },
+    "Element_009": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": true,
+              "contentStr": "<FONT color='#FFD200'>[공용]</FONT> 무기 공격력 <FONT color='#FFD200'>Lv.5</FONT><br>무기 공격력 +1480"
+            },
+            "Element_001": {
+              "bPoint": true,
+              "contentStr": "<FONT color='#FFD200'>[공용]</FONT> 지능 <FONT color='#FFD200'>Lv.5</FONT><br>지능 +5400"
+            }
+          },
+          "topStr": "<FONT COLOR='#FFE65A'>[엘릭서]</FONT><br><font color='#91fe02'><FONT size='12'>지혜의 엘릭서</FONT></font>"
+        }
+      }
+    },
+    "Element_010": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#c5e58b'>[장비 업그레이드 효과]</FONT>",
+        "Element_001": "<FONT COLOR='#787878'>Lv.1&nbsp;/&nbsp;Lv.2&nbsp;/&nbsp;<FONT COLOR='#ffd200'>Lv.3</FONT></FONT><BR>진화 +&nbsp;<FONT COLOR='#787878'>16&nbsp;/&nbsp;18&nbsp;/&nbsp;<FONT COLOR='#c5e58b'>20</FONT></FONT>"
+      }
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    },
+    "Element_012": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[장비 업그레이드] 대도시</font>"
+    },
+    "Element_013": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>62 / 62</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>+25 신념의 업화 상의</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 상의</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1755 (티어 4)</FONT>",
+        "qualityValue": 99,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/sm_item/sm_item_01_178.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>바드 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='14'><FONT COLOR='#A8EA6C'>[상급 재련]</FONT> <FONT COLOR='#FFD200'>40</FONT>단계</FONT>\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>30</font>단계 - 기본 효과 +2%\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>40</font>단계 - 기본 효과 +3%"
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +12055<BR>마법 방어력 +11050<BR>지능 +74697<BR>체력 +12101"
+      }
+    },
+    "Element_007": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "생명 활성력 +1373"
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": false,
+              "contentStr": "지능 +5880"
+            },
+            "Element_001": {
+              "bPoint": false,
+              "contentStr": "<FONT COLOR='#FFD200'>모든 장비에 적용된 총 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>126개</FONT>"
+            },
+            "Element_002": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>5</font> - <font color='#ffffff'>무기 공격력이 <FONT COLOR='#99ff99'>2000</FONT> 증가합니다.</font>"
+            },
+            "Element_003": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>10</font> - <font color='#ffffff'>체력이 <FONT COLOR='#99ff99'>1400</FONT> 증가합니다.</font>"
+            },
+            "Element_004": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>15</font> - <font color='#ffffff'>무기 공격력이 <FONT COLOR='#99ff99'>2000</FONT> 추가로 증가합니다.</font>"
+            },
+            "Element_005": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>20</font> - <font color='#ffffff'>무기 공격력이 <FONT COLOR='#99ff99'>3200</FONT> 추가로 증가합니다.</font>"
+            }
+          },
+          "topStr": "<FONT SIZE='12' COLOR='#A9D0F5'>슬롯 효과</FONT><BR><FONT COLOR='#FF9632'>[초월]</FONT> <FONT COLOR='#FFD200'>7</FONT>단계 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>21"
+        }
+      }
+    },
+    "Element_009": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": true,
+              "contentStr": "<FONT color='#FFD200'>[공용]</FONT> 지능 <FONT color='#FFD200'>Lv.5</FONT><br>지능 +5400"
+            },
+            "Element_001": {
+              "bPoint": true,
+              "contentStr": "<FONT color='#FFD200'>[상의]</FONT> 최대 생명력 <FONT color='#FFD200'>Lv.4</FONT><br>최대 생명력 +12750"
+            }
+          },
+          "topStr": "<FONT COLOR='#FFE65A'>[엘릭서]</FONT><br><font color='#91fe02'><FONT size='12'>지혜의 엘릭서</FONT></font>"
+        }
+      }
+    },
+    "Element_010": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#c5e58b'>[장비 업그레이드 효과]</FONT>",
+        "Element_001": "<FONT COLOR='#787878'>Lv.1&nbsp;/&nbsp;Lv.2&nbsp;/&nbsp;<FONT COLOR='#ffd200'>Lv.3</FONT></FONT><BR>진화 +&nbsp;<FONT COLOR='#787878'>16&nbsp;/&nbsp;18&nbsp;/&nbsp;<FONT COLOR='#c5e58b'>20</FONT></FONT>"
+      }
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    },
+    "Element_012": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[장비 업그레이드] 대도시</font>"
+    },
+    "Element_013": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>84 / 84</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>+25 신념의 업화 하의</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 하의</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1755 (티어 4)</FONT>",
+        "qualityValue": 99,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/sm_item/sm_item_01_179.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>바드 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='14'><FONT COLOR='#A8EA6C'>[상급 재련]</FONT> <FONT COLOR='#FFD200'>40</FONT>단계</FONT>\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>30</font>단계 - 기본 효과 +2%\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>40</font>단계 - 기본 효과 +3%"
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +11050<BR>마법 방어력 +12055<BR>지능 +80699<BR>체력 +10286"
+      }
+    },
+    "Element_007": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "생명 활성력 +1373"
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": false,
+              "contentStr": "지능 +5880"
+            },
+            "Element_001": {
+              "bPoint": false,
+              "contentStr": "<FONT COLOR='#FFD200'>모든 장비에 적용된 총 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>126개</FONT>"
+            },
+            "Element_002": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>5</font> - <font color='#ffffff'>받는 피해가 <FONT COLOR='#99ff99'>3%</FONT> 감소합니다. </font>"
+            },
+            "Element_003": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>10</font> - <font color='#ffffff'>보스 등급 이상 몬스터에게 공격 적중 시 '전승자의 힘'이 발동합니다. '전승자의 힘' 효과는 <FONT COLOR='#ffff99'>30</FONT>초에 <FONT COLOR='#ffff99'>1</FONT>회만 발동하며, 고정된 피해를 입힙니다.<br>아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>1.5%</FONT> 증가합니다.</font>"
+            },
+            "Element_004": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>15</font> - <font color='#ffffff'>‘전승자의 힘‘ 피해량이 <FONT COLOR='#99ff99'>2</FONT>배로 증가하며, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>1.5%</FONT> 추가로 증가합니다.</font>"
+            },
+            "Element_005": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>20</font> - <font color='#ffffff'>적에게 주는 피해가 <FONT COLOR='#99ff99'>1.5%</FONT> 증가하며, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>3%</FONT> 추가로 증가합니다.</font>"
+            }
+          },
+          "topStr": "<FONT SIZE='12' COLOR='#A9D0F5'>슬롯 효과</FONT><BR><FONT COLOR='#FF9632'>[초월]</FONT> <FONT COLOR='#FFD200'>7</FONT>단계 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>21"
+        }
+      }
+    },
+    "Element_009": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": true,
+              "contentStr": "<FONT color='#FFD200'>[공용]</FONT> 지능 <FONT color='#FFD200'>Lv.5</FONT><br>지능 +5400"
+            },
+            "Element_001": {
+              "bPoint": true,
+              "contentStr": "<FONT color='#FFD200'>[하의]</FONT> 아군 강화 <FONT color='#FFD200'>Lv.5</FONT><br>아군 공격력 강화 효과 +6%"
+            }
+          },
+          "topStr": "<FONT COLOR='#FFE65A'>[엘릭서]</FONT><br><font color='#91fe02'><FONT size='12'>지혜의 엘릭서</FONT></font>"
+        }
+      }
+    },
+    "Element_010": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#c5e58b'>[장비 업그레이드 효과]</FONT>",
+        "Element_001": "<FONT COLOR='#787878'>Lv.1&nbsp;/&nbsp;Lv.2&nbsp;/&nbsp;<FONT COLOR='#ffd200'>Lv.3</FONT></FONT><BR>진화 +&nbsp;<FONT COLOR='#787878'>16&nbsp;/&nbsp;18&nbsp;/&nbsp;<FONT COLOR='#c5e58b'>20</FONT></FONT>"
+      }
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    },
+    "Element_012": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[장비 업그레이드] 대도시</font>"
+    },
+    "Element_013": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>76 / 76</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>+25 신념의 업화 장갑</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 장갑</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1755 (티어 4)</FONT>",
+        "qualityValue": 100,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/sm_item/sm_item_01_181.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>바드 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='14'><FONT COLOR='#A8EA6C'>[상급 재련]</FONT> <FONT COLOR='#FFD200'>40</FONT>단계</FONT>\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>30</font>단계 - 기본 효과 +2%\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>40</font>단계 - 기본 효과 +3%"
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +8036<BR>마법 방어력 +8036<BR>지능 +112045<BR>체력 +6051"
+      }
+    },
+    "Element_007": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "생명 활성력 +1400"
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": false,
+              "contentStr": "지능 +5880"
+            },
+            "Element_001": {
+              "bPoint": false,
+              "contentStr": "<FONT COLOR='#FFD200'>모든 장비에 적용된 총 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>126개</FONT>"
+            },
+            "Element_002": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>5</font> - <font color='#ffffff'>힘, 민첩, 지능이 <FONT COLOR='#99ff99'>4200</FONT> 증가하며, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>1%</FONT> 증가합니다.</font>"
+            },
+            "Element_003": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>10</font> - <font color='#ffffff'>물리 방어력이 <FONT COLOR='#99ff99'>1800</FONT> 증가합니다.</font>"
+            },
+            "Element_004": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>15</font> - <font color='#ffffff'>힘, 민첩, 지능이 <FONT COLOR='#99ff99'>4200</FONT> 추가로 증가하며, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>1%</FONT> 추가로 증가합니다.</font>"
+            },
+            "Element_005": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>20</font> - <font color='#ffffff'>힘, 민첩, 지능이 <FONT COLOR='#99ff99'>4200</FONT> 추가로 증가하며, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>1%</FONT> 추가로 증가합니다.</font>"
+            }
+          },
+          "topStr": "<FONT SIZE='12' COLOR='#A9D0F5'>슬롯 효과</FONT><BR><FONT COLOR='#FF9632'>[초월]</FONT> <FONT COLOR='#FFD200'>7</FONT>단계 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>21"
+        }
+      }
+    },
+    "Element_009": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": true,
+              "contentStr": "<FONT color='#FFD200'>[장갑]</FONT> 선각자 (혼돈) <FONT color='#FFD200'>Lv.5</FONT><br>파티원에게 주는 회복 및 보호막 효과 +1.44%<BR>전투 중 생명력 회복량 +58<BR>'선각자 (질서)' 효과와 함께 활성화 시, '선각자' 연성 추가 효과 발동\t"
+            },
+            "Element_001": {
+              "bPoint": true,
+              "contentStr": "<FONT color='#FFD200'>[공용]</FONT> 마나 <FONT color='#FFD200'>Lv.4</FONT><br>최대 마나 +73"
+            }
+          },
+          "topStr": "<FONT COLOR='#FFE65A'>[엘릭서]</FONT><br><font color='#91fe02'><FONT size='12'>지혜의 엘릭서</FONT></font>"
+        }
+      }
+    },
+    "Element_010": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": true,
+              "contentStr": "<font color='#ffffff'><font color='#FFD200'>1단계 : <FONT size='12'>지혜의 엘릭서</FONT> 레벨 합 35</font><br>이동기 및 기상기를 제외한 스킬 사용 시, <FONT color='#FFFFAC'>8</FONT>초간 '통찰' 중첩을 획득한다. (최대 <FONT color='#FFFFAC'>5</FONT>중첩)<BR>통찰: 아군 공격력 강화 효과 <FONT color='#D4FF88'>1.6%</FONT> 증가</font>"
+            },
+            "Element_001": {
+              "bPoint": true,
+              "contentStr": "<font color='#ffffff'><font color='#FFD200'>2단계 : <FONT size='12'>지혜의 엘릭서</FONT> 레벨 합 40</font><br>'통찰' 중첩이 최대에 도달하면 아군 공격력 강화 효과가 <FONT color='#D4FF88'>6%</FONT> 추가로 증가하며,<BR>이동기, 기상기 및 각성기를 제외한 스킬의 재사용 대기시간이 <FONT color='#D4FF88'>5%</FONT> 감소한다.</font>"
+            }
+          },
+          "topStr": "<FONT SIZE='12' COLOR='#A9D0F5'>연성 추가 효과</FONT><br><FONT SIZE='12' color='#91FE02'>선각자 (2단계)</FONT>"
+        }
+      }
+    },
+    "Element_011": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#c5e58b'>[장비 업그레이드 효과]</FONT>",
+        "Element_001": "<FONT COLOR='#787878'>Lv.1&nbsp;/&nbsp;Lv.2&nbsp;/&nbsp;<FONT COLOR='#ffd200'>Lv.3</FONT></FONT><BR>진화 +&nbsp;<FONT COLOR='#787878'>16&nbsp;/&nbsp;18&nbsp;/&nbsp;<FONT COLOR='#c5e58b'>20</FONT></FONT>"
+      }
+    },
+    "Element_012": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT>, <FONT COLOR='#C24B46'>품질 업그레이드 불가</FONT></FONT>"
+    },
+    "Element_013": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[장비 업그레이드] 대도시</font>"
+    },
+    "Element_014": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>59 / 59</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>+25 운명의 업화 리아네 하프</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 리아네 하프</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1755 (티어 4)</FONT>",
+        "qualityValue": 100,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/sm_item/sm_item_01_184.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>바드 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='14'><FONT COLOR='#A8EA6C'>[상급 재련]</FONT> <FONT COLOR='#FFD200'>40</FONT>단계</FONT>\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>30</font>단계 - 기본 효과 +2%\n<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img><font color='#ffd200'>40</font>단계 - 기본 효과 +3%"
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "무기 공격력 +161770"
+      }
+    },
+    "Element_007": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "추가 피해 +30.00%"
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": false,
+              "contentStr": "무기 공격력 +2940"
+            },
+            "Element_001": {
+              "bPoint": false,
+              "contentStr": "<FONT COLOR='#FFD200'>모든 장비에 적용된 총 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>126개</FONT>"
+            },
+            "Element_002": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>5</font> - <font color='#ffffff'>공격력이 <FONT COLOR='#99ff99'>800</FONT> 증가하며, 낙인력이 <FONT COLOR='#99ff99'>2%</FONT> 증가합니다.</font>"
+            },
+            "Element_003": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>10</font> - <font color='#ffffff'>공격력이 <FONT COLOR='#99ff99'>800</FONT> 추가로 증가하며, 아군 공격력 강화 효과가 <FONT COLOR='#99ff99'>2%</FONT> 증가합니다.</font>"
+            },
+            "Element_004": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>15</font> - <font color='#ffffff'>공격력이 <FONT COLOR='#99ff99'>800</FONT> 추가로 증가하며, 낙인력이 <FONT COLOR='#99ff99'>2%</FONT> 추가로 증가합니다.</font>"
+            },
+            "Element_005": {
+              "bPoint": false,
+              "contentStr": "<img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img><font color='#ffffff'>20</font> - <font color='#ffffff'>공격력이 <FONT COLOR='#99ff99'>1125</FONT> 추가로 증가하며, 낙인력이 <FONT COLOR='#99ff99'>4%</FONT> 추가로 증가합니다.</font>"
+            }
+          },
+          "topStr": "<FONT SIZE='12' COLOR='#A9D0F5'>슬롯 효과</FONT><BR><FONT COLOR='#FF9632'>[초월]</FONT> <FONT COLOR='#FFD200'>7</FONT>단계 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>21"
+        }
+      }
+    },
+    "Element_009": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT>, <FONT COLOR='#C24B46'>품질 업그레이드 불가</FONT></FONT>"
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[제작] 대도시</font>"
+    },
+    "Element_012": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>175 / 175</FONT></FONT></FONT>|"
+    }
+  }
+]

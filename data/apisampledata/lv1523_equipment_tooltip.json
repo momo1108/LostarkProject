@@ -1,0 +1,559 @@
+[
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>+13 광기의 속삭임 투구</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 머리 방어구</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1520 (티어 3)</FONT>",
+        "qualityValue": 62,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/dr_item/dr_item_01_113.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>디스트로이어 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +4220<BR>마법 방어력 +4689<BR>힘 +21317<BR>체력 +3742"
+      }
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "생명 활성력 +539"
+      }
+    },
+    "Element_007": {
+      "type": "Progress",
+      "value": {
+        "forceValue": " ",
+        "maximum": 42000,
+        "minimum": 0,
+        "title": "<FONT SIZE='12'><FONT COLOR='#A9D0F5'>현재 단계 재련 경험치</FONT></FONT>",
+        "value": 0,
+        "valueType": 1
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#c5e58b'>[장비 업그레이드 효과]</FONT>",
+        "Element_001": "<FONT COLOR='#787878'>Lv.1&nbsp;/&nbsp;<FONT COLOR='#ffd200'>Lv.2</FONT>&nbsp;/&nbsp;Lv.3</FONT><BR>진화 +&nbsp;<FONT COLOR='#787878'>12&nbsp;/&nbsp;<FONT COLOR='#c5e58b'>14</FONT>&nbsp;/&nbsp;16</FONT>"
+      }
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[장비 업그레이드] 대도시</font>"
+    },
+    "Element_012": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>53 / 66</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>+13 광기의 속삭임 견갑</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 어깨 방어구</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1520 (티어 3)</FONT>",
+        "qualityValue": 50,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/dr_item/dr_item_01_114.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>디스트로이어 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +4689<BR>마법 방어력 +4220<BR>힘 +22687<BR>체력 +3243"
+      }
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "생명 활성력 +350"
+      }
+    },
+    "Element_007": {
+      "type": "Progress",
+      "value": {
+        "forceValue": " ",
+        "maximum": 42000,
+        "minimum": 0,
+        "title": "<FONT SIZE='12'><FONT COLOR='#A9D0F5'>현재 단계 재련 경험치</FONT></FONT>",
+        "value": 0,
+        "valueType": 1
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#c5e58b'>[장비 업그레이드 효과]</FONT>",
+        "Element_001": "<FONT COLOR='#787878'>Lv.1&nbsp;/&nbsp;<FONT COLOR='#ffd200'>Lv.2</FONT>&nbsp;/&nbsp;Lv.3</FONT><BR>진화 +&nbsp;<FONT COLOR='#787878'>12&nbsp;/&nbsp;<FONT COLOR='#c5e58b'>14</FONT>&nbsp;/&nbsp;16</FONT>"
+      }
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[장비 업그레이드] 대도시</font>"
+    },
+    "Element_012": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>49 / 62</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>+13 광기의 속삭임 상의</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 상의</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1520 (티어 3)</FONT>",
+        "qualityValue": 76,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/dr_item/dr_item_01_117.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>디스트로이어 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +5627<BR>마법 방어력 +5158<BR>힘 +17054<BR>체력 +4989"
+      }
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "생명 활성력 +809"
+      }
+    },
+    "Element_007": {
+      "type": "Progress",
+      "value": {
+        "forceValue": " ",
+        "maximum": 42000,
+        "minimum": 0,
+        "title": "<FONT SIZE='12'><FONT COLOR='#A9D0F5'>현재 단계 재련 경험치</FONT></FONT>",
+        "value": 0,
+        "valueType": 1
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#c5e58b'>[장비 업그레이드 효과]</FONT>",
+        "Element_001": "<FONT COLOR='#787878'>Lv.1&nbsp;/&nbsp;<FONT COLOR='#ffd200'>Lv.2</FONT>&nbsp;/&nbsp;Lv.3</FONT><BR>진화 +&nbsp;<FONT COLOR='#787878'>12&nbsp;/&nbsp;<FONT COLOR='#c5e58b'>14</FONT>&nbsp;/&nbsp;16</FONT>"
+      }
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[장비 업그레이드] 대도시</font>"
+    },
+    "Element_012": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>71 / 84</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>+13 광기의 속삭임 하의</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 하의</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1520 (티어 3)</FONT>",
+        "qualityValue": 50,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/dr_item/dr_item_01_116.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>디스트로이어 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +5158<BR>마법 방어력 +5627<BR>힘 +18424<BR>체력 +4241"
+      }
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "생명 활성력 +350"
+      }
+    },
+    "Element_007": {
+      "type": "Progress",
+      "value": {
+        "forceValue": " ",
+        "maximum": 42000,
+        "minimum": 0,
+        "title": "<FONT SIZE='12'><FONT COLOR='#A9D0F5'>현재 단계 재련 경험치</FONT></FONT>",
+        "value": 0,
+        "valueType": 1
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#c5e58b'>[장비 업그레이드 효과]</FONT>",
+        "Element_001": "<FONT COLOR='#787878'>Lv.1&nbsp;/&nbsp;<FONT COLOR='#ffd200'>Lv.2</FONT>&nbsp;/&nbsp;Lv.3</FONT><BR>진화 +&nbsp;<FONT COLOR='#787878'>12&nbsp;/&nbsp;<FONT COLOR='#c5e58b'>14</FONT>&nbsp;/&nbsp;16</FONT>"
+      }
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[장비 업그레이드] 대도시</font>"
+    },
+    "Element_012": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>63 / 76</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>+13 광기의 속삭임 장갑</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 장갑</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1520 (티어 3)</FONT>",
+        "qualityValue": 69,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/dr_item/dr_item_01_115.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>디스트로이어 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +3752<BR>마법 방어력 +3752<BR>힘 +25580<BR>체력 +2495"
+      }
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "생명 활성력 +667"
+      }
+    },
+    "Element_007": {
+      "type": "Progress",
+      "value": {
+        "forceValue": " ",
+        "maximum": 42000,
+        "minimum": 0,
+        "title": "<FONT SIZE='12'><FONT COLOR='#A9D0F5'>현재 단계 재련 경험치</FONT></FONT>",
+        "value": 0,
+        "valueType": 1
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#c5e58b'>[장비 업그레이드 효과]</FONT>",
+        "Element_001": "<FONT COLOR='#787878'>Lv.1&nbsp;/&nbsp;<FONT COLOR='#ffd200'>Lv.2</FONT>&nbsp;/&nbsp;Lv.3</FONT><BR>진화 +&nbsp;<FONT COLOR='#787878'>12&nbsp;/&nbsp;<FONT COLOR='#c5e58b'>14</FONT>&nbsp;/&nbsp;16</FONT>"
+      }
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[장비 업그레이드] 대도시</font>"
+    },
+    "Element_012": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>46 / 59</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>+15 명예의 속삭임 전투망치</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 해머</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1540 (티어 3)</FONT>",
+        "qualityValue": 100,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/dr_item/dr_item_01_118.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>디스트로이어 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "무기 공격력 +40413"
+      }
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "추가 피해 +30.00%"
+      }
+    },
+    "Element_007": {
+      "type": "Progress",
+      "value": {
+        "forceValue": " ",
+        "maximum": 120000,
+        "minimum": 0,
+        "title": "<FONT SIZE='12'><FONT COLOR='#A9D0F5'>현재 단계 재련 경험치</FONT></FONT>",
+        "value": 0,
+        "valueType": 1
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT>, <FONT COLOR='#C24B46'>품질 업그레이드 불가</FONT></FONT>"
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[제작] 대도시</font>"
+    },
+    "Element_011": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>89 / 175</FONT></FONT></FONT>|"
+    }
+  }
+]

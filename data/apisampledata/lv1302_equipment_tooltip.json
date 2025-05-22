@@ -1,0 +1,559 @@
+[
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>+3 차원의 머리장식</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 머리 방어구</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1310 (티어 3)</FONT>",
+        "qualityValue": 100,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ft_item/ft_item_01_60.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>창술사 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1100</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +2837<BR>마법 방어력 +3152<BR>힘 +8915<BR>체력 +2257"
+      }
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "물리 방어력 +422<BR>마법 방어력 +469<BR>체력 +334"
+      }
+    },
+    "Element_007": {
+      "type": "Progress",
+      "value": {
+        "forceValue": " ",
+        "maximum": 1820,
+        "minimum": 0,
+        "title": "<FONT SIZE='12'><FONT COLOR='#A9D0F5'>현재 단계 재련 경험치</FONT></FONT>",
+        "value": 0,
+        "valueType": 1
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "진화 +6"
+      }
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT>, <FONT COLOR='#C24B46'>품질 업그레이드 불가</FONT></FONT>"
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카오스 던전] 파푸니카</font>"
+    },
+    "Element_012": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>53 / 53</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>+3 차원의 견갑</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 어깨 방어구</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1310 (티어 3)</FONT>",
+        "qualityValue": 100,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ft_item/ft_item_01_61.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>창술사 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1100</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +3152<BR>마법 방어력 +2837<BR>힘 +9600<BR>체력 +1956"
+      }
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "물리 방어력 +469<BR>마법 방어력 +422<BR>체력 +290"
+      }
+    },
+    "Element_007": {
+      "type": "Progress",
+      "value": {
+        "forceValue": " ",
+        "maximum": 1820,
+        "minimum": 0,
+        "title": "<FONT SIZE='12'><FONT COLOR='#A9D0F5'>현재 단계 재련 경험치</FONT></FONT>",
+        "value": 0,
+        "valueType": 1
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "진화 +6"
+      }
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT>, <FONT COLOR='#C24B46'>품질 업그레이드 불가</FONT></FONT>"
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카오스 던전] 파푸니카</font>"
+    },
+    "Element_012": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>50 / 50</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>+3 차원의 상의</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 상의</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1310 (티어 3)</FONT>",
+        "qualityValue": 100,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ft_item/ft_item_01_62.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>창술사 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1100</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +3783<BR>마법 방어력 +3467<BR>힘 +6858<BR>체력 +3009"
+      }
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "물리 방어력 +562<BR>마법 방어력 +516<BR>체력 +446"
+      }
+    },
+    "Element_007": {
+      "type": "Progress",
+      "value": {
+        "forceValue": " ",
+        "maximum": 1820,
+        "minimum": 0,
+        "title": "<FONT SIZE='12'><FONT COLOR='#A9D0F5'>현재 단계 재련 경험치</FONT></FONT>",
+        "value": 0,
+        "valueType": 1
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "진화 +6"
+      }
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT>, <FONT COLOR='#C24B46'>품질 업그레이드 불가</FONT></FONT>"
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카오스 던전] 파푸니카</font>"
+    },
+    "Element_012": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>67 / 67</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>+3 차원의 하의</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 하의</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1310 (티어 3)</FONT>",
+        "qualityValue": 100,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ft_item/ft_item_01_64.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>창술사 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1100</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +3467<BR>마법 방어력 +3783<BR>힘 +7543<BR>체력 +2557"
+      }
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "물리 방어력 +516<BR>마법 방어력 +562<BR>체력 +379"
+      }
+    },
+    "Element_007": {
+      "type": "Progress",
+      "value": {
+        "forceValue": " ",
+        "maximum": 1820,
+        "minimum": 0,
+        "title": "<FONT SIZE='12'><FONT COLOR='#A9D0F5'>현재 단계 재련 경험치</FONT></FONT>",
+        "value": 0,
+        "valueType": 1
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "진화 +6"
+      }
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT>, <FONT COLOR='#C24B46'>품질 업그레이드 불가</FONT></FONT>"
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카오스 던전] 파푸니카</font>"
+    },
+    "Element_012": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>61 / 61</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>+3 차원의 장갑</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 장갑</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1310 (티어 3)</FONT>",
+        "qualityValue": 100,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ft_item/ft_item_01_63.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>창술사 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1100</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "물리 방어력 +2522<BR>마법 방어력 +2522<BR>힘 +10972<BR>체력 +1505"
+      }
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "물리 방어력 +375<BR>마법 방어력 +375<BR>체력 +223"
+      }
+    },
+    "Element_007": {
+      "type": "Progress",
+      "value": {
+        "forceValue": " ",
+        "maximum": 1820,
+        "minimum": 0,
+        "title": "<FONT SIZE='12'><FONT COLOR='#A9D0F5'>현재 단계 재련 경험치</FONT></FONT>",
+        "value": 0,
+        "valueType": 1
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "진화 +6"
+      }
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT>, <FONT COLOR='#C24B46'>품질 업그레이드 불가</FONT></FONT>"
+    },
+    "Element_011": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카오스 던전] 파푸니카</font>"
+    },
+    "Element_012": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>47 / 47</FONT></FONT></FONT>|"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>+3 차원의 창</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 창</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 레벨 1310 (티어 3)</FONT>",
+        "qualityValue": 100,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/lm_item/lm_item_01_91.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>창술사 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1100</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "무기 공격력 +16556"
+      }
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>추가 효과</FONT>",
+        "Element_001": "추가 피해 +15.00%"
+      }
+    },
+    "Element_007": {
+      "type": "Progress",
+      "value": {
+        "forceValue": " ",
+        "maximum": 3020,
+        "minimum": 0,
+        "title": "<FONT SIZE='12'><FONT COLOR='#A9D0F5'>현재 단계 재련 경험치</FONT></FONT>",
+        "value": 0,
+        "valueType": 1
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>분해불가</FONT>, <FONT COLOR='#C24B46'>품질 업그레이드 불가</FONT></FONT>"
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카오스 던전] 파푸니카</font>"
+    },
+    "Element_011": {
+      "type": "ShowMeTheMoney",
+      "value": "<FONT SIZE='12'><FONT COLOR='#FFFFFF'>내구도 <FONT COLOR='#FFFFFF'>141 / 141</FONT></FONT></FONT>|"
+    }
+  }
+]
