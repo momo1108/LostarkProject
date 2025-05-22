@@ -58,6 +58,20 @@ export type Tendency = {
   MaxPoint: number;
 };
 
+export type EquipmentTooltipValue =
+  | string
+  | number
+  | boolean
+  | { [key: string]: EquipmentTooltipValue }
+  | null;
+
+export type EquipmentTooltip = {
+  [element: string]: {
+    type: string;
+    value: EquipmentTooltipValue;
+  };
+};
+
 /**
  * https://developer-lostark.game.onstove.com/auctions/options
  */

@@ -44,7 +44,7 @@ import Link from "next/link";
 import { EngravingType } from "@/types/LostarkApiType";
 import {
   parseApiDataToHtmlString as parse,
-  parseAccessoryData,
+  parseAccessorySlotData,
   parseEngravingPointNumber,
   parseGemName,
   parseSkillPoint,
@@ -487,7 +487,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                       accessory[e] ? (
                         <AccessorySlot
                           key={`accessorySlot${e}`}
-                          {...parseAccessoryData(accessory[e])}
+                          {...parseAccessorySlotData(accessory[e])}
                           contentSetter={() => {
                             setAccessoryTooltipContent(accessory[e]);
                           }}
@@ -1096,6 +1096,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
         className="tooltip equipmentTooltip"
         place="bottom"
         clickable={true}
+        delayHide={999999}
       >
         {equipmentTooltipContent ? (
           <EquipmentTooltip data={equipmentTooltipContent} />

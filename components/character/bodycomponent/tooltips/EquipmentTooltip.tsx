@@ -1,10 +1,25 @@
 import { gradeClassMap } from "@/types/GlobalType";
-import { parseApiDataToHtmlString as parse } from "@/utils/apiParseUtils";
+import {
+  parseApiDataToHtmlString as parse,
+  parseEquipmentTooltipData,
+} from "@/utils/apiParseUtils";
 import useCssHook from "@/hooks/useBgClassMaker";
 import { EquipmentTooltipProps } from "@/types/EAAType";
 
 const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
   const { bgClassMaker } = useCssHook();
+  const {
+    title,
+    equipmentPart,
+    qualityText,
+    qualityValue,
+    itemLevelText,
+    advancedHoningEffect,
+    basicEffect,
+    additionalEffect,
+    upgradeEffect,
+  } = parseEquipmentTooltipData(data);
+  console.log(data);
   const elements = [
     "_007",
     "_008",
@@ -20,64 +35,69 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
   ];
   return (
     <>
-      <div>{parse(data.Tooltip.Element_000.value)}</div>
+      <div>{parse(title)}</div>
       <hr />
       <div className="tooltipGradeDiv">
         <img className={gradeClassMap[data.Grade]} src={data.Icon} alt="" />
         <div className="tooltipGradeInfo">
-          <p>{parse(data.Tooltip.Element_001.value.leftStr0)}</p>
-          {data.Tooltip.Element_001.value.qualityValue >= 0 ? (
+          <p>{parse(equipmentPart)}</p>
+          {qualityValue >= 0 ? (
             <div className="qualityDiv">
-              {parse(data.Tooltip.Element_001.value.leftStr1)}
+              {parse(qualityText)}
               &nbsp;
-              <span style={{ fontSize: 14 }}>
-                {data.Tooltip.Element_001.value.qualityValue}
-              </span>
+              <span style={{ fontSize: 14 }}>{qualityValue}</span>
               <div>
                 <div
                   style={{
-                    width: `${data.Tooltip.Element_001.value.qualityValue}%`,
+                    width: `${qualityValue}%`,
                   }}
-                  className={`h-3 ${bgClassMaker(
-                    data.Tooltip.Element_001.value.qualityValue
-                  )}`}
+                  className={`h-3 ${bgClassMaker(qualityValue)}`}
                 />
               </div>
             </div>
           ) : (
             <></>
           )}
-          <p>{parse(data.Tooltip.Element_001.value.leftStr2)} </p>
+          <p>{parse(itemLevelText)} </p>
         </div>
       </div>
       <hr />
+      {advancedHoningEffect.level > 0 && (
+        <p className="flex gap-2 mt-3 px-4">
+          <p className="text-[#A8EA6C]">[상급 재련]</p>
+          <p>
+            <span className="text-[#FFD200]">{advancedHoningEffect.level}</span>
+            단계
+          </p>
+          {advancedHoningEffect.effectSum > 0 && (
+            <p>
+              기본 효과{" "}
+              <span className="text-[#FFD200]">
+                +{advancedHoningEffect.effectSum}%
+              </span>
+            </p>
+          )}
+        </p>
+      )}
       <div className="tooltipOptionDiv">
-        {data.Tooltip.Element_005?.type === "ItemPartBox" ? (
+        {basicEffect ? (
           <>
-            <p>{parse(data.Tooltip.Element_005.value.Element_000)}</p>
-            <p>{parse(data.Tooltip.Element_005.value.Element_001)}</p>
+            <p>{parse(basicEffect.title)}</p>
+            <p>{parse(basicEffect.option)}</p>
           </>
         ) : (
           <></>
         )}
-        {data.Tooltip.Element_006?.type === "ItemPartBox" ? (
+        {additionalEffect ? (
           <>
-            <p>{parse(data.Tooltip.Element_006.value.Element_000)}</p>
-            <p>{parse(data.Tooltip.Element_006.value.Element_001)}</p>
-          </>
-        ) : (
-          <></>
-        )}
-        {data.Tooltip.Element_007?.type === "ItemPartBox" ? (
-          <>
-            <p>{parse(data.Tooltip.Element_007.value.Element_000)}</p>
-            <p>{parse(data.Tooltip.Element_007.value.Element_001)}</p>
+            <p>{parse(additionalEffect.title)}</p>
+            <p>{parse(additionalEffect.option)}</p>
           </>
         ) : (
           <></>
         )}
       </div>
-      {elements.map((e: string) => {
+      {/* {elements.map((e: string) => {
         if (!data.Tooltip[`Element${e}`]) return "";
         else {
           if (data.Tooltip[`Element${e}`].type === "IndentStringGroup") {
@@ -124,7 +144,7 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
             );
           }
         }
-      })}
+      })} */}
     </>
   );
 };

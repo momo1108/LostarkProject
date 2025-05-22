@@ -176,7 +176,7 @@ Element_008 - 획득처 - SingleTextBox
 Element_004 - 기본 효과 힘/민/지 - ItemPartBox
 - value
   - Element_000~1 : 텍스트
-Element_005 - 연마 효과(prev. 치특신 특성) - ItemPartBox
+Element_005 - 연마 효과(prev. 치특신 특성) - ItemPartBox (주의. 연마 안하거나 옛날 악세인 경우 생략되므로, 순서가 한칸씩 당겨짐)
 - value
   - Element_000~1 : 텍스트
 ## 변동
