@@ -3,6 +3,7 @@ import styles from "@/styles/character/Body.module.scss";
 import { AccessorySlotProps } from "@/types/EAAType";
 
 const AccessorySlot: React.FC<AccessorySlotProps> = ({
+  type,
   grade,
   iconUrl,
   qualityValue,
@@ -20,9 +21,11 @@ const AccessorySlot: React.FC<AccessorySlotProps> = ({
       <div
         className={`${showQuality ? styles.profileAccessoryOption : "hidden"}`}
       >
-        {option?.split("<BR>").map((e, i) => (
-          <p key={`accOptions${i}`}>{e}</p>
-        ))}
+        {["목걸이", "귀걸이", "반지"].includes(type)
+          ? option
+              ?.split("<BR>")
+              .map((e, i) => <p key={`accOptions${i}`}>{e}</p>)
+          : option}
       </div>
       <img
         src={iconUrl}

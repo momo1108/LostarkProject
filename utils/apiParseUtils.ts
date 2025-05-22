@@ -83,6 +83,7 @@ export const parseAccessoryData = (
     >;
   }
 ) => {
+  const type = accessoryData.Type;
   const grade = gradeClassMap[accessoryData.Grade];
   const iconUrl = accessoryData.Icon;
   const qualityValue = (
@@ -91,13 +92,18 @@ export const parseAccessoryData = (
   const showQuality = !(
     accessoryData.Type == "팔찌" || accessoryData.Type == "어빌리티 스톤"
   );
-  let option;
+  let option = "";
   if (accessoryData.Type === "팔찌") {
     option = accessoryData.Tooltip.Element_006.value as string;
   } else {
-    option = accessoryData.Tooltip.Element_005.value as string;
+    if (accessoryData.Tooltip.Element_005.type === "ItemPartBox") {
+      option = (
+        accessoryData.Tooltip.Element_005.value as Record<string, string>
+      ).Element_001 as string;
+    }
   }
   return {
+    type,
     grade,
     iconUrl,
     qualityValue,

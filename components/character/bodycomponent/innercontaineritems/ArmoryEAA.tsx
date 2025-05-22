@@ -24,6 +24,7 @@ import AccessoryTooltip from "../tooltips/AccessoryTooltip";
 import AvatarTooltip from "../tooltips/AvatarTooltip";
 import {
   GemData,
+  GemSkillData,
   StatData,
   TendencyData,
   engravingLevelColorMap,
@@ -84,7 +85,8 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
   const [engravingTooltipContent, setEngravingTooltipContent] = useState<any>();
   const [engEquip, setEngEquip] = useState<{ [key: string]: number }>({});
   const [gemTooltipContent, setGemTooltipContent] = useState<any>();
-  const [skillDataList, setSkillDataList] = useState<SkillData[]>();
+  const [skillDataList, setSkillDataList] =
+    useState<(SkillData & { Gems: GemType[] })[]>();
   const [skillTooltipContent, setSkillTooltipContent] = useState<string>();
   const [tripodTooltipContent, setTripodTooltipContent] = useState<string>();
   const [runeTooltipContent, setRuneTooltipContent] = useState<string>();
@@ -170,19 +172,21 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
 
     // 보석
     if (data.ArmoryGem?.Gems) {
-      const mergedGemInfo: GemType[] = data.ArmoryGem.Gems.map((gem: any) => {
-        const effect = data.ArmoryGem.Effects.find(
-          (ef: any) => ef.GemSlot === gem.Slot
-        );
-        const [ShortenedName, Type] = parseGemName(gem.Name);
-        return {
-          ...gem,
-          SkillIcon: effect.Icon,
-          Description: [effect.Name, effect.Description],
-          ShortenedName,
-          Type,
-        };
-      });
+      const mergedGemInfo: GemType[] = data.ArmoryGem.Gems.map(
+        (gem: GemData) => {
+          const effect = data.ArmoryGem.Effects.Skills.find(
+            (gemSkillData: GemSkillData) => gemSkillData.GemSlot === gem.Slot
+          );
+          const [ShortenedName, Type] = parseGemName(gem.Name);
+          return {
+            ...gem,
+            SkillIcon: effect.Icon,
+            Description: [effect.Name, effect.Description],
+            ShortenedName,
+            Type,
+          };
+        }
+      );
 
       let tmpGemEquip: {
         멸화: GemType[];
@@ -223,33 +227,34 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
     // 스킬
     const tmpSkill: SkillData[] = [];
 
-    data.ArmorySkills?.forEach((e: SkillData) => {
+    data.ArmorySkills?.forEach((skill: SkillData) => {
       // console.log(
       //   Object.keys(JSON.parse(e.Tooltip)).length,
       //   JSON.parse(e.Tooltip)
       // );
-      if (e.Level > 1 || e.Rune) {
+      if (skill.Level > 1 || skill.Rune) {
         const tmp_tripod = new Array(3);
-        e.UsedTripods = setTripodInfo(e.Tripods, tmp_tripod);
-        tmpSkill.push(e);
+        skill.Tripods = setTripodInfo(skill.Tripods, tmp_tripod);
+        tmpSkill.push(skill);
       }
     });
 
-    tmpSkill.map((e: SkillData) => {
-      e.Gems = [];
-      data.ArmoryGem?.Effects?.forEach((g: GemData) => {
-        if (e.Name === g.Name) {
-          e.Gems.push({
-            ...data.ArmoryGem.Gems[g.GemSlot],
-            Description: g.Description,
-          });
-        }
-      });
-      return e;
+    const updatedSkills = tmpSkill.map((skill: SkillData) => {
+      const matchedGems: GemType[] =
+        data.ArmoryGem?.Effects?.Skills.filter(
+          (gemSkill: GemSkillData) => gemSkill.Name === skill.Name
+        ).map((gemSkill: GemSkillData) => ({
+          ...data.ArmoryGem.Gems[gemSkill.GemSlot],
+          Description: gemSkill.Description,
+        })) ?? [];
+      return {
+        ...skill,
+        Gems: matchedGems,
+      };
     });
 
     // console.log(tmpSkill);
-    setSkillDataList(tmpSkill);
+    setSkillDataList(updatedSkills);
 
     // 카드
     const tmpCard: CardEffectType[] = [];
@@ -896,37 +901,35 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                         {[0, 1, 2].map((tripodIndex: number) => {
                           return (
                             <Fragment key={`${sd.Name}_tripod${tripodIndex}`}>
-                              {sd.UsedTripods[tripodIndex] ? (
+                              {sd.Tripods[tripodIndex] ? (
                                 <div
                                   data-tooltip-id="tripodTooltip"
                                   onMouseEnter={() => {
                                     setTripodTooltipContent(
-                                      sd.UsedTripods[tripodIndex].Tooltip
+                                      sd.Tripods[tripodIndex].Tooltip
                                     );
                                   }}
                                   className={styles.usedTripod}
                                 >
                                   <img
-                                    src={sd.UsedTripods[tripodIndex].Icon}
+                                    src={sd.Tripods[tripodIndex].Icon}
                                     alt=""
                                   />
                                   <p className={styles.tripodSlot}>
-                                    {sd.UsedTripods[tripodIndex].Slot}
+                                    {sd.Tripods[tripodIndex].Slot}
                                   </p>
                                   <div
                                     className={`${styles.tripodDescrItem} ${
                                       tripodTierToColorMap[
-                                        sd.UsedTripods[tripodIndex].Tier
+                                        sd.Tripods[tripodIndex].Tier
                                       ]
                                     }`}
-                                    key={`${sd.Name}_${sd.UsedTripods[tripodIndex].Name}`}
+                                    key={`${sd.Name}_${sd.Tripods[tripodIndex].Name}`}
                                   >
                                     <p className={styles.tripodNameP}>
-                                      {sd.UsedTripods[tripodIndex].Name}
+                                      {sd.Tripods[tripodIndex].Name}
                                     </p>
-                                    <p>
-                                      Lv. {sd.UsedTripods[tripodIndex].Level}
-                                    </p>
+                                    <p>Lv. {sd.Tripods[tripodIndex].Level}</p>
                                   </div>
                                 </div>
                               ) : (
@@ -962,9 +965,9 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                                     <p className={styles.gemOption}>{`${
                                       sd.Gems[gemIndex].Level
                                     }${
-                                      sd.Gems[gemIndex].Description.startsWith(
-                                        "피해"
-                                      )
+                                      sd.Gems[
+                                        gemIndex
+                                      ].Description[0].startsWith("피해")
                                         ? "멸"
                                         : "홍"
                                     }`}</p>

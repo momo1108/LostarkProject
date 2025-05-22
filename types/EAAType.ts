@@ -3,6 +3,7 @@ Equipment, Accessory, Avatar 를 위한 타입파일
 */
 
 import { CharData } from "./ReducerType";
+import { GemData } from "./TEGCType";
 
 export type ArmoryEAAProps = {
   className: string;
@@ -38,6 +39,7 @@ export type EquipmentSlotProps = {
 };
 
 export type AccessorySlotProps = {
+  type: string;
   grade: string;
   iconUrl: string;
   qualityValue: number;
@@ -52,13 +54,7 @@ export type AvatarSlotProps = {
   contentSetter: React.Dispatch<React.SetStateAction<Object | undefined>>;
 };
 
-export type GemType = {
-  Name: string;
-  Grade: string;
-  Icon: string;
-  Level: number;
-  Slot: number;
-  Tooltip: string;
+export type GemType = GemData & {
   // 추가 property
   Description: string[];
   ShortenedName: string;
