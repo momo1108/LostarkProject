@@ -744,7 +744,7 @@ footer {
 }
 
 .tooltip {
-  @apply w-[270px] xs:w-[340px] bg-[#2A2C35] px-0 z-[4] max-h-[450px] overflow-auto opacity-100 text-[14px] rounded-none border border-[#000] #{!important};
+  @apply w-[270px] xs:w-[340px] bg-[#2A2C35] px-0 z-[7] max-h-[450px] overflow-auto opacity-100 text-[12px] xs:text-[14px] rounded-none border border-[#000] #{!important};
   -ms-overflow-style: none;
   /* IE and Edge */
   scrollbar-width: none;
@@ -770,10 +770,6 @@ footer {
 
   & > div {
     @apply px-4 my-3 #{!important};
-  }
-
-  .tooltipOuterDiv > div:not(:last-child) {
-    @apply mb-2 #{!important};
   }
 
   .tooltipGradeDiv {
@@ -838,7 +834,6 @@ footer {
   }
 }
 
-.equipmentTooltip,
 .accessoryTooltip {
   * {
     @apply text-[12px] xs:text-[14px] #{!important};

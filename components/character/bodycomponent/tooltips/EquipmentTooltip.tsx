@@ -1,12 +1,23 @@
 import { gradeClassMap } from "@/types/GlobalType";
-import {
-  parseApiDataToHtmlString as parse,
-  parseEquipmentTooltipData,
-} from "@/utils/apiParseUtils";
 import useCssHook from "@/hooks/useBgClassMaker";
 import { EquipmentTooltipProps } from "@/types/EAAType";
+import { Tooltip } from "react-tooltip";
+import { parseApiDataToHtmlString as parse } from "@/utils/apiParseUtils";
+import { parseEquipmentTooltipData } from "@/utils/equipmentTooltipParseUtils";
 
 const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
+  if (!data)
+    return (
+      <Tooltip
+        id="equipmentTooltip"
+        className="tooltip"
+        place="bottom"
+        clickable={true}
+      >
+        "Loading..."
+      </Tooltip>
+    );
+
   const { bgClassMaker } = useCssHook();
   const {
     title,
@@ -17,24 +28,20 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
     advancedHoningEffect,
     basicEffect,
     additionalEffect,
+    transcendenceEffect,
+    elixirEffect,
+    elixirAdditionalEffect,
+    siderealEffect,
     upgradeEffect,
   } = parseEquipmentTooltipData(data);
-  console.log(data);
-  const elements = [
-    "_007",
-    "_008",
-    "_009",
-    "_010",
-    "_011",
-    "_012",
-    "_013",
-    "_014",
-    "_015",
-    "_016",
-    "_017",
-  ];
+
   return (
-    <>
+    <Tooltip
+      id="equipmentTooltip"
+      className="tooltip !text-[12px] !xs:text-[14px]"
+      place="bottom"
+      clickable={true}
+    >
       <div>{parse(title)}</div>
       <hr />
       <div className="tooltipGradeDiv">
@@ -45,7 +52,7 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
             <div className="qualityDiv">
               {parse(qualityText)}
               &nbsp;
-              <span style={{ fontSize: 14 }}>{qualityValue}</span>
+              <span>{qualityValue}</span>
               <div>
                 <div
                   style={{
@@ -62,39 +69,81 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
         </div>
       </div>
       <hr />
-      {advancedHoningEffect.level > 0 && (
-        <p className="flex gap-2 mt-3 px-4">
-          <p className="text-[#A8EA6C]">[상급 재련]</p>
-          <p>
-            <span className="text-[#FFD200]">{advancedHoningEffect.level}</span>
-            단계
-          </p>
-          {advancedHoningEffect.effectSum > 0 && (
+      <div className="flex flex-col gap-3">
+        {advancedHoningEffect.level > 0 && (
+          <div className="flex gap-2">
+            <p className="text-[#A8EA6C]">[상급 재련]</p>
             <p>
-              기본 효과{" "}
               <span className="text-[#FFD200]">
-                +{advancedHoningEffect.effectSum}%
+                {advancedHoningEffect.level}
               </span>
+              단계
             </p>
-          )}
-        </p>
-      )}
-      <div className="tooltipOptionDiv">
-        {basicEffect ? (
-          <>
-            <p>{parse(basicEffect.title)}</p>
-            <p>{parse(basicEffect.option)}</p>
-          </>
-        ) : (
-          <></>
+            {advancedHoningEffect.effectSum > 0 && (
+              <p>
+                기본 효과{" "}
+                <span className="text-[#FFD200]">
+                  +{advancedHoningEffect.effectSum}%
+                </span>
+              </p>
+            )}
+          </div>
         )}
-        {additionalEffect ? (
-          <>
-            <p>{parse(additionalEffect.title)}</p>
-            <p>{parse(additionalEffect.option)}</p>
-          </>
-        ) : (
-          <></>
+        <div>
+          {basicEffect ? (
+            <>
+              <p>{parse(basicEffect.title)}</p>
+              <p>{parse(basicEffect.description)}</p>
+            </>
+          ) : (
+            <></>
+          )}
+          {additionalEffect ? (
+            <>
+              <p>{parse(additionalEffect.title)}</p>
+              <p>{parse(additionalEffect.description)}</p>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+        {transcendenceEffect && (
+          <div>
+            <p>{parse(transcendenceEffect.title)}</p>
+            {transcendenceEffect.descriptions.map((descr, i2) => (
+              <p key={`EquipTooltipP${i2}`}>{parse(descr)}</p>
+            ))}
+          </div>
+        )}
+        {elixirEffect && (
+          <div>
+            <p>{parse(elixirEffect.title)}</p>
+            {elixirEffect.descriptions.map((descr, i2) => (
+              <p key={`EquipTooltipP${i2}`}>{parse(descr)}</p>
+            ))}
+          </div>
+        )}
+        {elixirAdditionalEffect && (
+          <div>
+            <p>{parse(elixirAdditionalEffect.title)}</p>
+            {elixirAdditionalEffect.descriptions.map((descr, i2) => (
+              <p key={`EquipTooltipP${i2}`}>{parse(descr)}</p>
+            ))}
+          </div>
+        )}
+        {siderealEffect && (
+          <div>
+            <p>{parse(siderealEffect.title)}</p>
+            {siderealEffect.descriptions.map((descr, i2) => (
+              <p key={`EquipTooltipP${i2}`}>{parse(descr)}</p>
+            ))}
+          </div>
+        )}
+        {upgradeEffect && (
+          <div>
+            <p>{parse(upgradeEffect.title)}</p>
+            <p>{parse(upgradeEffect.description)}</p>
+          </div>
         )}
       </div>
       {/* {elements.map((e: string) => {
@@ -145,7 +194,7 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
           }
         }
       })} */}
-    </>
+    </Tooltip>
   );
 };
 

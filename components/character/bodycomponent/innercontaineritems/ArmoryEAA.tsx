@@ -1091,19 +1091,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
           </div>
         )}
       </Tooltip>
-      <Tooltip
-        id="equipmentTooltip"
-        className="tooltip equipmentTooltip"
-        place="bottom"
-        clickable={true}
-        delayHide={999999}
-      >
-        {equipmentTooltipContent ? (
-          <EquipmentTooltip data={equipmentTooltipContent} />
-        ) : (
-          "Loading..."
-        )}
-      </Tooltip>
+      <EquipmentTooltip data={equipmentTooltipContent} />
       <Tooltip
         id="accessoryTooltip"
         className="tooltip accessoryTooltip"
