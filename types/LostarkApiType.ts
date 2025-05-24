@@ -28,6 +28,18 @@ export type ArmoryEquipmentType = {
   Type: string;
 };
 
+export type ArmoryAvatarType = {
+  AvatarAttribute: {
+    IsInner: boolean;
+    IsSet: boolean;
+  };
+  Grade: string;
+  Icon: string;
+  Name: string;
+  Tooltip: string;
+  Type: string;
+};
+
 export type ArmoryEngravingType = {
   Effects: EngravingEffectType[];
   Engravings: EngravingType[];

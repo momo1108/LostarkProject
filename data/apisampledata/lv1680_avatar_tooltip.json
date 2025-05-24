@@ -1,0 +1,779 @@
+[
+  {
+    "AvatarAttribute": {
+      "IsInner": true,
+      "IsSet": false
+    },
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#F99200'>은밀한 도약의 총</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#F99200'>전설 총 아바타</FONT></FONT>",
+        "leftStr2": "",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 4,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/shop_icon/shop_icon_4578.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>건슬링어 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>원정대 귀속됨 </FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "민첩 +2.00%"
+      }
+    },
+    "Element_006": {
+      "type": "SymbolString",
+      "value": {
+        "contentStr": "&tdc_smart 지성 : 5<BR>&tdc_courage 담력 : 5<BR>&tdc_charm 매력 : 5<BR>&tdc_kind 친절 : 5<BR><BR>",
+        "titleStr": "<FONT COLOR='#A9D0F5'>성향</FONT>"
+      }
+    },
+    "Element_007": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_008": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT>, <FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    }
+  },
+  {
+    "AvatarAttribute": {
+      "IsInner": false,
+      "IsSet": false
+    },
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>고결한 귀공녀 총</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 총 아바타</FONT></FONT>",
+        "leftStr2": "",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/shop_icon/shop_icon_4334.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>건슬링어 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>원정대 귀속됨 </FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='14'><P align='center'>아래 능력들이 적용되지 않는 상태입니다.<BR><font color='#ffcc00'>(덧입기 슬롯에 착용 중)</font></p></FONT>"
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "민첩 +1.00%"
+      }
+    },
+    "Element_007": {
+      "type": "SymbolString",
+      "value": {
+        "contentStr": "&tdc_courage 담력 : 15<BR><BR>",
+        "titleStr": "<FONT COLOR='#A9D0F5'>성향</FONT>"
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT>, <FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    }
+  },
+  {
+    "AvatarAttribute": {
+      "IsInner": false,
+      "IsSet": false
+    },
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>모래의 꿈 악기</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 악기 아바타</FONT></FONT>",
+        "leftStr2": "",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/shop_icon/shop_icon_4269.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>헌터(여)계열</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>원정대 귀속됨 <BR>거래 <FONT COLOR='#FFD200'>3</FONT>회 가능</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_005": {
+      "type": "SymbolString",
+      "value": {
+        "contentStr": "&tdc_charm 매력 : 10<BR><BR>",
+        "titleStr": "<FONT COLOR='#A9D0F5'>성향</FONT>"
+      }
+    },
+    "Element_006": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_007": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT>, <FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    }
+  },
+  null,
+  {
+    "AvatarAttribute": {
+      "IsInner": true,
+      "IsSet": false
+    },
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#F99200'>은밀한 도약 머리</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#F99200'>전설 머리 아바타</FONT></FONT>",
+        "leftStr2": "",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 4,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/shop_icon/shop_icon_4574.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>건슬링어 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>원정대 귀속됨 <BR>거래 <FONT COLOR='#FFD200'>2</FONT>회 가능</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "민첩 +2.00%"
+      }
+    },
+    "Element_006": {
+      "type": "SymbolString",
+      "value": {
+        "contentStr": "&tdc_smart 지성 : 5<BR>&tdc_courage 담력 : 5<BR>&tdc_charm 매력 : 5<BR>&tdc_kind 친절 : 5<BR><BR>",
+        "titleStr": "<FONT COLOR='#A9D0F5'>성향</FONT>"
+      }
+    },
+    "Element_007": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_008": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT>, <FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    }
+  },
+  {
+    "AvatarAttribute": {
+      "IsInner": false,
+      "IsSet": false
+    },
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>동화의 장난 머리</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 머리 아바타</FONT></FONT>",
+        "leftStr2": "",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/shop_icon/shop_icon_5010.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>헌터(여)계열</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>원정대 귀속됨 <BR>거래 <FONT COLOR='#FFD200'>3</FONT>회 가능</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_005": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='14'><P align='center'>아래 능력들이 적용되지 않는 상태입니다.<BR><font color='#ffcc00'>(덧입기 슬롯에 착용 중)</font></p></FONT>"
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "민첩 +1.00%"
+      }
+    },
+    "Element_007": {
+      "type": "SymbolString",
+      "value": {
+        "contentStr": "&tdc_smart 지성 : 10<BR>&tdc_kind 친절 : 5<BR><BR>",
+        "titleStr": "<FONT COLOR='#A9D0F5'>성향</FONT>"
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT></FONT>"
+    }
+  },
+  {
+    "AvatarAttribute": {
+      "IsInner": false,
+      "IsSet": false
+    },
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>태양의 꿈 얼굴1</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 얼굴1 아바타</FONT></FONT>",
+        "leftStr2": "",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/shop_icon/shop_icon_4190.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>헌터(여)계열</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>원정대 귀속됨 <BR>거래 <FONT COLOR='#FFD200'>3</FONT>회 가능</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_005": {
+      "type": "SymbolString",
+      "value": {
+        "contentStr": "&tdc_courage 담력 : 5<BR><BR>",
+        "titleStr": "<FONT COLOR='#A9D0F5'>성향</FONT>"
+      }
+    },
+    "Element_006": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_007": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT>, <FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    }
+  },
+  {
+    "AvatarAttribute": {
+      "IsInner": false,
+      "IsSet": false
+    },
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>3주년 추억 얼굴2 (이벤트)</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 얼굴2 아바타</FONT></FONT>",
+        "leftStr2": "",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/shop_icon/shop_icon_4792.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>헌터(여)계열</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>원정대 귀속됨 </FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "SymbolString",
+      "value": {
+        "contentStr": "&tdc_kind 친절 : 5<BR><BR>",
+        "titleStr": "<FONT COLOR='#A9D0F5'>성향</FONT>"
+      }
+    },
+    "Element_006": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_007": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT>, <FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    }
+  },
+  {
+    "AvatarAttribute": {
+      "IsInner": true,
+      "IsSet": false
+    },
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#F99200'>은밀한 도약 상의</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#F99200'>전설 상의 아바타</FONT></FONT>",
+        "leftStr2": "",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 4,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/shop_icon/shop_icon_4575.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>건슬링어 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>원정대 귀속됨 </FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "민첩 +2.00%"
+      }
+    },
+    "Element_006": {
+      "type": "SymbolString",
+      "value": {
+        "contentStr": "&tdc_smart 지성 : 10<BR>&tdc_courage 담력 : 5<BR>&tdc_charm 매력 : 5<BR>&tdc_kind 친절 : 5<BR><BR>",
+        "titleStr": "<FONT COLOR='#A9D0F5'>성향</FONT>"
+      }
+    },
+    "Element_007": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_008": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT>, <FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    }
+  },
+  {
+    "AvatarAttribute": {
+      "IsInner": false,
+      "IsSet": false
+    },
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>동화의 장난 상의</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 상의 아바타</FONT></FONT>",
+        "leftStr2": "",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/shop_icon/shop_icon_5011.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>헌터(여)계열</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>원정대 귀속됨 <BR>거래 <FONT COLOR='#FFD200'>3</FONT>회 가능</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_005": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='14'><P align='center'>아래 능력들이 적용되지 않는 상태입니다.<BR><font color='#ffcc00'>(덧입기 슬롯에 착용 중)</font></p></FONT>"
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "민첩 +1.00%"
+      }
+    },
+    "Element_007": {
+      "type": "SymbolString",
+      "value": {
+        "contentStr": "&tdc_smart 지성 : 10<BR>&tdc_courage 담력 : 10<BR><BR>",
+        "titleStr": "<FONT COLOR='#A9D0F5'>성향</FONT>"
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT></FONT>"
+    }
+  },
+  {
+    "AvatarAttribute": {
+      "IsInner": true,
+      "IsSet": false
+    },
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#F99200'>은밀한 도약 하의</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#F99200'>전설 하의 아바타</FONT></FONT>",
+        "leftStr2": "",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 4,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/shop_icon/shop_icon_4576.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>건슬링어 전용</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>원정대 귀속됨 <BR>거래 <FONT COLOR='#FFD200'>1</FONT>회 가능</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "민첩 +2.00%"
+      }
+    },
+    "Element_006": {
+      "type": "SymbolString",
+      "value": {
+        "contentStr": "&tdc_smart 지성 : 5<BR>&tdc_courage 담력 : 5<BR>&tdc_charm 매력 : 10<BR>&tdc_kind 친절 : 5<BR><BR>",
+        "titleStr": "<FONT COLOR='#A9D0F5'>성향</FONT>"
+      }
+    },
+    "Element_007": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_008": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT>, <FONT COLOR='#C24B46'>분해불가</FONT></FONT>"
+    }
+  },
+  {
+    "AvatarAttribute": {
+      "IsInner": false,
+      "IsSet": false
+    },
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>동화의 장난 하의</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 하의 아바타</FONT></FONT>",
+        "leftStr2": "",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/shop_icon/shop_icon_5012.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>헌터(여)계열</FONT>"
+    },
+    "Element_003": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>원정대 귀속됨 <BR>거래 <FONT COLOR='#FFD200'>2</FONT>회 가능</FONT>"
+    },
+    "Element_004": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_005": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='14'><P align='center'>아래 능력들이 적용되지 않는 상태입니다.<BR><font color='#ffcc00'>(덧입기 슬롯에 착용 중)</font></p></FONT>"
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "민첩 +1.00%"
+      }
+    },
+    "Element_007": {
+      "type": "SymbolString",
+      "value": {
+        "contentStr": "&tdc_charm 매력 : 10<BR>&tdc_kind 친절 : 10<BR><BR>",
+        "titleStr": "<FONT COLOR='#A9D0F5'>성향</FONT>"
+      }
+    },
+    "Element_008": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_009": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT></FONT>"
+    }
+  }
+]

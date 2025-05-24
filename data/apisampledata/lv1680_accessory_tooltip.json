@@ -1,0 +1,520 @@
+[
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>도래한 결전의 목걸이</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 목걸이</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 티어 4</FONT>",
+        "qualityValue": 95,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/acc/acc_215.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR>거래 <FONT COLOR='#FFD200'>2</FONT>회 가능<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1680</FONT>"
+    },
+    "Element_003": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_004": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "<FONT COLOR='#686660'>힘 +17831</FONT><BR>민첩 +17831<BR><FONT COLOR='#686660'>지능 +17831</FONT><BR>체력 +4020"
+      }
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>연마 효과</FONT>",
+        "Element_001": "<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>전투 중 생명력 회복량 +10<BR><img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>추가 피해 +1.60%<BR><img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>적에게 주는 피해 +0.55%"
+      }
+    },
+    "Element_006": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_007": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "깨달음 +13"
+      }
+    },
+    "Element_008": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카제로스 레이드] 1막 : 대지를 부수는 업화의 궤적 - 하드</font><BR><Font color='#5FD3F1'>[카제로스 레이드] 2막 : 부유하는 악몽의 진혼곡 - 하드</font><BR><Font color='#5FD3F1'>[카제로스 레이드] 3막 : 칠흑, 폭풍의 밤</font><BR><Font color='#5FD3F1'>그 외에 획득처가 더 존재합니다.</FONT>"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>도래한 결전의 귀걸이</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 귀걸이</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 티어 4</FONT>",
+        "qualityValue": 90,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/acc/acc_115.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR>거래 <FONT COLOR='#FFD200'>2</FONT>회 가능<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1680</FONT>"
+    },
+    "Element_003": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_004": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "<FONT COLOR='#686660'>힘 +13577</FONT><BR>민첩 +13577<BR><FONT COLOR='#686660'>지능 +13577</FONT><BR>체력 +2822"
+      }
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>연마 효과</FONT>",
+        "Element_001": "<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>무기 공격력 +1.80%<BR><img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>파티원 회복 효과 +2.10%<BR><img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>공격력 +0.40%"
+      }
+    },
+    "Element_006": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_007": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "깨달음 +12"
+      }
+    },
+    "Element_008": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카제로스 레이드] 1막 : 대지를 부수는 업화의 궤적 - 하드</font><BR><Font color='#5FD3F1'>[카제로스 레이드] 2막 : 부유하는 악몽의 진혼곡 - 하드</font><BR><Font color='#5FD3F1'>[카제로스 레이드] 3막 : 칠흑, 폭풍의 밤</font><BR><Font color='#5FD3F1'>그 외에 획득처가 더 존재합니다.</FONT>"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>도래한 결전의 귀걸이</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 귀걸이</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 티어 4</FONT>",
+        "qualityValue": 95,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/acc/acc_115.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1680</FONT>"
+    },
+    "Element_003": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_004": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "<FONT COLOR='#686660'>힘 +13619</FONT><BR>민첩 +13619<BR><FONT COLOR='#686660'>지능 +13619</FONT><BR>체력 +2899"
+      }
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>연마 효과</FONT>",
+        "Element_001": "<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>무기 공격력 +0.80%<BR><img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>파티원 회복 효과 +2.10%<BR><img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>공격력 +0.40%"
+      }
+    },
+    "Element_006": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_007": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "깨달음 +12"
+      }
+    },
+    "Element_008": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카제로스 레이드] 1막 : 대지를 부수는 업화의 궤적 - 하드</font><BR><Font color='#5FD3F1'>[카제로스 레이드] 2막 : 부유하는 악몽의 진혼곡 - 하드</font><BR><Font color='#5FD3F1'>[카제로스 레이드] 3막 : 칠흑, 폭풍의 밤</font><BR><Font color='#5FD3F1'>그 외에 획득처가 더 존재합니다.</FONT>"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>도래한 결전의 반지</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 반지</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 티어 4</FONT>",
+        "qualityValue": 93,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/acc/acc_22.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR>거래 <FONT COLOR='#FFD200'>2</FONT>회 가능<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1680</FONT>"
+    },
+    "Element_003": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_004": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "<FONT COLOR='#686660'>힘 +12820</FONT><BR>민첩 +12820<BR><FONT COLOR='#686660'>지능 +12820</FONT><BR>체력 +2274"
+      }
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>연마 효과</FONT>",
+        "Element_001": "<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>치명타 적중률 +0.95%<BR><img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>최대 마나 +15<BR><img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>치명타 피해 +1.10%"
+      }
+    },
+    "Element_006": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_007": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "깨달음 +12"
+      }
+    },
+    "Element_008": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카제로스 레이드] 1막 : 대지를 부수는 업화의 궤적 - 하드</font><BR><Font color='#5FD3F1'>[카제로스 레이드] 2막 : 부유하는 악몽의 진혼곡 - 하드</font><BR><Font color='#5FD3F1'>[카제로스 레이드] 3막 : 칠흑, 폭풍의 밤</font><BR><Font color='#5FD3F1'>그 외에 획득처가 더 존재합니다.</FONT>"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>도래한 결전의 반지</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 반지</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 티어 4</FONT>",
+        "qualityValue": 98,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/acc/acc_22.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR>거래 <FONT COLOR='#FFD200'>1</FONT>회 가능<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1680</FONT>"
+    },
+    "Element_003": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_004": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "<FONT COLOR='#686660'>힘 +12878</FONT><BR>민첩 +12878<BR><FONT COLOR='#686660'>지능 +12878</FONT><BR>체력 +2334"
+      }
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>연마 효과</FONT>",
+        "Element_001": "<img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>상태이상 공격 지속시간 +0.50%<BR><img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>치명타 피해 +1.10%<BR><img src='emoticon_sign_greenDot' width='0' height='0' vspace='-3'></img>치명타 적중률 +0.40%"
+      }
+    },
+    "Element_006": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_007": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "깨달음 +12"
+      }
+    },
+    "Element_008": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카제로스 레이드] 1막 : 대지를 부수는 업화의 궤적 - 하드</font><BR><Font color='#5FD3F1'>[카제로스 레이드] 2막 : 부유하는 악몽의 진혼곡 - 하드</font><BR><Font color='#5FD3F1'>[카제로스 레이드] 3막 : 칠흑, 폭풍의 밤</font><BR><Font color='#5FD3F1'>그 외에 획득처가 더 존재합니다.</FONT>"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>찬란한 구원자의 팔찌</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 팔찌</FONT></FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 티어 4</FONT>",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/acc/acc_327.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1680</FONT>"
+    },
+    "Element_003": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_004": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>팔찌 효과</FONT>",
+        "Element_001": "<img src='emoticon_tooltip_bracelet_locked' vspace='-5'></img> 치명 +102<BR><img src='emoticon_tooltip_bracelet_locked' vspace='-5'></img> 특화 +69<BR><img src='emoticon_tooltip_bracelet_changeable' width='20' height='20' vspace='-6'></img>치명타 적중률이 <FONT COLOR='#99FF99'>5%</FONT> 증가한다.<BR>공격이 치명타로 적중 시 적에게 주는 피해가 <FONT COLOR='#99ff99'>1.5%</FONT> 증가한다.<BR><img src='emoticon_tooltip_bracelet_changeable' width='20' height='20' vspace='-6'></img>민첩 +12416"
+      }
+    },
+    "Element_005": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_006": {
+      "type": "SingleTextBox",
+      "value": "<FONT COLOR='#C24B46'>효과 부여 불가</FONT>"
+    },
+    "Element_007": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "도약 +18"
+      }
+    },
+    "Element_008": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[쿠르잔 전선]</font><BR><Font color='#5FD3F1'>[가디언 토벌] 스콜라키아</font><BR><Font color='#5FD3F1'>[카제로스 레이드] 1막 : 대지를 부수는 업화의 궤적 - 하드</font><BR><Font color='#5FD3F1'>그 외에 획득처가 더 존재합니다.</FONT>"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#E3C7A1'>위대한 비상의 돌</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#E3C7A1'>고대 어빌리티 스톤</FONT></FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 티어 4</FONT>",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 6,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_246.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1640</FONT>"
+    },
+    "Element_003": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_004": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "체력 +23481"
+      }
+    },
+    "Element_005": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>세공 단계 보너스</FONT>",
+        "Element_001": "체력 +1175"
+      }
+    },
+    "Element_006": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": 0,
+              "contentStr": "<FONT COLOR='#FFFFFF'>[<FONT COLOR='#FFFFAC'>아드레날린</FONT>] <img src='emoticon_tooltip_ability_stone_symbol' width='11' height='14' vspace ='-2'></img>Lv.2</FONT><BR>",
+              "pointType": 2
+            },
+            "Element_001": {
+              "bPoint": 0,
+              "contentStr": "<FONT COLOR='#FFFFFF'>[<FONT COLOR='#FFFFAC'>예리한 둔기</FONT>] <img src='emoticon_tooltip_ability_stone_symbol' width='11' height='14' vspace ='-2'></img>Lv.2</FONT><BR>",
+              "pointType": 2
+            },
+            "Element_002": {
+              "bPoint": 0,
+              "contentStr": "<FONT COLOR='#FFFFFF'>[<FONT COLOR='#FE2E2E'>공격력 감소</FONT>] <img src='emoticon_tooltip_ability_stone_symbol' width='11' height='14' vspace ='-2'></img>Lv.0</FONT><BR>",
+              "pointType": 2
+            }
+          },
+          "topStr": "<FONT SIZE='12' COLOR='#A9D0F5'>무작위 각인 효과</FONT>"
+        }
+      }
+    },
+    "Element_007": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_008": {
+      "type": "SingleTextBox",
+      "value": "<FONT COLOR='#E2C87A'><FONT SIZE='12'>푸른 기운과 붉은 기운이 희미하게 뒤섞여 신묘한 느낌이 난다. 자세히 보고 싶지만 더 만졌다가는 부서져 버릴 것 같다.<br><br><FONT COLOR='#FFFFAC'>어빌리티 스톤 세공사에게 세공 완료 후 장착 가능합니다.</FONT></FONT></FONT>"
+    },
+    "Element_009": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT></FONT>"
+    },
+    "Element_010": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[쿠르잔 전선]</font><BR><Font color='#5FD3F1'>[가디언 토벌] 4티어</font><BR><Font color='#5FD3F1'>[필드 보스] 쿠르잔 북부 - 세베크 아툰</font><BR><Font color='#5FD3F1'>그 외에 획득처가 더 존재합니다.</FONT>"
+    }
+  }
+]

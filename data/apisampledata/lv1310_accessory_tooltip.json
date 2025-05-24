@@ -1,0 +1,394 @@
+[
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#F99200'>시간의 목걸이</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#F99200'>전설 목걸이</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 티어 3</FONT>",
+        "qualityValue": 100,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 4,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/acc/acc_211.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR>거래 <FONT COLOR='#FFD200'>3</FONT>회 가능<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1100</FONT>"
+    },
+    "Element_003": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_004": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "힘 +6701<BR><FONT COLOR='#686660'>민첩 +6701</FONT><BR><FONT COLOR='#686660'>지능 +6701</FONT><BR>체력 +2245"
+      }
+    },
+    "Element_005": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "깨달음 +4"
+      }
+    },
+    "Element_007": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카오스 던전]</font><BR><Font color='#5FD3F1'>[가디언 토벌]</font><BR><Font color='#5FD3F1'>[어비스 던전]</font><BR><Font color='#5FD3F1'>그 외에 획득처가 더 존재합니다.</FONT>"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#F99200'>시간의 귀걸이</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#F99200'>전설 귀걸이</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 티어 3</FONT>",
+        "qualityValue": 100,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 4,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/acc/acc_111.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR>거래 <FONT COLOR='#FFD200'>3</FONT>회 가능<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1100</FONT>"
+    },
+    "Element_003": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_004": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "힘 +5212<BR><FONT COLOR='#686660'>민첩 +5212</FONT><BR><FONT COLOR='#686660'>지능 +5212</FONT><BR>체력 +1603"
+      }
+    },
+    "Element_005": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "깨달음 +3"
+      }
+    },
+    "Element_007": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카오스 던전]</font><BR><Font color='#5FD3F1'>[가디언 토벌]</font><BR><Font color='#5FD3F1'>[어비스 던전]</font><BR><Font color='#5FD3F1'>그 외에 획득처가 더 존재합니다.</FONT>"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>금지된 마력의 귀걸이</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 귀걸이</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 티어 2</FONT>",
+        "qualityValue": 33,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/acc/acc_100.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR>거래 <FONT COLOR='#FFD200'>3</FONT>회 가능<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 805</FONT>"
+    },
+    "Element_003": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_004": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "힘 +543<BR><FONT COLOR='#686660'>민첩 +543</FONT><BR><FONT COLOR='#686660'>지능 +543</FONT><BR>체력 +310"
+      }
+    },
+    "Element_005": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_006": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카오스 던전]</font><BR><Font color='#5FD3F1'>[가디언 토벌]</font><BR><Font color='#5FD3F1'>[어비스 던전]</font><BR><Font color='#5FD3F1'>그 외에 획득처가 더 존재합니다.</FONT>"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#ce43fc'>금지된 마력의 반지</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#ce43fc'>영웅 반지</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 티어 2</FONT>",
+        "qualityValue": 82,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 3,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/acc/acc_8.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR>거래 <FONT COLOR='#FFD200'>3</FONT>회 가능<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 805</FONT>"
+    },
+    "Element_003": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_004": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "힘 +577<BR><FONT COLOR='#686660'>민첩 +577</FONT><BR><FONT COLOR='#686660'>지능 +577</FONT><BR>체력 +276"
+      }
+    },
+    "Element_005": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_006": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카오스 던전]</font><BR><Font color='#5FD3F1'>[가디언 토벌]</font><BR><Font color='#5FD3F1'>[어비스 던전]</font><BR><Font color='#5FD3F1'>그 외에 획득처가 더 존재합니다.</FONT>"
+    }
+  },
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#F99200'>시간의 반지</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#F99200'>전설 반지</FONT></FONT>",
+        "leftStr1": "<FONT SIZE='14'>품질</FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 티어 3</FONT>",
+        "qualityValue": 100,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 4,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/acc/acc_18.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR>거래 <FONT COLOR='#FFD200'>3</FONT>회 가능<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 1100</FONT>"
+    },
+    "Element_003": {
+      "type": "MultiTextBox",
+      "value": "|거래가능"
+    },
+    "Element_004": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "힘 +4840<BR><FONT COLOR='#686660'>민첩 +4840</FONT><BR><FONT COLOR='#686660'>지능 +4840</FONT><BR>체력 +1283"
+      }
+    },
+    "Element_005": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_006": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>아크 패시브 포인트 효과</FONT>",
+        "Element_001": "깨달음 +3"
+      }
+    },
+    "Element_007": {
+      "type": "SingleTextBox",
+      "value": "<Font color='#5FD3F1'>[카오스 던전]</font><BR><Font color='#5FD3F1'>[가디언 토벌]</font><BR><Font color='#5FD3F1'>[어비스 던전]</font><BR><Font color='#5FD3F1'>그 외에 획득처가 더 존재합니다.</FONT>"
+    }
+  },
+  null,
+  {
+    "Element_000": {
+      "type": "NameTagBox",
+      "value": "<P ALIGN='CENTER'><FONT COLOR='#FA5D00'>고고한 정진의 돌</FONT></P>"
+    },
+    "Element_001": {
+      "type": "ItemTitle",
+      "value": {
+        "bEquip": 0,
+        "leftStr0": "<FONT SIZE='12'><FONT COLOR='#FA5D00'>유물 어빌리티 스톤</FONT></FONT>",
+        "leftStr2": "<FONT SIZE='14'>아이템 티어 2</FONT>",
+        "qualityValue": -1,
+        "rightStr0": "<FONT SIZE='12'><FONT COLOR='#FFD200'>장착중</FONT></FONT>",
+        "slotData": {
+          "advBookIcon": 0,
+          "battleItemTypeIcon": 0,
+          "blackListIcon": 0,
+          "cardIcon": false,
+          "friendship": 0,
+          "iconGrade": 5,
+          "iconPath": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_22.png",
+          "imagePath": "",
+          "islandIcon": 0,
+          "petBorder": 0,
+          "rtString": "",
+          "seal": false,
+          "temporary": 0,
+          "town": 0,
+          "trash": 0
+        }
+      }
+    },
+    "Element_002": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'>캐릭터 귀속됨<BR><FONT COLOR='#C24B46'>거래 제한 아이템 레벨</FONT> 250</FONT>"
+    },
+    "Element_003": {
+      "type": "MultiTextBox",
+      "value": "|<font color='#C24B46'>거래 불가</font>"
+    },
+    "Element_004": {
+      "type": "ItemPartBox",
+      "value": {
+        "Element_000": "<FONT COLOR='#A9D0F5'>기본 효과</FONT>",
+        "Element_001": "체력 +2554"
+      }
+    },
+    "Element_005": {
+      "type": "IndentStringGroup",
+      "value": {
+        "Element_000": {
+          "contentStr": {
+            "Element_000": {
+              "bPoint": 0,
+              "contentStr": "<FONT COLOR='#FFFFFF'>[<FONT COLOR='#FFFFAC'>중갑 착용</FONT>] <img src='emoticon_tooltip_ability_stone_symbol' width='11' height='14' vspace ='-2'></img>Lv.0</FONT><BR>",
+              "pointType": 2
+            },
+            "Element_001": {
+              "bPoint": 0,
+              "contentStr": "<FONT COLOR='#FFFFFF'>[<FONT COLOR='#FFFFAC'>원한</FONT>] <img src='emoticon_tooltip_ability_stone_symbol' width='11' height='14' vspace ='-2'></img>Lv.2</FONT><BR>",
+              "pointType": 2
+            },
+            "Element_002": {
+              "bPoint": 0,
+              "contentStr": "<FONT COLOR='#FFFFFF'>[<FONT COLOR='#FE2E2E'>공격력 감소</FONT>] <img src='emoticon_tooltip_ability_stone_symbol' width='11' height='14' vspace ='-2'></img>Lv.1</FONT><BR>",
+              "pointType": 2
+            }
+          },
+          "topStr": "<FONT SIZE='12' COLOR='#A9D0F5'>무작위 각인 효과</FONT>"
+        }
+      }
+    },
+    "Element_006": {
+      "type": "IndentStringGroup",
+      "value": null
+    },
+    "Element_007": {
+      "type": "SingleTextBox",
+      "value": "<FONT COLOR='#E2C87A'><FONT SIZE='12'>푸른 기운과 붉은 기운이 희미하게 뒤섞여 신묘한 느낌이 난다. 자세히 보고 싶지만 더 만졌다가는 부서져 버릴 것 같다.<br><br><FONT COLOR='#FFFFAC'>어빌리티 스톤 세공사에게 세공 완료 후 장착 가능합니다.</FONT></FONT></FONT>"
+    },
+    "Element_008": {
+      "type": "SingleTextBox",
+      "value": "<FONT SIZE='12'><FONT COLOR='#C24B46'>판매불가</FONT></FONT>"
+    }
+  }
+]
