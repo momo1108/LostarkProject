@@ -29,7 +29,7 @@ const OptionItem: React.FC<{
         </div>
         <GrindingOptionSelect option={option} optionIndex={optionIndex} />
         {option.accessoryGrindingEffectArray.length ? (
-          <ul className="flex flex-col w-[220px] py-[3px] text-sm font-bold justify-end items-center border rounded">
+          <ul className="flex flex-col w-[220px] min-h-[68px] py-[3px] text-sm font-bold justify-end items-center border rounded">
             {option.accessoryGrindingEffectArray.map(
               (accessoryGrindingEffect, accessoryGrindingEffectIndex) => (
                 <li
@@ -53,7 +53,7 @@ const OptionItem: React.FC<{
             )}
           </ul>
         ) : (
-          <p className="flex justify-center items-center w-[220px] text-sm font-bold border rounded">
+          <p className="flex min-h-[68px] justify-center items-center w-[220px] text-sm font-bold border rounded">
             선택된 연마옵션이 없습니다.
           </p>
         )}
