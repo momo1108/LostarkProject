@@ -3,18 +3,18 @@ import MySelect from "@/components/custom/MySelect";
 import { useAccessorySearchActionContext } from "@/contexts/AccessoryContext";
 import {
   AccessorySearchOption,
-  GrindingEffectLevel,
+  RefiningEffectLevel,
 } from "@/types/EngraveType";
 import { useCallback } from "react";
 
-const GrindingValueSelect: React.FC<{
+const RefiningValueSelect: React.FC<{
   option: AccessorySearchOption;
   optionIndex: number;
   effectIndex: number;
 }> = ({ option, optionIndex, effectIndex }) => {
   const { setAccessorySearchOptionArray } = useAccessorySearchActionContext();
 
-  const grindingValueOptionsArray = option.accessoryGrindingEffectArray[
+  const refiningValueOptionsArray = option.accessoryRefiningEffectArray[
     effectIndex
   ].effectValue.valueArray.map(({ DisplayValue }, effectValueIndex) => ({
     label: DisplayValue,
@@ -25,7 +25,7 @@ const GrindingValueSelect: React.FC<{
     (selectedOption: { label: string; value: number }) => {
       if (
         selectedOption.value ===
-        option.accessoryGrindingEffectArray[effectIndex].effectValue.level
+        option.accessoryRefiningEffectArray[effectIndex].effectValue.level
       )
         return;
       setAccessorySearchOptionArray((prev) => {
@@ -33,15 +33,15 @@ const GrindingValueSelect: React.FC<{
           if (accessorySearchOptionIndex === optionIndex)
             return {
               ...accessorySearchOption,
-              accessoryGrindingEffectArray:
-                accessorySearchOption.accessoryGrindingEffectArray.map(
+              accessoryRefiningEffectArray:
+                accessorySearchOption.accessoryRefiningEffectArray.map(
                   (prevEffect, prevEffectIndex) => {
                     if (prevEffectIndex === effectIndex)
                       return {
                         ...prevEffect,
                         effectValue: {
                           ...prevEffect.effectValue,
-                          level: selectedOption.value as GrindingEffectLevel,
+                          level: selectedOption.value as RefiningEffectLevel,
                         },
                       };
                     return prevEffect;
@@ -57,16 +57,16 @@ const GrindingValueSelect: React.FC<{
 
   return (
     <MySelect
-      className={styles.grindingValueSelect}
+      className={styles.refiningValueSelect}
       width={60}
       height={20}
       defaultSelectedIndex={
-        option.accessoryGrindingEffectArray[effectIndex].effectValue.level
+        option.accessoryRefiningEffectArray[effectIndex].effectValue.level
       }
-      options={grindingValueOptionsArray}
+      options={refiningValueOptionsArray}
       onSelect={onSelect}
     />
   );
 };
 
-export default GrindingValueSelect;
+export default RefiningValueSelect;

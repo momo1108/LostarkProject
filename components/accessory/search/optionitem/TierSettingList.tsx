@@ -11,7 +11,7 @@ const TierSettingList: React.FC<{
   optionIndex: number;
 }> = ({ option, optionIndex }) => {
   const { setAccessorySearchOptionArray } = useAccessorySearchActionContext();
-  const { GRINDING_EFFECT_DATA } = useAccessorySearchStaticContext();
+  const { REFINING_EFFECT_DATA } = useAccessorySearchStaticContext();
 
   const handleClick = useCallback((tier: AccessoryTier) => {
     if (tier === option.accessoryTier) return;
@@ -21,15 +21,15 @@ const TierSettingList: React.FC<{
           return {
             ...accessorySearchOption,
             accessoryTier: tier,
-            accessoryGrindingEffectArray:
-              accessorySearchOption.accessoryGrindingEffectArray.map(
+            accessoryRefiningEffectArray:
+              accessorySearchOption.accessoryRefiningEffectArray.map(
                 ({ effectName, effectValue }) => {
                   return {
                     effectName,
                     effectValue: {
                       ...effectValue,
                       valueArray:
-                        GRINDING_EFFECT_DATA[effectName.name][tier][
+                        REFINING_EFFECT_DATA[effectName.name][tier][
                           accessorySearchOption.accessoryGrade
                         ],
                     },

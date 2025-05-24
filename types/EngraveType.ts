@@ -1,7 +1,7 @@
 import { Dispatch, RefObject, SetStateAction } from "react";
 import { engravingIconMap } from "./GlobalType";
 
-export const GRINDING_EFFECT_ETCOPTIONS_VALUE = 7 as const;
+export const REFINING_EFFECT_ETCOPTIONS_VALUE = 7 as const;
 export const ACCESSORY_CATEGORY_CODES = {
   장신구: 200000,
   목걸이: 200010,
@@ -10,7 +10,7 @@ export const ACCESSORY_CATEGORY_CODES = {
   팔찌: 200040,
 } as const;
 
-export const GRINDING_EFFECT_VALUE_MAP = {
+export const REFINING_EFFECT_VALUE_MAP = {
   "공격력 %": 45,
   "공격력 +": 53,
   낙인력: 44,
@@ -31,7 +31,7 @@ export const GRINDING_EFFECT_VALUE_MAP = {
   "파티원 회복 효과": 47,
 } as const;
 
-export const ACCESSORY_GRINDINGEFFECT_MAP = {
+export const ACCESSORY_REFININGEFFECT_MAP = {
   목걸이: [
     "공격력 +",
     "낙인력",
@@ -70,7 +70,7 @@ export const ACCESSORY_GRINDINGEFFECT_MAP = {
   ],
 } as const;
 
-export type GrindingEffectKey =
+export type RefiningEffectKey =
   | "공격력 %"
   | "공격력 +"
   | "낙인력"
@@ -98,7 +98,7 @@ export type AccessoryCategory = "목걸이" | "귀걸이" | "반지";
 
 export type AccessoryUpgradeLevel = 0 | 1 | 2 | 3;
 
-export type GrindingEffectLevel = 0 | 1 | 2;
+export type RefiningEffectLevel = 0 | 1 | 2;
 
 /**
  * 악세서리 검색을 위해 필요한 파라미터들을 저장하기 위한 타입입니다.
@@ -107,7 +107,7 @@ export type GrindingEffectLevel = 0 | 1 | 2;
  * @property {@link AccessoryGrade} [accessoryGrade] 악세서리의 아이템 등급 파라미터입니다.
  * @property {@link AccessoryUpgradeLevel} [accessoryUpgradeLevel] 악세서리의 연마 횟수 파라미터입니다.
  * @property {number} [accessoryQuality] 악세서리의 품질 파라미터입니다.
- * @property {{name: {@link GrindingEffectKey}; level: {@link GrindingEffectLevel};}[]} [accessoryGrindingEffectArray]  연마 효과 정보를 최대 3개까지 저장하는 배열 파라미터입니다.
+ * @property {{name: {@link RefiningEffectKey}; level: {@link RefiningEffectLevel};}[]} [accessoryRefiningEffectArray]  연마 효과 정보를 최대 3개까지 저장하는 배열 파라미터입니다.
  */
 export type AccessorySearchOption = {
   /** {@link AccessoryCategory} 악세서리의 종류를 식별하기위한 파라미터입니다. */
@@ -125,32 +125,32 @@ export type AccessorySearchOption = {
   /** @type {number} 악세서리의 품질 파라미터입니다. */
   accessoryQuality: number;
 
-  accessoryGrindingEffectArray: {
-    effectName: { name: GrindingEffectKey; value: number };
+  accessoryRefiningEffectArray: {
+    effectName: { name: RefiningEffectKey; value: number };
     effectValue: {
-      level: GrindingEffectLevel;
-      valueArray: GrindingEffectValue[];
+      level: RefiningEffectLevel;
+      valueArray: RefiningEffectValue[];
     };
   }[];
 };
 
-export type GrindingEffectValue = {
+export type RefiningEffectValue = {
   DisplayValue: string;
   Value: number;
   IsPercentage: boolean;
 };
 
-export type GrindingEffectGradeData = Record<
+export type RefiningEffectGradeData = Record<
   AccessoryGrade,
-  GrindingEffectValue[]
+  RefiningEffectValue[]
 >;
-export type GrindingEffectTierData = Record<
+export type RefiningEffectTierData = Record<
   AccessoryTier,
-  GrindingEffectGradeData
+  RefiningEffectGradeData
 >;
-export type GrindingEffectData = Record<
-  GrindingEffectKey,
-  GrindingEffectTierData
+export type RefiningEffectData = Record<
+  RefiningEffectKey,
+  RefiningEffectTierData
 >;
 
 export type EngraveInfo = {

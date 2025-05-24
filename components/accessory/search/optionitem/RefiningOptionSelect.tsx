@@ -5,44 +5,43 @@ import {
   useAccessorySearchStaticContext,
 } from "@/contexts/AccessoryContext";
 import {
-  ACCESSORY_GRINDINGEFFECT_MAP,
+  ACCESSORY_REFININGEFFECT_MAP,
   AccessorySearchOption,
-  AccessoryUpgradeLevel,
-  GRINDING_EFFECT_VALUE_MAP,
-  GrindingEffectKey,
+  REFINING_EFFECT_VALUE_MAP,
+  RefiningEffectKey,
 } from "@/types/EngraveType";
 import { useCallback } from "react";
 import useAlert from "@/hooks/useAlert";
 
-const GrindingOptionSelect: React.FC<{
+const RefiningOptionSelect: React.FC<{
   option: AccessorySearchOption;
   optionIndex: number;
 }> = ({ option, optionIndex }) => {
   const { setAccessorySearchOptionArray } = useAccessorySearchActionContext();
-  const { GRINDING_EFFECT_DATA } = useAccessorySearchStaticContext();
+  const { REFINING_EFFECT_DATA } = useAccessorySearchStaticContext();
   const alert = useAlert();
 
-  const grindingEffects =
-    ACCESSORY_GRINDINGEFFECT_MAP[option.accessoryCategory];
-  const categoryOptionsArray = grindingEffects
+  const refiningEffects =
+    ACCESSORY_REFININGEFFECT_MAP[option.accessoryCategory];
+  const categoryOptionsArray = refiningEffects
     .filter(
-      (grindingEffect) =>
-        !option.accessoryGrindingEffectArray.find(
-          (accessoryGrindingEffect) =>
-            accessoryGrindingEffect.effectName.name === grindingEffect
+      (refiningEffect) =>
+        !option.accessoryRefiningEffectArray.find(
+          (accessoryRefiningEffect) =>
+            accessoryRefiningEffect.effectName.name === refiningEffect
         )
     )
-    .map((grindingEffect) => ({
-      label: grindingEffect,
-      value: GRINDING_EFFECT_VALUE_MAP[grindingEffect],
+    .map((refiningEffect) => ({
+      label: refiningEffect,
+      value: REFINING_EFFECT_VALUE_MAP[refiningEffect],
     }));
 
   /**
-   * isSelectDone 을 원래는 handleSelectGrindingEffect 메서드 내에서 정의했으나,
+   * isSelectDone 을 원래는 onSelect 메서드 내에서 정의했으나,
    * option 객체의 값이 함수가 맨 처음 정의될 당시의 값으로 고정되는 문제가 발생.
    * 이는 클로저의 기본 동작에 의한 문제로 판단됨.
    */
-  const isSelectDone = option.accessoryGrindingEffectArray.length >= 3;
+  const isSelectDone = option.accessoryRefiningEffectArray.length >= 3;
   const onSelect = useCallback(
     (selectedOption: { label: string; value: number }) => {
       if (!isSelectDone) {
@@ -52,21 +51,21 @@ const GrindingOptionSelect: React.FC<{
               if (accessorySearchOptionIndex === optionIndex)
                 return {
                   ...accessorySearchOption,
-                  accessoryGrindingEffectArray: [
-                    ...accessorySearchOption.accessoryGrindingEffectArray,
+                  accessoryRefiningEffectArray: [
+                    ...accessorySearchOption.accessoryRefiningEffectArray,
                     {
                       effectName: {
-                        name: selectedOption.label as GrindingEffectKey,
+                        name: selectedOption.label as RefiningEffectKey,
                         value:
-                          GRINDING_EFFECT_VALUE_MAP[
-                            selectedOption.label as GrindingEffectKey
+                          REFINING_EFFECT_VALUE_MAP[
+                            selectedOption.label as RefiningEffectKey
                           ],
                       },
                       effectValue: {
                         level: 2,
                         valueArray:
-                          GRINDING_EFFECT_DATA[
-                            selectedOption.label as GrindingEffectKey
+                          REFINING_EFFECT_DATA[
+                            selectedOption.label as RefiningEffectKey
                           ][accessorySearchOption.accessoryTier][
                             accessorySearchOption.accessoryGrade
                           ],
@@ -87,7 +86,7 @@ const GrindingOptionSelect: React.FC<{
 
   return (
     <MySelect
-      className={styles.grindingOptionSelect}
+      className={styles.refiningOptionSelect}
       width={180}
       height={40}
       placeholder="옵션 선택"
@@ -97,4 +96,4 @@ const GrindingOptionSelect: React.FC<{
   );
 };
 
-export default GrindingOptionSelect;
+export default RefiningOptionSelect;

@@ -1,19 +1,19 @@
 const { readFileSync, writeFileSync } = require("fs");
 
-const getGrindingEffect = () => {
+const getRefiningEffect = () => {
   const fileData = JSON.parse(readFileSync("data/auctionOptions.json"));
-  const grindingEffectOptions = fileData.EtcOptions.find(
+  const refiningEffectOptions = fileData.EtcOptions.find(
     (option) => option.Value === 7
   );
   console.log(
-    grindingEffectOptions.EtcSubs.map((option) => [
+    refiningEffectOptions.EtcSubs.map((option) => [
       option.Text,
       option.EtcValues.length,
     ])
   );
 };
 
-const getGrindingEffectTextByCategory = () => {
+const getRefiningEffectTextByCategory = () => {
   const fileData = JSON.parse(readFileSync("data/auctionOptions.json"));
   const CATEGORY_CODE_MAP = {
     200010: "목걸이",
@@ -21,11 +21,11 @@ const getGrindingEffectTextByCategory = () => {
     200030: "반지",
   };
 
-  const GrindingOptions = fileData.EtcOptions.find(
+  const RefiningOptions = fileData.EtcOptions.find(
     (obj) => obj.Value && obj.Value === 7
   );
 
-  const OrganizedGrindingOptions = GrindingOptions.EtcSubs.reduce(
+  const OrganizedRefiningOptions = RefiningOptions.EtcSubs.reduce(
     (prev, cur) => {
       if (cur.Categorys) {
         prev[CATEGORY_CODE_MAP[cur.Categorys[0]]].push(cur.Text);
@@ -39,11 +39,11 @@ const getGrindingEffectTextByCategory = () => {
     { 목걸이: [], 귀걸이: [], 반지: [] }
   );
 
-  console.log(OrganizedGrindingOptions);
+  console.log(OrganizedRefiningOptions);
 };
 
-const refactorGrindingEffectOptions = () => {
-  const fileData = JSON.parse(readFileSync("data/grindingEffectOptions.json"));
+const refactorRefiningEffectOptions = () => {
+  const fileData = JSON.parse(readFileSync("data/refiningEffectOptions.json"));
   const newData = {};
 
   for (const tier in fileData) {
@@ -51,31 +51,31 @@ const refactorGrindingEffectOptions = () => {
     for (const grade in tierDataMap) {
       const gradeDataMap = tierDataMap[grade];
 
-      for (const grindingEffect in gradeDataMap) {
-        if (!newData[grindingEffect]) newData[grindingEffect] = {};
-        if (!newData[grindingEffect][tier]) newData[grindingEffect][tier] = {};
-        newData[grindingEffect][tier][grade] = gradeDataMap[grindingEffect];
+      for (const refiningEffect in gradeDataMap) {
+        if (!newData[refiningEffect]) newData[refiningEffect] = {};
+        if (!newData[refiningEffect][tier]) newData[refiningEffect][tier] = {};
+        newData[refiningEffect][tier][grade] = gradeDataMap[refiningEffect];
       }
     }
   }
 
   console.log(newData);
-  writeFileSync("data/grindingEffectOptions2.json", JSON.stringify(newData));
+  writeFileSync("data/refiningEffectOptions2.json", JSON.stringify(newData));
 };
 
-const getGrindingEffectEtcValue = () => {
+const getRefiningEffectEtcValue = () => {
   const fileData = JSON.parse(readFileSync("data/auctionOptions.json"));
 
-  const grindingOptions = fileData.EtcOptions.find(
+  const refiningOptions = fileData.EtcOptions.find(
     (obj) => obj.Value && obj.Value === 7
   );
 
-  const grindingOptionsValueMap = grindingOptions.EtcSubs.reduce(
+  const refiningOptionsValueMap = refiningOptions.EtcSubs.reduce(
     (prev, cur) => ({ ...prev, [cur.Text]: cur.Value }),
     {}
   );
 
-  console.log(grindingOptionsValueMap);
+  console.log(refiningOptionsValueMap);
 };
 
-getGrindingEffectEtcValue();
+getRefiningEffectEtcValue();

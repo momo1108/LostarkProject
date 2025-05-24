@@ -1,9 +1,8 @@
 import Close from "@/components/icons/Close";
 import { useAccessorySearchActionContext } from "@/contexts/AccessoryContext";
-import { AccessorySearchOption } from "@/types/EngraveType";
 import { useCallback } from "react";
 
-const GrindingValueDeleteButton: React.FC<{
+const RefiningValueDeleteButton: React.FC<{
   optionIndex: number;
   effectName: string;
 }> = ({ optionIndex, effectName }) => {
@@ -14,8 +13,8 @@ const GrindingValueDeleteButton: React.FC<{
         if (accessorySearchOptionIndex === optionIndex)
           return {
             ...accessorySearchOption,
-            accessoryGrindingEffectArray:
-              accessorySearchOption.accessoryGrindingEffectArray.filter(
+            accessoryRefiningEffectArray:
+              accessorySearchOption.accessoryRefiningEffectArray.filter(
                 (effect) => effect.effectName.name !== effectName
               ),
           };
@@ -31,4 +30,4 @@ const GrindingValueDeleteButton: React.FC<{
   );
 };
 
-export default GrindingValueDeleteButton;
+export default RefiningValueDeleteButton;

@@ -18,7 +18,7 @@ const OptionItemAddButtonList: React.FC = () => {
         accessoryTier: 4 as AccessoryTier,
         accessoryUpgradeLevel: 3 as AccessoryUpgradeLevel,
         accessoryQuality: 70,
-        accessoryGrindingEffectArray: [],
+        accessoryRefiningEffectArray: [],
       },
     ]);
   }, []);

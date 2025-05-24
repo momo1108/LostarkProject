@@ -28,7 +28,7 @@ const CategorySelect: React.FC<{
           return {
             ...accessorySearchOption,
             accessoryCategory: selectedOption.label as AccessoryCategory,
-            accessoryGrindingEffectArray: [],
+            accessoryRefiningEffectArray: [],
           };
         return accessorySearchOption;
       });

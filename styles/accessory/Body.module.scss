@@ -1,5 +1,5 @@
 @use "../variables.scss" as *;
-$grindingValueSelectColors: $rareColor, $epicColor, $legendaryColor;
+$refiningValueSelectColors: $rareColor, $epicColor, $legendaryColor;
 $accessoryCountColor: #9244f7;
 
 .body {
@@ -137,7 +137,7 @@ $accessoryCountColor: #9244f7;
               }
             }
 
-            .grindingOptionSelect {
+            .refiningOptionSelect {
               @apply mt-7;
 
               &::before {
@@ -146,7 +146,7 @@ $accessoryCountColor: #9244f7;
               }
             }
 
-            .grindingValueSelect {
+            .refiningValueSelect {
               border-width: 0;
               border-bottom-width: 1px;
             }

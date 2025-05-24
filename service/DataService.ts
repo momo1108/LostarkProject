@@ -43,10 +43,10 @@ export default class DataService {
   /**
    * @/data/infoPage.json 에서 page 데이터를 불러옵니다.
    */
-  public static getGrindingEffectData = (): Object => {
+  public static getRefiningEffectData = (): Object => {
     const dataDirectory = path.join(process.cwd(), "data");
     const infoPageStr: string = readFileSync(
-      `${dataDirectory}/grindingEffectOptions.json`
+      `${dataDirectory}/refiningEffectOptions.json`
     ).toString();
 
     return JSON.parse(infoPageStr);

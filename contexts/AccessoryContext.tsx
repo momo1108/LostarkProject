@@ -6,7 +6,7 @@ import {
   AccessorySearchOption,
   AccessoryTier,
   AccessoryUpgradeLevel,
-  GrindingEffectData,
+  RefiningEffectData,
 } from "@/types/EngraveType";
 import {
   AuctionItemSearchResult,
@@ -24,7 +24,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import GRINDING_EFFECT_DATA from "@/data/grindingEffectOptions.json";
+import REFINING_EFFECT_DATA from "@/data/refiningEffectOptions.json";
 import { postMultipleAuctionItems } from "@/service/LostarkService";
 import { AxiosError } from "axios";
 import useAlert from "@/hooks/useAlert";
@@ -35,7 +35,7 @@ import { throttle } from "@/utils/functionUtils";
 
 // 고정 데이터만 담는 StaticContext
 type AccessorySearchStaticContextType = {
-  GRINDING_EFFECT_DATA: GrindingEffectData;
+  REFINING_EFFECT_DATA: RefiningEffectData;
   accessorySearchOptionArrayRef: MutableRefObject<AccessorySearchOption[]>;
 };
 
@@ -110,7 +110,7 @@ export const AccessoryContextProvider = ({
       accessoryTier: 4 as AccessoryTier,
       accessoryUpgradeLevel: 3 as AccessoryUpgradeLevel,
       accessoryQuality: 70,
-      accessoryGrindingEffectArray: [],
+      accessoryRefiningEffectArray: [],
     },
     {
       accessoryCategory: "귀걸이" as AccessoryCategory,
@@ -118,7 +118,7 @@ export const AccessoryContextProvider = ({
       accessoryTier: 4 as AccessoryTier,
       accessoryUpgradeLevel: 3 as AccessoryUpgradeLevel,
       accessoryQuality: 70,
-      accessoryGrindingEffectArray: [],
+      accessoryRefiningEffectArray: [],
     },
     {
       accessoryCategory: "반지" as AccessoryCategory,
@@ -126,7 +126,7 @@ export const AccessoryContextProvider = ({
       accessoryTier: 4 as AccessoryTier,
       accessoryUpgradeLevel: 3 as AccessoryUpgradeLevel,
       accessoryQuality: 70,
-      accessoryGrindingEffectArray: [],
+      accessoryRefiningEffectArray: [],
     },
   ];
 
@@ -188,7 +188,7 @@ export const AccessoryContextProvider = ({
         setIsSearching(true);
         const requests = accessorySearchOptionArrayRef.current.map((option) => {
           return {
-            EtcOptions: option.accessoryGrindingEffectArray.map((effect) => {
+            EtcOptions: option.accessoryRefiningEffectArray.map((effect) => {
               return {
                 FirstOption: 7,
                 SecondOption: effect.effectName.value,
@@ -237,7 +237,7 @@ export const AccessoryContextProvider = ({
 
   const searchStaticContextValue = useMemo(
     () => ({
-      GRINDING_EFFECT_DATA,
+      REFINING_EFFECT_DATA,
       accessorySearchOptionArrayRef,
     }),
     []

@@ -7,7 +7,6 @@ import { NextSeo } from "next-seo";
 import Footer from "@/components/Footer";
 import AccessoryBody from "@/components/accessory/AccessoryBody";
 import menu from "@/data/menu.json";
-import { GrindingEffectData } from "@/types/EngraveType";
 
 const Accessory: React.FC<MenuProps> = ({ menu }) => {
   return (

@@ -5,9 +5,9 @@ import TierSettingList from "./optionitem/TierSettingList";
 import GradeSettingList from "./optionitem/GradeSettingList";
 import LevelSelect from "./optionitem/LevelSelect";
 import { AccessorySearchOption } from "@/types/EngraveType";
-import GrindingOptionSelect from "./optionitem/GrindingOptionSelect";
-import GrindingValueSelect from "./optionitem/GrindingValueSelect";
-import GrindingValueDeleteButton from "./optionitem/GrindingValueDeleteButton";
+import RefiningOptionSelect from "./optionitem/RefiningOptionSelect";
+import RefiningValueSelect from "./optionitem/RefiningValueSelect";
+import RefiningValueDeleteButton from "./optionitem/RefiningValueDeleteButton";
 import OptionItemDeleteButton from "./optionitem/OptionItemDeleteButton";
 import QualitySelect from "./optionitem/QualitySelect";
 
@@ -27,26 +27,26 @@ const OptionItem: React.FC<{
           <LevelSelect option={option} optionIndex={optionIndex} />
           <QualitySelect option={option} optionIndex={optionIndex} />
         </div>
-        <GrindingOptionSelect option={option} optionIndex={optionIndex} />
-        {option.accessoryGrindingEffectArray.length ? (
+        <RefiningOptionSelect option={option} optionIndex={optionIndex} />
+        {option.accessoryRefiningEffectArray.length ? (
           <ul className="flex flex-col w-[220px] min-h-[68px] py-[3px] text-sm font-bold justify-end items-center border rounded">
-            {option.accessoryGrindingEffectArray.map(
-              (accessoryGrindingEffect, accessoryGrindingEffectIndex) => (
+            {option.accessoryRefiningEffectArray.map(
+              (accessoryRefiningEffect, accessoryRefiningEffectIndex) => (
                 <li
                   className="flex justify-between px-1 items-center"
-                  key={`accessoryGrindingEffect_${accessoryGrindingEffect.effectName.name}`}
+                  key={`accessoryRefiningEffect_${accessoryRefiningEffect.effectName.name}`}
                 >
                   <span className="w-24 truncate">
-                    {accessoryGrindingEffect.effectName.name}
+                    {accessoryRefiningEffect.effectName.name}
                   </span>
-                  <GrindingValueSelect
+                  <RefiningValueSelect
                     option={option}
                     optionIndex={optionIndex}
-                    effectIndex={accessoryGrindingEffectIndex}
+                    effectIndex={accessoryRefiningEffectIndex}
                   />
-                  <GrindingValueDeleteButton
+                  <RefiningValueDeleteButton
                     optionIndex={optionIndex}
-                    effectName={accessoryGrindingEffect.effectName.name}
+                    effectName={accessoryRefiningEffect.effectName.name}
                   />
                 </li>
               )
