@@ -3,15 +3,16 @@ import {
   EquipmentTooltip,
   EquipmentTooltipValue,
 } from "@/types/LostarkApiType";
+import { removeSizeFromFontTag } from "./apiParseUtils";
 
 /**
  * 장비의 툴팁에 사용될 유틸 함수들을 정의합니다.
  */
 
-function findTooltipValue<T>(
+const findTooltipValue = <T>(
   tooltip: EquipmentTooltip,
   condition: (entry: { type: string; value: EquipmentTooltipValue }) => boolean
-): T | null {
+): T | null => {
   const found = Object.values(tooltip).find(condition);
   return found ? (found.value as T) : null;
 }
@@ -19,10 +20,10 @@ function findTooltipValue<T>(
 /**
  * 상급 재련 텍스트에서 강화 단계와 기본 효과 합산을 추출합니다.
  */
-function parseAdvancedHoningText(tooltip: EquipmentTooltip): {
+const parseAdvancedHoningText = (tooltip: EquipmentTooltip): {
   level: number;
   effectSum: number;
-} {
+} => {
   const advancedHoning_rawText =
     findTooltipValue<string>(
       tooltip,
@@ -59,7 +60,7 @@ function parseAdvancedHoningText(tooltip: EquipmentTooltip): {
   return { level, effectSum };
 }
 
-function parseItemPartBox(tooltip: EquipmentTooltip, keyword: string) {
+const parseItemPartBox = (tooltip: EquipmentTooltip, keyword: string) => {
   const value = findTooltipValue<Record<string, string>>(
     tooltip,
     ({ type, value }) =>
@@ -79,11 +80,11 @@ type IndentStringGroupElementValue = {
   };
 };
 
-function parseIndentStringGroup(
+const parseIndentStringGroup = (
   tooltip: EquipmentTooltip,
   keyword: string,
   cleanElixir = false
-) {
+) => {
   const data = findTooltipValue<IndentStringGroupElementValue>(
     tooltip,
     ({ type, value }) =>
@@ -106,13 +107,6 @@ function parseIndentStringGroup(
   };
 }
 
-/**
- * font 태그에서 size 속성만 제거하고 남은 속성들을 유지합니다.
- */
-function removeSizeFromFontTag(rawText: string): string {
-  return rawText.replace(/size\s*=\s*['"]\d+['"]/gi, "");
-}
-
 export const parseEquipmentTooltipData = (
   equipmentData: ArmoryEquipmentType & {
     Tooltip: EquipmentTooltip;
@@ -127,10 +121,10 @@ export const parseEquipmentTooltipData = (
 
   return {
     title,
-    equipmentPart: partInfo.leftStr0,
-    qualityText: partInfo.leftStr1,
-    qualityValue: partInfo.qualityValue,
-    itemLevelText: partInfo.leftStr2,
+    equipmentPart: partInfo.leftStr0 as string,
+    qualityText: partInfo.leftStr1 as string,
+    qualityValue: partInfo.qualityValue as number,
+    itemLevelText: partInfo.leftStr2 as string,
     advancedHoningEffect: parseAdvancedHoningText(tooltip),
     basicEffect: parseItemPartBox(tooltip, "기본 효과"),
     additionalEffect: parseItemPartBox(tooltip, "추가 효과"),

@@ -79,6 +79,26 @@ export const parseApiDataToHtmlString = (
   return parse(html);
 };
 
+/**
+ * font 태그에서 size 속성만 제거하고 남은 속성들을 유지합니다.
+ */
+export const removeSizeFromFontTag = (rawText: string): string => {
+  return rawText.replace(/size\s*=\s*['"]\d+['"]/gi, "");
+}
+
+/**
+ * 텍스트에 존재하는 모든 태그를 제거하고 텍스트만 반환합니다.
+ */
+export const removeAllTagFromRawText = (rawText: string): string => {
+  // 1. 모든 HTML 태그 제거 (대소문자 무시)
+  const plainText = rawText.replace(/<[^>]+>/gi, "");
+
+  // 2. 줄바꿈 및 공백 정리
+  const normalizedPlainText = plainText.replace(/\s+/g, " ").trim();
+
+  return normalizedPlainText;
+}
+
 export const parseAccessorySlotData = (
   accessoryData: ArmoryEquipmentType & {
     Tooltip: Record<
