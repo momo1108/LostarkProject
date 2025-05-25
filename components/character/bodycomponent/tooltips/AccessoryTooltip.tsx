@@ -1,44 +1,65 @@
 import { gradeClassMap } from "@/types/GlobalType";
 import useCssHook from "@/hooks/useBgClassMaker";
-import { AccessoryTooltipProps } from "@/types/EAAType";
 import { parseApiDataToHtmlString as parse } from "@/utils/apiParseUtils";
+import { parseAccessoryTooltipData } from "@/utils/accessoryTooltipParseUtils";
+import { Tooltip } from "react-tooltip";
+import { ArmoryEquipmentType, EquipmentTooltip } from "@/types/LostarkApiType";
 
-const AccessoryTooltip: React.FC<AccessoryTooltipProps> = ({ data }) => {
+const AccessoryTooltip: React.FC<{data: ArmoryEquipmentType & {
+  Tooltip: EquipmentTooltip;
+}}> = ({ data }) => {
   const { bgClassMaker } = useCssHook();
 
+  if (!data)
+    return (
+      <Tooltip
+        id="accessoryTooltip"
+        className="tooltip accessoryTooltip"
+        place="bottom"
+        clickable={true}
+      >
+        "Loading..."
+      </Tooltip>
+    );
+
+  const { title, equipmentPart, qualityText, qualityValue, itemLevelText } =
+  parseAccessoryTooltipData(data);
+
   return (
-    <>
-      <div>{parse(data.Tooltip.Element_000.value)}</div>
+    <Tooltip
+    id="accessoryTooltip"
+    className="tooltip !text-[12px] !xs:text-[14px]"
+    place="bottom"
+    clickable={true}
+    delayHide={99999}
+    >
+      <div>{parse(title)}</div>
       <hr />
       <div className="tooltipGradeDiv">
         <img className={gradeClassMap[data.Grade]} src={data.Icon} alt="" />
         <div className="tooltipGradeInfo">
-          <p>{parse(data.Tooltip.Element_001.value.leftStr0)}</p>
-          {["목걸이", "귀걸이", "반지"].includes(data.Type) ? (
+          <p>{parse(equipmentPart)}</p>
+          {qualityText ? (
             <div className="qualityDiv">
-              {parse(data.Tooltip.Element_001.value.leftStr1)}
+              {parse(qualityText)}
               &nbsp;
-              <span style={{ fontSize: 14 }}>
-                {data.Tooltip.Element_001.value.qualityValue}
-              </span>
+              <span style={{ fontSize: 14 }}>{qualityValue}</span>
               <div>
                 <div
                   style={{
-                    width: `${data.Tooltip.Element_001.value.qualityValue}%`,
+                    width: `${qualityValue}%`,
                   }}
-                  className={`h-3 ${bgClassMaker(
-                    data.Tooltip.Element_001.value.qualityValue
-                  )}`}
+                  className={`h-3 ${bgClassMaker(qualityValue)}`}
                 />
               </div>
             </div>
           ) : (
             <></>
           )}
-          <p>{parse(data.Tooltip.Element_001.value.leftStr2)} </p>
+          <p>{parse(itemLevelText)} </p>
         </div>
       </div>
-      <hr />
+      {/* <hr />
       <div className="tooltipOptionDiv">
         {data.Tooltip.Element_004?.type === "ItemPartBox" ? (
           <>
@@ -143,8 +164,8 @@ const AccessoryTooltip: React.FC<AccessoryTooltipProps> = ({ data }) => {
         </>
       ) : (
         <></>
-      )}
-    </>
+      )} */}
+    </Tooltip>
   );
 };
 

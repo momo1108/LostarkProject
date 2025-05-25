@@ -112,6 +112,7 @@ export const parseEquipmentTooltipData = (
     Tooltip: EquipmentTooltip;
   }
 ) => {
+  console.log(equipmentData);
   const tooltip: EquipmentTooltip = JSON.parse(
     removeSizeFromFontTag(JSON.stringify(equipmentData.Tooltip))
   );

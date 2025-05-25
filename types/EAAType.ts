@@ -2,6 +2,7 @@
 Equipment, Accessory, Avatar 를 위한 타입파일
 */
 
+import { ArmoryEquipmentType } from "./LostarkApiType";
 import { CharData } from "./ReducerType";
 import { GemData } from "./TEGCType";
 
@@ -29,25 +30,6 @@ export type EAAPageStatus =
   | "TOOMANYREQUESTS"
   | "ERROR";
 
-export type EquipmentSlotProps = {
-  grade: string;
-  honing: string;
-  iconUrl: string;
-  showQuality: boolean;
-  qualityValue: number;
-  contentSetter: React.Dispatch<React.SetStateAction<Object | undefined>>;
-};
-
-export type AccessorySlotProps = {
-  type: string;
-  grade: string;
-  iconUrl: string;
-  qualityValue: number;
-  showQuality: boolean;
-  option: string;
-  contentSetter: React.Dispatch<React.SetStateAction<Object | undefined>>;
-};
-
 export type AvatarSlotProps = {
   grade: string;
   iconUrl: string;
@@ -63,10 +45,6 @@ export type GemType = GemData & {
 };
 
 export type EquipmentTooltipProps = {
-  data: any;
-};
-
-export type AccessoryTooltipProps = {
   data: any;
 };
 

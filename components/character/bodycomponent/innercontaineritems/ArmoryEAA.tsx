@@ -20,7 +20,6 @@ import { useState, Fragment, useEffect, useCallback } from "react";
 import { classImageMap } from "@/types/GlobalType";
 import { Tooltip } from "react-tooltip";
 import EquipmentTooltip from "../tooltips/EquipmentTooltip";
-import AccessoryTooltip from "../tooltips/AccessoryTooltip";
 import AvatarTooltip from "../tooltips/AvatarTooltip";
 import {
   GemData,
@@ -44,12 +43,12 @@ import Link from "next/link";
 import { EngravingType } from "@/types/LostarkApiType";
 import {
   parseApiDataToHtmlString as parse,
-  parseAccessorySlotData,
   parseEngravingPointNumber,
   parseGemName,
   parseSkillPoint,
   parseTextformat,
 } from "@/utils/apiParseUtils";
+import AccessoryTooltip from "../tooltips/AccessoryTooltip";
 
 /*
 아바타 왼쪽 : 무기, 무기
@@ -114,7 +113,8 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
   );
 
   useEffect(() => {
-    // console.log(data);
+    console.log(data);
+    console.log(accessory);
 
     // 원정대
     setPageStatus("LOADING_SIBLINGS");
@@ -452,21 +452,8 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                       equipment[e] ? (
                         <EquipmentSlot
                           key={`equipSlot${e}`}
-                          grade={gradeClassMap[equipment[e].Grade]}
-                          honing={equipment[e].Name.split(" ")[0]}
-                          iconUrl={equipment[e].Icon}
-                          showQuality={
-                            ["유물", "고대", "에스더"].includes(
-                              equipment[e].Grade
-                            ) &&
-                            parseFloat(
-                              data.ArmoryProfile.ItemAvgLevel.replace(",", "")
-                            ) >= 1415
-                          }
-                          qualityValue={
-                            equipment[e].Tooltip.Element_001.value.qualityValue
-                          }
-                          contentSetter={() => {
+                          equipmentData={equipment[e]}
+                          onMouseEnter={() => {
                             setEquipmentTooltipContent(equipment[e]);
                           }}
                         />
@@ -487,8 +474,9 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
                       accessory[e] ? (
                         <AccessorySlot
                           key={`accessorySlot${e}`}
-                          {...parseAccessorySlotData(accessory[e])}
-                          contentSetter={() => {
+                          accessoryData = {accessory[e]}
+                          characterClassName = {data.ArmoryProfile.CharacterClassName}
+                          onMouseEnter={() => {
                             setAccessoryTooltipContent(accessory[e]);
                           }}
                         />
@@ -1092,19 +1080,7 @@ const ArmoryEAA: React.FC<ArmoryEAAProps> = ({
         )}
       </Tooltip>
       <EquipmentTooltip data={equipmentTooltipContent} />
-      <Tooltip
-        id="accessoryTooltip"
-        className="tooltip accessoryTooltip"
-        place="bottom"
-        clickable={true}
-        delayHide={10}
-      >
-        {accessoryTooltipContent ? (
-          <AccessoryTooltip data={accessoryTooltipContent} />
-        ) : (
-          "Loading..."
-        )}
-      </Tooltip>
+      <AccessoryTooltip data={accessoryTooltipContent} />
       <Tooltip
         id="avatarTooltip"
         className="tooltip avatarTooltip"

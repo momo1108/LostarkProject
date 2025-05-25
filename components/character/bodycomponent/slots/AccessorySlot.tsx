@@ -1,40 +1,35 @@
 import useCssHook from "@/hooks/useBgClassMaker";
 import styles from "@/styles/character/Body.module.scss";
-import { AccessorySlotProps } from "@/types/EAAType";
+import AccessoryTooltip from "../tooltips/AccessoryTooltip";
+import { ArmoryEquipmentType, EquipmentTooltip } from "@/types/LostarkApiType";
+import { parseAccessoryTooltipData, parseRefiningEffect } from "@/utils/accessoryTooltipParseUtils";
+import { gradeClassMap } from "@/types/GlobalType";
 
-const AccessorySlot: React.FC<AccessorySlotProps> = ({
-  type,
-  grade,
-  iconUrl,
-  qualityValue,
-  showQuality,
-  option,
-  contentSetter,
+const AccessorySlot: React.FC<{accessoryData: ArmoryEquipmentType & {
+    Tooltip: EquipmentTooltip;
+  }, characterClassName: string, onMouseEnter: () => void}> = ({
+  accessoryData,
+  characterClassName,
+  onMouseEnter
 }) => {
   const { bgClassMaker } = useCssHook();
+  const {qualityText, qualityValue} = parseAccessoryTooltipData(accessoryData);
+  const parsedRefiningEffect = parseRefiningEffect(accessoryData, characterClassName);
+  
   return (
     <div
       data-tooltip-id="accessoryTooltip"
-      onMouseEnter={contentSetter}
-      className={`${styles.profileAccessorySlot} ${grade}`}
+      className={`${styles.profileAccessorySlot} ${gradeClassMap[accessoryData.Grade]}`}
+      onMouseEnter={onMouseEnter}
     >
-      <div
-        className={`${showQuality ? styles.profileAccessoryOption : "hidden"}`}
-      >
-        {["목걸이", "귀걸이", "반지"].includes(type)
-          ? option
-              ?.split("<BR>")
-              .map((e, i) => <p key={`accOptions${i}`}>{e}</p>)
-          : option}
-      </div>
       <img
-        src={iconUrl}
+        src={accessoryData.Icon}
         alt="로딩실패"
         className={styles.profileAccessoryIcon}
       />
       <div
         className={`${
-          showQuality ? styles.profileAccessoryQualityBar : "hidden"
+          qualityText ? styles.profileAccessoryQualityBar : "hidden"
         }`}
       >
         <span className={styles.profileAccessoryQualityValue}>

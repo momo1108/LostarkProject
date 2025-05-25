@@ -834,12 +834,6 @@ footer {
   }
 }
 
-.accessoryTooltip {
-  * {
-    @apply text-[12px] xs:text-[14px] #{!important};
-  }
-}
-
 .engravingTooltip,
 .tripodTooltip {
   @apply p-2 #{!important};

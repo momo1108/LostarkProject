@@ -6,6 +6,8 @@ import { parseApiDataToHtmlString as parse } from "@/utils/apiParseUtils";
 import { parseEquipmentTooltipData } from "@/utils/equipmentTooltipParseUtils";
 
 const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
+  const { bgClassMaker } = useCssHook();
+
   if (!data)
     return (
       <Tooltip
@@ -17,8 +19,7 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
         "Loading..."
       </Tooltip>
     );
-
-  const { bgClassMaker } = useCssHook();
+    
   const {
     title,
     equipmentPart,

@@ -29,7 +29,7 @@ export function throttle<F extends (...args: any[]) => void>(
   return function (this: any, ...args: any[]) {
     // 함수의 호출 간격이 delay 보다 오래됐으면 함수를 실행합니다.
     const now = Date.now();
-    console.log(now, lastCall);
+    // console.log(now, lastCall);
     if (now - lastCall >= delay) {
       lastCall = now;
       func.apply(this, args); // 객체의 메서드를 고려해 this 를 바인딩하고 args 를 전달합니다.

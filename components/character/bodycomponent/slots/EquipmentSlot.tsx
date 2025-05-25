@@ -1,25 +1,32 @@
 import useCssHook from "@/hooks/useBgClassMaker";
 import styles from "@/styles/character/Body.module.scss";
-import { EquipmentSlotProps } from "@/types/EAAType";
+import { gradeClassMap } from "@/types/GlobalType";
+import { ArmoryEquipmentType, EquipmentTooltip } from "@/types/LostarkApiType";
 
-const EquipmentSlot: React.FC<EquipmentSlotProps> = ({
-  grade,
-  honing,
-  iconUrl,
-  showQuality,
-  qualityValue,
-  contentSetter,
+const EquipmentSlot: React.FC<{
+  equipmentData: ArmoryEquipmentType & {
+      Tooltip: EquipmentTooltip;
+    };
+  onMouseEnter: () => void;
+}> = ({
+  equipmentData,
+  onMouseEnter,
 }) => {
   const { bgClassMaker } = useCssHook();
+  const honing = equipmentData.Name.split(" ")[0];
+  const iconUrl = equipmentData.Icon;
+  const grade = gradeClassMap[equipmentData.Grade];
+  const qualityValue = (equipmentData.Tooltip.Element_001.value as Record<string, number>).qualityValue;
+  
   return (
     <div
       data-tooltip-id="equipmentTooltip"
-      onMouseEnter={contentSetter}
+      onMouseEnter={onMouseEnter}
       className={`${styles.profileEquipmentSlot} ${grade}`}
     >
       <p
         className={`${styles.profileEquipmentHoning}${
-          honing.startsWith("+") && showQuality ? "" : " hidden"
+          honing.startsWith("+") ? "" : " hidden"
         }`}
       >
         {honing}강
@@ -30,9 +37,7 @@ const EquipmentSlot: React.FC<EquipmentSlotProps> = ({
         className={styles.profileEquipmentIcon}
       />
       <div
-        className={`${styles.profileEquipmentQualityBar}${
-          qualityValue >= 0 && showQuality ? "" : " hidden"
-        }`}
+        className={styles.profileEquipmentQualityBar}
       >
         <span className={styles.profileEquipmentQualityValue}>
           {qualityValue}
