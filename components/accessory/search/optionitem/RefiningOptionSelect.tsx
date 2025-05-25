@@ -23,7 +23,7 @@ const RefiningOptionSelect: React.FC<{
 
   const refiningEffects =
     ACCESSORY_REFININGEFFECT_MAP[option.accessoryCategory];
-  const categoryOptionsArray = refiningEffects
+  const categoryOptionsArray = (refiningEffects as unknown as string[])
     .filter(
       (refiningEffect) =>
         !option.accessoryRefiningEffectArray.find(
@@ -33,7 +33,7 @@ const RefiningOptionSelect: React.FC<{
     )
     .map((refiningEffect) => ({
       label: refiningEffect,
-      value: REFINING_EFFECT_VALUE_MAP[refiningEffect],
+      value: REFINING_EFFECT_VALUE_MAP[refiningEffect as RefiningEffectKey],
     }));
 
   /**

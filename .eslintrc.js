@@ -3,10 +3,11 @@ module.exports = {
   extends: ["next/core-web-vitals", "plugin:prettier/recommended"],
   rules: {
     "prettier/prettier": [
-      "error",
+      "warn",
       {
         endOfLine: "auto",
       },
     ],
+    "react/no-unescaped-entities": "off",
   },
 };

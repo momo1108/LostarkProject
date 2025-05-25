@@ -289,8 +289,8 @@ async function apiSearching(
             }
           );
           // 해당 악세가 없으면 Items 가 null 로 반환됨
-          if (single_res.data.Items)
-            tmp_resultObject[ap].push(...single_res.data.Items);
+          if (single_res.Items)
+            tmp_resultObject[ap].push(...single_res.Items);
           postMessage({ type: 2 });
           break;
         } catch (error: any) {

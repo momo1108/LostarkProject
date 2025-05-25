@@ -7,13 +7,13 @@ const GemTooltip: React.FC<GemTooltipProps> = ({ data }) => {
       <div>{parse(data.Name)}</div>
       <hr />
       <div className="gemTooltipBody">
-        <div className="iconDiv">
+        {/* <div className="iconDiv">
           <img src={data.SkillIcon} alt="" />
         </div>
         <div className="descrDiv">
           <p>{data.Description[0]}</p>
           <p>{data.Description[1]}</p>
-        </div>
+        </div> */}
       </div>
     </>
   );
