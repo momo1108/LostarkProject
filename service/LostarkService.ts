@@ -22,7 +22,9 @@ import { lostarkApi } from "./axiosInstance";
 export const getCharacterImageUrl = async (
   name: string
 ): Promise<string | undefined> => {
-  const res = await axios.get(`/api/proxy?name=${name}`);
+  const res = await axios.get(
+    `/api/proxy?action=getcharacterimageurl&name=${name}`
+  );
   const dom = parse(res.data);
   const img = dom.querySelector(".profile-equipment__character img");
   return img?.attributes.src;

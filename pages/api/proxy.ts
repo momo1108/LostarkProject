@@ -8,24 +8,31 @@ const USER_AGENT_DESKTOP =
   "AppleWebKit/537.36 (KHTML, like Gecko) " +
   "Chrome/123.0.0.0 Safari/537.36";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { name } = req.query;
-  if (typeof name !== "string") {
-    return res.status(400).json({ error: "Invalid character name" });
-  }
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { action } = req.query;
 
-  try {
-    const result = await axios.get(
-      `https://lostark.game.onstove.com/Profile/Character/${name}`,
-      {
-        headers: {
-          "User-Agent": USER_AGENT_DESKTOP,
-        },
-      }
-    );
-    res.status(200).send(result.data);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to fetch character data" });
+  if (action === "getcharacterimageurl") {
+    const { name } = req.query;
+    if (typeof name !== "string") {
+      return res.status(400).json({ error: "Invalid character name" });
+    }
+
+    try {
+      const result = await axios.get(
+        `https://lostark.game.onstove.com/Profile/Character/${name}`,
+        {
+          headers: {
+            "User-Agent": USER_AGENT_DESKTOP,
+          },
+        }
+      );
+      res.status(200).send(result.data);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to fetch character data" });
+    }
   }
 }
