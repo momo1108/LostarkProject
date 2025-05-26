@@ -15,12 +15,14 @@ const findTooltipValue = <T>(
 ): T | null => {
   const found = Object.values(tooltip).find(condition);
   return found ? (found.value as T) : null;
-}
+};
 
 /**
  * 상급 재련 텍스트에서 강화 단계와 기본 효과 합산을 추출합니다.
  */
-const parseAdvancedHoningText = (tooltip: EquipmentTooltip): {
+const parseAdvancedHoningText = (
+  tooltip: EquipmentTooltip
+): {
   level: number;
   effectSum: number;
 } => {
@@ -58,7 +60,7 @@ const parseAdvancedHoningText = (tooltip: EquipmentTooltip): {
   }
 
   return { level, effectSum };
-}
+};
 
 const parseItemPartBox = (tooltip: EquipmentTooltip, keyword: string) => {
   const value = findTooltipValue<Record<string, string>>(
@@ -71,7 +73,7 @@ const parseItemPartBox = (tooltip: EquipmentTooltip, keyword: string) => {
   return value
     ? { title: value.Element_000, description: value.Element_001 }
     : null;
-}
+};
 
 type IndentStringGroupElementValue = {
   Element_000: {
@@ -105,14 +107,14 @@ const parseIndentStringGroup = (
         : el.contentStr
     ),
   };
-}
+};
 
 export const parseEquipmentTooltipData = (
   equipmentData: ArmoryEquipmentType & {
     Tooltip: EquipmentTooltip;
   }
 ) => {
-  console.log(equipmentData);
+  // console.log(equipmentData);
   const tooltip: EquipmentTooltip = JSON.parse(
     removeSizeFromFontTag(JSON.stringify(equipmentData.Tooltip))
   );

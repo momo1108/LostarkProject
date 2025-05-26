@@ -5,9 +5,11 @@ import { parseAccessoryTooltipData } from "@/utils/accessoryTooltipParseUtils";
 import { Tooltip } from "react-tooltip";
 import { ArmoryEquipmentType, EquipmentTooltip } from "@/types/LostarkApiType";
 
-const AccessoryTooltip: React.FC<{data: ArmoryEquipmentType & {
-  Tooltip: EquipmentTooltip;
-}}> = ({ data }) => {
+const AccessoryTooltip: React.FC<{
+  data: ArmoryEquipmentType & {
+    Tooltip: EquipmentTooltip;
+  };
+}> = ({ data }) => {
   const { bgClassMaker } = useCssHook();
 
   if (!data)
@@ -22,16 +24,27 @@ const AccessoryTooltip: React.FC<{data: ArmoryEquipmentType & {
       </Tooltip>
     );
 
-  const { title, equipmentPart, qualityText, qualityValue, itemLevelText } =
-  parseAccessoryTooltipData(data);
+  const {
+    title,
+    equipmentPart,
+    qualityText,
+    qualityValue,
+    itemLevelText,
+    basicEffect,
+    refiningEffect,
+    braceletEffect,
+    abilityStoneFacetingEffect,
+    abilityStoneEngraveEffect,
+    arkPassivePointEffect,
+  } = parseAccessoryTooltipData(data);
 
   return (
     <Tooltip
-    id="accessoryTooltip"
-    className="tooltip !text-[12px] !xs:text-[14px]"
-    place="bottom"
-    clickable={true}
-    delayHide={99999}
+      id="accessoryTooltip"
+      className="tooltip !text-[12px] !xs:text-[14px]"
+      place="bottom"
+      clickable={true}
+      offset={0}
     >
       <div>{parse(title)}</div>
       <hr />
@@ -58,6 +71,49 @@ const AccessoryTooltip: React.FC<{data: ArmoryEquipmentType & {
           )}
           <p>{parse(itemLevelText)} </p>
         </div>
+      </div>
+      <hr />
+      <div className="flex flex-col gap-3">
+        {basicEffect && (
+          <div>
+            <p>{parse(basicEffect.title)}</p>
+            <p>{parse(basicEffect.description)}</p>
+          </div>
+        )}
+        {refiningEffect && (
+          <div className="">
+            <p>{parse(refiningEffect.title)}</p>
+            <p className="flex flex-col">{parse(refiningEffect.description)}</p>
+          </div>
+        )}
+        {braceletEffect && (
+          <div>
+            <p>{parse(braceletEffect.title)}</p>
+            <p>{parse(braceletEffect.description)}</p>
+          </div>
+        )}
+        {abilityStoneFacetingEffect && (
+          <div>
+            <p>{parse(abilityStoneFacetingEffect.title)}</p>
+            <p>{parse(abilityStoneFacetingEffect.description)}</p>
+          </div>
+        )}
+        {abilityStoneEngraveEffect && (
+          <div>
+            <p>{parse(abilityStoneEngraveEffect.title)}</p>
+            {abilityStoneEngraveEffect.descriptions.map(
+              (descr, engraveIndex) => (
+                <p key={`EquipTooltipP${engraveIndex}`}>{parse(descr)}</p>
+              )
+            )}
+          </div>
+        )}
+        {arkPassivePointEffect && (
+          <div>
+            <p>{parse(arkPassivePointEffect.title)}</p>
+            <p>{parse(arkPassivePointEffect.description)}</p>
+          </div>
+        )}
       </div>
       {/* <hr />
       <div className="tooltipOptionDiv">

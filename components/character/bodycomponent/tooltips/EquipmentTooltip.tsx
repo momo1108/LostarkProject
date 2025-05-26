@@ -19,7 +19,7 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
         "Loading..."
       </Tooltip>
     );
-    
+
   const {
     title,
     equipmentPart,
@@ -111,9 +111,11 @@ const EquipmentTooltip: React.FC<EquipmentTooltipProps> = ({ data }) => {
         {transcendenceEffect && (
           <div>
             <p>{parse(transcendenceEffect.title)}</p>
-            {transcendenceEffect.descriptions.map((descr, i2) => (
-              <p key={`EquipTooltipP${i2}`}>{parse(descr)}</p>
-            ))}
+            {transcendenceEffect.descriptions.map(
+              (descr, transcendenceIndex) => (
+                <p key={`EquipTooltipP${transcendenceIndex}`}>{parse(descr)}</p>
+              )
+            )}
           </div>
         )}
         {elixirEffect && (

@@ -1,4 +1,4 @@
-@use '../variables.scss' as *;
+@use "../variables.scss" as *;
 
 $brighter: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
 $brighter2: linear-gradient(rgba(170, 170, 170, 0.1), rgba(170, 170, 170, 0.1));
@@ -288,7 +288,7 @@ $gemSlotsize: 51px;
               border-radius: 5px;
 
               .profileAccessoryOption {
-                @apply absolute top-0 left-0 font-bold text-white bg-[#0005] py-[2px] px-[1px]
+                @apply absolute flex flex-col gap-[2px] w-full top-0 left-0 font-bold text-white bg-[#000a] py-[2px] px-[1px]
                  xs:px-1 leading-[11px] xs:leading-[12px] text-[10px] xs:text-[11px];
                 border-radius: 5px;
               }

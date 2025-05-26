@@ -70,6 +70,10 @@ export const parseApiDataToHtmlString = (
     /src="[a-zA-z]+changeable"/g,
     `src="/images/option_changeable.png" style="display:inline-block;"`
   );
+  html = html.replace(
+    /src="[a-zA-z]+ability_stone_symbol"/g,
+    `src="/images/ability_stone_symbol.png" style="display:inline-block;"`
+  );
   // FONT태그에 스타일 2개인 경우
   html = html.replace(/;'\sstyle='/g, "; ");
   if (checker === "fefbweiufbwaueifbawiufb") {
@@ -84,7 +88,7 @@ export const parseApiDataToHtmlString = (
  */
 export const removeSizeFromFontTag = (rawText: string): string => {
   return rawText.replace(/size\s*=\s*['"]\d+['"]/gi, "");
-}
+};
 
 /**
  * 텍스트에 존재하는 모든 태그를 제거하고 텍스트만 반환합니다.
@@ -97,7 +101,7 @@ export const removeAllTagFromRawText = (rawText: string): string => {
   const normalizedPlainText = plainText.replace(/\s+/g, " ").trim();
 
   return normalizedPlainText;
-}
+};
 
 export const parseAccessorySlotData = (
   accessoryData: ArmoryEquipmentType & {
