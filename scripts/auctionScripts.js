@@ -78,4 +78,16 @@ const getRefiningEffectEtcValue = () => {
   console.log(refiningOptionsValueMap);
 };
 
-getRefiningEffectEtcValue();
+const getAuctionEngraveNames = () => {
+  const fileData = JSON.parse(readFileSync("data/auctionOptions.json"));
+
+  const engraveOptions = fileData.EtcOptions.find(
+    (obj) => obj.Value && obj.Value === 3
+  );
+
+  const engraveTextNames = engraveOptions.EtcSubs.map((option) => option.Text);
+
+  console.log(engraveTextNames);
+};
+
+getAuctionEngraveNames();
